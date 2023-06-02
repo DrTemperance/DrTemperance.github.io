@@ -1,4 +1,1 @@
-<script type="text/javascript">
-    var num = Math.random() * Math.sqrt(Math.PI);
-    document.write("Random irrational number: " + num);
-</script>
+Hiiiiiiii ;-) , I like to play around; it's the best way to learn.
