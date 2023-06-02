@@ -1,0 +1,46 @@
+body {
+    background-image: "https://github.com/DrTemperance/DrTemperance.github.io/blob/main/images/back.jpg";
+    font-family: nabla;
+    text-align: center;
+}
+
+div {
+    color: rgb(45, 45, 45);
+    padding: 5px;
+}
+
+nav {
+    background-image: url("https://cdn.hovia.com/app/uploads/cool-pink-tie-dye-wallpaper-mural-Plain-820x532.jpg");
+    background-size: cover;
+    border: 8px ridge rgb(38, 38, 38);
+    border-radius: 18%;
+    text-align: center;
+    padding-bottom: 0.5%;
+}
+
+li {
+    background: pink;
+    border-radius: 15%;
+    border: 2.5px solid black;
+    display: inline-block;
+    padding: 0 5px;
+}
+
+a {
+    text-decoration: none;
+}
+
+h1 {
+    font-size: 50px;
+}
+
+footer {
+    font-size: x-small;
+    position: absolute;
+    bottom: 10;
+}
+
+.tempie {
+    border: 8px ridge #43157b;
+    border-radius: 25%;
+}

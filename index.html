@@ -1,66 +1,55 @@
-<!DOCTYPE HTML>
-<link rel="shortcut icon" href="https://cdn.pixabay.com/photo/2014/04/03/10/02/erlenmeyer-flask-309689_1280.png" type="image/x-icon">
-<p style="background-image: url('');">
+<link rel="shortcut icon" href="https://cdn.pixabay.com/photo/2014/04/03/10/02/erlenmeyer-flask-309689_1280.png"
+  type="image/x-icon">
+<link rel="stylesheet" href="style.css">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 
 <html>
-    <head>
-        <title>-~=-=Hannah's Hallway=-=~-</title>
-    </head>
+<div class="listbox">
+  <nav>
+    <h1 style="font-size:25px;">-= Hannah's Harbored Habitants =-</h1>
+    <li><a href="index.html"> Home </a></li>
+    <li><a href="info.html"> Information </a></li>
+    <li><a href="music.html"> Music </a></li>
+    <li><a href="shows.html"> Movies & Shows </a></li>
+    <li><a href="quotes.html"> Fav. Quotes </a></li>
+    <li><a href="portfolio.html"> Portfolio </a></li>
+  </nav>
+</div>
 
-    <body style="font-family: Helvetica; background-color:#dd9393">
-        <div>
-            <nav >
-                <h2 style="font-size:50px;">❤ Hannah's Hallway ❤</h2>
-                <img src="https://pbs.twimg.com/profile_images/573905932263944192/dHZnovEc_400x400.jpeg" width="200" height="200" border="6px solid black" style="border-color:#411972">
-                <p style="font-size:18px;"><i>Junior Year, Coming Fall 2023</i></p>
-                    <div>
-                        <div>
-                            <div id="date-time-counter"></div>
-                            <script>
-                              setInterval(function() {
-                                let currentDate = new Date(),
-                                  date = currentDate.getDate(),
-                                  month = currentDate.getMonth() + 1,
-                                  year = currentDate.getFullYear(),
-                                  hours = currentDate.getHours(),
-                                  minutes = currentDate.getMinutes(),
-                                  seconds = currentDate.getSeconds(),
-                                  milliseconds = currentDate.getMilliseconds();
-                                document.getElementById('date-time-counter').innerHTML =
-                                  month + '/' + date + '/' + year + ' , ' + +hours + ':' + minutes + ':' + seconds + ':' + milliseconds;
-                              }, 1);
-                            </script>
-                          </div>  
-                        <br>
-                        <h3 style="font-size:25px;">-= Interests =-</h3>
-                        <ul>
-                            <li>Science<br> - Pharmacy<br> - Chemistry<br> - Biology<br> - Psychology<br> - Anthropology</li>
-                            <li>Math<br> - Algebra 1 & 2<br> - Trigonometry<br> - Geometry</li>
-                            <li>Synthesizers & Pianos</li>
-                        </ul>
-                  </div>
-            </nav>
-            <main>       
-              <div>
-                <nav>
-                  <h1 style="font-size:25px;">-= Hannah's Harbored Habitants =-</h1>
-                  <ul>
-                    <li>
-                      <a style="font-size:20px;" href="index.html"> Home </a>
-                    </li>
-                    <li>
-                      <a style="font-size:20px;" href="info.html"> Info </a>
-                    </li>
-                    <li>
-                      <a style="font-size:20px;" href="?.html"> ? </a>
-                    </li>
-                    <li>
-                      <a style="font-size:20px;" href="?.html"> ? </a>
-                    </li>
-                  </ul>
-                </nav>
-              </div>
-            </main>
-        </div>
-    </body>
+<head>
+  <title>-~=-=Hannah's Hallway=-=~-</title>
+</head>
+
+<body>
+  <div>
+    <h1>❤ Hannah's Hallway ❤</h1>
+    <img class="tempie" src="https://pbs.twimg.com/profile_images/573905932263944192/dHZnovEc_400x400.jpeg" width="250"
+      height="250">
+    <p style="font-size:18px;"><i>Junior Year, Coming Fall 2023</i></p>
+    <div>
+      <div>
+        <br>
+        <div id="date-time-counter"></div>
+        <script>
+          setInterval(function () {
+            let currentDate = new Date(),
+              date = currentDate.getDate(),
+              month = currentDate.getMonth() + 1,
+              year = currentDate.getFullYear(),
+              hours = currentDate.getHours(),
+              minutes = currentDate.getMinutes(),
+              seconds = currentDate.getSeconds(),
+              milliseconds = currentDate.getMilliseconds();
+            document.getElementById('date-time-counter').innerHTML =
+              month + '/' + date + '/' + year + ' , ' + +hours + ':' + minutes + ':' + seconds + ':' + milliseconds;
+          }, 1);
+        </script>
+        <br>
+      </div>
+</body>
+<br>
+<footer>
+  definitely, © 1920
+</footer>
+
 </html>
