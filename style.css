@@ -1,26 +1,27 @@
 body {
     background-image: url(https://github.com/DrTemperance/DrTemperance.github.io/blob/main/images/back.jpg);
-    font-family: ;
+    font-family: Monomaniac One;
     text-align: center;
+    font-weight: 250;
 }
 
 div {
-    color: rgb(45, 45, 45);
+    color: rgb(10, 10, 10);
     padding: 5px;
 }
 
 nav {
-    background-image: url("https://cdn.hovia.com/app/uploads/cool-pink-tie-dye-wallpaper-mural-Plain-820x532.jpg");
+    background-image: url("https://github.com/DrTemperance/DrTemperance.github.io/blob/afc9a25626c68d981e89dd12d8847500d4c08c96/images/nav.png");
     background-size: cover;
     border: 8px ridge #43157b;
-    border-radius: 18%;
+    border-radius:100px;
     text-align: center;
     padding-bottom: 0.5%;
 }
 
 li {
-    background: pink;
-    border-radius: 15%;
+    background: rgb(255, 229, 234);
+    border-radius: 3px;
     border: 2.5px solid black;
     display: inline-block;
     padding: 5px;
@@ -28,7 +29,12 @@ li {
 }
 
 a {
-    text-decoration: none;
+    text-decoration: 0;
+}
+
+.active-page {
+    background: rgb(211, 163, 172);
+    font-weight: bold;
 }
 
 h1 {
@@ -45,3 +51,15 @@ footer {
     border: 8px ridge #43157b;
     border-radius: 25%;
 }
+
+.time {
+    background: salmon;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 750;
+    max-width: 300px;
+    border-radius: 15px;
+}
+
+.rotate {
+    transform: rotate(var(--count));
+  }
