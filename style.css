@@ -70,8 +70,8 @@ p {
 }
 
 li:hover {
-    background: #daaeae;
-    font-size: 102.5%;
+  background: #daaeae;
+  font-size: 102.5%;
 }
 
 .bigbox {
@@ -180,9 +180,9 @@ footer {
 }
 
 @media screen and (min-width: 120px) and (max-width: 1080px) {
-    main {
-      height: 100ch;
-      zoom: 1.5;
-      display: grid;
-    }
+  main {
+    height: 100ch;
+    zoom: 1.5;
+    display: grid;
+  }
 }

@@ -1,7 +1,6 @@
 {
   "name": "motion-poem",
   "version": "1.0.0",
-  "homepage": "https://github.com/OperationSpark/motion-poem",
   "authors": [
     "jfraboni <john@operationspark.org>"
   ],
@@ -13,7 +12,6 @@
     "motion",
     "poem"
   ],
-  "license": "CC",
   "ignore": [
     "**/.*",
     "node_modules",

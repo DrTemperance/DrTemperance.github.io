@@ -1,0 +1,154 @@
+<html>
+
+<head>
+	<link rel="shortcut icon"
+		href="https://static.wikia.nocookie.net/minecraft-computer/images/3/30/Potion_of_Healing.png"
+		type="image/x-icon" />
+	<meta charset="utf-8">
+	<title>~ Bouncing Box ~</title>
+	<script src="jquery.min.js"></script>
+	<style>
+		.box {
+			width: 70px;
+			height: 70px;
+			background-color: #006464;
+			color: white;
+			font-size: 300%;
+			text-align: center;
+			display: block;
+			position: absolute;
+			top: 100px;
+			left: 0px;
+		}
+
+		.board {
+			height: 100vh;
+			background: rgb(25, 25, 25);
+		}
+
+		.misclick {
+			color: #ffffff;
+			font-size: xx-large;
+			text-align: right;
+			padding: 10px;
+			margin: 10px;
+		}
+
+		.score {
+			color: #ffffff;
+			font-size: xx-large;
+			text-align: right;
+			padding: 10px;
+			margin: 10px;
+		}
+	</style>
+
+</head>
+
+<body class="board">
+	<div class="box">0</div>
+	<div class="score">Score: 0</div>
+	<div class="misclick">Misclicks: 0/10</div>
+
+	<script>
+		(function () {
+			'use strict'
+
+			var box = jQuery('.box');
+			var board = jQuery('.board');
+			var boardWidth = board.width();
+			var boardHeight = jQuery(window).height();
+			var randNumX = Math.random() * boardWidth;
+			var randNumY = Math.random() * boardHeight;
+			var randRed = Math.random() * 255;
+			var randGreen = Math.random() * 255;
+			var randBlue = Math.random() * 255;
+			var colorStr = " rgb(" + randRed + ", " + randGreen + ", " + randBlue + ")";
+			box.css('background-color', colorStr);
+			var misclicks = 0;
+			var misclick = jQuery('.misclick');
+			var score = jQuery('.score');
+			var interval = setInterval(update, 50);
+			box.on('click', handleBoxClick);
+			board.on('click', handleBoardClick);
+			function moveBoxTo(newPositionX, newPositionY) {
+				box.css("left", newPositionX);
+				box.css("top", newPositionY);
+			}
+			function changeBoxText(newText) {
+				box.text(newText);
+			}
+			function changeMisclickText(newText) {
+				misclick.text(newText);
+			}
+			function changeScoreText(newText) {
+				score.text(newText);
+			}
+			var positionX = 1;
+			var points = 0;
+			var speed = 10;
+			var positionY = 1;
+			var speedY = 10;
+			function update() {
+				positionX += speed;
+				positionY += speedY
+				moveBoxTo(positionX, positionY);
+				if (positionY > boardHeight) {
+					speedY = -speedY;
+				}
+				else if (positionY <= 0) {
+					speedY = -speedY;
+				}
+
+				if (positionX > boardWidth) {
+					speed = -speed;
+				}
+				else if (positionX <= 0) {
+					speed = -speed;
+				}
+			};
+			function handleBoxClick() {
+				randNumX = Math.random() * boardWidth;
+				randNumY = Math.random() * boardHeight;
+				positionX = randNumX;
+				points += 1;
+				changeBoxText(points);
+				if (speed < 0) {
+					speed -= 3;
+				}
+				else {
+					speed += 3;
+				}
+				if (speedY < 0) {
+					speedY -= 0;
+				}
+				else {
+					speedY += 3;
+				}
+				positionY = randNumY;
+				var randRed = Math.random() * 255;
+				var randGreen = Math.random() * 255;
+				var randBlue = Math.random() * 255;
+				var colorStr = " rgb(" + randRed + ", " + randGreen + ", " + randBlue + ")";
+				box.css('background-color', colorStr);
+				misclicks -= 1;
+			};
+			function handleBoardClick() {
+				misclicks += 1;
+				changeMisclickText("Misclicks: " + misclicks + "/10")
+				changeScoreText("Score: " + points)
+				if (misclicks === 10) {
+					endGame();
+				}
+			}
+			function endGame() {
+				clearInterval(interval);
+				alert("Game over!\nFinal Score: " + points + "\n\nRefresh to play again!")
+				misclicks = NaN;
+				points = NaN;
+			}
+		})();
+	</script>
+</body>
+
+</html>
