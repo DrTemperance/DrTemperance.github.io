@@ -1,0 +1,188 @@
+body {
+  background-image: url(../images/back.jpg);
+  background-size: 7.5%;
+  font-family: 'Helvetica Neue', 'Helvetica', 'Trebuchet MS';
+  text-align: center;
+  font-weight: 275;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+div {
+  color: rgb(10, 10, 10);
+  padding: 5px;
+}
+
+nav {
+  background-image: url(../images/nav.png);
+  background-size: cover;
+  border: 8px ridge #43157b;
+  border-radius: 100px;
+  text-align: center;
+  padding-bottom: 0.5%;
+}
+
+li {
+  background: rgb(255, 229, 234);
+  border-radius: 3px;
+  border: 2.5px solid black;
+  display: inline-block;
+  padding: 5px;
+  font-weight: 375;
+}
+
+#pimg {
+  width: 150;
+}
+
+#ptitle {
+  font-size: larger;
+  content: flex;
+  margin-left: 2.5px;
+  margin-right: auto;
+  margin-top: 0.5px;
+  margin-bottom: 1px;
+  padding: 0.25px;
+  text-align: left;
+}
+
+p {
+  text-align: left;
+  margin-left: none;
+  font-weight: 475;
+  display: block;
+}
+
+#music {
+  background: none;
+  border: none;
+}
+
+#projects {
+  display: block;
+  text-align: left;
+  display: inline-table;
+  margin-bottom: 5px;
+  margin-top: 4px;
+  padding: 10px;
+  width: 150px;
+  list-style-type: none;
+}
+
+li:hover {
+    background: #daaeae;
+    font-size: 102.5%;
+}
+
+.bigbox {
+  width: 350px;
+  padding: 5px;
+  align-content: center;
+}
+
+.Interests {
+  background: rgb(255, 229, 234);
+  border-radius: 2.5px;
+  border: 1.5px solid black;
+  display: block;
+  padding: 4px;
+  content: flex;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+#int-ul {
+  position: relative;
+  right: 20px;
+}
+
+a {
+  text-decoration: 0;
+  color: #1e0052
+}
+
+.active-page {
+  background: rgb(211, 163, 172);
+  font-weight: bold;
+}
+
+h1 {
+  margin-top: 0px;
+  margin-bottom: 20px;
+  font-size: 50px;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: darkgray;
+}
+
+footer {
+  font-size: x-small;
+  position: absolute;
+  bottom: 10;
+  content: flex;
+  text-align: left;
+  margin-left: 12px;
+  margin-bottom: 1px;
+  font-weight: bold;
+}
+
+.tempie {
+  border: 8px ridge #43157b;
+  border-radius: 25%;
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.time {
+  background: salmon;
+  font-family: "Courier New", Courier, monospace;
+  font-weight: 800;
+  max-width: 450px;
+  border-radius: 15px;
+  content: flex;
+  margin-left: auto;
+  margin-right: auto;
+  border: 2.75px solid rgb(115, 41, 28);
+  font-size: large;
+}
+
+.InfoHead {
+  font-size: 30px;
+  font-weight: 350;
+  color: rgb(0, 0, 0);
+  text-align: center;
+  margin-top: 12px;
+  margin-bottom: 25px;
+}
+
+.navhead {
+  margin-top: 10px;
+  margin-bottom: 12px;
+  font-size: 35px;
+}
+
+.imgsubtitle {
+  font-size: x-large;
+  color: rgb(255, 255, 255);
+  font-weight: 375;
+  text-align: center;
+}
+
+.MainBody {
+  background-color: rgb(93, 41, 142);
+  border: 5px rgb(93, 41, 142) inset;
+  border-radius: 25px;
+  width: 40%;
+  padding: 25px;
+  content: flex;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media screen and (min-width: 120px) and (max-width: 1080px) {
+    main {
+      height: 100ch;
+      zoom: 1.5;
+      display: grid;
+    }
+}

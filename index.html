@@ -1,0 +1,108 @@
+<head>
+  <title>-~=-=Hannah's Hallway=-=~-</title>
+  <link
+    rel="shortcut icon"
+    href="https://static.wikia.nocookie.net/minecraft-computer/images/3/30/Potion_of_Healing.png"
+    type="image/x-icon"
+  />
+  <prefetch>
+    <link rel="stylesheet" href="style.css" />
+  </prefetch>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8" />
+</head>
+
+<html>
+  <body>
+    <div class="listbox">
+      <nav>
+        <h1 class="NavHead">-= Hannah's Harbored Habitants =-</h1>
+        <a href="index.html"> <li class="active-page">Home</li></a>
+        <a href="info.html"> <li>About Me</li></a>
+        <a href="music.html"> <li>Music</li></a>
+        <a href="shows.html"> <li>Movies & Shows</li></a>
+        <a href="quotes.html"> <li>Fav. Quotes</li></a>
+        <a href="portfolio.html"> <li>Portfolio</li></a>
+        <a href="contact.html">
+          <li>Contact</li>
+        </a>
+      </nav>
+    </div>
+    <div class="MainBody">
+      <h1>❤ Hannah's Hallway ❤</h1>
+      <img
+        class="tempie"
+        src="../images/tempie.png"
+        alt="unimportant image"
+        width="300"
+        height="300"
+      />
+      <p class="imgsubtitle"><i>Junior Year, Coming Fall 2023</i></p>
+      <div class="time" id="timers">
+        <noscript>
+          <b>Countdown Not Available Without Javascript</b>
+        </noscript>
+      </div>
+    </div>
+  </body>
+  <footer>definitely, © 1920</footer>
+</html>
+
+<script type="text/javascript">
+  let count = 0;
+  let el = document.getElementById("element");
+
+  function increase() {
+    count++;
+    document.getElementById("count").innerText = count % 360;
+    el.style.transform = "rotate(" + count + "deg)";
+  }
+  setInterval(increase, 1000);
+</script>
+<script>
+  setInterval(function () {
+    let currentDate = new Date(),
+      date = currentDate.getDate(),
+      month = currentDate.getMonth() + 1,
+      year = currentDate.getFullYear(),
+      hours = currentDate.getHours(),
+      minutes = currentDate.getMinutes(),
+      seconds = currentDate.getSeconds();
+    document.getElementById("date-time-counter").innerHTML =
+      month +
+      "/" +
+      date +
+      "/" +
+      year +
+      " , " +
+      +hours +
+      ":" +
+      minutes +
+      ":" +
+      seconds;
+  }, 1);
+</script>
+<script type="text/javascript">
+  var target_date = new Date("Aug 11, 2023, 7:24").getTime();
+  var days, hours, minutes, seconds;
+  var countdown = document.getElementById("timers");
+  setInterval(function () {
+    var current_date = new Date().getTime();
+    var seconds_left = (target_date - current_date) / 1000;
+    days = parseInt(seconds_left / 86400);
+    seconds_left = seconds_left % 86400;
+    hours = parseInt(seconds_left / 3600);
+    seconds_left = seconds_left % 3600;
+    minutes = parseInt(seconds_left / 60);
+    seconds = parseInt(seconds_left % 60);
+    countdown.innerHTML =
+      days +
+      " days " +
+      hours +
+      " hours " +
+      minutes +
+      " minutes " +
+      seconds +
+      " seconds";
+  }, 1000);
+</script>
