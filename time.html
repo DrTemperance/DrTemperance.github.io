@@ -1,0 +1,135 @@
+<html>
+
+<head>
+    <title> ~ Time Machine ? ~ </title>
+    <link rel="shortcut icon" href="images/potion.png" type="image/x-icon" />
+    <prefetch>
+        <link rel="stylesheet" href="style.css" />
+    </prefetch>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8" />
+</head>
+
+<body>
+    <div class="listbox">
+        <nav>
+            <h1 class="NavHead">-= Hannah's Harbored Habitants =-</h1>
+            <a href="index.html">
+                <li class="navitems">Home</li>
+            </a>
+            <a href="info.html">
+                <li class="navitems">About Me</li>
+            </a>
+            <a href="music.html">
+                <li class="navitems">Music</li>
+            </a>
+            <a style="cursor:default">
+                <li class="active-page navitems">Time Machine</li>
+            </a>
+            <a href="quotes.html">
+                <li class="navitems">Fav. Quotes</li>
+            </a>
+            <a href="portfolio.html">
+                <li class="navitems">Portfolio</li>
+            </a>
+            <a href="links.html">
+                <li class="navitems">Links</li>
+            </a>
+        </nav>
+    </div>
+    <div class="MainBody">
+        <h1 id="timeheader">Time Machine?</h1>
+        <h2> Find The 5 Keys</h2>
+        <h3>They are hidden around my website.</h3>
+        <div>
+            <ol>
+                <li class="inputstime"><input placeholder="''Win the van from ___''" id="x1">
+                </li>
+                <li class="inputstime"><input placeholder="''Cut me and I bleed ___''" id="x2">
+                </li>
+                <li class="inputstime"><input placeholder="''May Jailer, ___''" id="x3">
+                </li>
+                <li class="inputstime"><input placeholder="Tangent -> Binary" id="x4">
+                </li>
+                <li class="inputstime"><input placeholder="null" id=x5>
+                </li>
+            </ol>
+            <li id="timentbutton" style="padding: 3px">
+                <button onclick="timePassSubmit()"> Submit </button>
+            </li>
+        </div>
+    </div>
+    < </body>
+
+        <style>
+            input {
+                font-family: 'Franklin Gothic Medium', 'Helvetica Neue', 'Arial Narrow', Arial, sans-serif;
+                height: 30px;
+                padding: 5px;
+                text-align: center;
+                font-size: large;
+                width: 350px;
+            }
+
+            button {
+                font-family: 'Franklin Gothic Medium', 'Helvetica Neue', 'Arial Narrow', Arial, sans-serif;
+                text-align: center;
+                font-size: x-large;
+                border-radius: 12px;
+                padding: 5px;
+                width: 150px;
+            }
+
+            button:hover {
+                font-family: 'Franklin Gothic Medium', 'Helvetica Neue', 'Arial Narrow', Arial, sans-serif;
+                text-align: center;
+                font-size: x-large;
+                border-radius: 12px;
+                padding: 5px;
+            }
+
+            #timentbutton:hover {
+                background: none;
+            }
+
+            button:hover {
+                cursor: pointer;
+            }
+        </style>
+        <script>
+            function timePassSubmit() {
+                let key1 = document.getElementById("x1").value;
+                let key2 = document.getElementById("x2").value;
+                let key3 = document.getElementById("x3").value;
+                let key4 = document.getElementById("x4").value;
+                let key5 = document.getElementById("x5").value;
+                var correctKeys = 0;
+
+                if (key1 === "" || key2 === "" || key3 === "" || key4 === "" || key5 === "") {
+                    alert("One or more of the keys are empty.")
+                } else {
+                    if (key1 === "The Tripper") {
+                        var correctKeys = correctKeys + 1
+                    }
+                    if (key2 === "Dior") {
+                        var correctKeys = correctKeys + 1
+                    }
+                    if (key3 === "Sirens") {
+                        var correctKeys = correctKeys + 1
+                    }
+                    if (key4 === "Tulips") {
+                        var correctKeys = correctKeys + 1
+                    }
+                    if (key5 === Math.random()) {
+                        var correctKeys = correctKeys + 1
+                    }
+                    if (correctKeys < 5) {
+                        alert("ew!")
+                    } else if (correctKeys === 5) {
+                        window.open('https://drtemperance.github.io/timeportal.html');
+                    }
+                }
+            }
+        </script>
+
+</html>

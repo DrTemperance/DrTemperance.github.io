@@ -23,15 +23,19 @@ nav {
 }
 
 li {
-  background: rgb(255, 229, 234);
-  border-radius: 3px;
-  border: 2.5px solid black;
   display: inline-block;
-  padding: 5px;
   font-weight: 375;
 }
 
+.navitems {
+  background: rgb(255, 229, 234);
+  border-radius: 3px;
+  border: 2.5px solid black;
+  padding: 5px;
+}
+
 #pimg {
+  margin-top: auto;
   width: 150;
 }
 
@@ -186,4 +190,28 @@ footer {
     zoom: 1.5;
     display: grid;
   }
+}
+
+.inputstime {
+  padding: 8px;
+  background: rgb(220, 121, 121);
+  margin: 8px;
+  border: 2px solid black;
+  border-radius: 10px;
+}
+
+#timeheader {}
+
+.sub {
+  font-size: xx-large;
+  margin-top: 10px;
+}
+
+.inputhint {
+  margin: 5px;
+  width: max-content;
+}
+
+ol {
+  padding: 0;
 }

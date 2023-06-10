@@ -2,13 +2,18 @@
 
 <head>
   <title>~ About Me ~</title>
-  <link rel="shortcut icon"
-    href="https://static.wikia.nocookie.net/minecraft-computer/images/3/30/Potion_of_Healing.png" type="image/x-icon" />
+  <link rel="shortcut icon" href="images/potion.png" type="image/x-icon" />
   <prefetch>
     <link rel="stylesheet" href="style.css" />
   </prefetch>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta charset="utf-8" />
+  <style>
+    li:hover {
+      background: rgb(255, 229, 234);
+      font-size: 100%;
+    }
+  </style>
 </head>
 
 <body>
@@ -16,25 +21,25 @@
     <nav>
       <h1 class="navhead">-= Hannah's Harbored Habitants =-</h1>
       <a href="index.html">
-        <li>Home</li>
+        <li class="navitems">Home</li>
       </a>
-      <a href="info.html">
-        <li class="active-page">About Me</li>
+      <a style="cursor:default">
+        <li class="active-page navitems">About Me</li>
       </a>
       <a href="music.html">
-        <li>Music</li>
+        <li class="navitems">Music</li>
       </a>
-      <a href="shows.html">
-        <li>Movies & Shows</li>
+      <a href="time.html">
+        <li class="navitems">Time Machine</li>
       </a>
       <a href="quotes.html">
-        <li>Fav. Quotes</li>
+        <li class="navitems">Fav. Quotes</li>
       </a>
       <a href="portfolio.html">
-        <li>Portfolio</li>
+        <li class="navitems">Portfolio</li>
       </a>
-      <a href="contact.html">
-        <li>Contact</li>
+      <a href="links.html">
+        <li class="navitems">Links</li>
       </a>
     </nav>
   </div>
@@ -43,7 +48,7 @@
     <div>
       <br />
       <ul>
-        <li class="bigbox">
+        <li class="bigbox navitems">
           <h3 class="InfoHead">-= General Topics =-</h3>
           <ul id="int-ul">
             <li class="Interests">
@@ -63,7 +68,7 @@
             <li class="Interests"><b>~ Synthesizers & Pianos ~</b></li>
           </ul>
         </li>
-        <li class="bigbox">
+        <li class="bigbox navitems">
           <h3 class="InfoHead">-= Genres =-</h3>
           <ul id="int-ul">
             <li class="Interests">
@@ -92,8 +97,9 @@
             </li>
             <li class="Interests">
               <b>~ Decade ~</b><br />
-              2000s<br />
-              1990s<br />
+              <a href="https://web.archive.org/web/20070418192205/https://myspace.com/">2000s</a><br>
+              1990s<br>
+              1950s<br>
               1920s
             </li>
           </ul>
@@ -102,6 +108,5 @@
     </div>
   </div>
 </body>
-<footer>definitely, © 1920</footer>
 
 </html>
