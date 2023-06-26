@@ -56,8 +56,7 @@ $(document).ready(function () {
       game.lives.text = "Lives " + lives;
     } else {
       setTimeout(
-        () =>
-          (game.lives.text = "Game Over: Refresh the page to try again"),
+        () => (game.lives.text = "Game Over: Refresh the page to try again"),
         500
       );
     }

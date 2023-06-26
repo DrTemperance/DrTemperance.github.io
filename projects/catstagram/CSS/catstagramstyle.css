@@ -1,0 +1,112 @@
+#likecount1 {
+  padding: 3px;
+  text-align: right;
+  margin-left: auto;
+  margin-right: 5px;
+}
+
+#likecount2 {
+  padding: 3px;
+  text-align: right;
+  margin-left: auto;
+  margin-right: 5px;
+}
+
+#likecount3 {
+  padding: 3px;
+  text-align: right;
+  margin-left: auto;
+  margin-right: 5px;
+}
+
+#likecount4 {
+  padding: 3px;
+  text-align: right;
+  margin-left: auto;
+  margin-right: 5px;
+}
+
+#likecount5 {
+  padding: 3px;
+  text-align: right;
+  margin-left: auto;
+  margin-right: 5px;
+}
+
+span {
+  cursor: pointer;
+  user-select: none;
+  height: 25px;
+}
+#accountinfo {
+  display: inline-flex;
+}
+#accountimage {
+  width: 35px;
+  height: 35px;
+  object-fit: cover;
+  border: none;
+  border-radius: 150px;
+  margin: auto;
+}
+
+p {
+  padding: 0;
+  text-align: justify;
+  font-family: Helvetica;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+div {
+  padding: 15px;
+  background: lightgray;
+  border-radius: 5px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
+#likeBtn {
+  margin: auto;
+  cursor: pointer;
+  display: flex;
+  height: 24px;
+  padding: 1px;
+}
+
+img {
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  border: 1px solid gray;
+  border-radius: 5px;
+}
+
+h1 {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  font-family: Helvetica;
+  margin-top: 0px;
+}
+
+h5 {
+  text-align: center;
+  margin: auto;
+  font-family: Helvetica;
+}
+
+#description {
+  width: 90%;
+  background-color: darkgray;
+}
+
+#likeCount1 {
+  width: 25%;
+}
+img {
+  width: 500px;
+  height: 500px;
+  object-fit: cover;
+}

@@ -1,0 +1,106 @@
+/* ALL */
+* {
+  font-family: "Courier New", Courier, monospace;
+  color: rgb(8, 8, 8);
+  background-size: cover;
+  user-select: none;
+  margin: 0vh;
+  font-size: 1.75vh;
+}
+
+/* Containers */
+body {
+  background-image: url(../images/back-dark.png);
+  background-size: 50vh;
+  text-align: center;
+}
+
+div {
+  padding: 1.2vh;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* General Content */
+p {
+  display: flex;
+  flex-direction: row;
+  color: lime;
+  margin-bottom: auto;
+  text-align: left;
+  width: 125vh;
+}
+
+h1 {
+  margin-top: 2vh;
+  margin-bottom: 2vh;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 6.75vh;
+  -webkit-text-stroke-width: 0.13vh;
+  -webkit-text-stroke-color: darkgray;
+}
+
+input {
+  width: 122.85vh;
+  background: none;
+  border: none;
+  padding-top: 0.3vh;
+  padding-bottom: 0.3vh;
+}
+
+ul {
+  margin: 0vh;
+  display: block;
+  padding: 0vh;
+  display: flex;
+  flex-direction: column-reverse;
+  margin-top: auto;
+  margin-bottom: 0vh;
+  position: absolute;
+  bottom: 5vh;
+  width: 125vh;
+  height: 80vh;
+}
+
+/* Classes */
+.OutputLine {
+  margin-bottom: 0.1vh;
+}
+
+/* IDs */
+#storyconsole {
+  width: 125vh;
+  height: 80vh;
+  border: 0.1vh solid darkgray;
+  background: black;
+  color: lime;
+}
+
+#ConsoleOutputBox {
+}
+
+#promptSign {
+  width: 2.15vh;
+  height: 2.15vh;
+  padding: 0.15vh;
+}
+
+/* Special */
+
+/* Animations */
+#promptSign,
+input {
+  animation: color-change 2.5s linear infinite;
+}
+@keyframes color-change {
+  0% {
+    color: rgb(255, 255, 255);
+  }
+  50% {
+    color: rgb(75, 75, 75);
+  }
+  100% {
+    color: rgb(255, 255, 255);
+  }
+}

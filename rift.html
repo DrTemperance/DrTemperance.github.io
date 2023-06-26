@@ -1,0 +1,117 @@
+<html>
+  <head>
+    <title>~-~ The Time Rift ~-~</title>
+    <link rel="shortcut icon" href="images/potion.png" type="image/x-icon" />
+    <prefetch>
+      <link rel="stylesheet" href="timestyle.css" />
+      <script src="meaty/timestory.js"></script>
+      <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+      <script src="meaty/NOINSPECTING.js"></script>
+    </prefetch>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8" />
+    <embed
+      src="\images\other media\upbeat-loop.mp3"
+      loop="true"
+      autostart="true"
+      width="0vh"
+      height="0vh"
+    />
+  </head>
+
+  <body>
+    <div>
+      <h1>The Time Rift</h1>
+    </div>
+
+    <div id="storyconsole">
+      <ul id="ConsoleOutput">
+        <li style="margin-top: 2vh; display: flex">
+          <p id="promptSign">>_</p>
+          <input id="playerInput" />
+        </li>
+        <li><p class="OutputLine" id="starterText"></p></li>
+      </ul>
+    </div>
+  </body>
+</html>
+<!-- 
+
+      SCRIPTS FOR THE STORY
+
+    -->
+
+<!-- SCRIPT PHASE 1 (Initiate)-->
+<script>
+  document.getElementById("starterText").outerHTML = `<p>
+    The game is divided into 3 eras: 2000s, 1990s, and 1980s.<br><br>
+  2000s: go hate crime something, or go to a tanning booth. "Anorexia is the new thing."<br>
+  1990s: do stuff with drugs and bleach... oh yeah, and horror movies. "WHY DOES EVERYTHING SMELL LIKE AMMONIA!?"<br>
+  1980s: smoke everything, dance, and get depressed. "WHY IS THERE SO MUCH DEATH!?<br><br>
+  Pick your era wisely, as this cannot be changed later.<br>Type "Help" for controls and commands</p>`;
+  // Initiate variables //
+  var AdvOutputLine;
+  var AdvOutputLineChild;
+  var ReturnConsole;
+  var ConsoleOutput;
+  var type = "Unchosen";
+  var playerText = "Unset";
+  var lastcommand = "";
+  var level = 0;
+
+  // Function initiates on key press //
+  $(document).keydown(function (event) {
+    if (event.keyCode == 13) {
+      // Business as usual if "Enter" pressed //
+      playerText = document.getElementById("playerInput").value;
+      if (playerText != "") {
+        lastcommand = playerText;
+        document.getElementById("playerInput").value = "";
+        level++;
+        ConsolePhase1();
+      }
+    } else if (event.keyCode == 38) {
+      // Insert last command if "Up Arrow" pressed //
+      document.getElementById("playerInput").value = lastcommand;
+    }
+  });
+
+  // SCRIPT PHASE 2 (COMPUTE) //
+
+  function ConsolePhase1() {
+    // Player's text gets logged //
+    ReturnConsole = document.createTextNode(`> ${playerText}`);
+    ConsolePhase2();
+  }
+
+  // End Script Phase 2 //
+  function endFunction(a) {
+    ReturnConsole = a;
+    ConsolePhase2();
+  }
+
+  // SCRIPT PHASE 3 (EXPORT) //
+
+  function ConsolePhase2() {
+    // Reset Variables //
+    AdvOutputLine = NaN;
+    ConsoleOutput = NaN;
+    AdvOutputLineChild = NaN;
+
+    // Create new element //
+    AdvOutputLine = document.createElement("li");
+
+    // Create sub element containing output //
+    AdvOutputLineChild = document.createElement("p");
+    AdvOutputLineChild.classList.add("OutputLine");
+    AdvOutputLineChild.appendChild(ReturnConsole);
+
+    // Assign sub-element to <li> element //
+    AdvOutputLine.appendChild(AdvOutputLineChild);
+
+    // Submit output //
+    document
+      .getElementById("ConsoleOutput")
+      .insertAdjacentElement("afterend", AdvOutputLine);
+  }
+</script>

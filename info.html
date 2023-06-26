@@ -1,29 +1,22 @@
 <html>
+  <head>
+    <title>~ About Me ~</title>
+    <link rel="shortcut icon" href="images/potion.png" type="image/x-icon" />
+    <prefetch>
+      <link rel="stylesheet" href="style.css" />
+      <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    </prefetch>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8" />
+  </head>
 
-<head>
-  <title>~ About Me ~</title>
-  <link rel="shortcut icon" href="images/potion.png" type="image/x-icon" />
-  <prefetch>
-    <link rel="stylesheet" href="style.css" />
-  </prefetch>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta charset="utf-8" />
-  <style>
-    li:hover {
-      background: rgb(255, 229, 234);
-      font-size: 100%;
-    }
-  </style>
-</head>
-
-<body>
-  <div class="listbox">
-    <nav>
-      <h1 class="navhead">-= Hannah's Harbored Habitants =-</h1>
+  <body>
+    <nav class="listbox">
+      <h1 class="NavHead">-= Hannah's Hallway =-</h1>
       <a href="index.html">
         <li class="navitems">Home</li>
       </a>
-      <a style="cursor:default">
+      <a style="cursor: default">
         <li class="active-page navitems">About Me</li>
       </a>
       <a href="music.html">
@@ -38,75 +31,87 @@
       <a href="portfolio.html">
         <li class="navitems">Portfolio</li>
       </a>
-      <a href="links.html">
-        <li class="navitems">Links</li>
-      </a>
     </nav>
-  </div>
-  <div class="MainBody">
-    <h1>❤ Interests ❤</h1>
-    <div>
-      <br />
-      <ul>
-        <li class="bigbox navitems">
-          <h3 class="InfoHead">-= General Topics =-</h3>
-          <ul id="int-ul">
-            <li class="Interests">
-              <b>~ Science ~</b><br /><i>
-                - Pharmacy<br />
-                - Chemistry<br />
-                - Biology<br />
-                - Psychology<br />
-                - Anthropology</i>
-            </li>
-            <li class="Interests">
-              <b>~ Math ~</b><br /><i>
-                - Algebra 1 & 2<br />
-                - Trigonometry<br />
-                - Geometry</i>
-            </li>
-            <li class="Interests"><b>~ Synthesizers & Pianos ~</b></li>
+    <div style="padding: .93vh;">
+      <li id="pseudoMargin"></li>
+      </li>
+      <li>
+        <div class="MainBody">
+          <h1>❤ Interests ❤</h1>
+          <div>
+            <ul>
+              <li class="bigbox">
+                <h3 class="InfoHead">-= General Topics =-</h3>
+                <ul id="int-ul">
+                  <li class="Interests">
+                    <b>~ Science ~</b><br /><i>
+                      - Pharmacy<br />
+                      - Chemistry<br />
+                      - Biology<br />
+                      - Psychology<br />
+                      - Anthropology</i
+                    >
+                  </li>
+                  <li class="Interests">
+                    <b>~ Math ~</b><br /><i>
+                      - Algebra 1 & 2<br />
+                      - Trigonometry<br />
+                      - Geometry</i
+                    >
+                  </li>
+                  <li class="Interests"><b>~ Synthesizers & Pianos ~</b></li>
+                </ul>
+              </li>
+              <li class="bigbox">
+                <h3 class="InfoHead">-= Genres =-</h3>
+                <ul id="int-ul">
+                  <li class="Interests">
+                    <b>~ Music ~</b><br />
+                    Electric<br />
+                    Post-Punk<br />
+                    Dark Wave<br />
+                    Alternative
+                  </li>
+                  <li class="Interests">
+                    <b>~ Colors ~</b><br />
+                    Dark Green<br />
+                    Indigo<br />
+                    Burgundy
+                  </li>
+                  <li class="Interests">
+                    <b>~ Movie ~</b><br />
+                    Horror<br />
+                    Drama
+                  </li>
+                  <li class="Interests">
+                    <b>~ Architecture ~</b><br />
+                    Mid Century<br />
+                    Art Deco<br />
+                    Craftsman<br />Brutalism<br />
+                  </li>
+                  <li class="Interests">
+                    <b>~ Decade ~</b><br />
+                    <a
+                      href="https://web.archive.org/web/20070418192205/https://myspace.com/"
+                      >2000s</a
+                    >
+                    1990s<br />
+                    1950s<br />
+                    1920s
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="MainBody">
+          <h1>❤ Plans ❤</h1>
+          <ul>
+            <li><h3 class="InfoHead">~ Home ~</h3></li>
+            <li><h3 class="InfoHead">~ Career ~</h3></li>
           </ul>
-        </li>
-        <li class="bigbox navitems">
-          <h3 class="InfoHead">-= Genres =-</h3>
-          <ul id="int-ul">
-            <li class="Interests">
-              <b>~ Music ~</b><br />
-              Electric<br />
-              Post-Punk<br />
-              Dark Wave<br />
-              Alternative
-            </li>
-            <li class="Interests">
-              <b>~ Colors ~</b><br />
-              Dark Green<br />
-              Indigo<br />
-              Burgundy
-            </li>
-            <li class="Interests">
-              <b>~ Movie ~</b><br />
-              Horror<br />
-              Drama
-            </li>
-            <li class="Interests">
-              <b>~ Architecture ~</b><br />
-              Mid Century<br />
-              Art Deco<br />
-              Craftsman<br />Brutalism<br />
-            </li>
-            <li class="Interests">
-              <b>~ Decade ~</b><br />
-              <a href="https://web.archive.org/web/20070418192205/https://myspace.com/">2000s</a><br>
-              1990s<br>
-              1950s<br>
-              1920s
-            </li>
-          </ul>
-        </li>
-      </ul>
+        </div>
+      </li>
     </div>
-  </div>
-</body>
-
+  </body>
 </html>

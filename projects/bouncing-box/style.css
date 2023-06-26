@@ -1,0 +1,33 @@
+body {
+  user-select: none;
+}
+.box {
+  width: 75px;
+  height: 75px;
+  display: block;
+  position: absolute;
+  top: 100px;
+  left: 0px;
+  margin: auto;
+}
+
+.board {
+  height: 100vh;
+  background: rgb(19, 0, 37);
+}
+
+.Miss {
+  color: white;
+  font-size: xx-large;
+  text-align: right;
+  padding: 8px;
+  margin: 8px;
+}
+
+.score {
+  color: white;
+  font-size: xx-large;
+  text-align: right;
+  padding: 8px;
+  margin: 8px;
+}
