@@ -1,1 +1,1 @@
-!function(o){"use strict";o.opspark=o.opspark||{};let a=o.opspark;o.opspark.platform=o.opspark.platform||{},a.platform.factory=function(o){o.platforms=o.add.group(),o.platforms.enableBody=!0,a.platform.create=function a(r,p,t,e,f){var l=o.platforms.create(r,p,"platform");return l.scale.setTo(t||1,e||1),l.body.immovable=f||!0,l}}}(window);
+(r=>{"use strict";r.r=r.r||{};let t=r.r;r.r.t=r.r.t||{},t.t.e=r=>{r.a=r.add.i(),r.a.l=!0,t.t.create=(t,a,e,c,l)=>{var s=r.a.create(t,a,"platform");return s.o.n(e||1,c||1),s.u.s=l||!0,s}}})(window);
