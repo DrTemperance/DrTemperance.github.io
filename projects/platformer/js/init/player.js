@@ -1,1 +1,1 @@
-!function(a){"use strict";a.opspark=a.opspark||{},a.opspark.player=a.opspark.player||{};let r=a.opspark.player,p=a.opspark;r.init=function(a){a.player=p.createPlayer(a),a.playerManager=p.createPlayerManager(a.player,a)}}(window);
+(t=>{"use strict";t.t=t.t||{},t.t.e=t.t.e||{};let e=t.t.e,s=t.t;e.i=t=>{t.e=s.s(t),t.w=s.c(t.e,t)}})(window);
