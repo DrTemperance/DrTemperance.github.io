@@ -1,1 +1,215 @@
- <head> <title>-~= Hannah's Hallway =~-</title> <link href=images/potion.png rel="shortcut icon"type=image/x-icon> <prefetch> <link href=style.css rel=stylesheet> <script src=https://code.jquery.com/jquery-3.5.1.min.js></script> </prefetch> <meta content="width=device-width,initial-scale=1"name=viewport> <meta charset=utf-8> </head> <body> <nav class=listbox> <h1 class=NavHead>-= Hannah's Hallway =-</h1> <a style=cursor:default> <li class="navitems active-page">Home</li> </a> <a href=info.html> <li class=navitems>About Me</li> </a> <a href=music.html> <li class=navitems>Music</li> </a> <a href=time.html> <li class=navitems>Time Machine</li> </a> <a href=quotes.html> <li class=navitems>Fav. Quotes</li> </a> <a href=portfolio.html> <li class=navitems>Portfolio</li> </a> </nav> <div style=padding:.93vh>  <li> <div class=MainBody> <h1>❤ Home ❤</h1> <img src=../images/tempie.png alt="unimportant image"class=tempie height=300 width=300> <p class=imgsubtitle><i>Junior Year, Coming Fall 2023</i></p> <div class=time id=timers> <noscript> <b>Countdown Not Available Without Javascript</b> </noscript> </div> </div> <div class=MainBody> <div> <h1>Login</h1> <br> </div> <div class=loginBox id=signup> <input class=LoginBoxes id=signupUsername placeholder="* Username"> <input class=LoginBoxes id=signupPassword placeholder="* Password"> <input class=LoginBoxes id=signupEmail placeholder="* Email"> <input class=LoginBoxes id=signupGender placeholder=" Gender"> <div> <button id=SubmitSignup onclick=SubmitSignup()> Sign Up </button> <button id=preLogin>Login</button> </div> </div> <ul class=loginBox id=login> <input class=LoginBoxes id=loginUsername placeholder="First Name"> <input class=LoginBoxes id=loginPassword placeholder=Password> <div> <button id=preSignup>Sign Up</button> <button id=SubmitLogin onclick=SubmitLogin()>Login</button> </div> </ul> <noscript> Login Not Available Without Javascript </noscript> </div> <div class=MainBody> <ol style=display:flex> <dl style=display:flex;width:fit-content> <a href=https://www.instagram.com/drtemperance/ > <img src=https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Instagram_logo_2022.svg/800px-Instagram_logo_2022.svg.png> </a> <a href=mailto:jellow2323@gmail.com> <img src=https://static-00.iconduck.com/assets.00/gmail-icon-512x511-fih5xfbp.png> </a> <a href=https://twitter.com/drtempy> <img src=https://img.uxwing.com/wp-content/themes/uxwing/download/brands-social-media/twitter-app-icon.png> </a> <a href=https://www.snapchat.com/add/drtempy> <img src=https://seeklogo.com/images/S/snapchat-logo-2D9C3E7ADA-seeklogo.com.png> </a> <a href=https://www.tiktok.com/@temperancesdoctorates> <img src="https://play-lh.googleusercontent.com/Ui_-OW6UJI147ySDX9guWWDiCPSq1vtxoC-xG17BU2FpU0Fi6qkWwuLdpddmT9fqrA=w240-h480-rw"> </a> </dl> <p id=pseudoFooter> All digital art (i.e. Backgrounds & CSS) is created by me. </p> </ol> </div> </li> </div>  <script> var target_date = new Date("Aug 11, 2023, 7:24").getTime();
+<html>
+  <head>
+    <title>-~= Hannah's Hallway =~-</title>
+    <link rel="shortcut icon" href="images/potion.png" type="image/x-icon" />
+    <prefetch>
+      <link rel="stylesheet" href="style.css" />
+      <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    </prefetch>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8" />
+  </head>
+
+  <body>
+    <nav class="listbox">
+      <h1 class="NavHead">-= Hannah's Hallway =-</h1>
+      <a style="cursor: default">
+        <li class="active-page navitems">Home</li>
+      </a>
+      <a href="info.html">
+        <li class="navitems">About Me</li>
+      </a>
+      <a href="music.html">
+        <li class="navitems">Music</li>
+      </a>
+      <a href="time.html">
+        <li class="navitems">Time Machine</li>
+      </a>
+      <a href="quotes.html">
+        <li class="navitems">Fav. Quotes</li>
+      </a>
+      <a href="portfolio.html">
+        <li class="navitems">Portfolio</li>
+      </a>
+    </nav>
+    <div style="padding: 0.93vh">
+      <li id="pseudoMargin"></li>
+      <li>
+        <!-- Main Body -->
+        <div class="MainBody">
+          <h1>❤ Home ❤</h1>
+          <img
+            class="tempie"
+            src="../images/tempie.png"
+            alt="unimportant image"
+            width="300"
+            height="300"
+          />
+          <p class="imgsubtitle"><i>Junior Year, Coming Fall 2023</i></p>
+          <div class="time" id="timers">
+            <noscript>
+              <b>Countdown Not Available Without Javascript</b>
+            </noscript>
+          </div>
+        </div>
+        <!-- Account Body -->
+        <div class="MainBody">
+          <div>
+            <h1>Login</h1>
+            <br />
+          </div>
+          <div id="signup" class="loginBox">
+            <input
+              id="signupUsername"
+              class="LoginBoxes"
+              placeholder="* Username"
+            />
+            <input
+              id="signupPassword"
+              class="LoginBoxes"
+              placeholder="* Password"
+            />
+            <input id="signupEmail" class="LoginBoxes" placeholder="* Email" />
+            <input id="signupGender" class="LoginBoxes" placeholder=" Gender" />
+            <div>
+              <button onclick="SubmitSignup()" id="SubmitSignup">
+                Sign Up
+              </button>
+              <button id="preLogin">Login</button>
+            </div>
+          </div>
+          <ul id="login" class="loginBox">
+            <input
+              id="loginUsername"
+              class="LoginBoxes"
+              placeholder="First Name"
+            />
+            <input
+              id="loginPassword"
+              class="LoginBoxes"
+              placeholder="Password"
+            />
+            <div>
+              <button id="preSignup">Sign Up</button>
+              <button onclick="SubmitLogin()" id="SubmitLogin">Login</button>
+            </div>
+          </ul>
+          <noscript> Login Not Available Without Javascript </noscript>
+        </div>
+        <div class="MainBody">
+          <ol style="display: flex">
+            <dl style="display: flex; width: fit-content">
+              <a href="https://www.instagram.com/drtemperance/">
+                <img
+                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Instagram_logo_2022.svg/800px-Instagram_logo_2022.svg.png"
+                />
+              </a>
+              <a href="mailto:jellow2323@gmail.com">
+                <img
+                  src="https://static-00.iconduck.com/assets.00/gmail-icon-512x511-fih5xfbp.png"
+                />
+              </a>
+              <a href="https://twitter.com/drtempy">
+                <img
+                  src="https://img.uxwing.com/wp-content/themes/uxwing/download/brands-social-media/twitter-app-icon.png"
+                />
+              </a>
+              <a href="https://www.snapchat.com/add/drtempy">
+                <img
+                  src="https://seeklogo.com/images/S/snapchat-logo-2D9C3E7ADA-seeklogo.com.png"
+                />
+              </a>
+              <a href="https://www.tiktok.com/@temperancesdoctorates">
+                <img
+                  src="https://play-lh.googleusercontent.com/Ui_-OW6UJI147ySDX9guWWDiCPSq1vtxoC-xG17BU2FpU0Fi6qkWwuLdpddmT9fqrA=w240-h480-rw"
+                />
+              </a>
+            </dl>
+            <p id="pseudoFooter">
+              All digital art (i.e. Backgrounds & CSS) is created by me.
+            </p>
+          </ol>
+        </div>
+      </li>
+    </div>
+  </body>
+
+  <!-- Countdown -->
+  <script type="text/javascript">
+    var target_date = new Date("Aug 11, 2023, 7:24").getTime();
+    var days, hours, minutes, seconds;
+    var countdown = document.getElementById("timers");
+    setInterval(function () {
+      var current_date = new Date().getTime();
+      var seconds_left = (target_date - current_date) / 1000;
+      days = parseInt(seconds_left / 86400);
+      seconds_left = seconds_left % 86400;
+      hours = parseInt(seconds_left / 3600);
+      seconds_left = seconds_left % 3600;
+      minutes = parseInt(seconds_left / 60);
+      seconds = parseInt(seconds_left % 60);
+      countdown.innerHTML = `${days} days ${hours} hours ${minutes} minutes ${seconds} seconds`;
+    }, 1000);
+  </script>
+
+  <!-- Login (NOT FUNCTIONAL) -->
+  <script>
+    function SubmitLogin() {
+      var username = document.getElementById("loginUsername").value;
+      var password = document.getElementById("loginPassword").value;
+      if (username === "" || password === "") {
+        alert("One or more boxes are empty!");
+      } else if (username === "tilly" && password === "tina") {
+        alert(`Welcome ${username}!`);
+      } else {
+        alert("No such user in MY database! ;-P");
+      }
+    }
+  </script>
+
+  <!-- Sign Up (NOT FUNCTIONAL) -->
+  <script>
+    var newUser = {};
+    function SubmitSignup() {
+      var username = document.getElementById("loginUsername").value;
+      var password = document.getElementById("loginPassword").value;
+      var email = document.getElementById("signupEmail").value;
+      var gender = document.getElementById("signupGender").value;
+      if (gender === "") {
+        gender = "unset";
+      }
+      if (username === "" || password === "" || email === "") {
+        alert("One or more boxes are empty!");
+      } else if (username != "" && password != "" && email != "") {
+        newUser.name = username;
+        newUser.password = password;
+        newUser.email = email;
+        newUser.gender = gender;
+        alert("Account Details Saved");
+      } else {
+        alert("Sign-up Unsuccessful.");
+      }
+    }
+  </script>
+
+  <!-- Signup Switching Scripts -->
+  <script>
+    $("#signup").hide();
+    $("#preSignup").on("click", handleClick);
+
+    function handleClick() {
+      $("#signup").show();
+      $("#login").hide();
+    }
+  </script>
+
+  <!-- Login Switching Scripts -->
+  <script>
+    $("#preLogin").on("click", handleClick);
+
+    function handleClick() {
+      $("#signup").hide();
+      $("#login").show();
+    }
+  </script>
+</html>
