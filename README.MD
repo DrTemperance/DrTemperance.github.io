@@ -1,6 +1,6 @@
 
-# My Website
+# My Website ❤️
 
-Exciting website; you will love it.
+Exciting website; you will love it. ☢️ 👩🏻‍🦳 🧪
 
-Currently working on significant changes, and will not push until I am entirely done with some parts
+Currently making significant changes, will not push until complete. 😜 💾
