@@ -1,15 +1,1 @@
-(function (window) {
-  "use strict";
-  window.opspark = window.opspark || {};
-  window.opspark.player = window.opspark.player || {};
-  let player = window.opspark.player,
-    opspark = window.opspark;
-
-  /**
-   * init: Initialize the player and player manager.
-   */
-  player.init = function (game) {
-    game.player = opspark.createPlayer(game);
-    game.playerManager = opspark.createPlayerManager(game.player, game);
-  };
-})(window);
+!function(a){"use strict";a.opspark=a.opspark||{},a.opspark.player=a.opspark.player||{};let r=a.opspark.player,p=a.opspark;r.init=function(a){a.player=p.createPlayer(a),a.playerManager=p.createPlayerManager(a.player,a)}}(window);
