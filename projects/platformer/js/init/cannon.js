@@ -1,1 +1,1 @@
-!function(t){"use strict";t.opspark=t.opspark||{},t.opspark.collectable=t.opspark.collectable||{};let $=t.opspark.cannon;$.init=function t(o){let p=$.create;p("top",450),p("right",530,200),p("top",600,1e3),p("left",360),p("right",650,5e3)}}(window);
+(t=>{"use strict";t.t=t.t||{},t.t.e=t.t.e||{};let e=t.t.i;e.l=()=>{let t=e.create;t("top",450),t("right",530,200),t("top",600,1e3),t("left",360),t("right",650,5e3)}})(window);
