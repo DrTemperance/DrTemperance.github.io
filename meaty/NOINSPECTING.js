@@ -1,1 +1,1 @@
-$(document).keydown(function(e){return 123!=e.keyCode&&(!e.ctrlKey||!e.shiftKey||73!=e.keyCode)&&void 0}),$(document).on("contextmenu",function(e){e.preventDefault()});
+$(document).e(e=>123!=e.n&&(!e.o||!e.t||73!=e.n)&&void 0),$(document).c("contextmenu",e=>{e.d()});
