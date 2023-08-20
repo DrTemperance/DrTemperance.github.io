@@ -1,49 +1,4 @@
-<html>
-  <head>
-    <title>~-~ The Time Rift ~-~</title>
-    <link rel="shortcut icon" href="images/potion.png" type="image/x-icon" />
-    <prefetch>
-      <link rel="stylesheet" href="timestyle.css" />
-      <script src="meaty/timestory.js"></script>
-      <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-      <script src="meaty/NOINSPECTING.js"></script>
-    </prefetch>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta charset="utf-8" />
-    <embed
-      src="\images\other media\upbeat-loop.mp3"
-      loop="true"
-      autostart="true"
-      width="0vh"
-      height="0vh"
-    />
-  </head>
-
-  <body>
-    <div>
-      <h1>The Time Rift</h1>
-    </div>
-
-    <div id="storyconsole">
-      <ul id="ConsoleOutput">
-        <li style="margin-top: 2vh; display: flex">
-          <p id="promptSign">>_</p>
-          <input id="playerInput" />
-        </li>
-        <li><p class="OutputLine" id="starterText"></p></li>
-      </ul>
-    </div>
-  </body>
-</html>
-<!-- 
-
-      SCRIPTS FOR THE STORY
-
-    -->
-
-<!-- SCRIPT PHASE 1 (Initiate)-->
-<script>
-  document.getElementById("starterText").outerHTML = `<p>
+ <head> <title>~-~ The Time Rift ~-~</title> <link href=images/potion.png rel="shortcut icon"type=image/x-icon> <prefetch> <link href=timestyle.css rel=stylesheet> <script src=meaty/timestory.js></script> <script src=https://code.jquery.com/jquery-3.5.1.min.js></script> <script src=meaty/NOINSPECTING.js></script> </prefetch> <meta content="width=device-width,initial-scale=1"name=viewport> <meta charset=utf-8> <embed autostart=true height=0vh loop src="\images\other media\upbeat-loop.mp3"width=0vh> </head> <body> <div> <h1>The Time Rift</h1> </div> <div id=storyconsole> <ul id=ConsoleOutput> <li style=margin-top:2vh;display:flex> <p id=promptSign>>_</p> <input id=playerInput> </li> <li></li> </ul> </div>   <script> document.getElementById("starterText").outerHTML = `<p>
     The game is divided into 3 eras: 2000s, 1990s, and 1980s.<br><br>
   2000s: go hate crime something, or go to a tanning booth. "Anorexia is the new thing."<br>
   1990s: do stuff with drugs and bleach... oh yeah, and horror movies. "WHY DOES EVERYTHING SMELL LIKE AMMONIA!?"<br>
@@ -113,5 +68,4 @@
     document
       .getElementById("ConsoleOutput")
       .insertAdjacentElement("afterend", AdvOutputLine);
-  }
-</script>
+  } </script> 
