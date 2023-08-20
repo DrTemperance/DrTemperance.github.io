@@ -1,1 +1,1 @@
-!function($){"use strict";$.opspark=$.opspark||{},$.opspark.platform=$.opspark.platform||{};let p=$.opspark.platform;p.init=function $(t){let o=p.create;o(0,t.world.height-32,3,2),o(200,520,1.25),o(200,490),o(800,580),o(200,0,.05,15.3),o(675,390),o(500,340,.25)}}(window);
+($=>{"use strict";$.t=$.t||{},$.t.e=$.t.e||{};let t=$.t.e;t.i=$=>{let e=t.create;e(0,$.s.l-32,3,2),e(200,520,1.25),e(200,490),e(800,580),e(200,0,.05,15.3),e(675,390),e(500,340,.25)}})(window);
