@@ -1,1 +1,26 @@
-(r=>{"use strict";r.r=r.r||{};let t=r.r;r.r.t=r.r.t||{},t.t.e=r=>{r.a=r.add.i(),r.a.l=!0,t.t.create=(t,a,e,c,l)=>{var s=r.a.create(t,a,"platform");return s.o.n(e||1,c||1),s.u.s=l||!0,s}}})(window);
+!(function (l) {
+  "use strict";
+  l.opspark = l.opspark || {};
+  let p = l.opspark;
+  (l.opspark.platform = l.opspark.platform || {}),
+    (p.platform.factory = function (l) {
+      (l.platforms = l.add.group()), (l.platforms.enableBody = !0);
+      let a = (p, a, o = 1, r = 1, t = !0) =>
+        l.platforms.create(
+          p,
+          a,
+          "platform",
+          null,
+          !0,
+          !1,
+          null,
+          null,
+          o,
+          r,
+          null,
+          null,
+          t
+        );
+      p.platform.create = a;
+    });
+})(window);

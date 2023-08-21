@@ -1,1 +1,28 @@
-(e=>{"use strict";e.e=e.e||{};let t=e.e;t.r=(e,r,n)=>{let c,l;return l={t:t.t,create:e,a:r},n&&(l.s=()=>{let e=c.d.l;c.n.h(e,32,32),c.n.u(e),c.w&&c.w.forEach(e=>{c.n.u(e)})}),(c=new Phaser.P(900,700,Phaser.c,"",l)).e={},c.e.i=()=>{c.p.o="#E9EEF7",c.b.F(Phaser.g.f),c.b.k.j=2},c}})(window);
+!(function (e) {
+  "use strict";
+  e.opspark = e.opspark || {};
+  let r = e.opspark;
+  r.createGame = function (e, a, o) {
+    let t = new Phaser.Game(900, 700, Phaser.AUTO, "", {
+      preload: r.preload,
+      create: e,
+      update: a,
+      render() {
+        let { asset: e, projectile: r } = t.player;
+        t.debug.bodyInfo(e, 32, 32),
+          t.debug.body(e),
+          r && r.forEach((e) => t.debug.body(e));
+      },
+    });
+    return (
+      (t.opspark = {
+        init: function () {
+          (t.stage.backgroundColor = "#E9EEF7"),
+            t.physics.startSystem(Phaser.Physics.ARCADE),
+            (t.physics.arcade.TILE_BIAS = 2);
+        },
+      }),
+      t
+    );
+  };
+})(window);

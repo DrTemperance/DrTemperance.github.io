@@ -1,1 +1,23 @@
-(l=>{"use strict";l.a=l.a||{},l.a.e=l=>{l.s.l("cannon","./images/cannon.png"),l.s.l("projectile","./images/projectile.png"),l.s.l("platform","./images/platform.png"),l.s.l("db","./images/collectables/database.png"),l.s.l("1","./images/collectables/1.png"),l.s.l("2","./images/collectables/2.png"),l.s.l("3","./images/collectables/3.png"),l.s.l("4","./images/collectables/4.png"),l.s.g("halle","./images/halle/phaser-json-array/halle.png","./images/halle/phaser-json-array/halle.json")}})(window);
+!(function (a) {
+  "use strict";
+  a.opspark = a.opspark || {};
+  a.opspark.preload = function (a) {
+    [
+      { key: "cannon", path: "./images/cannon.png" },
+      { key: "projectile", path: "./images/projectile.png" },
+      { key: "platform", path: "./images/platform.png" },
+      { key: "db", path: "./images/collectables/database.png" },
+      { key: "1", path: "./images/collectables/1.png" },
+      { key: "2", path: "./images/collectables/2.png" },
+      { key: "3", path: "./images/collectables/3.png" },
+      { key: "4", path: "./images/collectables/4.png" },
+    ].forEach((e) => {
+      a.load.image(e.key, e.path);
+    }),
+      a.load.atlas(
+        "halle",
+        "./images/halle/phaser-json-array/halle.png",
+        "./images/halle/phaser-json-array/halle.json"
+      );
+  };
+})(window);

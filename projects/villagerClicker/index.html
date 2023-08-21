@@ -1,0 +1,486 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <link id="favicon" rel="icon" href="./heads/nitwit.webp" type="image/webp" />
+  <title>~ Villager Clicker ~</title>
+  <meta charset="UTF-16" />
+  <script src="brig.js" async></script>
+  <script src="commands.js" async></script>
+  <style>
+    @font-face {
+      src: url(minecraft.otf);
+      font-family: mcfont;
+    }
+
+    * {
+      font-family: mcfont !important;
+      font-size: xx-large;
+      user-select: none;
+      overflow: hidden;
+      cursor: default;
+      margin: auto;
+    }
+
+    #villager {
+      background-image: url(./heads/nitwit.webp);
+      background-size: 100% 100%;
+      position: absolute;
+      display: block;
+    }
+
+    .death,
+    .join {
+      list-style-type: none;
+    }
+
+    .board {
+      background-size: 100% 100%;
+      position: absolute;
+      z-index: -10000;
+      height: 100%;
+      width: 100%;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      top: 0;
+    }
+
+    .level {
+      text-align: right;
+      padding: 8px;
+      order: 0;
+    }
+
+    .score {
+      font-size: xx-large;
+      padding: 8px;
+      order: 1;
+    }
+
+    .chat {
+      background-color: rgba(0, 0, 0, 0.5);
+      height: fit-content;
+      align-items: center;
+      width: max-content;
+      position: absolute;
+      text-align: left;
+      z-index: 1500;
+      padding: 3px;
+      bottom: 75px;
+      left: 0;
+
+      .level,
+      .score,
+      .chat,
+      .death,
+      .join {
+        text-align: left;
+        font-size: 28px;
+        margin: 8px 0;
+        z-index: 1000;
+        color: #fff;
+
+        &.join,
+        &.death {
+          display: none;
+        }
+
+        &.join {
+          color: #ff0;
+        }
+      }
+    }
+
+    #villager {
+      position: absolute;
+      z-index: 500;
+      cursor: pointer;
+    }
+
+    #stats {
+      filter: drop-shadow(0px 0px 1px #111);
+      flex-direction: column;
+      height: fit-content;
+      width: fit-content;
+      position: absolute;
+      z-index: 1000;
+      bottom: 0;
+      right: 0;
+      left: 0;
+
+      & #heartBar {
+        background-size: 32px 32px;
+        display: inline-flex;
+        height: fit-content;
+        width: fit-content;
+        padding: 4px;
+        order: 0;
+
+        & .hearts {
+          padding: 1px;
+          width: 56px;
+          pointer-events: none;
+        }
+      }
+
+      & #hotbar {
+        background-image: url(./stats/hotbar.png);
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 100% 100%;
+        width: calc(64px * 9);
+        display: flex;
+        padding: 4px;
+        height: 64px;
+        order: 1;
+
+        & .bar {
+          background-image: url(./stats/hotbarSlot.webp);
+          background-repeat: no-repeat;
+          background-position: center;
+          background-size: 100% 100%;
+          height: 64px;
+          width: 64px;
+          padding: 0;
+          margin: 0;
+
+          & img {
+            background: none;
+            cursor: pointer;
+            height: 50px;
+            margin: auto;
+            width: 50px;
+            padding: 7px;
+          }
+
+          &:hover {
+            background-image: url(./stats/selectedSlot.webp);
+            transform: scale(1.1);
+            transition: all 0.2s;
+          }
+        }
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="board" onclick="boardClick()"></div>
+  <div id="villager" onclick="boxClick()"></div>
+  <div class="chat">
+    <div class="level">Main Menu - Villager Clicker</div>
+    <div class="score"></div>
+    <div class="anouncements">
+      <li class="nitwit death">Nitwit was slain by @p</li>
+      <li class="farmer join">Farmer joined the game</li>
+      <li class="farmer death">Farmer was slain by @p</li>
+      <li class="mason join">Mason joined the game</li>
+      <li class="mason death">Mason was slain by @p</li>
+      <li class="librarian join">Librarian joined the game</li>
+      <li class="librarian death">Librarian was slain by @p</li>
+      <li class="weaponsmith join">Weaponsmith joined the game</li>
+      <li class="weaponsmith death">Weaponsmith was slain by @p</li>
+      <li class="cleric join">Cleric joined the game</li>
+      <li class="cleric death">Cleric was slain by @p</li>
+      <li class="trader join">Wandering Trader joined the game</li>
+      <li class="trader death">Wandering Trader was slain by @p</li>
+    </div>
+  </div>
+  <div id="stats">
+    <div id="heartBar">
+      <img class="hearts" id="health1" src="./stats/fullHeart.png" />
+      <img class="hearts" id="health2" src="./stats/fullHeart.png" />
+      <img class="hearts" id="health3" src="./stats/fullHeart.png" />
+      <img class="hearts" id="health4" src="./stats/fullHeart.png" />
+      <img class="hearts" id="health5" src="./stats/fullHeart.png" />
+      <img class="hearts" id="health6" src="./stats/fullHeart.png" />
+      <img class="hearts" id="health7" src="./stats/fullHeart.png" />
+      <img class="hearts" id="health8" src="./stats/fullHeart.png" />
+      <img class="hearts" id="health9" src="./stats/fullHeart.png" />
+      <img class="hearts" id="health10" src="./stats/fullHeart.png" />
+    </div>
+    <div onclick=audio.GUIclick.play() id=hotbar>
+      <div class=bar><img class=item id=item1 onclick=barClick(this) src=./items/empty.webp></div>
+      <div class=bar><img class=item id=item2 onclick=barClick(this) src=./items/empty.webp></div>
+      <div class=bar><img class=item id=item3 onclick=barClick(this) src=./items/empty.webp></div>
+      <div class=bar><img class=item id=item4 onclick=barClick(this) src=./items/empty.webp></div>
+      <div class=bar><img class=item id=item5 onclick=barClick(this) src=./items/empty.webp></div>
+      <div class=bar><img class=item id=item6 onclick=barClick(this) src=./items/empty.webp></div>
+      <div class=bar><img class=item id=item7 onclick=barClick(this) src=./items/empty.webp></div>
+      <div class=bar><img class=item id=item8 onclick=barClick(this) src=./items/empty.webp></div>
+      <div class=bar><img class=item id=item9 onclick=barClick(this) src=./items/empty.webp></div>
+    </div>
+  </div>
+
+  <script async>
+    // Import sounds //
+    const audio = {
+      villagerAmbient: new Audio("./audio/villagerAmbient.mp3"),
+      villagerDeath: new Audio("./audio/villagerDeath.mp3"),
+      villagerHurt: new Audio("./audio/villagerHurt.mp3"),
+      playerHurt: new Audio("./audio/playerHurt.mp3"),
+      GUIclick: new Audio("./audio/click.mp3"),
+    };
+
+    // Assign elements //
+    const levelTxt = document.querySelector(".level"),
+      hearts = document.querySelector(".hearts"),
+      box = document.getElementById("villager"),
+      board = document.querySelector(".board"),
+      score = document.querySelector(".score"),
+      stats = document.getElementById("stats"),
+      heart = {},
+      chat = document.querySelector(".chat");
+
+    // Initialize hearts //
+    for (let i = 10; i >= 1; i--)
+      (heart[`health${i}`] = document.getElementById(`health${i}`)),
+        (heart[`health${i}`].requirement = 2 * i);
+
+    // Initialize levels //
+    var level = 1;
+    const levelsRayRay = [
+      {
+        name: "The Nitwit",
+        health: 10,
+        phases: 2,
+        size: "300px",
+        background: "./backgrounds/generic.webp",
+        head: "./heads/nitwit.webp",
+        chaos: 2500,
+      },
+      {
+        name: "The Farmer",
+        health: 20,
+        phases: 2,
+        size: "275px",
+        background: "./backgrounds/farm.webp",
+        head: "./heads/farmer.webp",
+        chaos: 2000,
+      },
+      {
+        name: "The Mason",
+        health: 30,
+        phases: 2,
+        size: "250px",
+        background: "./backgrounds/masonShop.webp",
+        head: "./heads/nitwit.webp",
+        chaos: 1500,
+      },
+      {
+        name: "The Librarian",
+        health: 40,
+        phases: 3,
+        size: "200px",
+        background: "./backgrounds/library.webp",
+        head: "./heads/librarian.webp",
+        chaos: 1000,
+      },
+      {
+        name: "The Weaponsmith",
+        health: 50,
+        phases: 2,
+        size: "180px",
+        background: "./backgrounds/blacksmith.webp",
+        head: "./heads/weaponsmith.webp",
+        chaos: 500,
+      },
+      {
+        name: "The Cleric",
+        health: 64,
+        phases: 2,
+        size: "150px",
+        background: "./backgrounds/church.webp",
+        head: "./heads/cleric.webp",
+        chaos: 250,
+      },
+      {
+        name: "The Wandering Trader",
+        health: 100,
+        phases: 3,
+        size: "100px",
+        background: "./backgrounds/traderBack.webp",
+        head: "./heads/trader.webp",
+        chaos: 50,
+      },
+      {
+        name: "The Death",
+        health: Infinity,
+        phases: Infinity,
+        size: "0px",
+        background: "./backgrounds/deathScreen.webp",
+        head: undefined,
+        chaos: Infinity,
+      },
+    ];
+    let levelObj = levelsRayRay[level - 1];
+
+    // Initialize variables (villager & board) //
+    var villagerHealth = levelObj.health;
+    var perPhase = villagerHealth / levelObj.phases;
+    var villagerHeight = parseInt(levelObj.size.height);
+    var villagerWidth = parseInt(levelObj.size.width);
+    var boardHeight = board.clientHeight;
+    var boardWidth = board.clientWidth;
+    var positionX, positionY, interval, boxsize;
+    var curve = levelObj.curve;
+
+
+    // Initialize variables (player) //
+    var speedY = (speed = 30);
+    var playerDamage = 0;
+    var points = 0;
+
+    // Initialize variable (timing) //
+    var lastTimestamp;
+
+    // Begin //
+    drawBoard();
+
+    function drawBoard() {
+      // Set level //
+      levelObj = levelsRayRay[level - 1];
+
+      // Set box size //
+      villagerHeight = 1.25 * parseInt(levelObj.size);
+      villagerWidth = parseInt(levelObj.size);
+      boxsize = Math.max(box.clientWidth, box.clientHeight);
+      boardHeight = board.clientHeight - boxsize;
+      boardWidth = board.clientWidth - boxsize;
+
+      // Set board //
+      positionY = Math.random() * (boardHeight - villagerHeight);
+      positionX = Math.random() * (boardWidth - villagerWidth);
+
+      // Set box //
+      box.style.width = levelObj.size;
+      box.style.height = `${villagerHeight}px`;
+      box.style.left = `${positionX}px`;
+      box.style.top = `${positionY}px`;
+      board.style.background = `url(${levelObj.background})`;
+      board.style.backgroundSize = "100% 100%";
+
+      // Set GUI //
+      score.textContent = `Villager Health: ${villagerHealth - points
+        }/${villagerHealth}`;
+      redrawHearts();
+    }
+
+    function update(timestamp) {
+      // Update timing for fps calc //
+      if (!lastTimestamp) lastTimestamp = timestamp;
+      const deltaTime = (timestamp - lastTimestamp) / 1e3;
+
+      // Update level GUI //
+      levelTxt.textContent = `Level ${level} - ${levelObj.name}`;
+
+      // Progress level check //
+      if (points >= villagerHealth) {
+        level++;
+        levelObj = levelsRayRay[level - 1];
+        document.getElementById("favicon").href = levelObj.head;
+        document.getElementById("villager").style.backgroundImage = `url(${levelObj.head})`;
+        playerDamage = Math.round(0.5 * playerDamage);
+        speedY *= .75;
+        speed *= .75;
+        points = 0;
+        audio.villagerDeath.play();
+        drawBoard();
+        drawBoard();
+      }
+
+      // Calculate the new position //
+      let newX = positionX + speed * deltaTime;
+      let newY = positionY + speedY * deltaTime;
+
+      // Update the box size & position //
+      box.style.width = levelObj.size;
+      box.style.height = `${1.25 * parseInt(levelObj.size)}px`;
+      box.style.left = `${positionX}px`;
+      box.style.top = `${positionY}px`;
+
+      // Check for collisions //
+      var villagerOffset = Math.ceil(villagerWidth / 3.75);
+      (newY >= boardHeight) && (() => { newY = boardHeight; speedY = -speedY; })();
+      (newY < 0) && (() => { newY = 0; speedY = -speedY; })();
+      (newX >= boardWidth + (villagerOffset)) && (() => { newX = boardWidth + villagerOffset; speed = -speed; })();
+      (newX < 0) && (() => { newX = 0; speed = -speed; })();
+
+      // Update the positions after all checks
+      positionX = newX;
+      positionY = newY;
+
+      // Update the animation //
+      lastTimestamp = timestamp;
+      requestAnimationFrame(update);
+    }
+
+    function boxClick() {
+      points++;
+
+      // Increase box speed //
+      // curve = levelObj.curve
+      speed <= 0 ? (speed -= 50) : (speed += 50);
+      speedY <= 0 ? (speedY -= 50) : (speedY += 50);
+      drawBoard();
+
+      audio.villagerHurt.play();
+    }
+
+    function boardClick() {
+      // Damage Player //
+      playerDamage++;
+
+      // Hurt Sound & Redraw Health //
+      if (level != 8) {
+        audio.playerHurt.play();
+        redrawHearts();
+      }
+
+      // Initiate Death Screen //
+      if (playerDamage >= 20 && level < 8) {
+        // if totem, prevent death //
+        if (!totem) {
+          level = 8
+          drawBoard();
+          chat.style.display = "none";
+          let rotate = 1;
+          setInterval(() => {
+            for (let e = 1; e <= 10; e++)
+              heart[`health${e}`].style.transform = `rotate(${rotate++}deg)`;
+          }, 25);
+          cancelAnimationFrame(interval);
+        }
+        // if totem, heal //
+        if (totem) {
+          playerDamage = 0; totem = 0
+        }
+      }
+    }
+
+    function redrawHearts() {
+      // Set Hearts Status //
+      for (let i = 10; i >= 1; i--)
+        20 - playerDamage >= 2 * i
+          ? ((heart[`health${i}`].status = "full"),
+            (heart[`health${i}`].src = "./stats/fullHeart.png"))
+          : 20 - playerDamage == 2 * i - 1 &&
+          ((heart[`health${i}`].status = "half"),
+            (heart[`health${i}`].src = "./stats/halfHeart.png")),
+          20 - playerDamage < 2 * i - 1 &&
+          ((heart[`health${i}`].status = "empty"),
+            (heart[`health${i}`].src = "./stats/empty.png"));
+    }
+
+    // Event Listeners //
+    window.addEventListener("resize", () => {
+      drawBoard();
+    });
+
+    drawBoard();
+    interval = requestAnimationFrame(update);
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,24 @@
+@font-face {
+  font-family: "dseg7_classic_minilight";
+  src: url("fonts/dseg7classicmini-light-webfont.eot");
+  src: url("fonts/dseg7classicmini-light-webfont.eot?#iefix")
+      format("embedded-opentype"),
+    url("fonts/dseg7classicmini-light-webfont.woff2") format("woff2"),
+    url("fonts/dseg7classicmini-light-webfont.woff") format("woff"),
+    url("fonts/dseg7classicmini-light-webfont.ttf") format("truetype"),
+    url("fonts/dseg7classicmini-light-webfont.svg#dseg7_classic_minilight")
+      format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "impact_labelregular";
+  src: url("fonts/Impact_Label-webfont.eot");
+  src: url("fonts/Impact_Label-webfont.eot?#iefix") format("embedded-opentype"),
+    url("fonts/Impact_Label-webfont.woff") format("woff"),
+    url("fonts/Impact_Label-webfont.ttf") format("truetype"),
+    url("fonts/Impact_Label-webfont.svg#impact_labelregular") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}

@@ -1,1 +1,0 @@
-var Chance=require("../chance.js"),argv=require("minimist")(process.e.slice(2),{r:"pool"}),generator=process.e[2],options=argv,chance=new Chance((new Date).getTime().toString());generator&&chance[generator]?process.o.n(chance[generator](options)):process.a.n('Unknown generator "'+generator+'"');
