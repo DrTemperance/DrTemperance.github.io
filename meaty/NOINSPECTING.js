@@ -1,1 +1,9 @@
-$(document).e(e=>123!=e.n&&(!e.o||!e.t||73!=e.n)&&void 0),$(document).c("contextmenu",e=>{e.d()});
+function handleKeyDownEvent(event) {
+    const forbiddenKeyCodes = new Set(["F12"]);
+    if ((event.ctrlKey && event.shiftKey && event.key === "i") || forbiddenKeyCodes.has(event.key)) {
+        event.preventDefault();
+    }
+}
+
+document.addEventListener("keydown", handleKeyDownEvent, false);
+document.oncontextmenu = e => e.preventDefault();

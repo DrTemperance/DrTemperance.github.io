@@ -1,1 +1,0 @@
-(e=>{"use strict";e.e=e.e||{},e.e.s=e.e.s||{};let $=e.e.s,a={t:{n:"db",a:10},max:{n:"max",a:20},i:{n:"steve",a:30},o:{n:"grace",a:40},d:{n:"kennedi",a:50}};e.e.s.p=a,$.y=()=>{let e=$.create;e(a.i,240,440),e(a.t,535,290),e(a.max,50,480),e(a.o,440,260),e(a.d,350,210)}})(window);
