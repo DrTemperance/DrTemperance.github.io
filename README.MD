@@ -10,6 +10,7 @@
 - Change music.html's text boxes to reflect what I like about them instead of a full Wikipedia copy-paste
 - Complete scrollbar customization
 - Redo CSS and organize/optimize IDs/Classes
+- 
 
 ### Medium Priority
 
@@ -60,7 +61,7 @@ For project boxes:
 
 ```css
 .clickedbox {
-  position: fixed;
+  postition: fixed;
   left: 0;
   right: 0;
   top: 0;
@@ -74,7 +75,7 @@ For project boxes:
 ```js
 document.querySelectorAll(".projclassthing").forEach((i) => {
   i.addEventListener("click", (handle) => {
-    i.classlist.add("clicky");
+    i.classlist.add("cclicky");
   });
 });
 ```
