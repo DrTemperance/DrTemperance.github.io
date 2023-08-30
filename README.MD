@@ -1,4 +1,4 @@
-﻿# To Do
+# To Do
 
 ## Main Website
 
@@ -10,7 +10,7 @@
 - Change music.html's text boxes to reflect what I like about them instead of a full Wikipedia copy-paste
 - Complete scrollbar customization
 - Redo CSS and organize/optimize IDs/Classes
-- 
+- Implement speed based blur filter and boolean values for Graphics(CSS/Elements), Difficulty(speed), etc; in a settings menu.
 
 ### Medium Priority
 
