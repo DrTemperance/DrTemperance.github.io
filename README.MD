@@ -2,22 +2,23 @@
 
 ## Main Website
 
+### TIME => ARG
+
 ### High Priority
 
 - Fix/Finish styling
-- Fully phase out .PNG and .JPG/.JPEG (possibly even .GIF) (convert to .WEBP)
 - Switch to native image files
-- Change music.html's text boxes to reflect what I like about them instead of a full Wikipedia copy-paste
+- Music.html
 - Complete scrollbar customization
 - Redo CSS and organize/optimize IDs/Classes
 - Implement speed based blur filter and boolean values for Graphics(CSS/Elements), Difficulty(speed), etc; in a settings menu.
+- Integrate PHP & Python
 
 ### Medium Priority
 
-- Implement compatibility for mobile devices and Other aspect ratios/sizes.
-- Switch from JQuery to DOM, avoiding the import of JQuery library, effectively speeding up load times.
-- Implement unique CSS animations/interactivity to almost all elements while maintaining speed.
-- Phase out alert() and use Modals or custom DOM elements.
+- Compatibility for varying aspect ratios.
+- CSS interactivity to elements while maintaining performance.
+- Switch to Modals.
 
 ### Low Priority
 
@@ -34,7 +35,7 @@
 
 - Fully revamp the "bouncing box" with a Minecraft-themed, multi-level game.
 - Fully recreate the assets of all projects (i.e., Platformer & Box) (Including Halle).
-- Fix Project Spark's JS for all projects and phase out JQuery, effectively speeding up all projects tenfold.
+- Fix Project Spark's JS for all projects and phase out JQuery, speeding up all projects tenfold.
 - Finish Villager Clicker... Originally, "Bouncing Box".
   a) {What an uninspired name, well I mean, so is mine, but at least there's a theme}.
 
