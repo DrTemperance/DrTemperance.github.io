@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="VcsDirectoryMappings">
+    <mapping directory="" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/asd-projects/data-shapes" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/asd-projects/debugging-exercise" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/asd-projects/image-filtering" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/asd-projects/snake" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/asd-projects/sorting-exercise" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/asd-projects/walker" vcs="Git" />
+  </component>
+</project>

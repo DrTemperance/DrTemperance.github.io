@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="312165c8-eaa7-4385-8eee-556a0b5e8a86" name="Changes" comment="sir grancchio: today, mr squidward.! 11!!!&#10;&#10;squidwrd: no" />
+    <list id="bf247eff-9b28-4bde-ba15-51999f532ec6" name="Changes by gherd" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="PUSH_TAGS">
+      <GitPushTagMode>
+        <option name="argument" value="--follow-tags" />
+        <option name="title" value="Current Branch" />
+      </GitPushTagMode>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/asd-projects/data-shapes" />
+    <option name="ROOT_SYNC" value="DONT_SYNC" />
+    <option name="UPDATE_TYPE" value="REBASE" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/README.MD" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="JsBowerSettings">
+    <bower-package value="" />
+    <bower.json value="" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
+  <component name="ProjectId" id="2UP75iITIgj8RAdosN9kAwAMaX9" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "dart.analysis.tool.window.visible": "false",
+    "ignore.virus.scanning.warn.message": "true",
+    "ignore_missing_gitignore": "true",
+    "javascript.nodejs.core.library.configured.version": "20.3.0",
+    "javascript.nodejs.core.library.typings.version": "20.3.0",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.standard": "true",
+    "node.js.detected.package.stylelint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.standard": "",
+    "node.js.selected.package.stylelint": "",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "SDKs",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.2",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "template.copyright.formatting",
+    "show.migrate.to.gradle.popup": "false",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\jello\IdeaProjects\DrTemperance.github.io\asd-projects" />
+    </key>
+  </component>
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="git" />
+      <command value="cd c:users/jello" />
+      <command value="sfc /scannow" />
+      <command value="sudo " />
+      <command value="?" />
+      <command value="git pull" />
+      <command value="git pull https://github.com/DrTemperance/DrTemperance.github.io/tree/main" />
+      <command value="git clone https://github.com/OperationSpark/asd-setup.git" />
+      <command value="chmod +x asd-setup/setup.sh" />
+      <command value="pwd" />
+      <command value="dir" />
+      <command value="git clone https://github.com/operationspark/asd-data-shapes data-shapes" />
+      <command value="git clone https://github.com/OperationSpark/asd-debugging-exercise debugging-exercise" />
+      <command value="git clone https://github.com/operationspark/asd-image-filtering image-filtering" />
+      <command value="git clone https://github.com/operationspark/asd-sorting sorting-exercise" />
+      <command value="git clone https://github.com/operationspark/snake-fsd snake" />
+      <command value="#!/bin/bash  printf &quot;\n&quot;  if test -e asd-projects; then   rm -rf asd-projects fi  mkdir asd-projects cd asd-projects  git clone https://github.com/operationspark/asd-data-shapes data-shapes git clone https://github.com/OperationSpark/asd-debugging-exercise debugging-exercise git clone https://github.com/operationspark/asd-walker walker git clone https://github.com/operationspark/asd-image-filtering image-filtering git clone https://github.com/operationspark/asd-sorting sorting-exercise git clone https://github.com/operationspark/snake-fsd snake  if ! test -e data-shapes || ! test -e debugging-exercise || ! test -e walker || ! test -e image-filtering || ! test -e sorting-exercise || ! test -e snake ; then   printf &quot;\nFAILURE: Some projects could not be accessed on GitHub. Please run the script again.&quot; else   #check for existing project-instructions folder   if ! test -e project-instructions; then     mkdir ../project-instructions;   fi    #READMEs   cp data-shapes/README.md ../project-instructions/data-shapes.md   cp debugging-exercise/README.md ../project-instructions/debugging.md   cp walker/README.md ../project-instructions/walker.md   cp snake/README.md ../project-instructions/snake.md   cp image-filtering/README.md ../project-instructions/image-filtering.md   cp sorting-exercise/README.md ../project-instructions/sorting-exercise.md    #data-shapes   cd data-shapes   rm -rf .git* .master    #debugging   cd ../debugging-exercise   rm -rf .git* .master      #walker   cd ../walker   rm -rf .git* .master    #snake   cd ../snake   rm -rf .git* .master    #image-filtering   cd ../image-filtering   rm -rf .git* .master    #sorting-exercise   cd ../sorting-exercise   rm -rf .git* .master    printf &quot;\nSUCCESS: All projects succesfully installed.\n&quot; fi" />
+      <command value="git clone https://github.com/operationspark/walker walker" />
+      <command value="git clone https://github.com/operationspark/asd-walker walker" />
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration name="index.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/DrTemperance.github.io/projects/villagerClicker/index.html" useBuiltInWebServerPort="true">
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JavaScript Debug.index.html" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="312165c8-eaa7-4385-8eee-556a0b5e8a86" name="Changes" comment="" />
+      <created>1692829180260</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1692829180260</updated>
+      <workItem from="1692829181423" duration="14000" />
+      <workItem from="1692829205748" duration="4354000" />
+      <workItem from="1692833685205" duration="33000" />
+      <workItem from="1692833726219" duration="15214000" />
+      <workItem from="1692910498966" duration="1413000" />
+      <workItem from="1692916870615" duration="9449000" />
+      <workItem from="1693000654986" duration="12769000" />
+      <workItem from="1693028556571" duration="5764000" />
+      <workItem from="1693099407580" duration="19785000" />
+      <workItem from="1693442077535" duration="1404000" />
+      <workItem from="1694465370487" duration="3871000" />
+    </task>
+    <task id="LOCAL-00001" summary="papua pigs">
+      <option name="closed" value="true" />
+      <created>1692841590697</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1692841590697</updated>
+    </task>
+    <task id="LOCAL-00002" summary="papua pigs 2!!!!!&#10;&#10;lots!">
+      <option name="closed" value="true" />
+      <created>1692851171094</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1692851171094</updated>
+    </task>
+    <task id="LOCAL-00003" summary="switched out keycodes">
+      <option name="closed" value="true" />
+      <created>1693013729246</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1693013729246</updated>
+    </task>
+    <task id="LOCAL-00004" summary="testing">
+      <option name="closed" value="true" />
+      <created>1693018519118</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1693018519118</updated>
+    </task>
+    <task id="LOCAL-00005" summary="dont ignore me">
+      <option name="closed" value="true" />
+      <created>1693020838810</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1693020838810</updated>
+    </task>
+    <task id="LOCAL-00006" summary="dont ignore me!!">
+      <option name="closed" value="true" />
+      <created>1693020911248</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1693020911248</updated>
+    </task>
+    <task id="LOCAL-00007" summary="texture upscaling &amp; updates">
+      <option name="closed" value="true" />
+      <created>1693027459075</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1693027459075</updated>
+    </task>
+    <task id="LOCAL-00008" summary="today, mr squidward.">
+      <option name="closed" value="true" />
+      <created>1693035330148</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1693035330148</updated>
+    </task>
+    <task id="LOCAL-00009" summary="today, mr squidward.! 11!!!">
+      <option name="closed" value="true" />
+      <created>1693035548781</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1693035548781</updated>
+    </task>
+    <task id="LOCAL-00010" summary="sir grancchio: today, mr squidward.! 11!!!&#10;&#10;squidwrd: no">
+      <option name="closed" value="true" />
+      <created>1693130144478</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1693130144478</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_NEW_TODO" value="false" />
+    <MESSAGE value="papua pigs" />
+    <MESSAGE value="papua pigs 2!!!!!&#10;&#10;lots!" />
+    <MESSAGE value="switched out keycodes" />
+    <MESSAGE value="testing" />
+    <MESSAGE value="dont ignore me" />
+    <MESSAGE value="dont ignore me!!" />
+    <MESSAGE value="texture upscaling &amp; updates" />
+    <MESSAGE value="today, mr squidward." />
+    <MESSAGE value="today, mr squidward.! 11!!!" />
+    <MESSAGE value="sir grancchio: today, mr squidward.! 11!!!&#10;&#10;squidwrd: no" />
+    <option name="LAST_COMMIT_MESSAGE" value="sir grancchio: today, mr squidward.! 11!!!&#10;&#10;squidwrd: no" />
+    <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/projects/villagerClicker/index.html</url>
+          <line>587</line>
+          <option name="timeStamp" value="21" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>
