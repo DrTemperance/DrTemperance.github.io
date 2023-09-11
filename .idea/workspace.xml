@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="312165c8-eaa7-4385-8eee-556a0b5e8a86" name="Changes" comment="sir grancchio: today, mr squidward.! 11!!!&#10;&#10;squidwrd: no" />
+    <list default="true" id="312165c8-eaa7-4385-8eee-556a0b5e8a86" name="Changes" comment="sir grancchio: today, mr squidward.! 11!!!&#10;&#10;squidwrd: no">
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+    </list>
     <list id="bf247eff-9b28-4bde-ba15-51999f532ec6" name="Changes by gherd" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,7 +20,7 @@
         <option name="title" value="Current Branch" />
       </GitPushTagMode>
     </option>
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/asd-projects/data-shapes" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="ROOT_SYNC" value="DONT_SYNC" />
     <option name="UPDATE_TYPE" value="REBASE" />
   </component>
@@ -50,6 +52,7 @@
     "WebServerToolWindowFactoryState": "false",
     "codeWithMe.voiceChat.enabledByDefault": "false",
     "dart.analysis.tool.window.visible": "false",
+    "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
     "ignore_missing_gitignore": "true",
     "javascript.nodejs.core.library.configured.version": "20.3.0",
@@ -128,7 +131,7 @@
       <workItem from="1693028556571" duration="5764000" />
       <workItem from="1693099407580" duration="19785000" />
       <workItem from="1693442077535" duration="1404000" />
-      <workItem from="1694465370487" duration="3871000" />
+      <workItem from="1694465370487" duration="4202000" />
     </task>
     <task id="LOCAL-00001" summary="papua pigs">
       <option name="closed" value="true" />
