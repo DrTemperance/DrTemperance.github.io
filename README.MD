@@ -39,9 +39,6 @@
 - Finish Villager Clicker... Originally, "Bouncing Box".
   a) {What an uninspired name, well I mean, so is mine, but at least there's a theme}.
 
-### Medium Priority
-
-- Fix "Catstagram" Functionality/CSS, _IF_ I even decide to keep it.
 
 ## Time Machine
 
