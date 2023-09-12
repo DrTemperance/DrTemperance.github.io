@@ -6,19 +6,16 @@
 
 ### High Priority
 
-- Fix/Finish styling
-- Switch to native image files
-- Music.html
-- Complete scrollbar customization
-- Redo CSS and organize/optimize IDs/Classes
-- Implement speed based blur filter and boolean values for Graphics(CSS/Elements), Difficulty(speed), etc; in a settings menu.
-- Integrate PHP & Python
+- Fix & Finish css; incl. class/id names & inline **_(70% Done)_**
+- _Music.html_
+- Implement speed based blur filter and boolean values for CSS, Difficulty(speed) in a settings menu. _-Villager_
+- Integrate PHP & Python, maybe even Java Webapps
 
 ### Medium Priority
 
 - Compatibility for varying aspect ratios.
 - CSS interactivity to elements while maintaining performance.
-- Switch to Modals.
+- Switch to _Modals_ from hidden divs.
 
 ### Low Priority
 
