@@ -5,7 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="312165c8-eaa7-4385-8eee-556a0b5e8a86" name="Changes" comment="sir grancchio: today, mr squidward.! 11!!!&#10;&#10;squidwrd: no">
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/info.html" beforeDir="false" afterPath="$PROJECT_DIR$/info.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/projects/TimeTravel/stories!/80s/screen80-1.webp" beforeDir="false" afterPath="$PROJECT_DIR$/projects/TimeTravel/stories!/80s/screen80-1.webp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/time.html" beforeDir="false" afterPath="$PROJECT_DIR$/time.html" afterDir="false" />
     </list>
     <list id="bf247eff-9b28-4bde-ba15-51999f532ec6" name="Changes by gherd" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -22,7 +29,6 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="ROOT_SYNC" value="DONT_SYNC" />
-    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/README.MD" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
@@ -41,14 +47,19 @@
   &quot;associatedIndex&quot;: 7
 }</component>
   <component name="ProjectId" id="2UP75iITIgj8RAdosN9kAwAMaX9" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
     "codeWithMe.voiceChat.enabledByDefault": "false",
     "dart.analysis.tool.window.visible": "false",
@@ -70,7 +81,7 @@
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.2",
     "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "template.copyright.formatting",
+    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
     "show.migrate.to.gradle.popup": "false",
     "vue.rearranger.settings.migration": "true"
   }
@@ -132,6 +143,7 @@
       <workItem from="1693099407580" duration="19785000" />
       <workItem from="1693442077535" duration="1404000" />
       <workItem from="1694465370487" duration="4202000" />
+      <workItem from="1694525225961" duration="4753000" />
     </task>
     <task id="LOCAL-00001" summary="papua pigs">
       <option name="closed" value="true" />
@@ -222,6 +234,14 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
+    <ignored-roots>
+      <path value="$PROJECT_DIR$/asd-projects/data-shapes" />
+      <path value="$PROJECT_DIR$/asd-projects/debugging-exercise" />
+      <path value="$PROJECT_DIR$/asd-projects/image-filtering" />
+      <path value="$PROJECT_DIR$/asd-projects/snake" />
+      <path value="$PROJECT_DIR$/asd-projects/sorting-exercise" />
+      <path value="$PROJECT_DIR$/asd-projects/walker" />
+    </ignored-roots>
     <MESSAGE value="papua pigs" />
     <MESSAGE value="papua pigs 2!!!!!&#10;&#10;lots!" />
     <MESSAGE value="switched out keycodes" />
@@ -232,7 +252,8 @@
     <MESSAGE value="today, mr squidward." />
     <MESSAGE value="today, mr squidward.! 11!!!" />
     <MESSAGE value="sir grancchio: today, mr squidward.! 11!!!&#10;&#10;squidwrd: no" />
-    <option name="LAST_COMMIT_MESSAGE" value="sir grancchio: today, mr squidward.! 11!!!&#10;&#10;squidwrd: no" />
+    <MESSAGE value="minor revisions (Probably Now Broken) IN DEVELOPMENT!!!" />
+    <option name="LAST_COMMIT_MESSAGE" value="minor revisions (Probably Now Broken) IN DEVELOPMENT!!!" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
