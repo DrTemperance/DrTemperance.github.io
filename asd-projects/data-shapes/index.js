@@ -75,7 +75,7 @@ $(document).ready(function () {
       const data = [];
       const colors = ['red', 'green', 'blue', 'purple'];
       const shapes = ['square', 'triangle', 'circle', 'tesseract'];
-      const repeats = [1, 2, 3, 4, 5];
+      const repeats = [1, 2, 3, 4];
 
       for (var i = 0; i < colors.length; i++) {
          for (var j = 0; j < shapes.length; j++) {
