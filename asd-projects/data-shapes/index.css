@@ -2,6 +2,10 @@
     font-family: 'Courier New', 'Courier', 'Consolas', 'monospace';
 }
 
+html {
+    background: -webkit-gradient(linear, left top, right bottom, from(#111), to(#444));
+}
+
 #board {
     position: absolute;
     top: 0;
@@ -57,6 +61,11 @@ button {
     margin: auto 8px;
     font-weight: bold;
     font-size: 1rem;
+
+    &[id*="cycle"] {
+        border-radius: 10px;
+        border: #111 outset 2px;
+    }
 }
 
 p {
