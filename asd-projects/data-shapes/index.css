@@ -1,50 +1,64 @@
+*:not([id*="cycle"]) {
+    font-family: 'Courier New', 'Courier', 'Consolas', 'monospace';
+}
+
 #board {
-  width: 400px;
-  margin: auto;
-  border: silver ridge 4px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: fit-content;
+    height: fit-content;
+    border: #aaa ridge 4px;
+    background: #888;
+    margin: auto;
 }
 
 #info-bar {
-  width: 400px;
-  height: 40px;
-  background: lightgray;
-  font-size: 40px;
-  text-align: center;
+    width: 100%;
+    height: 100%;
+    background: #bbb;
+    font-size: 2.75rem;
+    text-align: center;
+    font-weight: bold;
 }
 
 #shape-container {
-  width: 400px;
-  height: 400px;
-  background: black;
-  border-top: silver ridge 4px;
-  border-bottom: silver ridge 4px;
+    width: 100%;
+    height: 500px;
+    background: #000;
+    border-top: #bbb ridge 4px;
+    border-bottom: #bbb ridge 4px;
 }
 
 #button-box {
-  width: 400px;
-  height: 40px;
-  background: darkgray;
+    margin: auto;
+    width: fit-content;
+    height: 40px;
+    display: flex;
+    flex-direction: row;
 }
 
 #shape {
-  color: white;
-  width: 100px;
-  height: 100px;
-  position: relative;
-  top: 150px;
-  left: 150px;
-  border: white solid 2px;
-  display: block;
+    color: #eee;
+    width: 100px;
+    height: 100px;
+    position: relative;
+    top: 150px;
+    left: 150px;
+    border: #eee solid 2px;
+    display: block;
 }
 
 button {
-  width: auto;
-  height: auto;
-  margin: auto;
-  margin-top: 10px;
-  margin-left: 9px;
+    width: fit-content;
+    height: 75%;
+    margin: auto 8px;
+    font-weight: bold;
+    font-size: 1rem;
 }
 
 p {
-  margin: 10px;
+    margin: 6px;
 }
