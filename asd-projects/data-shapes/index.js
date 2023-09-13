@@ -1,20 +1,13 @@
 $(document).ready(function () {
-   /////////////////////////////////////////////////
-   // SETUP SECTION - DO NOT TOUCH /////////////////
-   /////////////////////////////////////////////////
 
-   // These lines register functionality with the different buttons
    $('#cycle-left').on('click', decrementIndex);
    $('#cycle-right').on('click', incrementIndex);
    $('#execute1').on('click', staticDisplay);
    $('#execute2').on('click', goodDisplay);
    $('#execute3').on('click', badDisplay);
 
-   // These lines handle scheduling animations
-   const frameRate = 60;
-   setInterval(animate, 1000 / frameRate);
+   setInterval(animate, 1e3 / 120);
 
-   // These lines prepare an object to store animation details
    let animationDetails = {
       x          : 148,
       y          : 148,
@@ -22,92 +15,71 @@ $(document).ready(function () {
       speedY     : 1,
       angle      : 0,
       showCount  : 60,
-      show       : true,
+      show       : !0,
       displayType: 0,
    };
 
-   // This line produces most of the data array and stores it in the variable "dataShapes"
    const dataShapes = generateShapeData();
-   var currentIndex = 0;
+   let currentIndex = 0;
 
-   // This line sets the initial display
    resetDisplay();
 
-   /////////////////////////////////////////////////
-   // ALL OF YOUR CODE SHOULD GO BELOW HERE ////////
-   /////////////////////////////////////////////////
    // TODO 0 complete
-   // TODO 1: create a new shape object and add it to the array
-   var shape = {
+
+   let shape = {
       color : 'blue',
       shape : 'circle',
       repeat: 3,
    }
    dataShapes.push(shape)
 
-   // TODO 2: add a new property to all data shapes
-   for (var i = 0; i < dataShapes.length; i++) {
-      var currentShape = dataShapes[i]
-      if (currentShape.color === 'red') {
-         currentShape.goodBehavior = 'bounce'
-      } else if (currentShape.color === 'blue') {
-         currentShape.goodBehavior = 'blink'
+   for (let i of dataShapes) {
+      if (i.color === 'red') {
+         i.goodBehavior = 'bounce'
+      } else if (i.color === 'blue') {
+         i.goodBehavior = 'blink'
       } else {
-         currentShape.goodBehavior = 'spin'
+         i.goodBehavior = 'spin'
       }
    }
 
-   // TODO 3-a: add a function that handles the static display type
    function handleStatic(data) {
       setBackgroundWithObject(data)
       animationDetails.displayType = 1
    }
 
-   // TODO 4-a: add a function that handles the good display type
    function handleGood(color, shape, repeat) {
       setBackgroundWithSimple(color, shape, repeat)
       animationDetails.displayType = 2
    }
 
-   // TODO 5-a: add a function that handles the bad display type
    function handleBad(data, repeat) {
       repeat++
       setBackgroundWithMixed(data, repeat)
       animationDetails.displayType = 3
    }
 
-   /////////////////////////////////////////////////
-   // BUTTON HANDLERS BELOW HERE (3-b, 4-b, 5-b) ///
-   /////////////////////////////////////////////////
-
    function staticDisplay() {
-      // TODO 3-b: call your handleStatic function
       handleStatic(dataShapes[currentIndex])
    }
 
    function goodDisplay() {
-      // TODO 4-b: call your handleGood function
-      var currentShape = dataShapes[currentIndex]
-      handleGood(currentShape.color, currentShape.shape, currentShape.repeat)
+      handleGood(dataShapes[currentIndex].color, dataShapes[currentIndex].shape, dataShapes[currentIndex].repeat)
    }
 
    function badDisplay() {
-      // TODO 5-b: call your handleBad function
-      var currentShape = dataShapes[currentIndex]
-      var repeat = currentShape.repeat
-      handleBad(currentShape, repeat)
+      handleBad(dataShapes[currentIndex], dataShapes[currentIndex].repeat)
    }
 
    function generateShapeData() {
       const data = [];
-      const colors = ['red', 'green', 'blue'];
+      const colors = ['red', 'green', 'blue', 'purple'];
       const shapes = ['square', 'triangle', 'circle', 'tesseract'];
-      const repeats = [1, 2, 3];
+      const repeats = [1, 2, 3, 4, 5];
 
       for (var i = 0; i < colors.length; i++) {
          for (var j = 0; j < shapes.length; j++) {
             for (var k = 0; k < repeats.length; k++) {
-               // This condition limits the number of objects created by skipping the combo of "blue circle 3"
                if (
                   i !== colors.length - 1 ||
                   j !== shapes.length - 1 ||
@@ -160,7 +132,7 @@ $(document).ready(function () {
          speedY     : 1,
          angle      : 0,
          showCount  : 60,
-         show       : true,
+         show       : !0,
          displayType: 0,
       };
    }
