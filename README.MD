@@ -6,7 +6,7 @@
 
 ### High Priority
 
-- Fix & Finish css; incl. class/id names & inline **_(70% Done)_**
+- Fix & Finish css; incl. class/id names & inline **_(73% Done)_**
 - _Music.html_
 - Implement speed based blur filter and boolean values for CSS, Difficulty(speed) in a settings menu. _-Villager_
 - Integrate PHP & Python, maybe even Java Webapps
@@ -35,7 +35,6 @@
 - Fix Project Spark's JS for all projects and phase out JQuery, speeding up all projects tenfold.
 - Finish Villager Clicker... Originally, "Bouncing Box".
   a) {What an uninspired name, well I mean, so is mine, but at least there's a theme}.
-
 
 ## Time Machine
 
