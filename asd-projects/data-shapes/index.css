@@ -17,6 +17,7 @@ html {
     border: #aaa ridge 4px;
     background: #888;
     margin: auto;
+    filter: drop-shadow(1px 1px 4px #111);
 }
 
 #info-bar {
@@ -53,6 +54,7 @@ html {
     left: 150px;
     border: #eee solid 2px;
     display: block;
+    filter: drop-shadow(1px 1px 1px #111);
 }
 
 button {
@@ -61,6 +63,7 @@ button {
     margin: auto 8px;
     font-weight: bold;
     font-size: 1rem;
+    filter: drop-shadow(1px 1px 1px #111);
 
     &[id*="cycle"] {
         border-radius: 10px;
