@@ -1,9 +1,13 @@
+html {
+    background: darkslategrey;
+}
+
 #board {
     background: #000;
-    width: 750px;
-    height: 750px;
-    left: 0px;
-    top: 0px;
+    width: 50vw;
+    height: 70vh;
+    left: 0;
+    top: 0;
     position: absolute;
     overflow: hidden;
     right: 0;

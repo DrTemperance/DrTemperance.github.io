@@ -1,58 +1,134 @@
-$(document).ready(function () {
+document.addEventListener('DOMContentLoaded', () => {
 
-   let doubleMaxSpeed = 5,
-       maxCircles     = 10,
-       $board         = $('#board'),
-       boardWidth     = $($board).width(),
-       boardHeight    = $($board).height(),
-       circles        = [],
-       circleRadius   = 10;
+// this section initializes some variables that will be used throughout the program
+  let doubleMaxSpeed = 5,
+      maxCircles     = 10,
+      $board         = $('#board'),
+      boardWidth     = $($board).width(),
+      boardHeight    = $($board).height(),
+      circles        = [],
+      circleRadius   = 10;
 
-   for (let i = 0; i < maxCircles; i++) {
-      let newId     = getId(i),
-          newCircle = makeCircle(newId);
-      circles.push(newCircle);
-      addNewCircleElement(newCircle, newId);
-   }
+//////////
+// startup
+//////////
 
-   setInterval(update, 13);
+// this gets the whole thing going;
+// it creates a number of circles both in JavaScript and in the HTML of the website
+  for (let i = 0; i < maxCircles; i++) {
+    let newId = getId(i), newCircle = makeCircle(newId);
+    circles.push(newCircle);
 
-   function makeCircle(id) {
-      let circle = {};
+    addNewCircleElement(newCircle, newId);
+  }
 
-      let maxX = boardWidth - 2 * circleRadius,
-          maxY = boardHeight - 2 * circleRadius;
+// this tells the program to run the update function 60 times per second
+  setInterval(update, 1000 / 60);
 
-      circle.id = '#' + id;
-      circle.x = Math.random() * maxX + circleRadius;
-      circle.y = Math.random() * maxY + circleRadius;
-      circle.speedX = decideSpeed();
-      circle.speedY = decideSpeed();
 
-      return circle;
-   }
+///////////////////////////
+// startup helper functions
+///////////////////////////
 
-   const decideSpeed = () => Math.random() * doubleMaxSpeed / 2 - doubleMaxSpeed,
-         getId       = I => 'circle' + I;
+// this creates a circle object and returns it
+// note: it only creates an object; it does not create a circle in the HTML
+  function makeCircle(id) {
+    let circle = {};
+    let maxX = boardWidth - circleRadius * 2, maxY = boardHeight - circleRadius * 2;
 
-   async function addNewCircleElement(d, e) {
-      $('<div>').attr('id', e).css('left', d.x).css('top', d.y).addClass('circle').appendTo($board)
-   }
+    circle.id = '#' + id;
+    circle.x = Math.random() * maxX + circleRadius;
+    circle.y = Math.random() * maxY + circleRadius;
+    circle.speedX = decideSpeed();
+    circle.speedY = decideSpeed();
 
-   async function update() {
-      for (let c of circles) moveCircle(c), bounceCircle(c), updateCircleOnScreen(c)
-   }
+    return circle;
+  }
 
-   async function moveCircle(c) {
-      c.x += c.speedX;
-      c.y += c.speedY;
-   }
+// this generates a random speed value
+  function decideSpeed() {return Math.random() * doubleMaxSpeed / 2 - doubleMaxSpeed;}
 
-   async function bounceCircle(e) {
-      (e.x < 0 || e.x > boardWidth) && (e.x -= e.speedX, e.speedX *= -1), (e.y < 0 || e.y > boardHeight) && (e.y -= e.speedY, e.speedY *= -1)
-   }
+// this generates an id for a circle given the circle's number
+  function getId(number) {
+    return 'circle' + number;
+  }
 
-   async function updateCircleOnScreen(c) {
-      maxCircles = 10, $(c.id).css('left', c.x), $(c.id).css('top', c.y)
-   }
+// this adds a circle into the HTML
+  function addNewCircleElement(circle, id) {
+
+    // this creates the HTML for a new circle element
+    var $circle = $('<div>').attr('id', id).css('left', circle.x).css('top', circle.y).addClass('circle');
+
+    // this inserts the circle's HTML into your website
+    $circle.appendTo($board);
+  }
+
+//////////////////
+// update function
+//////////////////
+
+// this should move all of the circles
+  function update() {
+
+    // loop over the circles array. We use the maxCircles variable instead of circles.length
+    // to make seeing issues in the debugger slightly easier (in practice, you should use
+    // circles.length, but do NOT change it here)
+    for (var i = 0; i < maxCircles; i++) {
+      var circle = circles[i];
+
+      // move the circle
+      moveCircle(circle);
+
+      // bounce the circle, if it hits a wall
+      bounceCircle(circle);
+
+      // redraw the circle on the screen after it moves
+      updateCircleOnScreen(circle);
+    }
+  }
+
+//////////////////////////
+// update helper functions
+//////////////////////////
+
+// this moves circles in memory but doesn't update them on the screen
+  function moveCircle(circle) {
+    circle.x += circle.speedX;
+    circle.y += circle.speedY;
+  }
+
+// this bounces circles if they hit a wall
+  function bounceCircle(circle) {
+
+    // this bounces off the left wall
+    if (circle.x < 0) {
+      circle.x -= circle.speedX;
+      circle.speedX *= -1;
+    }
+    // this bounces off the right wall
+    else if (circle.x > boardWidth) {
+      circle.x -= circle.speedX;
+      circle.speedX *= -1;
+    }
+    // this bounces off the top wall
+    if (circle.y < 0) {
+      circle.y -= circle.speedY;
+      circle.speedY *= -1;
+    }
+    // this bounces off the bottom wall
+    else if (circle.y > boardHeight) {
+      circle.y -= circle.speedY;
+      circle.speedY *= -1;
+    }
+  }
+
+// this redraws the circle's position on the screen
+  function updateCircleOnScreen(circle) {
+    maxCircles = 10;
+
+    // these lines redraw the circle's position
+    $(circle.id).css('left', circle.x);
+    $(circle.id).css('top', circle.y);
+  }
+
 });
