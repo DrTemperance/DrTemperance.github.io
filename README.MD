@@ -55,7 +55,7 @@ For project boxes:
 
 ```css
 .clickedbox {
-  postition: fixed;
+  position: fixed;
   left: 0;
   right: 0;
   top: 0;
@@ -68,8 +68,8 @@ For project boxes:
 
 ```js
 document.querySelectorAll(".projclassthing").forEach((i) => {
-  i.addEventListener("click", (handle) => {
-    i.classlist.add("cclicky");
-  });
+    i.addEventListener("click", (handle) => {
+        i.classlist.add("cclicky");
+    });
 });
 ```

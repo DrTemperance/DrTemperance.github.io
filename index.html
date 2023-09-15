@@ -89,60 +89,60 @@
 </body>
 
 <script>
-   const targetDate      = new Date('August 11, 2023, 7:24:00').getTime(),
-         countdown       = document.getElementById('timers'),
-         updateCountdown = () => {
+    const targetDate = new Date('August 11, 2023, 7:24:00').getTime(),
+        countdown = document.getElementById('timers'),
+        updateCountdown = () => {
             let o = Math.floor((targetDate - Date.now()) / 1e3);
             countdown.textContent = `${Math.floor(o / 86400)} days, ${Math.floor(o % 86400 / 3600)} hours, ${Math.floor(o % 3600 / 60)} minutes, ${o % 60} seconds`
-         };
+        };
 
-   updateCountdown();
-   requestAnimationFrame(() => {
-      updateCountdown()
-   });
+    updateCountdown();
+    requestAnimationFrame(() => {
+        updateCountdown()
+    });
 </script>
 
 <script>
-   const mickeywreath = {
-      decoder : {
-         sex        : {range: `0`, var: [`m`, `f`, `a`]},
-         branch     : {range: `2-4`, var: [`0`, `ω`]},
-         probability: {range: `5`, var: [`0`, `ω`]},
-         deltayr    : {range: `7`, var: [`0`, `Ω`]},
-      },
-      variants: [{
-         Username: 'Hannah',
-         UHD     : `07TaeTaeReallyWishesSheDidNot70`,
-         sub     : {
-            'Weber' : {realityString: 'a-000∞-Α'},
-            'Grozs' : {realityString: 'f-οAχγ-Α'},
-            'Ruth'  : {realityString: 'f-οΑhζ-Α'},
-            'Wall'  : {realityString: 'f-οJhλ-Α'},
-            'Lange' : {realityString: 'f-δJ7π-9'},
-            'Haas'  : {realityString: 'a-ηξ9σ-Π'},
-            'Vallee': {realityString: 'f-7STα-Α'},
-         },
-         elev    : 9,
-      }, {
-         Username: 'Tempie',
-         UHD     : `79TheHyoidsAreHyporealisticInAnAlgebraicSence97`,
-         sub     : {brennan: {elev: 5}, tillie: {elev: 6}},
-      }, {Username: 'TheBabster', UHD: `26TheRealestRanchElsaYouKnow&Hate62`, elev: -NaN}],
-   }, p               = document.getElementById.bind(document);
-   let newUser        = {
-      name    : 'Unset',
-      email   : 'Unset',
-      password: 'Unset',
-   }, [a, b, c, d, e] = [p('preSignup'), p('preLogin'), p('signup'), p('login'), p('SubmitSignup')];
-   c.style.display = 'none';
-   a.onclick = () => (c.style.display = 'block', d.style.display = 'none');
-   b.onclick = () => (c.style.display = 'none', d.style.display = 'block');
-   e.onclick = () => {
-      const [username, password, email] = ['accountUsername',
-                                           'accountPassword',
-                                           'accountEmail'].map((a => document.getElementById(a).value.trim()));
-      Object.assign(newUser, {name: username, email: email, password: password});
-   };
+    const mickeywreath = {
+        decoder: {
+            sex: {range: `0`, var: [`m`, `f`, `a`]},
+            branch: {range: `2-4`, var: [`0`, `ω`]},
+            probability: {range: `5`, var: [`0`, `ω`]},
+            deltayr: {range: `7`, var: [`0`, `Ω`]},
+        },
+        variants: [{
+            Username: 'Hannah',
+            UHD: `07TaeTaeReallyWishesSheDidNot70`,
+            sub: {
+                'Weber': {realityString: 'a-000∞-Α'},
+                'Grozs': {realityString: 'f-οAχγ-Α'},
+                'Ruth': {realityString: 'f-οΑhζ-Α'},
+                'Wall': {realityString: 'f-οJhλ-Α'},
+                'Lange': {realityString: 'f-δJ7π-9'},
+                'Haas': {realityString: 'a-ηξ9σ-Π'},
+                'Vallee': {realityString: 'f-7STα-Α'},
+            },
+            elev: 9,
+        }, {
+            Username: 'Tempie',
+            UHD: `79TheHyoidsAreHyporealisticInAnAlgebraicSence97`,
+            sub: {brennan: {elev: 5}, tillie: {elev: 6}},
+        }, {Username: 'TheBabster', UHD: `26TheRealestRanchElsaYouKnow&Hate62`, elev: -NaN}],
+    }, p = document.getElementById.bind(document);
+    let newUser = {
+        name: 'Unset',
+        email: 'Unset',
+        password: 'Unset',
+    }, [a, b, c, d, e] = [p('preSignup'), p('preLogin'), p('signup'), p('login'), p('SubmitSignup')];
+    c.style.display = 'none';
+    a.onclick = () => (c.style.display = 'block', d.style.display = 'none');
+    b.onclick = () => (c.style.display = 'none', d.style.display = 'block');
+    e.onclick = () => {
+        const [username, password, email] = ['accountUsername',
+            'accountPassword',
+            'accountEmail'].map((a => document.getElementById(a).value.trim()));
+        Object.assign(newUser, {name: username, email: email, password: password});
+    };
 </script>
 
 </html>
