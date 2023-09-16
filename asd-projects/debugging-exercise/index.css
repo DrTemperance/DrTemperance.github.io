@@ -3,7 +3,7 @@ html {
 }
 
 #board {
-    background: #000;
+    background: black;
     width: 50vw;
     height: 70vh;
     left: 0;
@@ -19,11 +19,11 @@ html {
 
 
 .circle {
-    background: #00f;
+    background: blue;
     width: 20px;
     height: 20px;
     border-radius: 25px;
     position: absolute;
     border: #00a ridge 2px;
-    filter: drop-shadow(1px 1px 4px #111);
+    filter: drop-shadow(1px 1px 4px black);
 }
