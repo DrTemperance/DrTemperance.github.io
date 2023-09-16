@@ -4,6 +4,13 @@
 <head>
     <title>-~= Hannah's Hallway =~-</title>
     <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <meta content="Hannah's Personal Website" name="description">
+    <meta content="Hannah" name="author">
+    <meta content="Hannah, Hannah's, Hannah's Hallway, Temporance, Valence, Temporalis, Time" name="keywords">
+    <meta content="index, follow" name="robots">
+    <meta content="English" name="language">
+    <meta content="Hannah's Hallway" name="title">
     <link href="https://use.typekit.net/lyz1fxx.css" rel="stylesheet"/>
     <link href="images/potion.webp" rel="icon" type="image/webp"/>
     <link href="style.css" rel="stylesheet"/>
@@ -57,13 +64,10 @@
   const targetDate      = new Date(`August 11, 2023, 7:24:00`).getTime(),
         countdown       = document.getElementById('timers'),
         updateCountdown = () => {
-          let o = Math.floor((targetDate - Date.now()) / 1e3);
-          countdown.textContent = `${Math.floor(o / 86400)} days, ${Math.floor(o %
-                                                                               86400 /
-                                                                               3600)} hours, ${Math.floor(o %
-                                                                                                          3600 /
-                                                                                                          60)} minutes, ${o %
-                                                                                                                          60} seconds`
+          let o = Math.floor((Date.now() - targetDate) / 1e3);
+          countdown.textContent =
+             `${Math.floor(o / 86400)} days, ${Math.floor(o % 24)} hours, ${Math.floor(o % 60)} minutes, ${o %
+                                                                                                           60} seconds`
         };
 
   updateCountdown();
