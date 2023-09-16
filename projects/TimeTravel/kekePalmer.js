@@ -1,8 +1,7 @@
-function initializeDecade(decade) {
-    const details = {
-        '1980s': 'TODO',
-        '1990s': 'TODO',
-        '2000s': 'TODO',
-    };
-    // TODO
-}
+const initializeDecade = decade => {
+  const details = {
+    '1980s': 'TODO',
+    '1990s': 'TODO',
+    '2000s': 'TODO',
+  };
+};

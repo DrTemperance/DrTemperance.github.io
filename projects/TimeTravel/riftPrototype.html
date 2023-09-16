@@ -63,179 +63,180 @@
 
 <!-- Scripts -->
 <script async>
-    document.getElementById('configButton').addEventListener('click', openSettings);
+  document.getElementById('configButton').addEventListener('click',openSettings);
 
-    async function openSettings() {
-        document.getElementById('configMenu').style.visibility = 'visible';
-    }
+  async function openSettings() {
+    document.getElementById('configMenu').style.visibility = 'visible';
+  }
 
-    async function closeMenu(e) {
-        document.getElementById(e).parentElement.style.visibility = 'hidden'
-    }
+  async function closeMenu(e) {
+    document.getElementById(e).parentElement.style.visibility = 'hidden'
+  }
 
-    let config = {
-        custom: {
-            settings: [
-                {
-                    name: 'AdvancedUser',
-                    status: false,
-                    possible: [false, true],
-                },
-                {
-                    name: 'null1',
-                    status: null,
-                    possible: [`null`, `null`],
-                },
-                {
-                    name: 'null2',
-                    status: null,
-                    possible: [`null`, `null`],
-                },
-                {
-                    name: 'null3',
-                    status: null,
-                    possible: [`null`, `null`],
-                },
-            ],
+  let config = {
+    custom   : {
+      settings: [
+        {
+          name    : 'AdvancedUser',
+          status  : false,
+          possible: [false,true],
         },
-        constants: {
-            era: `unset`,
-            currentPrompt: `>`,
-            prompt: {'2000s': `$`, '1990s': `C:/`, '1980s': `>`},
+        {
+          name    : 'null1',
+          status  : null,
+          possible: [`null`,`null`],
         },
-    };
+        {
+          name    : 'null2',
+          status  : null,
+          possible: [`null`,`null`],
+        },
+        {
+          name    : 'null3',
+          status  : null,
+          possible: [`null`,`null`],
+        },
+      ],
+    },
+    constants: {
+      era          : `unset`,
+      currentPrompt: `>`,
+      prompt       : {'2000s': `$`,'1990s': `C:/`,'1980s': `>`},
+    },
+  };
 
-    async function setera(eraChoice) {
-        switch (eraChoice) {
-            case 'unset':
-                break;
-            case '2000s':
-                config.constants.era = eraChoice;
-                config.constants.currentPrompt = '$';
-                break;
-            case '1990s':
-                config.constants.era = eraChoice;
-                config.constants.currentPrompt = 'C:/Users/Player>';
-                break;
-            case '1980s':
-                config.constants.era = eraChoice;
-                config.constants.currentPrompt = '>';
-                break;
-        }
+  async function setera(eraChoice) {
+    switch (eraChoice) {
+      case 'unset':
+        break;
+      case '2000s':
+        config.constants.era = eraChoice;
+        config.constants.currentPrompt = '$';
+        break;
+      case '1990s':
+        config.constants.era = eraChoice;
+        config.constants.currentPrompt = 'C:/Users/Player>';
+        break;
+      case '1980s':
+        config.constants.era = eraChoice;
+        config.constants.currentPrompt = '>';
+        break;
+      default:
+        break;
     }
+  }
 </script>
 
 <script async>
-    const customCursor = document.getElementById('custom-cursor');
+  const customCursor = document.getElementById('custom-cursor');
 
-    document.addEventListener('DOMContentLoaded', function () {
-        document.addEventListener('mousemove', function (e) {
-            const {bottom, left, right, top} = document.getElementById('console-log').getBoundingClientRect();
+  document.addEventListener('DOMContentLoaded',() =>
+     document.addEventListener('mousemove',e => {
+       const {bottom,left,right,top} = document.getElementById('console-log').getBoundingClientRect();
 
-            if (!(e.clientX < left) && !(e.clientX > right) && !(e.clientY < top) && !(e.clientY > bottom)) {
-                // Replaces cursor when in bounds
-                document.body.style.cursor = 'none';
-                customCursor.style.display = 'block';
-                customCursor.style.left = e.pageX + 'px';
-                customCursor.style.top = e.pageY + 'px';
-            } else {
-                // Switches cursors if out of bounds
-                document.body.style.cursor = 'auto';
-                customCursor.style.display = 'none';
-            }
-        });
-    });
+       if (!(e.clientX<left) && !(e.clientX>right) && !(e.clientY<top) && !(e.clientY>bottom)) {
+         // Replaces cursor when in bounds
+         document.body.style.cursor = 'none';
+         customCursor.style.display = 'block';
+         customCursor.style.left = e.pageX + 'px';
+         customCursor.style.top = e.pageY + 'px';
+       } else {
+         // Switches cursors if out of bounds
+         document.body.style.cursor = 'auto';
+         customCursor.style.display = 'none';
+       }
+     }));
 
-    // Terminal functionality //
-    const terminalElement = document.getElementById('terminal'),
-        consoleLog = document.getElementById('console-log'),
-        commandHistory = [],
-        consolelog = document.getElementById('console-log');
+  // Terminal functionality //
+  const terminalElement = document.getElementById('terminal'),
+        consoleLog      = document.getElementById('console-log'),
+        commandHistory  = [],
+        consolelog      = document.getElementById('console-log');
 
-    let commandIndex = -1;
+  let commandIndex = -1;
 
-    terminalElement.addEventListener('keydown', e => {
-        switch (e.key) {
-            case 'Enter':
-                if (terminalElement.value.trim() !== '') {
-                    e.preventDefault();
-                    commandHistory.unshift(terminalElement.value), inputHandler(terminalElement.value);
-                    terminalElement.value = '';
-                    commandIndex = -1;
-                }
-                break;
-            case 'ArrowUp':
-                e.preventDefault();
-                if (commandIndex !== commandHistory.length - 1) {
-                    commandIndex++;
-                    terminalElement.value = commandHistory[commandIndex];
-                }
-                break;
-            case 'ArrowDown':
-                e.preventDefault();
-                if (commandIndex === 0) {
-                    commandIndex--;
-                    terminalElement.value = '';
-                } else if (commandIndex !== -1) {
-                    commandIndex--;
-                    terminalElement.value = commandHistory[commandIndex];
-                }
-                break;
-            default:
-                break;
+  terminalElement.addEventListener('keydown',e => {
+    switch (e.key) {
+      case 'Enter':
+        if (terminalElement.value.trim()!=='') {
+          e.preventDefault();
+          commandHistory.unshift(terminalElement.value), inputHandler(terminalElement.value);
+          terminalElement.value = '';
+          commandIndex = -1;
         }
-    });
-
-    async function inputHandler(rawInput) {
-        const input = convertToFunctionCall(rawInput);
-        try {
-            const result = eval(input);
-            await addToConsole(input, JSON.stringify(result));
-        } catch (e) {
-            await addToConsole(input, e);
+        break;
+      case 'ArrowUp':
+        e.preventDefault();
+        if (commandIndex!==commandHistory.length - 1) {
+          commandIndex++;
+          terminalElement.value = commandHistory[commandIndex];
         }
-    }
-
-    const addToHistory = i => {
-        commandHistory.unshift(i);
-        commandIndex = -1;
-        commandHistory.length >= 30 && commandHistory.pop();
-    };
-
-    async function addToConsole(command, result) {
-        const li = document.createElement('li');
-        li.innerHTML = `${config.constants.currentPrompt} ${command} <br><br> ${result}`;
-        consoleLog.appendChild(li);
-    }
-
-    function convertToFunctionCall(low) {
-        let index, argument, functionName;
-        const lowerInput = low.toLowerCase();
-
-        switch (true) {
-            case lowerInput.includes('go'):
-                index = lowerInput.indexOf(' to');
-                if (index === -1) {
-                    return `${lowerInput}`;
-                } else {
-                    functionName = lowerInput.substring(0, index);
-                    argument = lowerInput.substring(index + 4).replace(/ /g, '');
-                    return `${functionName}('${argument}')`;
-                }
-                break;
-            case lowerInput.includes('inspect') || lowerInput.includes('enter'):
-                index = lowerInput.indexOf(' ');
-                if (index === -1) {
-                    return `${lowerInput}`;
-                } else {
-                    functionName = lowerInput.substring(0, index);
-                    argument = lowerInput.substring(index).replace(/ /g, '');
-                    return `${functionName}(${argument})`;
-                }
-                break;
-            default:
-                return `${lowerInput}`;
+        break;
+      case 'ArrowDown':
+        e.preventDefault();
+        if (commandIndex===0) {
+          commandIndex--;
+          terminalElement.value = '';
+        } else if (commandIndex!== -1) {
+          commandIndex--;
+          terminalElement.value = commandHistory[commandIndex];
         }
+        break;
+      default:
+        break;
     }
+  });
+
+  async function inputHandler(rawInput) {
+    const input = convertToFunctionCall(rawInput);
+    try {
+      const result = eval(input);
+      await addToConsole(input,JSON.stringify(result));
+    } catch (e) {
+      await addToConsole(input,e);
+    }
+  }
+
+  const addToHistory = i => {
+    commandHistory.unshift(i);
+    commandIndex = -1;
+    commandHistory.length>=30 && commandHistory.pop();
+  };
+
+  async function addToConsole(command,result) {
+    const li = document.createElement('li');
+    li.innerHTML = `${config.constants.currentPrompt} ${command} <br><br> ${result}`;
+    consoleLog.appendChild(li);
+  }
+
+  function convertToFunctionCall(low) {
+    let index,argument,functionName;
+    const lowerInput = low.toLowerCase();
+
+    switch (true) {
+      case lowerInput.includes('go'):
+        index = lowerInput.indexOf(' to');
+        if (index=== -1) {
+          return `${lowerInput}`;
+        } else {
+          functionName = lowerInput.substring(0,index);
+          argument = lowerInput.substring(index + 4).replace(/ /g,'');
+          return `${functionName}('${argument}')`;
+        }
+        break;
+      case lowerInput.includes('inspect') || lowerInput.includes('enter'):
+        index = lowerInput.indexOf(' ');
+        if (index=== -1) {
+          return `${lowerInput}`;
+        } else {
+          functionName = lowerInput.substring(0,index);
+          argument = lowerInput.substring(index).replace(/ /g,'');
+          return `${functionName}(${argument})`;
+        }
+        break;
+      default:
+        return `${lowerInput}`;
+    }
+  }
 
 </script>

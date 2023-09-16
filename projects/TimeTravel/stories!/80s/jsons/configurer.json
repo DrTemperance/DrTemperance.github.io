@@ -1,14 +1,4 @@
 {
-  "setting": {
-    "date": {
-      "month": "June",
-      "day": 30,
-      "year": 1983
-    },
-    "season": "Summer",
-    "state": "Nevada",
-    "town": "Ruth"
-  },
   "charSet": {
     "protagonist": {
       "age": 26,
@@ -45,5 +35,15 @@
         "alive": true
       }
     }
+  },
+  "setting": {
+    "date": {
+      "day": 30,
+      "month": "June",
+      "year": 1983
+    },
+    "season": "Summer",
+    "state": "Nevada",
+    "town": "Ruth"
   }
 }

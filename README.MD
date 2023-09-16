@@ -49,8 +49,6 @@
 - Implement compatibility for both Mobile Devices & Non-code users
 - Implement an input scrubber to prevent the use of JS or HTML from the console
 
-## bbudu
-
 For project boxes:
 
 ```css
@@ -67,9 +65,9 @@ For project boxes:
 ```
 
 ```js
-document.querySelectorAll(".projclassthing").forEach((i) => {
-    i.addEventListener("click", (handle) => {
-        i.classlist.add("cclicky");
-    });
+document.querySelectorAll('.projclassthing').forEach((i) => {
+  i.addEventListener('click',(handle) => {
+    i.classlist.add('cclicky');
+  });
 });
 ```

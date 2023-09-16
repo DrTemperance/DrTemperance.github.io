@@ -1,7 +1,7 @@
 ﻿/* Wide Variety */
 @font-face {
-    src: url('BlockZone.ttf');
-    font-family: "VGA";
+    src: url('/projects/TimeTravel/BlockZone.ttf');
+    font-family: 'VGA';
 }
 
 html, body {
@@ -9,7 +9,7 @@ html, body {
 }
 
 * {
-    font-family: "Courier", monospace;
+    font-family: 'VGA', 'Courier New', 'Courier ', ' monospace ', 'sans-serif';
     word-wrap: break-word;
     list-style-type: none;
     align-items: center;
@@ -63,7 +63,7 @@ html, body {
 
 body {
     flex-direction: column;
-    background: #000;
+    background: black;
     height: 98%;
     width: 98%;
 }
@@ -95,11 +95,11 @@ span#configButton:not(#configClose) {
 
 button {
     &#settingsOption {
-        border: 3px outset #010;
+        border: 3px outset rgb(0, 15, 0);
         transition: all 0.2s;
         visibility: inherit;
         margin: 2px auto;
-        background: #060;
+        background: rgb(0, 100, 0);
         padding: 3px;
         height: 70px;
         z-index: 301;
@@ -108,7 +108,7 @@ button {
 
     &:hover {
         border: 3px inset black;
-        background: #050;
+        background: rgb(0, 75, 0);
     }
 }
 
@@ -154,7 +154,7 @@ button {
     }
 
     &::-webkit-scrollbar-thumb:hover {
-        background: #0b0;
+        background: rgb(0, 180, 0);
     }
 
     & * {
@@ -185,7 +185,7 @@ button {
 #configMenu {
     border: solid 2px lime;
     visibility: hidden;
-    background: #030;
+    background: rgb(0, 50, 0);
     position: fixed;
     height: 350px;
     bottom: 275px;
