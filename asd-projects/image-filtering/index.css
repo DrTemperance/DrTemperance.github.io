@@ -1,28 +1,28 @@
 .square {
-  width: 20px;
-  height: 20px;
-  position: absolute;
+    width: 20px;
+    height: 20px;
+    position: absolute;
 }
 
 body > div {
-  position: relative;
+    position: relative;
 }
 
 #button-box {
-  position: relative;
-  top: 350px;
+    position: relative;
+    top: 350px;
 }
 
 button {
-  width: 120px;
-  padding: 5px;
-  margin-left: 12px;
+    width: 120px;
+    padding: 5px;
+    margin-left: 12px;
 }
 
 #apply {
-  background: green;
+    background: green;
 }
 
 #reset {
-  background: red;
+    background: red;
 }

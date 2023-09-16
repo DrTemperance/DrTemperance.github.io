@@ -56,7 +56,7 @@ var bubbleSort, quickSort;
 
 $(document).ready(function(){
     // resize the containers to fit everything
-    let squareHeight = $(bubbleId).width() * (Math.min((1 / MAX_SQUARES * 100), MAX_SQUARE_WIDTH)/100);
+    let squareHeight = $(bubbleId).width() * (Math.min(1 / MAX_SQUARES * 100, MAX_SQUARE_WIDTH)/100);
     
     $(bubbleId).height(squareHeight*MAX_SQUARES);
     $(quickId).height(squareHeight*MAX_SQUARES);
@@ -123,6 +123,6 @@ function createAndAddElement(list, listId, cssClass, baseId, value){
 function makeElement(id, value){
     return {
         id: "#" + id,
-        value: value
+      value,
     };
 }
