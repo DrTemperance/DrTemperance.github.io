@@ -1,5 +1,4 @@
-document.addEventListener('DOMContentLoaded',() => {
-
+$(document).ready(() => {
   let doubleMaxSpeed = 5,
       maxCircles     = 10,
       $board         = $('#board'),
@@ -9,32 +8,37 @@ document.addEventListener('DOMContentLoaded',() => {
       circleRadius   = 10;
 
   for (let i = 0; i<maxCircles; i++) {
-    let newId = getId(i),newCircle = makeCircle(newId);
+    let newId     = getId(i),
+        newCircle = makeCircle(newId);
     circles.push(newCircle);
-
     addNewCircleElement(newCircle,newId);
   }
 
-  setInterval(update,16);
+  setInterval(update,25);
 
   function makeCircle(id) {
     let circle = {},
         maxX   = boardWidth - circleRadius * 2,
         maxY   = boardHeight - circleRadius * 2;
+
     circle.id = `#${id}`;
-    circle.x = Math.random() * maxX + circleRadius;
-    circle.y = Math.random() * maxY + circleRadius;
+    circle.x = circleRadius + maxX * Math.random();
+    circle.y = circleRadius + maxY * Math.random();
     circle.speedX = decideSpeed();
     circle.speedY = decideSpeed();
+
     return circle;
   }
 
-  function decideSpeed() {return doubleMaxSpeed - Math.random() * doubleMaxSpeed / 2;}
+  function decideSpeed() {return Math.random() * doubleMaxSpeed / 2 - doubleMaxSpeed;}
 
   function getId(number) {return `circle${number}`;}
 
   function addNewCircleElement(circle,id) {
-    let $circle = $('<div>').attr('id',id).css('left',circle.x).css('top',circle.y).addClass('circle');
+    let $circle = $('<div>').attr('id',id)
+                            .css('left',circle.x)
+                            .css('top',circle.y)
+                            .addClass('circle');
     $circle.appendTo($board);
   }
 
@@ -52,7 +56,6 @@ document.addEventListener('DOMContentLoaded',() => {
   }
 
   function bounceCircle(circle) {
-
     if (circle.x<0 || circle.x>boardWidth) {
       circle.x -= circle.speedX;
       circle.speedX *= -1;
@@ -63,10 +66,9 @@ document.addEventListener('DOMContentLoaded',() => {
     }
   }
 
-  function updateCircleOnScreen(circle) {
+  function updateCircleOnScreen({id,x,y}) {
     maxCircles = 10;
-
-    $(circle.id).css('left',circle.x);
-    $(circle.id).css('top',circle.y);
+    $(id).css('left',x);
+    $(id).css('top',y);
   }
 });

@@ -1,7 +1,20 @@
+html {
+    background: #969696;
+}
+
+* {
+    font-family: 'Consolas', 'monospace', 'sans-serif';
+}
+
 .square {
-    width: 20px;
-    height: 20px;
+    width: 25px;
+    height: 25px;
     position: absolute;
+    margin: auto;
+}
+
+#display {
+    width: fit-content;
 }
 
 body > div {
@@ -11,18 +24,20 @@ body > div {
 #button-box {
     position: relative;
     top: 350px;
+    width: fit-content;
 }
 
 button {
-    width: 120px;
-    padding: 5px;
-    margin-left: 12px;
-}
+    width: 140px;
+    padding: 8px;
+    margin: 15px auto;
+    font-size: 18px;
 
-#apply {
-    background: green;
-}
+    &#apply {
+        background: green;
+    }
 
-#reset {
-    background: red;
+    &#reset {
+        background: red;
+    }
 }

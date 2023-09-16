@@ -13,6 +13,7 @@
     border: 2px darkgray double;
     background: lightgray;
     font-size: 30px;
+    cursor: pointer;
 }
 
 #sortContainer {
@@ -46,7 +47,7 @@
     background-position: center;
     background-repeat: repeat-x;
     position: absolute;
-    left: 0px;
+    left: 0;
     margin: 0;
     padding: 0;
 }
@@ -57,10 +58,8 @@
 
 .bubbleElement {
     background: url('img/bubble.png');
-    /*border: 2px aqua ridge;*/
 }
 
 .quickElement {
     background: url('img/quick.png');
-    /*border: 2px firebrick ridge;*/
 }

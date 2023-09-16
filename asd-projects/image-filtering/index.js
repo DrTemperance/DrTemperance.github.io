@@ -1,48 +1,52 @@
-// This is a small program. There are only two sections. This first section is what runs
-// as soon as the page loads.
-$(document).ready(function () {
+$(document).ready(() => {
   render($('#display'),image);
   $('#apply').on('click',applyAndRender);
   $('#reset').on('click',resetAndRender);
 });
 
-/////////////////////////////////////////////////////////
-//////// event handler functions are below here /////////
-/////////////////////////////////////////////////////////
-
-// this function resets the image to its original value; do not change this function
 function resetAndRender() {
   reset();
   render($('#display'),image);
 }
 
-// this function applies the filters to the image and is where you should call
-// all of your apply functions
 function applyAndRender() {
-  // Multiple TODOs: Call your apply function(s) here
-
-
-  // do not change the below line of code
+  applyFilter(reddify);
+  applyFilterNoBackground(decreaseBlue);
+  applyFilterNoBackground(increaseGreenByBlue);
   render($('#display'),image);
 }
 
-/////////////////////////////////////////////////////////
-// "apply" and "filter" functions should go below here //
-/////////////////////////////////////////////////////////
+function applyFilter(filterFunction) {
+  for (const item of image) {
+    for (let j = 0; j<item.length; j++) {
+      let rgbString  = item[j],
+          rgbNumbers = rgbStringToArray(rgbString);
+      filterFunction(rgbNumbers);
+      rgbString = rgbArrayToString(rgbNumbers);
+      item[j] = rgbString
+    }
+  }
+}
 
-// TODO 1, 2 & 4: Create the applyFilter function here
+function reddify(array) {array[RED] = 200}
 
+function decreaseBlue(array) {array[BLUE] = keepInBounds(array[BLUE] - 50)}
 
-// TODO 7: Create the applyFilterNoBackground function
+function increaseGreenByBlue(array) {array[GREEN] = keepInBounds(array[GREEN] + array[BLUE])}
 
+function keepInBounds(num) {return Math.min(255,Math.max(0,num));}
 
-// TODO 5: Create the keepInBounds function
-
-
-// TODO 3: Create reddify function
-
-
-// TODO 6: Create more filter functions
-
-
-// CHALLENGE code goes below here
+function applyFilterNoBackground(filterFunction) {
+  let backgroundColor = image[0][0];
+  for (const item of image) {
+    for (let j = 0; j<item.length; j++) {
+      if (item[j]!==backgroundColor) {
+        let rgbString  = item[j],
+            rgbNumbers = rgbStringToArray(rgbString);
+        filterFunction(rgbNumbers);
+        rgbString = rgbArrayToString(rgbNumbers);
+        item[j] = rgbString
+      }
+    }
+  }
+}

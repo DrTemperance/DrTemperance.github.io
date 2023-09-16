@@ -70,6 +70,7 @@ JavaScript portion of this project we'll deal with the snake and apple.
     - Another `<h1></h1>` element with an `id = "highScore"` attribute
 
 ```html
+
 <div id="board"></div>
 <h1 id="score">Score: 0</h1>
 <h1 id="highScore">High Score: 0</h1>
