@@ -48,26 +48,4 @@
 
 - Implement compatibility for both Mobile Devices & Non-code users
 - Implement an input scrubber to prevent the use of JS or HTML from the console
-
-For project boxes:
-
-```css
-.clickedbox {
-  position: fixed;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  margin: auto;
-  width: 50vw;
-  height: 50vh;
-}
-```
-
-```js
-document.querySelectorAll('.projclassthing').forEach((i) => {
-  i.addEventListener('click',(handle) => {
-    i.classlist.add('cclicky');
-  });
-});
 ```
