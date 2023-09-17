@@ -1,19 +1,15 @@
-const board            = $('#board'),
-      scoreElement     = $('#score'),
-      highScoreElement = $('#highScore'),
+const board            = document.getElementById('board'),
+      scoreElement     = document.getElementById('score'),
+      highScoreElement = document.getElementById('highScore'),
       ROWS             = 20,
       COLUMNS          = 20,
       SQUARE_SIZE      = 20,
-      KEY              = {
-        LEFT : 37,
-        UP   : 38,
-        RIGHT: 39,
-        DOWN : 40,
-      };
+      handleKeyDown    = event => {activeKey = event.key;};
 let snake = {
-      body: [],
-      head: [],
-      tail: [],
+      body     : [],
+      head     : [],
+      tail     : [],
+      direction: null,
     },
     apple = {
       element: [],
@@ -24,25 +20,23 @@ let snake = {
     updateInterval,
     activeKey;
 
-$('body').on('keydown',handleKeyDown);
+document.addEventListener('keydown',handleKeyDown);
 init();
 
 function init() {
   snake.body = [];
-
   makeSnakeSquare(10,10);
   snake.head = snake.body[0];
-
   makeApple();
-
   updateInterval = setInterval(update,100);
 }
 
 function update() {
   moveSnake();
-
-  if (hasHitWall() || hasCollidedWithSnake()) {endGame();}
-  if (hasCollidedWithApple()) {handleAppleCollision();}
+  if (snake.head.row<0 || snake.head.column<0 || snake.head.row>ROWS || snake.head.column>COLUMNS || hasCollidedWithSnake()) {
+    endGame();
+  }
+  if (apple.row===snake.head.row && apple.column===snake.head.column) {handleAppleCollision();}
 }
 
 function moveSnake() {
@@ -59,68 +53,46 @@ function moveSnake() {
 
   checkForNewDirection();
 
-  switch (snake.head.direction) {
-    case 'left':
-      snake.head.column -= 1;
-      break;
-    case 'right':
-      snake.head.column += 1;
-      break;
-    case 'down':
-      snake.head.row += 1;
-      break;
-    case 'up':
-      snake.head.row -= 1;
-      break;
-    default:
-      break;
-  }
+  if (snake.head.direction==='left') {
+    snake.head.column -= 1;
+  } else if (snake.head.direction==='right') {
+    snake.head.column += 1;
+  } else if (snake.head.direction==='down') {
+    snake.head.row += 1;
+  } else if (snake.head.direction==='up') {
+    snake.head.row -= 1;
+  } else {}
   repositionSquare(snake.head);
 }
 
 function checkForNewDirection() {
-  switch (activeKey) {
-    case KEY.LEFT:
-      snake.head.direction = snake.head.direction==='right' ? snake.head.direction : 'left';
-      break;
-    case KEY.RIGHT:
-      snake.head.direction = snake.head.direction==='left' ? snake.head.direction : 'right';
-      break;
-    case KEY.UP:
-      snake.head.direction = snake.head.direction==='down' ? snake.head.direction : 'up';
-      break;
-    case KEY.DOWN:
-      snake.head.direction = snake.head.direction==='up' ? snake.head.direction : 'down';
-      break;
-    default:
-      break;
+  if (activeKey==='ArrowLeft' || activeKey==='a') {
+    snake.head.direction = snake.head.direction==='right' ? snake.head.direction : 'left';
+  } else if (activeKey==='ArrowRight' || activeKey==='d') {
+    snake.head.direction = snake.head.direction==='left' ? snake.head.direction : 'right';
+  } else if (activeKey==='ArrowUp' || activeKey==='w') {
+    snake.head.direction = snake.head.direction==='down' ? snake.head.direction : 'up';
+  } else if (activeKey==='ArrowDown' || activeKey==='s') {
+    snake.head.direction = snake.head.direction==='up' ? snake.head.direction : 'down';
   }
 }
 
-function hasCollidedWithApple() {return apple.row===snake.head.row && apple.column===snake.head.column}
-
 function handleAppleCollision() {
   score++;
-  scoreElement.text(`Apples: ${score}`);
+  scoreElement.textContent = `Apples: ${score}`;
   apple.element.remove();
   makeApple();
-
   let row    = snake.tail.row + 0,
       column = snake.tail.column + 0;
 
-  switch (snake.tail.direction) {
-    case 'left':
-      column++;
-      break;
-    case 'right':
-      column--;
-      break;
-    case 'up':
-      row--;
-      break;
-    case 'down':
-      row++;
-      break;
+  if (snake.tail.direction==='left') {
+    column++;
+  } else if (snake.tail.direction==='right') {
+    column--;
+  } else if (snake.tail.direction==='up') {
+    row--;
+  } else if (snake.tail.direction==='down') {
+    row++;
   }
   makeSnakeSquare(row,column);
 }
@@ -134,85 +106,64 @@ function hasCollidedWithSnake() {
   return false;
 }
 
-function hasHitWall() {
-  return snake.head.row<0 || snake.head.column<0 || snake.head.row>ROWS || snake.head.column>COLUMNS;
-}
-
 function endGame() {
   clearInterval(updateInterval);
-
-  board.empty();
-
-  highScoreElement.text(`High Score: ${calculateHighScore()}`);
-  scoreElement.text('Score: 0');
+  board.innerHTML = '';
+  highScoreElement.textContent = `High Score: ${calculateHighScore()}`;
+  scoreElement.textContent = 'Apples: 0';
   score = 0;
-
   setTimeout(init,500);
 }
 
 function makeSnakeSquare(row,column) {
-  let snakeSquare = {
-    element  : [],
-    row      : [],
-    column   : [],
+  const snakeSquare = {
+    element: document.createElement('div'),
+    row,
+    column,
     direction: [],
   };
-
-  snakeSquare.element = $('<div>').addClass('snake').appendTo(board);
-
-  snakeSquare.row = row;
-  snakeSquare.column = column;
-
+  snakeSquare.element.classList.add('snake');
+  board.appendChild(snakeSquare.element);
   repositionSquare(snakeSquare);
-
-  if (snake.body.length===0) {snakeSquare.element.attr('id','snake-head');}
-
+  if (snake.body.length===0) {
+    snakeSquare.element.id = 'snake-head';
+  }
   snake.body.push(snakeSquare);
   snake.tail = snakeSquare;
 }
 
 function repositionSquare(square) {
-  let squareElement                 = square.element,
-      row                           = square.row,
-      column = square.column,buffer = 20;
-  squareElement.css('left',SQUARE_SIZE * column + buffer);
-  squareElement.css('top',SQUARE_SIZE * row + buffer);
+  const {element,row,column} = square;
+  const buffer = 20;
+  element.style.left = `${SQUARE_SIZE * column + buffer}`;
+  element.style.top = `${SQUARE_SIZE * row + buffer}`;
 }
 
 function makeApple() {
-  apple.element = $('<div>').addClass('apple').appendTo(board);
-
-  let randomPosition = getRandomAvailablePosition();
-
-  apple.row = randomPosition.row;
-  apple.column = randomPosition.column;
-
+  const {row,column} = getRandomAvailablePosition();
+  apple.element = document.createElement('div');
+  apple.element.classList.add('apple');
+  board.appendChild(apple.element);
+  apple.row = row;
+  apple.column = column;
   repositionSquare(apple);
 }
 
 function getRandomAvailablePosition() {
-  let spaceIsAvailable,randomPosition = {};
-  while (!spaceIsAvailable) {
+  let spaceIsAvailable,
+      randomPosition = {};
+  do {
     randomPosition.column = Math.floor(COLUMNS * Math.random());
     randomPosition.row = Math.floor(ROWS * Math.random());
-    spaceIsAvailable = true;
-
-    for (let k = snake.body.length - 1; k>=0; k--) {
-      if (randomPosition.row===snake.body[k].row && randomPosition.column===snake.body[k].column) {
-        spaceIsAvailable = false
-      }
-    }
-  }
+    spaceIsAvailable = snake.body.every(bodyPart => randomPosition.row!==bodyPart.row || randomPosition.column!==bodyPart.column);
+  } while (!spaceIsAvailable);
   return randomPosition;
 }
 
-function handleKeyDown(event) {activeKey = event.which;}
-
 function calculateHighScore() {
-  let highScore = sessionStorage.getItem('highScore') || 0;
-  if (score>highScore) {
-    sessionStorage.setItem('highScore',score);
-    highScore = score;
-  }
+  let highScore = Math.max(sessionStorage.getItem('highScore') || 0,score);
+  sessionStorage.setItem('highScore',highScore);
   return highScore;
 }
+
+highScoreElement.textContent = `High Score: ${calculateHighScore()}`;

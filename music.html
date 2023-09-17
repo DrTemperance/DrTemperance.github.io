@@ -9,22 +9,27 @@
 
 <style>
     #music {
-        border: 0.3vh solid #000;
+        border: 1px solid black;
         flex-direction: column;
-        border-radius: 1.5vh;
-        margin-bottom: 0.5vh;
+        border-radius: 15px;
         transition: all 0.5s;
         overflow: hidden;
         background: #ddd;
-        padding: 0.8vh;
+        padding: 8px;
         display: flex;
-        height: 20vh;
-        width: 45vh;
+        height: 200px;
+        width: 450px;
+        margin: 10px auto;
 
         &:hover {
-            background: #444;
-            height: 60vh;
-            width: 115vh;
+            width: 700px;
+            height: 500px;
+            filter: invert();
+
+            & img {
+                filter: invert();
+                margin: initial 0;
+            }
         }
     }
 
@@ -32,7 +37,7 @@
         text-align: justify;
         height: fit-content;
         width: fit-content;
-        padding: 0.3vh;
+        padding: 7px;
     }
 </style>
 
@@ -60,65 +65,72 @@
 </nav>
 <div class="contentBox">
     <h1>❤ Favorite Artists ❤</h1>
-    <ol>
-        <li id="music">
-            <div>
-                <h2>Lorde</h2>
-                <div id="artistbio">Ella Marija Lani Yelich-O'Connor <br>
-                </div>
+    <li id="music" onclick="submitToTheVoid(this)">
+        <div>
+            <h2>Lorde</h2>
+            <div id="artistbio">Ella Marija Lani Yelich-O'Connor <br>
             </div>
-        </li>
-        <li id="music">
-            <div>
-                <h2>Poppy</h2>
-                <div id="artistbio">Moriah Rose Pereira <br>
-                </div>
+        </div>
+    </li>
+    <li id="music" onclick="submitToTheVoid(this)">
+        <div>
+            <h2>Poppy</h2>
+            <div id="artistbio">Moriah Rose Pereira <br>
             </div>
-        </li>
-        <li id="music">
-            <div>
-                <h2>Sir Chloe</h2>
-                <div id="artistbio">x <br>
-                </div>
+        </div>
+    </li>
+    <li id="music" onclick="submitToTheVoid(this)">
+        <div>
+            <h2>Sir Chloe</h2>
+            <div id="artistbio">x <br>
             </div>
-        </li>
-        <li id="music">
-            <div>
-                <h2>Ladyhawke</h2>
-                <div id="artistbio">x <br>
-                </div>
+        </div>
+    </li>
+    <li id="music" onclick="submitToTheVoid(this)">
+        <div>
+            <h2>Ladyhawke</h2>
+            <div id="artistbio">x <br>
             </div>
-        </li>
-        <li id="music">
-            <div>
-                <h2>SDH</h2>
-                <div id="artistbio">x <br>
-                </div>
+        </div>
+    </li>
+    <li id="music" onclick="submitToTheVoid(this)">
+        <div>
+            <h2>SDH</h2>
+            <div id="artistbio">x <br>
             </div>
-        </li>
-        <li id="music">
-            <div>
-                <h2>Crystal Castles</h2>
-                <div id="artistbio">x <br>
-                </div>
+        </div>
+    </li>
+    <li id="music" onclick="submitToTheVoid(this)">
+        <div>
+            <h2>Crystal Castles</h2>
+            <div id="artistbio">x <br>
             </div>
-        </li>
-        <li id="music">
-            <div>
-                <h2>Marina</h2>
-                <div id="artistbio">x
-                </div>
+        </div>
+    </li>
+    <li id="music" onclick="submitToTheVoid(this)">
+        <div>
+            <h2>Marina</h2>
+            <div id="artistbio">x
             </div>
-        </li>
-        <li id="music">
-            <div>
-                <h2>Lana Del Rey</h2>
-                <div id="artistbio">x <br></div>
-                <img src="https://i1.sndcdn.com/artworks-vSgX0SFjGFIHPVT9-frOitw-t500x500.webp"
-                     style="width: 45vh;">
-            </div>
-        </li>
-    </ol>
+        </div>
+    </li>
+    <li id="music" onclick="submitToTheVoid(this)">
+        <div>
+            <h2>Lana Del Rey</h2>
+            <div id="artistbio">x <br></div>
+        </div>
+        <img src="https://i1.sndcdn.com/artworks-vSgX0SFjGFIHPVT9-frOitw-t500x500.webp">
+    </li>
 </div>
 </body>
+<script>
+  const submitToTheVoid = ({style}) => {
+    style.transform = style.transform==='scale(1.3)'
+                      ? ''
+                      : 'scale(1.3)';
+  };
+  document.querySelectorAll('#music').forEach(
+     ({style}) => addEventListener('mouseout',() => {style.transform = ''}),
+  )
+</script>
 </html>

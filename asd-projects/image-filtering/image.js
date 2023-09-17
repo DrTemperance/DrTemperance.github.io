@@ -280,8 +280,13 @@ for (let o of image) {
 const render           = (e,r) => {
         for (let t = 0; t<r.length; t++) {
           for (let g = 0; g<r[t].length; g++) {
-            const E = r[t][g];
-            $('<div>').appendTo(e).addClass('square').css('left',g * SQUARE_SIZE).css('top',t * SQUARE_SIZE).css('background-color',E)
+            const l = r[t][g];
+            let padraig = document.createElement('div');
+            padraig.className = 'square',
+               padraig.style.left = `${SQUARE_SIZE * g}`,
+               padraig.style.top = `${SQUARE_SIZE * t}`,
+               padraig.style.backgroundColor = l;
+            e.appendChild(padraig);
           }
         }
       },

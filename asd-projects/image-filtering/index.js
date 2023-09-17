@@ -1,8 +1,4 @@
-$(document).ready(() => {
-  render($('#display'),image);
-  $('#apply').on('click',applyAndRender);
-  $('#reset').on('click',resetAndRender);
-});
+render(document.getElementById('display'),image);
 
 function resetAndRender() {
   reset();
