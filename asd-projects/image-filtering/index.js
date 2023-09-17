@@ -2,14 +2,14 @@ render(document.getElementById('display'),image);
 
 function resetAndRender() {
   reset();
-  render($('#display'),image);
+  render(document.getElementById('display'),image);
 }
 
 function applyAndRender() {
   applyFilter(reddify);
   applyFilterNoBackground(decreaseBlue);
   applyFilterNoBackground(increaseGreenByBlue);
-  render($('#display'),image);
+  render(document.getElementById('display'),image);
 }
 
 function applyFilter(filterFunction) {
