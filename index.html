@@ -61,16 +61,18 @@
 </div>
 </body>
 
-<script type="text/javascript">
+<script>
   const targetDate      = new Date(`August 11, 2023, 7:24:00`).getTime(),
         countdown       = document.getElementById('timers'),
         updateCountdown = () => {
-          let o = Math.floor((Date.now() - targetDate) / 1e3);
-          countdown.textContent =
-             `${Math.floor(o / 86400)} days, ${Math.floor(o % 24)} hours, ${Math.floor(o % 60)} minutes, ${o %
-                                                                                                           60} seconds`
+          let timeDifference = targetDate - Date.now(),
+              days           = Math.floor(timeDifference / 864e5),
+              hours          = Math.floor((timeDifference % 864e5) / 36e5),
+              minutes        = Math.floor((timeDifference % 36e5) / 6e4),
+              seconds        = Math.floor((timeDifference % 6e4) / 1e3);
+          countdown.textContent = `${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds`;
         };
   updateCountdown();
-  requestAnimationFrame(() => updateCountdown());
+  setInterval(updateCountdown,500);
 </script>
 </html>
