@@ -5,8 +5,7 @@
     <meta charset="UTF-8"/>
     <title> Time Rift Prototype | 1980s </title>
     <link href="riftStylePrototype.css" rel="stylesheet"/>
-    <script async src="stories!/80s/scripting/PlayerResponseFunctions.js"></script>
-    <script async src="/meaty/kekePalmer.js"></script>
+    <script async src="kekePalmer.js"></script>
     <script async src="stories!/80s/scripting/playerscripting.js"></script>
     <script async src="stories!/80s/scripting/data.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,500,1,0"
@@ -105,7 +104,7 @@
     },
   };
 
-  async function setera(eraChoice) {
+  async function setEra(eraChoice) {
     switch (eraChoice) {
       case 'unset':
         break;
@@ -134,14 +133,12 @@
      document.addEventListener('mousemove',e => {
        const {bottom,left,right,top} = document.getElementById('console-log').getBoundingClientRect();
 
-       if (!(e.clientX<left) && !(e.clientX>right) && !(e.clientY<top) && !(e.clientY>bottom)) {
-         // Replaces cursor when in bounds
+       if (e.clientX>=left && e.clientX<=right && e.clientY>=top && e.clientY<=bottom) {
          document.body.style.cursor = 'none';
          customCursor.style.display = 'block';
          customCursor.style.left = e.pageX + 'px';
          customCursor.style.top = e.pageY + 'px';
        } else {
-         // Switches cursors if out of bounds
          document.body.style.cursor = 'auto';
          customCursor.style.display = 'none';
        }
@@ -150,18 +147,18 @@
   // Terminal functionality //
   const terminalElement = document.getElementById('terminal'),
         consoleLog      = document.getElementById('console-log'),
-        commandHistory  = [],
-        consolelog      = document.getElementById('console-log');
+        consolelog      = document.getElementById('console-log'),
+        commandHistory  = [];
 
   let commandIndex = -1;
 
   terminalElement.addEventListener('keydown',e => {
     switch (e.key) {
       case 'Enter':
-        if (terminalElement.value.trim()!=='') {
+        if (terminalElement.value.trim()!==``) {
           e.preventDefault();
           commandHistory.unshift(terminalElement.value), inputHandler(terminalElement.value);
-          terminalElement.value = '';
+          terminalElement.value = ``;
           commandIndex = -1;
         }
         break;
@@ -176,7 +173,7 @@
         e.preventDefault();
         if (commandIndex===0) {
           commandIndex--;
-          terminalElement.value = '';
+          terminalElement.value = ``;
         } else if (commandIndex!== -1) {
           commandIndex--;
           terminalElement.value = commandHistory[commandIndex];
@@ -214,23 +211,23 @@
     const lowerInput = low.toLowerCase();
 
     switch (true) {
-      case lowerInput.includes('go'):
-        index = lowerInput.indexOf(' to');
+      case lowerInput.includes(`go`):
+        index = lowerInput.indexOf(` to`);
         if (index=== -1) {
           return `${lowerInput}`;
         } else {
           functionName = lowerInput.substring(0,index);
-          argument = lowerInput.substring(index + 4).replace(/ /g,'');
+          argument = lowerInput.substring(index + 4).replace(/ /g,``);
           return `${functionName}('${argument}')`;
         }
         break;
-      case lowerInput.includes('inspect') || lowerInput.includes('enter'):
-        index = lowerInput.indexOf(' ');
+      case lowerInput.includes(`inspect`) || lowerInput.includes(`enter`):
+        index = lowerInput.indexOf(` `);
         if (index=== -1) {
           return `${lowerInput}`;
         } else {
           functionName = lowerInput.substring(0,index);
-          argument = lowerInput.substring(index).replace(/ /g,'');
+          argument = lowerInput.substring(index).replace(/ /g,``);
           return `${functionName}(${argument})`;
         }
         break;
@@ -238,5 +235,4 @@
         return `${lowerInput}`;
     }
   }
-
 </script>

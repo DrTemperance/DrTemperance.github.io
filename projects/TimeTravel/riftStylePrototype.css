@@ -1,6 +1,6 @@
 ﻿/* Wide Variety */
 @font-face {
-    src: url('/projects/TimeTravel/BlockZone.ttf');
+    src: url('BlockZone.ttf');
     font-family: 'VGA';
 }
 
@@ -99,7 +99,7 @@ button {
         transition: all 0.2s;
         visibility: inherit;
         margin: 2px auto;
-        background: rgb(0, 100, 0);
+        background: darkgreen;
         padding: 3px;
         height: 70px;
         z-index: 301;
