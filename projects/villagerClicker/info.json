@@ -1,0 +1,7 @@
+{
+  "name": "Villager Clicker",
+  "version": "1.0pro",
+  "description": "The game of Villager Clicker",
+  "main": "index.html",
+  "dependencies": {}
+}
