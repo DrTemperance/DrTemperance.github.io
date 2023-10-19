@@ -130,67 +130,37 @@ $(document).ready(() => {
     $('#shape').css('background-size',`${100 / repeat}% ${100 / repeat}%`);
   }
 
-  function animate() {
-    if (animationDetails.displayType!==0) {
-      $('#shape').html('');
+function animate() {
+  if (0 !== animationDetails.displayType && $("#shape").html(""), !(animationDetails.displayType < 2))
+    if (2 === animationDetails.displayType) switch (dataShapes[currentIndex].goodBehavior) {
+      case "bounce":
+        animateBounce();
+        break;
+      case "blink":
+        animateBlink();
+        break;
+      case "spin":
+        animateSpin()
+    } else switch (dataShapes[currentIndex].goodBehavior) {
+      case "bounce":
+        animateBlink(), animateSpin();
+        break;
+      case "blink":
+        animateBounce(), animateSpin();
+        break;
+      case "spin":
+        animateBounce(), animateBlink()
     }
-    if (animationDetails.displayType<2) {
-      return;
-    }
-    if (animationDetails.displayType===2) {
-      switch (dataShapes[currentIndex].goodBehavior) {
-        case 'bounce':
-          animateBounce();
-          break;
-        case 'blink':
-          animateBlink();
-          break;
-        case 'spin':
-          animateSpin();
-          break;
-      }
-    } else {
-      switch (dataShapes[currentIndex].goodBehavior) {
-        case 'bounce':
-          animateBlink();
-          animateSpin();
-          break;
-        case 'blink':
-          animateBounce();
-          animateSpin();
-          break;
-        case 'spin':
-          animateBounce();
-          animateBlink();
-          break;
-      }
-    }
-  }
+}
+  
+function animateBounce() {
+  animationDetails.x += animationDetails.speedX, animationDetails.y += animationDetails.speedY, (animationDetails.x + $("#shape").width() + 8 >= $("#shape-container").width() || animationDetails.x < 2) && (animationDetails.speedX *= -1), (animationDetails.y + $("#shape").height() + 4 >= $("#shape-container").height() || animationDetails.y < 2) && (animationDetails.speedY *= -1), $("#shape").css("left", animationDetails.x), $("#shape").css("top", animationDetails.y)
+}
 
-  function animateBounce() {
-    animationDetails.x += animationDetails.speedX;
-    animationDetails.y += animationDetails.speedY;
-    if (animationDetails.x + $('#shape').width() + 8>=$('#shape-container').width() || animationDetails.x<2) {
-      animationDetails.speedX *= -1;
-    }
-    if (animationDetails.y + $('#shape').height() + 4>=$('#shape-container').height() || animationDetails.y<2) {
-      animationDetails.speedY *= -1;
-    }
-    $('#shape').css('left',animationDetails.x);
-    $('#shape').css('top',animationDetails.y);
-  }
+function animateBlink() {
+  animationDetails.showCount--, 0 === animationDetails.showCount && (animationDetails.show = !animationDetails.show, animationDetails.show ? $("#shape").css("display", "block") : $("#shape").css("display", "none"), animationDetails.showCount = 60)
+}
 
-  function animateBlink() {
-    animationDetails.showCount--;
-    if (animationDetails.showCount===0) {
-      animationDetails.show = !animationDetails.show;
-      if (animationDetails.show) {$('#shape').css('display','block');} else {$('#shape').css('display','none');}
-      animationDetails.showCount = 60;
-    }
-  }
-
-  function animateSpin() {
-    animationDetails.angle += 4;
-    $('#shape').css('transform',`rotate(${animationDetails.angle}deg)`);
-  }
-});
+function animateSpin() {
+  animationDetails.angle += 4, $("#shape").css("transform", `rotate(${animationDetails.angle}deg)`)
+}});
