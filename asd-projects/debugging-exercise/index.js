@@ -1,74 +1,20 @@
 $(document).ready(() => {
-  let doubleMaxSpeed = 5,
-      maxCircles     = 10,
-      $board         = $('#board'),
-      boardWidth     = $($board).width(),
-      boardHeight    = $($board).height(),
-      circles        = [],
-      circleRadius   = 10;
+  let e = 10,
+    t = $("#board"),
+    n = $(t).width(),
+    d = $(t).height(),
+    o = [];
+  for (let t = 0; t < e; t++) {o.push(s(`circle${t}`)), i(s(`circle${t}`), `circle${t}`)}
 
-  for (let i = 0; i<maxCircles; i++) {
-    let newId     = getId(i),
-        newCircle = makeCircle(newId);
-    circles.push(newCircle);
-    addNewCircleElement(newCircle,newId);
+  function s(e) {
+    let t = {};
+    return t.id = "#" + e, t.x = 10 + (n - 20) * Math.random(), t.y = 10 + (d - 20) * Math.random(), t.speedX = c(), t.speedY = c(), t
   }
 
-  setInterval(update,25);
-
-  function makeCircle(id) {
-    let circle = {},
-        maxX   = boardWidth - circleRadius * 2,
-        maxY   = boardHeight - circleRadius * 2;
-
-    circle.id = `#${id}`;
-    circle.x = circleRadius + maxX * Math.random();
-    circle.y = circleRadius + maxY * Math.random();
-    circle.speedX = decideSpeed();
-    circle.speedY = decideSpeed();
-
-    return circle;
-  }
-
-  function decideSpeed() {return Math.random() * doubleMaxSpeed / 2 - doubleMaxSpeed;}
-
-  function getId(number) {return `circle${number}`;}
-
-  function addNewCircleElement(circle,id) {
-    let $circle = $('<div>').attr('id',id)
-                            .css('left',circle.x)
-                            .css('top',circle.y)
-                            .addClass('circle');
-    $circle.appendTo($board);
-  }
-
-  function update() {
-    for (let c of circles) {
-      moveCircle(c);
-      bounceCircle(c);
-      updateCircleOnScreen(c);
-    }
-  }
-
-  function moveCircle(circle) {
-    circle.x += circle.speedX;
-    circle.y += circle.speedY;
-  }
-
-  function bounceCircle(circle) {
-    if (circle.x<0 || circle.x>boardWidth) {
-      circle.x -= circle.speedX;
-      circle.speedX *= -1;
-    }
-    if (circle.y<0 || circle.y>boardHeight) {
-      circle.y -= circle.speedY;
-      circle.speedY *= -1;
-    }
-  }
-
-  function updateCircleOnScreen({id,x,y}) {
-    maxCircles = 10;
-    $(id).css('left',x);
-    $(id).css('top',y);
-  }
-});
+  function c() {return 5 * Math.random() / 2 - 5}
+  function i(e, n) {$("<div>").attr("id", n).css("left", e.x).css("top", e.y).addClass("circle").appendTo(t)}
+  function r(e) {e.x += e.speedX, e.y += e.speedY}
+  function a(e) {(e.x < 0 || e.x > n) && (e.x -= e.speedX, e.speedX *= -1), (e.y < 0 || e.y > d) && (e.y -= e.speedY, e.speedY *= -1)}
+  function f({id: t, x: n, y: d}) {e = 10, $(t).css("left", n), $(t).css("top", d)}
+  
+  setInterval((function() {for (let e of o) r(e), a(e), f(e)}), 25)})
