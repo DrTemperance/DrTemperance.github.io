@@ -29,14 +29,11 @@ $(document).ready(() => {
   dataShapes.push({color: 'blue',shape: 'circle',repeat: 3});
 
   for (let i of dataShapes) {
-    if (i.color==='red') {
-      i.goodBehavior = 'bounce';
-    } else if (i.color==='blue') {
-      i.goodBehavior = 'blink';
-    } else {
-      i.goodBehavior = 'spin';
-    }
+    if (i.color==='red') {i.goodBehavior = 'bounce';}
+    else if (i.color==='blue') {i.goodBehavior = 'blink';}
+    else {i.goodBehavior = 'spin';}
   }
+  
   const handleStatic = data => {
     setBackgroundWithObject(data);
     animationDetails.displayType = 1;
