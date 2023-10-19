@@ -1,48 +1,22 @@
-render(document.getElementById('display'),image);
+function resetAndRender() { reset(), render(document.getElementById("display"), image) }
 
-function resetAndRender() {
-  reset();
-  render(document.getElementById('display'),image);
-}
+function applyAndRender() { applyFilter(reddify), applyFilterNoBackground(decreaseBlue), applyFilterNoBackground(increaseGreenByBlue), render(document.getElementById("display"), image) }
 
-function applyAndRender() {
-  applyFilter(reddify);
-  applyFilterNoBackground(decreaseBlue);
-  applyFilterNoBackground(increaseGreenByBlue);
-  render(document.getElementById('display'),image);
-}
+function applyFilter(e) { for (const n of image)
+    for (let r = 0; r < n.length; r++) { let t = n[r],
+        i = rgbStringToArray(t);
+      e(i), t = rgbArrayToString(i), n[r] = t } }
 
-function applyFilter(filterFunction) {
-  for (const item of image) {
-    for (let j = 0; j<item.length; j++) {
-      let rgbString  = item[j],
-          rgbNumbers = rgbStringToArray(rgbString);
-      filterFunction(rgbNumbers);
-      rgbString = rgbArrayToString(rgbNumbers);
-      item[j] = rgbString
-    }
-  }
-}
+function reddify(e) { e[RED] = 200 }
 
-function reddify(array) {array[RED] = 200}
+function decreaseBlue(e) { e[BLUE] = keepInBounds(e[BLUE] - 50) }
 
-function decreaseBlue(array) {array[BLUE] = keepInBounds(array[BLUE] - 50)}
+function increaseGreenByBlue(e) { e[GREEN] = keepInBounds(e[GREEN] + e[BLUE]) }
 
-function increaseGreenByBlue(array) {array[GREEN] = keepInBounds(array[GREEN] + array[BLUE])}
+function keepInBounds(e) { return Math.min(255, Math.max(0, e)) }
 
-function keepInBounds(num) {return Math.min(255,Math.max(0,num));}
-
-function applyFilterNoBackground(filterFunction) {
-  let backgroundColor = image[0][0];
-  for (const item of image) {
-    for (let j = 0; j<item.length; j++) {
-      if (item[j]!==backgroundColor) {
-        let rgbString  = item[j],
-            rgbNumbers = rgbStringToArray(rgbString);
-        filterFunction(rgbNumbers);
-        rgbString = rgbArrayToString(rgbNumbers);
-        item[j] = rgbString
-      }
-    }
-  }
-}
+function applyFilterNoBackground(e) { let n = image[0][0]; for (const r of image)
+    for (let t = 0; t < r.length; t++)
+      if (r[t] !== n) { let n = r[t],
+          i = rgbStringToArray(n);
+        e(i), n = rgbArrayToString(i), r[t] = n } } render(document.getElementById("display"), image);
