@@ -17,22 +17,17 @@ const bubbleSort = async array => {
         }
       };
 
-async function partition(array,left,right) {
+async function partition(array, left, right) {
   let pivot = array[Math.floor((right + left) / 2)].value;
-  while (left<right) {
-    while (array[left].value<pivot) {
-      left++
-    }
-    while (array[right].value>pivot) {
-      right--
-    }
-    if (left<right) {
-      swap(array,left,right);
-      updateCounter(quickCounter);
-      await sleep()
-    }
+  for (; left < right;) { for (; array[left].value < pivot;) { left++ } }
+  for (; array[right].value > pivot;) { right-- }
+  if (left < right) {
+    swap(array, left, right);
+    updateCounter(quickCounter);
+    await sleep()
   }
-  return left + 1
+}
+return left + 1
 }
 
 function swap(array,i,j) {
@@ -42,7 +37,7 @@ function swap(array,i,j) {
   drawSwap(array,i,j)
 }
 
-function sleep() {return new Promise(resolve => setTimeout(resolve,SLEEP_AMOUNT));}
+function sleep() {return new Promise(e => setTimeout(e, SLEEP_AMOUNT))}
 
 function drawSwap(array,i,j) {
   let element1 = array[i],element2 = array[j],temp = `${parseFloat($(element1.id).css('top'))}px`;
