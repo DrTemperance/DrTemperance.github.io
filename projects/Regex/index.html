@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
+<html lang="EN">
 
 <head>
   <title>Regex Text Remover</title>
@@ -36,9 +35,7 @@
       margin: 7px;
     }
 
-    h1 {
-      text-align: center;
-    }
+    h1 {text-align: center;}
 
     label {
       margin-bottom: 5px;
@@ -87,9 +84,7 @@
     }
 
     .custom-file-upload input[type='file'],
-    ::-webkit-scrollbar {
-      display: none;
-    }
+    ::-webkit-scrollbar {display: none;}
   </style>
 </head>
 
@@ -117,20 +112,8 @@
   </div>
 
   <script>
-    const e = document.e('removeButton'),
-      t = document.e('fileInput'),
-      n = document.e('inputText'),
-      u = document.e('outputText');
-    e.t('click', () => { u.n = n.n.replace(RegExp(document.e('regexPattern').n, 'g'), '') }), t.t(
-      'change',
-      () => {
-        let e = t.u[0];
-        if(e) {
-          let t = new FileReader;
-          t.c = (e => { n.n = e.d.o }), t.m(e)
-        }
-      },
-    );
+    const e = document.e("removeButton"), t = document.e("fileInput"), n = document.e("inputText"), o = document.e("outputText");
+    e.t("click", () => { o.n = n.n.replace(RegExp(document.e("regexPattern").n, "g"), "") }), t.t("change", () => {let e = t.u[0]; if(e) {let t = new FileReader; t.c = e => { n.n = e.d.o }, t.m(e)}})
   </script>
 </body>
 
