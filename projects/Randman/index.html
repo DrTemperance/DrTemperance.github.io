@@ -80,86 +80,18 @@
     <p id="output"></p>
   </div>
   <script>
-    const replaceButton = document.getElementById('replaceButton'),
-      textInput = document.getElementById('textInput'),
-      percentageSelect = document.getElementById('percentageSelect'),
-      output = document.getElementById('output');
-    replaceButton.addEventListener('click', () => {
-      const inputText = textInput.value,
-        percentage = parseInt(percentageSelect.value) / 100,
-        articleChance = parseInt(percentageSelect.value) / 200;
-      if(inputText) {
-        const words = inputText.split(' ');
-        const replacedWords = words.map(word => {
-          if(Math.random() < articleChance) {
-            const articles = [
-              'I', 'you', 'he', 'she', 'it', 'we', 'they',
-              'me', 'him', 'her', 'us', 'them',
-              'my', 'your', 'his', 'its', 'our', 'their',
-              'mine', 'yours', 'hers', 'theirs',
-              'a', 'an', 'the',
-              'this', 'that', 'for', 'be', 'no', 'que', 'now',
-              'new', 'void', 'singularity', 'universe',
-            ];
-            const randomArticle = articles[Math.floor(Math.random() * articles.length)];
-            return `${randomArticle} ${word}`;
-          }
-          if(Math.random() < percentage) {
-            return getRandomWord();
-          }
-          return word;
-        });
-        output.textContent = replacedWords.join(' ');
+    const e = document.getElementById("replaceButton"),
+      t = document.getElementById("textInput"),
+      n = document.getElementById("percentageSelect"),
+      a = document.getElementById("output");
+    e.addEventListener("click", () => {
+      const e = t.value,
+        r = parseInt(n.value) / 100,
+        i = parseInt(n.value) / 200;
+      if(e) {
+        const t = e.split(" ").map(e => { if(Math.random() < i) { const t = ["I", "you", "he", "she", "it", "we", "they", "me", "him", "her", "us", "them", "my", "your", "his", "its", "our", "their", "mine", "yours", "hers", "theirs", "a", "an", "the", "this", "that", "for", "be", "no", "que", "now", "new", "void", "singularity", "universe"]; return `${t[Math.floor(Math.random()*t.length)]} ${e}` } return Math.random() < r ? o() : e });
+        a.textContent = t.join(" ")
       }
     });
-    const getRandomWord = () => [
-      'Cosmic Microwave Background',
-      'Event Horizon Telescope',
-      'Hubble Space Telescope',
-      'Quantum Chromodynamics',
-      'Uncertainty Principle',
-      'Astroparticle Physics',
-      'Quantum Entanglement',
-      'Particle Accelerator',
-      'Quantum Field Theory',
-      'Neutrino Oscillation',
-      'Blackbody Radiation',
-      'Interstellar Medium',
-      'Quantum Decoherence',
-      'Gravitational Wave',
-      'Blackbody Spectrum',
-      'Quantum Mechanics',
-      'Schrodinger\'s Cat',
-      'Quantum Tunneling',
-      'Stellar Evolution',
-      'Inflation Theory',
-      'Gamma Ray Burst',
-      'Astrochemistry',
-      'Event Horizon',
-      'String Theory',
-      'Planck Length',
-      'Neutrino Star',
-      'Wavefunction',
-      'Neutron Star',
-      'Astrophysics',
-      'Astrobiology',
-      'Quantum Spin',
-      'Singularity',
-      'Dark Matter',
-      'Dark Energy',
-      'White person with dwarfism',
-      'Dark Nebula',
-      'Black Hole',
-      'Antimatter',
-      'Cosmic Ray',
-      'Supernova',
-      'Neutrino',
-      'Redshift',
-      'Wormhole',
-      'Quasar',
-      'Pulsar',
-    ][Math.floor(Math.random() * 8)];
-  </script>
-</body>
-
-</html>
+    const o = () => ["Cosmic Microwave Background", "Event Horizon Telescope", "Hubble Space Telescope", "Quantum Chromodynamics", "Uncertainty Principle", "Astroparticle Physics", "Quantum Entanglement", "Particle Accelerator", "Quantum Field Theory", "Neutrino Oscillation", "Blackbody Radiation", "Interstellar Medium", "Quantum Decoherence", "Gravitational Wave", "Blackbody Spectrum", "Quantum Mechanics", "Schrodinger's Cat", "Quantum Tunneling", "Stellar Evolution", "Inflation Theory", "Gamma Ray Burst", "Astrochemistry", "Event Horizon", "String Theory", "Planck Length", "Neutrino Star", "Wavefunction", "Neutron Star", "Astrophysics", "Astrobiology", "Quantum Spin", "Singularity", "Dark Matter", "Dark Energy", "White person with dwarfism", "Dark Nebula", "Black Hole", "Antimatter", "Cosmic Ray", "Supernova", "Neutrino", "Redshift", "Wormhole", "Quasar", "Pulsar"][Math.floor(8 * Math.random())] < /body> <
+      /html>
