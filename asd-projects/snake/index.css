@@ -1,55 +1,50 @@
-* {
-    transition: all 0.075s linear;
-}
+* {transition: all 0.075s linear;}
 
-body {
-    background: yellowgreen;
-}
+body {background: yellowgreen;}
+
+#snake-head {background: darkgreen;}
 
 #board {
-    margin-left: 10px;
-    margin-top: 18px;
-    width: 423px;
-    height: 423px;
-    border: 1px solid white;
-    background: url("https://dm0qx8t0i9gc9.cloudfront.net/thumbnails/image/rDtN98Qoishumwih/green-grass-minecraft-pattern_thumb.jpg") repeat;
+  margin-left: 10px;
+  margin-top: 18px;
+  width: 423px;
+  height: 423px;
+  border: 1px solid white;
+  background: url("https://dm0qx8t0i9gc9.cloudfront.net/thumbnails/image/rDtN98Qoishumwih/green-grass-minecraft-pattern_thumb.jpg") repeat;
 }
 
-#score, #highScore {
-    color: #006;
-    filter: drop-shadow(1px 1px 1px #111111a0);
-    text-align: center;
+#score,
+#highScore {
+  color: #006;
+  filter: drop-shadow(1px 1px 1px #111111a0);
+  text-align: center;
 }
 
-.snake, .apple {
-    display: block;
-    width: 20px;
-    height: 20px;
-    position: absolute;
-    user-select: none;
-    filter: drop-shadow(1px 1px 1px #111111a0);
+.snake,
+.apple {
+  display: block;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  user-select: none;
+  filter: drop-shadow(1px 1px 1px #111111a0);
 
-    &.snake {
-        background: darkgreen;
-        z-index: 2;
-    }
+  &.snake {
+    background: darkgreen;
+    z-index: 2;
+  }
 
-    &.apple {
-        background: #ff1c2b;
-        border-radius: 6px;
-        z-index: 1;
-    }
+  &.apple {
+    background: #ff1c2b;
+    border-radius: 6px;
+    z-index: 1;
+  }
 }
 
 #scores {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 423px;
-    height: fit-content;
-}
-
-
-#snake-head {
-    background: darkgreen;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 423px;
+  height: fit-content;
 }
