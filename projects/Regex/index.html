@@ -1,137 +1,137 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <title>Regex Text Remover</title>
-    <meta content="width=device-width, height=device-height, initial-scale=1" name="viewport"/>
-    <meta charset="UTF-8"/>
-    <style>
-        * {
-            transition: background-color 0.25s ease;
-            font-family: 'SF Pro Display', 'SF Pro Text', 'Helvetica', 'Trebuchet MS', 'Arial', 'sans-serif';
-            margin: inherit auto !important;
-        }
+  <title>Regex Text Remover</title>
+  <meta content="width=device-width, height=device-height, initial-scale=1" name="viewport" />
+  <meta charset="UTF-8" />
+  <style>
+    * {
+      transition: background-color 0.25s ease;
+      font-family: 'SF Pro Display', 'SF Pro Text', 'Helvetica', 'Trebuchet MS', 'Arial', 'sans-serif';
+      margin: inherit auto !important;
+    }
 
-        body {
-            justify-content: center;
-            flex-direction: column;
-            align-items: center;
-            background: #111;
-            display: flex;
-            color: #eee;
-            margin: 0;
-        }
+    body {
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+      background: #111;
+      display: flex;
+      color: #eee;
+      margin: 0;
+    }
 
-        .container {
-            width: 60%;
-            padding: 20px;
-            background: #222;
-            border-radius: 8px;
-        }
+    .container {
+      width: 60%;
+      padding: 20px;
+      background: #222;
+      border-radius: 8px;
+    }
 
-        div {
-            min-width: fit-content;
-            max-width: max-content;
-            padding: 1px;
-            margin: 7px;
-        }
+    div {
+      min-width: fit-content;
+      max-width: max-content;
+      padding: 1px;
+      margin: 7px;
+    }
 
-        h1 {
-            text-align: center;
-        }
+    h1 {
+      text-align: center;
+    }
 
-        label {
-            margin-bottom: 5px;
-            display: block;
-        }
+    label {
+      margin-bottom: 5px;
+      display: block;
+    }
 
-        input,
-        textarea {
-            transition: background-color 0.2s ease;
-            border: 1px solid #444;
-            margin-bottom: 10px;
-            border-radius: 4px;
-            background: #333;
-            padding: 10px;
-            display: flex;
-            color: #eee;
-            width: 90%;
+    input,
+    textarea {
+      transition: background-color 0.2s ease;
+      border: 1px solid #444;
+      margin-bottom: 10px;
+      border-radius: 4px;
+      background: #333;
+      padding: 10px;
+      display: flex;
+      color: #eee;
+      width: 90%;
 
-            &:hover,
-            &:focus {
-                color: #eee;
-                transform: scale(1.25);
-                z-index: 2500;
-            }
-        }
+      &:hover,
+      &:focus {
+        color: #eee;
+        transform: scale(1.25);
+        z-index: 2500;
+      }
+    }
 
-        button,
-        .custom-file-upload {
-            display: inline-flex;
-            width: fit-content;
-            padding: 10px 20px;
-            border-radius: 4px;
-            line-height: 20px;
-            background: #08f;
-            cursor: pointer;
-            font-size: 1rem;
-            color: white;
-            border: none;
-        }
+    button,
+    .custom-file-upload {
+      display: inline-flex;
+      width: fit-content;
+      padding: 10px 20px;
+      border-radius: 4px;
+      line-height: 20px;
+      background: #08f;
+      cursor: pointer;
+      font-size: 1rem;
+      color: white;
+      border: none;
+    }
 
-        button:hover,
-        .custom-file-upload:hover {
-            transition: transform 0.25s;
-            transform: scaleY(1.1);
-            background: #05b;
-        }
+    button:hover,
+    .custom-file-upload:hover {
+      transition: transform 0.25s;
+      transform: scaleY(1.1);
+      background: #05b;
+    }
 
-        .custom-file-upload input[type='file'],
-        ::-webkit-scrollbar {
-            display: none;
-        }
-    </style>
+    .custom-file-upload input[type='file'],
+    ::-webkit-scrollbar {
+      display: none;
+    }
+  </style>
 </head>
 
 <body>
-<div class="container">
+  <div class="container">
     <h1>Regex Text Remover</h1>
     <div>
-        <label for="inputText">Enter Text:</label>
-        <textarea autocomplete="off" cols="50" id="inputText" rows="10" spellcheck="false"></textarea>
+      <label for="inputText">Enter Text:</label>
+      <textarea autocomplete="off" cols="50" id="inputText" rows="10" spellcheck="false"></textarea>
     </div>
     <div style="display: inline-flex; margin: auto;">
-        <label for="regexPattern">Enter Regex Pattern: </label>
-        <input autocomplete="off" id="regexPattern" spellcheck="false" type="text"/>
+      <label for="regexPattern">Enter Regex Pattern: </label>
+      <input autocomplete="off" id="regexPattern" spellcheck="false" type="text" />
     </div>
     <div>
-        <label class="custom-file-upload">
-            Choose File<input id="fileInput" style="display: none;" type="file"/>
-        </label>
-        <button id="removeButton">Remove Matching Text</button>
+      <label class="custom-file-upload">
+        Choose File<input id="fileInput" style="display: none;" type="file" />
+      </label>
+      <button id="removeButton">Remove Matching Text</button>
     </div>
     <div>
-        <label for="outputText">Output:</label>
-        <textarea autocomplete="off" cols="50" id="outputText" rows="16" spellcheck="false"></textarea>
+      <label for="outputText">Output:</label>
+      <textarea autocomplete="off" cols="50" id="outputText" rows="16" spellcheck="false"></textarea>
     </div>
-</div>
+  </div>
 
-<script>
-  const e = document.e('removeButton'),
-        t = document.e('fileInput'),
-        n = document.e('inputText'),
-        u = document.e('outputText');
-  e.t('click',() => {u.n = n.n.replace(RegExp(document.e('regexPattern').n,'g'),'')}), t.t(
-     'change',
-     () => {
-       let e = t.u[0];
-       if (e) {
-         let t = new FileReader;
-         t.c = (e => {n.n = e.d.o}), t.m(e)
-       }
-     },
-  );
-</script>
+  <script>
+    const e = document.e('removeButton'),
+      t = document.e('fileInput'),
+      n = document.e('inputText'),
+      u = document.e('outputText');
+    e.t('click', () => { u.n = n.n.replace(RegExp(document.e('regexPattern').n, 'g'), '') }), t.t(
+      'change',
+      () => {
+        let e = t.u[0];
+        if(e) {
+          let t = new FileReader;
+          t.c = (e => { n.n = e.d.o }), t.m(e)
+        }
+      },
+    );
+  </script>
 </body>
 
 </html>
