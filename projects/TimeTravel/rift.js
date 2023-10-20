@@ -12,61 +12,33 @@ function ConsolePhase1(input) {
 
   if (level===0) {
     const eras        = [`2000s`,`1990s`,`1980s`],
-          eraMessages = {
-            '2000s':
-               `Oops! It seems like you're a time traveler ahead of schedule. The 2000s aren't ready for exploration just yet. Patience!`,
-            '1990s':
-               `Hold up, player! Hannah hasn't quite calibrated the time machine to the '90s yet. Your grungey adventure is still in the oven. Keep waiting!`,
-            '1980s':
-               `Whoa, there! The neon lights haven't flickered to life for now. Keep your cassette tapes on pause; your adventure is being prepared!`,
-          },
-          selectedEra = eras.find(e => input===e);
-
-    if (selectedEra) {
-      const eraMessage         = eraMessages[selectedEra],
-            starterTextElement = document.getElementById(`starterText`);
-
-      endFunction(eraMessage,true,true,true);
-      starterTextElement.remove();
+              eraMessages = { "2000s": "Oops! It seems like you're a time traveler ahead of schedule. The 2000s aren't ready for exploration just yet. Patience!", "1990s": "Hold up, player! Hannah hasn't quite calibrated the time machine to the '90s yet. Your grungey adventure is still in the oven. Keep waiting!", "1980s": "Whoa, there! The neon lights haven't flickered to life for now. Keep your cassette tapes on pause; your adventure is being prepared!" },
+              selectedEra = eras.find(n => input === n)
+      if (selectedEra) {
+      endFunction(eraMessages[selectedEra], !0, !0, !0)
+      document.getElementById("starterText").remove();
 
       initializeDecade(selectedEra);
-    } else {
-      const errorMessage = `I don't understand, try again.`;
-      endFunction(errorMessage,true,false,true);
-    }
+    } else {endFunction("I don't understand, try again.", !0, !1, !0)}
   }
 }
 
 // Outputs to the "terminal" with given text and conditions //
-function endFunction(output,isConsole,isProgressive,isImportant) {
-  if (isConsole) {
-    // Console; meaning if it's not the player's input //
-    isProgressive && level++;
-    // Progressive; meaning passing to the next level //
-    ConsolePhase2(document.createTextNode(output),isImportant,false);
+function endFunction(output, isConsole ,isProgressive ,isImportant) {
+  if (isConsole) { // Not the player's input? //
+    isProgressive && level++; // Passing to the next level? //
+    ConsolePhase2(document.createTextNode(output), isImportant, !1);
   } else {
     setPrompt();
-    ConsolePhase2(
-       document.createTextNode(`${config.custom.prompt} ${output}`),
-       false,
-       false,
-    );
-  }
+    ConsolePhase2(document.createTextNode(`${config.custom.prompt} ${output}`), !1, !1)}
 }
 
-// Outputs to the "terminal" (Pt 2) //
-function ConsolePhase2(output,isBold,isItalics) {
-  const AdvOutputLine = document.createElement('li');
+// Outputs to the "Terminal" (Finalization) //
+function ConsolePhase2(output, isBold, isItalics) {
+  const AdvOutputLine = document.createElement('p');
+  AdvOutputLine.classList.add("OutputLine"), AdvOutputLine.textContent = output;
 
-  const AdvOutputLineChild = document.createElement('p');
-  AdvOutputLineChild.classList.add('OutputLine'),
-     (AdvOutputLineChild.textContent = output);
+  isBold && (AdvOutputLine.style.fontWeight = "bold"), isItalics && (AdvOutputLine.style.fontStyle = "italic");
 
-  isBold && (AdvOutputLineChild.style.fontWeight = 'bold');
-  isItalics && (AdvOutputLineChild.style.fontStyle = 'italic');
-
-  AdvOutputLine.appendChild(AdvOutputLineChild);
-
-  const consoleOutput = document.getElementById('ConsoleOutput');
-  consoleOutput.insertAdjacentElement('afterend',AdvOutputLine);
+  document.getElementById("ConsoleOutput").insertAdjacentElement("afterend", document.createElement("li").appendChild(AdvOutputLine))
 }
