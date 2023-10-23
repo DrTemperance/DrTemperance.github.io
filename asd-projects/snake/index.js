@@ -1,21 +1,12 @@
-const board            = document.getElementById('board'),
-      scoreElement     = document.getElementById('score'),
-      highScoreElement = document.getElementById('highScore'),
-      ROWS             = 20,
-      COLUMNS          = 20,
-      SQUARE_SIZE      = 20,
-      handleKeyDown    = event => {activeKey = event.key;};
-let snake = {
-      body     : [],
-      head     : [],
-      tail     : [],
-      direction: null,
-    },
-    apple = {
-      element: [],
-      row    : [],
-      column : [],
-    },
+const board                        = document.getElementById('board'),
+      scoreElement               = document.getElementById('score'),
+      highScoreElement       = document.getElementById('highScore'),
+      ROWS                           = 20,
+      COLUMNS                    = 20,
+      SQUARE_SIZE             = 20,
+      handleKeyDown          = event => {activeKey = event.key;};
+let snake = {body: [], head: [], tail: [], direction: null},
+    apple = {element: [], row: [], column: []},
     score = 0,
     updateInterval,
     activeKey;
