@@ -1,33 +1,32 @@
 const SLEEP_AMOUNT        = 50,
-      MAX_SQUARES         = 100,
-      SEED                = 3,
-      FACTOR              = 1774339,
-      INCREASE            = 7181930,
-      IMAGE_SIZE          = 256,
-      MAX_SQUARE_WIDTH    = 25,
-      MAX_SQUARE_HEIGHT   = 1,
-      bubbleList          = [],
-      quickList           = [],
-      bubbleId            = '#displayBubble',
-      quickId             = '#displayQuick',
-      bubbleContainer     = '#bubbleArea',
-      quickContainer      = '#quickArea',
-      bubbleCounter       = '#bubbleCounter',
-      quickCounter        = '#quickCounter',
-      bubbleElementBaseId = 'bubble',
-      quickElementBaseId  = 'quick',
-      elementClass        = 'sortElement',
-      bubbleClass         = 'bubbleElement',
-      quickClass          = 'quickElement';
+		MAX_SQUARES         = 100,
+		SEED                = 3,
+		FACTOR              = 1774339,
+		INCREASE            = 7181930,
+		IMAGE_SIZE          = 256,
+		MAX_SQUARE_WIDTH    = 25,
+		MAX_SQUARE_HEIGHT   = 1,
+		bubbleList          = [],
+		quickList           = [],
+		bubbleId            = '#displayBubble',
+		quickId             = '#displayQuick',
+		bubbleContainer     = '#bubbleArea',
+		quickContainer      = '#quickArea',
+		bubbleCounter       = '#bubbleCounter',
+		quickCounter        = '#quickCounter',
+		bubbleElementBaseId = 'bubble',
+		quickElementBaseId  = 'quick',
+		elementClass        = 'sortElement',
+		bubbleClass         = 'bubbleElement',
+		quickClass          = 'quickElement';
 let bubbleSort,quickSort;
 
 $(document).ready(() => {
   let e = $(bubbleId).width() * (Math.min(100 * MAX_SQUARES,MAX_SQUARE_WIDTH) / 100);
-  $(bubbleId).height(e * MAX_SQUARES), $(quickId).height(e * MAX_SQUARES), generateList(
-     bubbleList,
-     bubbleId,
-     bubbleClass,
-     bubbleElementBaseId,
+  $(bubbleId).height(e * MAX_SQUARES), $(quickId).height(e * MAX_SQUARES), generateList(bubbleList,
+																													 bubbleId,
+																													 bubbleClass,
+																													 bubbleElementBaseId,
   ), generateList(quickList,quickId,quickClass,quickElementBaseId)
 });
 

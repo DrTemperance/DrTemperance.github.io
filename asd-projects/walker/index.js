@@ -1,9 +1,5 @@
 $(document).ready(() => {
-  // Constant Variables
-  // one-time setup
-  const FRAME_RATE                 = 120,
-        FRAMES_PER_SECOND_INTERVAL = 1e3 / FRAME_RATE,
-        interval                   = setInterval(newFrame,FRAMES_PER_SECOND_INTERVAL);
+  const FRAME_RATE = 120,interval = setInterval(newFrame,1e3 / FRAME_RATE);
 
   $(document).on('eventType',handleEvent);
 
@@ -13,10 +9,8 @@ $(document).ready(() => {
 
 
   function endGame() {
-    // stop the interval timer
-    clearInterval(interval);
+	 clearInterval(interval);
 
-    // turn off event handlers
-    $(document).off();
+	 $(document).off();
   }
 });

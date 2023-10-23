@@ -1,32 +1,32 @@
 const bubbleSort = async array => {
-        for (let i = 0; i<array.length; i++) {
-          for (let j = array.length - 1; j>=i + 1; j--) {
-            if (array[j].value<array[j - 1].value) {
-              swap(array,j,j - 1);
-              updateCounter(bubbleCounter);
-              await sleep();
-            }
-          }
-        }
-      },
-      quickSort  = async (array,left,right) => {
-        if (right - left>0) {
-          let index = await partition(array,left,right);
-          left<index - 1 && await quickSort(array,left,index - 1);
-          index<right && await quickSort(array,index,right);
-        }
-      };
+  for (let i = 0; i<array.length; i++) {
+	 for (let j = array.length - 1; j>=i + 1; j--) {
+		if (array[j].value<array[j - 1].value) {
+		  swap(array,j,j - 1);
+		  updateCounter(bubbleCounter);
+		  await sleep();
+		}
+	 }
+  }
+},quickSort      = async (array,left,right) => {
+  if (right - left>0) {
+	 let index = await partition(array,left,right);
+	 left<index - 1 && await quickSort(array,left,index - 1);
+	 index<right && await quickSort(array,index,right);
+  }
+};
 
-async function partition(array, left, right) {
+async function partition(array,left,right) {
   let pivot = array[Math.floor((right + left) / 2)].value;
-  for (; left < right;) { for (; array[left].value < pivot;) { left++ } }
-  for (; array[right].value > pivot;) { right-- }
-  if (left < right) {
-    swap(array, left, right);
-    updateCounter(quickCounter);
-    await sleep()
+  for (; left<right;) { for (; array[left].value<pivot;) { left++ } }
+  for (; array[right].value>pivot;) { right-- }
+  if (left<right) {
+	 swap(array,left,right);
+	 updateCounter(quickCounter);
+	 await sleep()
   }
 }
+
 return left + 1
 }
 
@@ -37,7 +37,7 @@ function swap(array,i,j) {
   drawSwap(array,i,j)
 }
 
-function sleep() {return new Promise(e => setTimeout(e, SLEEP_AMOUNT))}
+function sleep() {return new Promise(e => setTimeout(e,SLEEP_AMOUNT))}
 
 function drawSwap(array,i,j) {
   let element1 = array[i],element2 = array[j],temp = `${parseFloat($(element1.id).css('top'))}px`;

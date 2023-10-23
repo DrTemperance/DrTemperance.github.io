@@ -1,43 +1,30 @@
-html {
-  background: #969696;
-}
+html {background : #969696;}
 
-* {
-  font-family: 'Consolas', 'monospace', 'sans-serif';
-}
+* {font-family : 'Consolas', 'monospace', 'sans-serif';}
 
 .square {
-  width: 25px;
-  height: 25px;
-  position: absolute;
-  margin: auto;
+	width    : 25px;
+	height   : 25px;
+	position : absolute;
+	margin   : auto;
 }
 
-#display {
-  width: fit-content;
-}
+#display {width : fit-content;}
 
-body>div {
-  position: relative;
-}
+body > div {position : relative;}
 
 #button-box {
-  position: relative;
-  top: 350px;
-  width: fit-content;
+	position : relative;
+	top      : 350px;
+	width    : fit-content;
 }
 
 button {
-  width: 140px;
-  padding: 8px;
-  margin: 15px auto;
-  font-size: 18px;
+	width     : 140px;
+	padding   : 8px;
+	margin    : 15px auto;
+	font-size : 18px;
 
-  &#apply {
-    background: green;
-  }
-
-  &#reset {
-    background: red;
-  }
+	&#apply {background : green;}
+	&#reset {background : red;}
 }

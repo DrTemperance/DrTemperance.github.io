@@ -1,77 +1,65 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang='en'>
 
 <head>
-    <title>-~= Hannah's Hallway =~-</title>
-    <meta content="width=device-width, initial-scale=1" name="viewport"/>
-    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
-    <meta content="Hannah's Personal Website" name="description">
-    <meta content="Hannah" name="author">
-    <meta content="Hannah, Hannah's, Hannah's Hallway, Temporance, Valence, Temporalis, Time" name="keywords">
-    <meta content="index, follow" name="robots">
-    <meta content="English" name="language">
-    <meta content="Hannah's Hallway" name="title">
-    <link href="https://use.typekit.net/lyz1fxx.css" rel="stylesheet"/>
-    <link href="images/potion.webp" rel="icon" type="image/webp"/>
-    <link href="style.css" rel="stylesheet"/>
-    <meta charset="UTF-8"/>
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,500,1,0"
-          rel="stylesheet"/>
+	<title>-~= Hannah's Hallway =~-</title>
+	<meta content='width=device-width, initial-scale=1' name='viewport'/>
+	<meta content='text/html; charset=UTF-8' http-equiv='Content-Type'/>
+	<meta content="Hannah's Personal Website" name='description'>
+	<meta content='Hannah' name='author'>
+	<meta content="Hannah, Hannah's, Hannah's Hallway, Temporance, Valence, Temporalis, Time" name='keywords'>
+	<meta content='index, follow' name='robots'>
+	<meta content='English' name='language'>
+	<meta content="Hannah's Hallway" name='title'>
+	<link href='https://use.typekit.net/lyz1fxx.css' rel='stylesheet'/>
+	<link href='images/potion.webp' rel='icon' type='image/webp'/>
+	<link href='style.css' rel='stylesheet'/>
+	<meta charset='UTF-8'/>
+	<link href='https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,500,1,0'
+	      rel='stylesheet'/>
 </head>
 
 <body>
 <nav>
-    <h1 class="header">-= Hannah's Hallway =-</h1>
-    <a>
-        <div class="active-page navitems">Home</div>
-    </a>
-    <a href="info.html">
-        <div class="navitems">About Me</div>
-    </a>
-    <a href="music.html">
-        <div class="navitems">Music</div>
-    </a>
-    <a href="time.html">
-        <div class="navitems">Time Machine</div>
-    </a>
-    <a href="quotes.html">
-        <div class="navitems">Favorite Quotes</div>
-    </a>
-    <a href="portfolio.html">
-        <div class="navitems">Portfolio</div>
-    </a>
+	<h1 class='header'>-= Hannah's Hallway =-</h1>
+	<a><div class='active-page navitems'>Home</div></a>
+	<a href='info.html'><div class='navitems'>About Me</div></a>
+	<a href='music.html'><div class='navitems'>Music</div></a>
+	<a href='time.html'><div class='navitems'>Time Machine</div></a>
+	<a href='quotes.html'><div class='navitems'>Favorite Quotes</div></a>
+	<a href='portfolio.html'><div class='navitems'>Portfolio</div></a>
 </nav>
-<div class="contentBox">
-    <h1>Home</h1>
-    <img class="tempie" height="300" src="images/tempie.webp" width="300"/>
-    <p class="imgsubtitle">Junior Year, Coming Fall 2023</p>
-    <div class="time" id="timers">
-        <p id="countdown"></p>
-    </div>
+<div class='contentBox'>
+	<h1>Home</h1>
+	<img class='tempie' height='300' src='images/tempie.webp' width='300'/>
+	<p class='imgsubtitle'>Junior Year, Coming Fall 2023</p>
+	<div class='time' id='timers'>
+		<p id='countdown'></p>
+	</div>
 </div>
-<div class="contentBox">
-    <h1>Chemistry</h1>
-    <iframe height="650px"
-            src="https://www.fishersci.com/search/chemical/substructure/marvinjs/"
-            width="100%"></iframe>
+<div class='contentBox'>
+	<h1>Chemistry</h1>
+	<iframe height='650px'
+	        src='https://www.fishersci.com/search/chemical/substructure/marvinjs/'
+	        width='100%'></iframe>
 </div>
-<div class="contentBox">
-    <p id="pseudoFooter">All digital art (i.e. Backgrounds & CSS) is created by me, with lots of help from <a
-            href="https://awsome-creeper9.github.io/"><b>Awsome_Creeper9</b></a></p>
+<div class='contentBox'>
+	<p id='pseudoFooter'>All digital art (i.e. Backgrounds & CSS) is created by me, with lots of help from <a
+			href='https://awsome-creeper9.github.io/'><b>Awsome_Creeper9</b></a></p>
 </div>
 </body>
 
 <script>
   const targetDate      = new Date(`August 11, 2023, 7:24:00`).getTime(),
-        countdown       = document.getElementById('timers'),
-        updateCountdown = () => {
-          let timeDifference = targetDate - Date.now(),
-              days           = Math.floor(timeDifference / 864e5),
-              hours          = Math.floor((timeDifference % 864e5) / 36e5),
-              minutes        = Math.floor((timeDifference % 36e5) / 6e4),
-              seconds        = Math.floor((timeDifference % 6e4) / 1e3);
-          countdown.textContent = `${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds`;
-        };
+		  countdown       = document.getElementById('timers'),
+		  updateCountdown = () => {
+			 let timeDifference = targetDate - Date.now(),
+				  days           = Math.floor(timeDifference / 864e5),
+				  hours          = Math.floor((timeDifference % 864e5) / 36e5),
+				  minutes        = Math.floor((timeDifference % 36e5) / 6e4),
+				  seconds        = Math.floor((timeDifference % 6e4) / 1e3);
+			 countdown.textContent = `${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds`;
+		  };
   updateCountdown();
   setInterval(updateCountdown,300);
 </script>

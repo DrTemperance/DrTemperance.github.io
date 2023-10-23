@@ -1,76 +1,70 @@
-*:not([id*="cycle"]) {
-    font-family: 'Courier New', 'Courier', 'Consolas', 'monospace';
-}
+*:not([id*='cycle']) {font-family : 'Courier New', 'Courier', 'Consolas', 'monospace';}
 
-html {
-    background: -webkit-gradient(linear, left top, right bottom, from(#111), to(#444));
-}
+html {background : -webkit-gradient(linear, left top, right bottom, from(#111), to(#444));}
 
 #board {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    width: fit-content;
-    height: fit-content;
-    border: #aaa ridge 4px;
-    background: #888;
-    margin: auto;
-    filter: drop-shadow(1px 1px 4px #111);
+	position   : absolute;
+	top        : 0;
+	left       : 0;
+	right      : 0;
+	bottom     : 0;
+	width      : fit-content;
+	height     : fit-content;
+	border     : #AAA ridge 4px;
+	background : #888;
+	margin     : auto;
+	filter     : drop-shadow(1px 1px 4px #111);
 }
 
 #info-bar {
-    width: 100%;
-    height: 100%;
-    background: #bbb;
-    font-size: 2.75rem;
-    text-align: center;
-    font-weight: bold;
+	width       : 100%;
+	height      : 100%;
+	background  : #BBB;
+	font-size   : 2.75rem;
+	text-align  : center;
+	font-weight : bold;
 }
 
 #shape-container {
-    width: 100%;
-    height: 500px;
-    background: #000;
-    border-top: #bbb ridge 4px;
-    border-bottom: #bbb ridge 4px;
+	width         : 100%;
+	height        : 500px;
+	background    : #000;
+	border-top    : #BBB ridge 4px;
+	border-bottom : #BBB ridge 4px;
 }
 
 #button-box {
-    margin: auto;
-    width: fit-content;
-    height: 40px;
-    display: flex;
-    flex-direction: row;
+	margin         : auto;
+	width          : fit-content;
+	height         : 40px;
+	display        : flex;
+	flex-direction : row;
 }
 
 #shape {
-    color: #eee;
-    width: 100px;
-    height: 100px;
-    position: relative;
-    top: 150px;
-    left: 150px;
-    border: #eee solid 2px;
-    display: block;
-    filter: drop-shadow(1px 1px 1px #111);
+	color    : #EEE;
+	width    : 100px;
+	height   : 100px;
+	position : relative;
+	top      : 150px;
+	left     : 150px;
+	border   : #EEE solid 2px;
+	display  : block;
+	filter   : drop-shadow(1px 1px 1px #111);
 }
 
 button {
-    width: fit-content;
-    height: 75%;
-    margin: auto 8px;
-    font-weight: bold;
-    font-size: 1rem;
-    filter: drop-shadow(1px 1px 1px #111);
+	width       : fit-content;
+	height      : 75%;
+	margin      : auto 8px;
+	font-weight : bold;
+	font-size   : 1rem;
+	filter      : drop-shadow(1px 1px 1px #111);
 
-    &[id*="cycle"] {
-        border-radius: 10px;
-        border: #111 outset 2px;
-    }
+	&[id*='cycle'] {
+		border-radius : 10px;
+		border        : #111 outset 2px;
+	}
 }
 
-p {
-    margin: 6px;
-}
+p {margin : 6px;}
