@@ -1,4 +1,18 @@
-let STARTED = !1;
-$(document)
-.ready(() => $('#goButton')
-.on('click',() => {STARTED || (t = !0, bubbleSort && bubbleSort(bubbleList), quickSort && quickSort(quickList,0,quickList.length - 1))}))
+// flag to prevent running simultaneous sorts by clicking 
+// "start" multiple times
+let STARTED = false;
+
+$(document).ready(function(){
+    $("#goButton").on("click", function(){
+        if (!STARTED){
+            STARTED = true;
+
+            if (bubbleSort){
+                bubbleSort(bubbleList);
+            }
+            if (quickSort){
+                quickSort(quickList, 0, quickList.length-1);
+            }
+        }
+    })
+})
