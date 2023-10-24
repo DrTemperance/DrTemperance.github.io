@@ -1,15 +1,10 @@
-<!DOCTYPE html>
 <html lang='en'>
 
 <head>
 	<title>-~= Hannah's Hallway =~-</title>
 	<meta content='width=device-width, initial-scale=1' name='viewport'/>
-	<meta content='text/html; charset=UTF-8' http-equiv='Content-Type'/>
 	<meta content="Hannah's Personal Website" name='description'>
-	<meta content='Hannah' name='author'>
-	<meta content="Hannah, Hannah's, Hannah's Hallway, Temporance, Valence, Temporalis, Time" name='keywords'>
-	<meta content='index, follow' name='robots'>
-	<meta content='English' name='language'>
+	<meta content="Hannah, Hannah's, Hannah's Hallway, Temperance, Valence, Temporal, Time" name='keywords'>
 	<meta content="Hannah's Hallway" name='title'>
 	<link href='https://use.typekit.net/lyz1fxx.css' rel='stylesheet'/>
 	<link href='images/potion.webp' rel='icon' type='image/webp'/>
@@ -43,7 +38,7 @@
 </nav>
 <div class='contentBox'>
 	<h1>Home</h1>
-	<img class='tempie' height='300' src='images/tempie.webp' width='300'/>
+	<img class='tempie' height='300' src='images/tempie.webp'/>
 	<p class='imgsubtitle'>Junior Year, Coming Fall 2023</p>
 	<div class='time' id='timers'><p id='countdown'></p></div>
 </div>
@@ -61,8 +56,12 @@
 <script>
   const targetDate      = new Date(`August 11, 2023, 7:24:00`).getTime(),
 		  updateCountdown = () => {
-            let timeDifference = targetDate - Date.now();
-	        document.getElementById('timers').textContent = `${Math.floor(timeDifference / 864e5)} days, ${Math.floor((timeDifference % 864e5) / 36e5)} hours, ${Math.floor((timeDifference % 36e5) / 6e4)} minutes, ${Math.floor((timeDifference % 6e4) / 1e3)} seconds`;
+			 let timeDifference = targetDate - Date.now();
+			 document.getElementById('timers').textContent = `${Math.floor(timeDifference /
+																								864e5)} days, ${Math.floor((timeDifference %
+																																	 864e5) /
+																																	36e5)} hours, ${Math.floor(
+				 (timeDifference % 36e5) / 6e4)} minutes, ${Math.floor((timeDifference % 6e4) / 1e3)} seconds`;
 		  };
   updateCountdown();
   setInterval(updateCountdown,300);

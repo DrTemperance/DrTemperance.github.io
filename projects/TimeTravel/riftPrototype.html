@@ -1,5 +1,4 @@
-﻿<!DOCTYPE html>
-<html lang='en'>
+﻿<html lang='en'>
 
 <head>
 	<meta charset='UTF-8'/>
@@ -8,8 +7,7 @@
 	<script async src='kekePalmer.js'></script>
 	<script async src='stories!/80s/scripting/playerscripting.js'></script>
 	<script async src='stories!/80s/scripting/data.js'></script>
-	<link href='https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,500,1,0'
-	      rel='stylesheet'/>
+	<link href='https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,500,1,0' rel='stylesheet'/>
 	<meta content='width=device-width, height=device-height, initial-scale=1' name='viewport'/>
 </head>
 
@@ -60,7 +58,6 @@
 
 </html>
 
-<!-- Scripts -->
 <script async>
   document.getElementById('configButton').addEventListener('click',openSettings);
 
@@ -118,12 +115,9 @@
 		 const {bottom,left,right,top} = document.getElementById('console-log').getBoundingClientRect();
 
 		 e.clientX>=left && e.clientX<=right && e.clientY>=top && e.clientY<=bottom
-		 ? (document.body.style.cursor = 'none',
-			 customCursor.style.display = 'block',
-			 customCursor.style.left = e.pageX + 'px',
-			 customCursor.style.top = e.pageY + 'px')
-		 : (document.body.style.cursor = 'auto',
-			 customCursor.style.display = 'none')
+		 ? (document.body.style.cursor = 'none', customCursor.style.display = 'block', customCursor.style.left
+			 = `${e.pageX}px`, customCursor.style.top = `${e.pageY}px`)
+		 : (document.body.style.cursor = 'auto', customCursor.style.display = 'none')
 	  }));
 
   // Terminal functionality //
@@ -134,32 +128,19 @@
   let commandIndex = -1;
 
   terminalElement.addEventListener('keydown',({key,preventDefault}) => {
-	 switch (key) {
-		case 'Enter':
-		  if (terminalElement.value.trim()!==``) {
-			 preventDefault();
-			 commandHistory.unshift(terminalElement.value), inputHandler(convertToFunctionCall(terminalElement.value));
-			 terminalElement.value = ``;
-			 commandIndex = -1;
-		  }
-		  break;
-		case 'ArrowUp':
-		  preventDefault();
-		  if (commandIndex!==commandHistory.length - 1) {
-			 commandIndex++;
-			 terminalElement.value = commandHistory[commandIndex];
-		  }
-		  break;
-		case 'ArrowDown':
-		  preventDefault();
-		  if (commandIndex===0) {
-			 commandIndex--;
-			 terminalElement.value = ``;
-		  } else if (commandIndex!== -1) {
-			 commandIndex--;
-			 terminalElement.value = commandHistory[commandIndex];
-		  }
-		  break;
+	 preventDefault();
+	 if (key==='Enter' && terminalElement.value.trim()!=='') {
+		preventDefault();
+		commandHistory.unshift(terminalElement.value), inputHandler(convertToFunctionCall(terminalElement.value));
+		terminalElement.value = '';
+		commandIndex = -1;
+	 }
+	 if (key==='ArrowUp' && commandIndex!==commandHistory.length - 1) {
+		commandIndex++, terminalElement.value = commandHistory[commandIndex];
+	 }
+	 if (key==='ArrowDown') {
+		commandIndex===0 && (commandIndex--, terminalElement.value = '');
+		commandIndex!== -1 && (commandIndex--, terminalElement.value = commandHistory[commandIndex]);
 	 }
   });
 
@@ -167,7 +148,7 @@
 	 try {
 		const result = eval(rawInput);
 		await addToConsole(rawInput,JSON.stringify(result));
-	 } catch (e) {await addToConsole(rawInput,e);}
+	 } catch (e) {await addToConsole(rawInput,e)}
   }
 
   const addToHistory = i => {
@@ -177,32 +158,28 @@
   };
 
   async function addToConsole(command,result) {
-	 const li = document.createElement('li');
-	 li.innerHTML = `${config.constants.currentPrompt} ${command} <br><br> ${result}`;
-	 consoleLog.appendChild(li);
+	 const li1 = document.createElement('li');
+	 li1.textContent = `${config.constants.currentPrompt} ${command} <br><br> ${result}`;
+	 consoleLog.appendChild(li1);
   }
 
-  function convertToFunctionCall(low) {
+  function convertToFunctionCall({toLowerCase}) {
 	 let index,argument,functionName;
-	 const lowerInput = low.toLowerCase();
+	 const lowerInput = toLowerCase();
 
 	 switch (!0) {
-		case lowerInput.includes(`go`):
-		  index = lowerInput.indexOf(` to`);
-		  if (index=== -1) {
-			 return `${lowerInput}`;
-		  } else {
+		case lowerInput.includes('go'):
+		  index = lowerInput.indexOf(' to');
+		  if (index=== -1) {return `${lowerInput}`} else {
 			 functionName = lowerInput.substring(0,index);
-			 argument = lowerInput.substring(index + 4).replace(/ /g,``);
+			 argument = lowerInput.substring(index + 4).replace(/ /g,'');
 			 return `${functionName}('${argument}')`;
 		  }
-		case lowerInput.includes(`inspect`) || lowerInput.includes(`enter`):
-		  index = lowerInput.indexOf(` `);
-		  if (index=== -1) {
-			 return `${lowerInput}`;
-		  } else {
+		case lowerInput.includes('inspect') || lowerInput.includes('enter'):
+		  index = lowerInput.indexOf(' ');
+		  if (index=== -1) {return `${lowerInput}`} else {
 			 functionName = lowerInput.substring(0,index);
-			 argument = lowerInput.substring(index).replace(/ /g,``);
+			 argument = lowerInput.substring(index).replace(/ /g,'');
 			 return `${functionName}(${argument})`;
 		  }
 		default:

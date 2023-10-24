@@ -1,7 +1,7 @@
 {
-  "name"        : "Tillie's Time Game",
-  "version"     : "3.0p",
-  "description" : "A game of time travel",
-  "main"        : "riftPrototype.html",
-  "dependencies": {}
+  "name"         : "Tillie's Time Game",
+  "version"      : "3.0p",
+  "description"  : "A game of time travel",
+  "main"         : "riftPrototype.html",
+  "dependencies" : {}
 }

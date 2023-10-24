@@ -1,8 +1,7 @@
-﻿/* Wide Variety */
-@font-face {
+﻿@font-face {
 	src         : url('BlockZone.ttf');
 	font-family : 'VGA';
-}
+	}
 
 html, body {overflow : hidden;}
 
@@ -13,22 +12,22 @@ html, body {overflow : hidden;}
 	align-items       : center;
 	margin            : initial auto;
 	user-select       : none;
-	color             : lime;
+	color             : #0F0;
 	-webkit-user-drag : none;
 
 	&:focus {outline : none !important;}
 
 	&::selection {
-		background : lime;
-		color      : black;
-	}
+		background : #0F0;
+		color      : #000;
+		}
 
 	&.column {
 		flex-direction : column;
 		display        : flex;
 
 		&.reversed {flex-direction : column-reverse !important;}
-	}
+		}
 
 	&.row {
 		flex-direction : row;
@@ -36,8 +35,8 @@ html, body {overflow : hidden;}
 		width          : 97%;
 
 		&.reversed {flex-direction : row-reverse !important;}
+		}
 	}
-}
 
 #screenBorder {
 	pointer-events : none;
@@ -51,16 +50,15 @@ html, body {overflow : hidden;}
 	right          : 0;
 	left           : 0;
 	top            : 0;
-}
+	}
 
 body {
 	flex-direction : column;
-	background     : black;
+	background     : #000;
 	height         : 98%;
 	width          : 98%;
-}
+	}
 
-/* Element Types */
 img {
 	margin   : initial auto;
 	position : fixed;
@@ -76,14 +74,14 @@ img {
 		right          : 0;
 		left           : 0;
 		top            : 0;
+		}
 	}
-}
 
 span#configButton:not(#configClose) {
 	padding   : 3px;
 	order     : 3;
 	font-size : 1.1rem;
-}
+	}
 
 button {
 	&#settingsOption {
@@ -96,15 +94,14 @@ button {
 		height     : 70px;
 		z-index    : 301;
 		width      : 75%;
-	}
+		}
 
 	&:hover {
-		border     : 3px inset black;
+		border     : 3px inset #000;
 		background : rgb(0, 75, 0);
+		}
 	}
-}
 
-/* Terminal Input */
 #terminal {
 	background : none;
 	border     : none;
@@ -113,9 +110,8 @@ button {
 	order      : 2;
 
 	&:hover {cursor : none;}
-}
+	}
 
-/* Terminal Output */
 #console-log {
 	margin     : auto;
 	overflow-y : auto;
@@ -124,22 +120,27 @@ button {
 	width      : 99%;
 
 	& li {
-		border-bottom : 0.3vh solid lime !important;
+		border-bottom : 0.3vh solid #0F0 !important;
 		padding       : 0.5vh 1vh !important;
 		user-select   : text !important;
 		z-index       : -10;
-		filter        : drop-shadow(0 0 3px lime);
-	}
+		filter        : drop-shadow(0 0 3px #0F0);
+		}
 
 	&::-webkit-scrollbar {width : 0.5vw;}
-	&::-webkit-scrollbar-track {background : black;}
-	&::-webkit-scrollbar-thumb {background : lime;}
+
+	&::-webkit-scrollbar-track {background : #000;}
+
+	&::-webkit-scrollbar-thumb {background : #0F0;}
+
 	&::-webkit-scrollbar-thumb:hover {background : rgb(0, 180, 0);}
 
 	& * {font-size : .9rem;}
-}
+	}
 
-@media (orientation : landscape) {#terminal {width : 100% !important;}}
+@media (orientation : landscape) {
+	#terminal {width : 100% !important;}
+	}
 
 #custom-cursor {
 	background      : url('stories!/80s/80sMousePrototype.webp') no-repeat;
@@ -151,12 +152,10 @@ button {
 	z-index         : 1000;
 	left            : 50vw;
 	top             : 50vh;
-}
-
-/* Configuration Menu */
+	}
 
 #configMenu {
-	border     : solid 2px lime;
+	border     : solid 2px #0F0;
 	visibility : hidden;
 	background : rgb(0, 50, 0);
 	position   : fixed;
@@ -169,7 +168,7 @@ button {
 	right      : 0;
 	left       : 0;
 	top        : 0;
-}
+	}
 
 #content {
 	background      : url('stories!/80s/screen80-1.webp') no-repeat center;
@@ -187,8 +186,8 @@ button {
 	> {
 		flex-direction : column;
 		display        : flex;
+		}
 	}
-}
 
 .column {
 	flex-direction : column;
@@ -196,6 +195,6 @@ button {
 	display        : flex;
 
 	&.reversed {flex-direction : column-reverse !important;}
-}
+	}
 
 .inputParent {width : 100%;}

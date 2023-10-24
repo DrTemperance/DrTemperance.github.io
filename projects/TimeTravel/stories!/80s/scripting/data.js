@@ -1,5 +1,5 @@
 let inventory = {
-  values: {money: 3,hairpins: 1},
+  values: {hairpins: 1,money: 3},
   items : {
 	 flashlight    : {
 		available: false,
