@@ -7,11 +7,9 @@ async function bubbleSort(array) {
 }
 
 async function quickSort(array,left,right) {
-  if (right - left>0) {
-	 let t = await partition(array,left,right);
-	 t - 1>left && quickSort(array,left,t - 1);
-	 t<right && quickSort(array,t,right);
-  }
+  if (right - left<=0) {return}
+  let t = await partition(array,left,right);
+  t - 1>left && quickSort(array,left,t - 1), t<right && quickSort(array,t,right)
 }
 
 async function partition(array,left,right) {
@@ -38,7 +36,9 @@ async function swap(array,i,j) {
 async function sleep() {return new Promise(resolve => setTimeout(resolve,50));}
 
 async function drawSwap(array,i,j) {
-  let {id: id1} = array[i],{id: id2} = array[j],temp = `${parseFloat($(id1).css('top'))}px`;
+  let {id: id1} = array[i],
+		{id: id2} = array[j],
+		temp      = `${parseFloat($(id1).css('top'))}px`;
 
   $(id1).css('top',`${parseFloat($(id2).css('top'))}px`);
   $(id2).css('top',temp);

@@ -1,33 +1,19 @@
-* { margin : auto; }
+* { margin : auto; user-select : none; }
 
 body {background-color : #021;}
 
 #board {
-	border     : 1px solid #FFF;
-	position   : relative;
-	width      : 440px;
-	height     : 440px;
-	background : #000;
+	border          : 1px double #66A;
+	position        : relative;
+	width           : 440px;
+	height          : 440px;
+	backdrop-filter : blur(10px);
+	background      : rgba(255, 255, 255, 0.5);
 	}
 
 span {
 	position      : absolute;
-	font-weight   : bolder;
-	text-align    : center;
 	width         : 50px;
 	height        : 50px;
 	border-radius : 15%;
-	padding       : 0;
 	}
-
-#walker {background : #705;}
-
-#walker2 {background : #0D8;}
-
-.tagged {
-	filter     : drop-shadow(1px 1px 1px #611);
-	background : #611;
-	color      : #122;
-	}
-
-/* TODO $('#tag-indicator').appendTo('.tagged'); */
