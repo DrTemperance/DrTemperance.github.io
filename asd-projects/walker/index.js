@@ -10,24 +10,24 @@ const runProgram = () => {
 		square2     = {},
 		tagBeginner = Math.random();
 
-  $(document).on('keydown',async ({key: k}) => {
-	 k==='ArrowLeft' && (speedX = -5);
-	 k==='ArrowRight' && (speedX = 5);
-	 k==='ArrowUp' && (speedY = -5);
-	 k==='ArrowDown' && (speedY = 5);
-	 k==='a' && (speedX2 = -5);
-	 k==='d' && (speedX2 = 5);
-	 k==='w' && (speedY2 = -5);
-	 k==='s' && (speedY2 = 5);
-  }).on('keyup',async ({key: k}) => {
-	 k==='ArrowLeft' && (speedX += 5);
-	 k==='ArrowRight' && (speedX -= 5);
-	 k==='ArrowUp' && (speedY += 5);
-	 k==='ArrowDown' && (speedY -= 5);
-	 k==='a' && (speedX2 += 5);
-	 k==='d' && (speedX2 -= 5);
-	 k==='w' && (speedY2 += 5);
-	 k==='s' && (speedY2 -= 5);
+  $(document).on('keydown',async ({key}) => {
+	 key==='ArrowLeft' && (speedX = -5);
+	 key==='ArrowRight' && (speedX = 5);
+	 key==='ArrowUp' && (speedY = -5);
+	 key==='ArrowDown' && (speedY = 5);
+	 key==='a' && (speedX2 = -5);
+	 key==='d' && (speedX2 = 5);
+	 key==='w' && (speedY2 = -5);
+	 key==='s' && (speedY2 = 5);
+  }).on('keypress',async ({key}) => {
+	 key==='ArrowLeft' && (speedX += 5);
+	 key==='ArrowRight' && (speedX -= 5);
+	 key==='ArrowUp' && (speedY += 5);
+	 key==='ArrowDown' && (speedY -= 5);
+	 key==='a' && (speedX2 += 5);
+	 key==='d' && (speedX2 -= 5);
+	 key==='w' && (speedY2 += 5);
+	 key==='s' && (speedY2 -= 5);
   });
 
   tagBeginner<0.5 && ($('#walker').attr('class','tagged'), $('#walker2').attr('class','not-tagged'));
@@ -52,27 +52,13 @@ const runProgram = () => {
 	 square2.top = posY2, square2.bottom = posY2 + height;
 
 	 if (!(posX<posX2 + width && posX + width>posX2 && (posY<posY2 + height && posY + height>posY2))) {return}
-	 $('.not-tagged').attr('class','tagging'), $('.not-tagged').removeAttr('class','not-tagged');
+	 $(`.not-tagged`).attr('class','tagging'), $('.not-tagged').removeAttr('class','not-tagged');
 	 $('.tagged').attr('class','not-tagged'), $('.tagged').removeAttr('class','tagged');
 	 $('.tagging').attr('class','tagged'), $('.tagging').removeAttr('class','tagging');
-	 square2.left>square1.left && (posX -= 50, posX2 += 50);
-	 square1.right>square2.right && (posX += 50, posX2 -= 50);
-	 square2.top>square1.top && (posY -= 50, posY2 += 50);
-	 square1.bottom>square2.bottom && (posY += 50, posY2 -= 50);
+	 posX2>posX && (posX -= 50, posX2 += 50), posY2>posY && (posY -= 50, posY2 += 50);
+	 posX + width>posX2 + width && (posX += 50, posX2 -= 50), posY + height>posY2 + height && (posY += 50, posY2 -= 50);
   }
 
-  function handleKeyDown({key}) {
-	 key==='ArrowLeft' && (speedX = -5);
-	 key==='ArrowRight' && (speedX = 5);
-	 key==='ArrowUp' && (speedY = -5);
-	 key==='ArrowDown' && (speedY = 5);
-	 key==='a' && (speedX2 = -5);
-	 key==='d' && (speedX2 = 5);
-	 key==='w' && (speedY2 = -5);
-	 key==='s' && (speedY2 = 5);
-  }
-
-  const endGame = () => {clearInterval(interval), $(document).off()}
 };
 
 $(document).ready(runProgram);

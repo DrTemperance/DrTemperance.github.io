@@ -1,3 +1,6 @@
+* {user-select : none;}
+
+html {background : #111;}
 
 .bubbleElement {background : url('img/bubble.png');}
 
@@ -5,23 +8,27 @@
 
 .subContainer > div {position : relative;}
 
-.sortElement {position : absolute;}
+.subContainer {
+	background : #425F86;
 
-.subContainer > h2 {margin : 0 5%;}
+	> h2 {
+		width  : fit-content;
+		margin : 1% auto;}
+	}
 
 #bubbleArea {margin-left : 2.5%;}
 
 #quickArea {margin-left : 3.75%;}
 
-#fullContainer {width : 100%;}
-
 #goButton {
-	border     : 2px #666 solid;
 	margin     : 4px auto;
 	cursor     : pointer;
-	background : #AAA;
+	border     : outset;
 	font-size  : 32px;
+	background : #888;
 	width      : 30%;
+
+	&:active {filter : invert(100%);}
 	}
 
 #sortContainer {

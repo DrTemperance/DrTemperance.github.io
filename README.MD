@@ -19,7 +19,6 @@
 
 ### Low Priority
 
-- Switch to a custom font
 - Finish implementing the dark/light mode
 
 ### Lowest Priority
