@@ -6,46 +6,42 @@
 
 ### High Priority
 
-- Fix & Finish css; incl. class/id names & inline **_(71% Done)_**
-- _Music.html_
 - Implement speed based blur filter and boolean values for CSS, Difficulty(speed) in the settings menu. _— Villager_
-- Integrate PHP & Python, maybe even Java Webapps
+- Fix & Finish css; incl. class/id names & inline **_(71% Done)_**
+- Incorporate PHP and Python, potentially even Java-based web applications.
+- _Music.html_
 
 ### Medium Priority
 
-- Compatibility for varying aspect ratios.
-- CSS interactivity to elements while maintaining performance.
-- Switch to _Modals_ from hidden divs.
+- Implementing CSS dynamism to constituents whilst preserving optimal performance.
+- Accommodation for disparate aspect ratio variances.
+- Transition to _Modals_ from concealed _divs_.
 
 ### Low Priority
 
-- Finish implementing the dark/light mode
+- Conclude the implementation of the dark/light mode dichotomy.
 
 ### Lowest Priority
 
-- Finish Login/Sign-Up Functionality
+None!
 
 ## Projects
 
 ### High Priority
 
-- Fully revamp the "bouncing box" with a Minecraft-themed, multi-level game.
-- Fully recreate the assets of all projects (i.e., Platformer & Box) (Including Halle).
-- Fix Project Spark's JS for all projects and phase out JQuery, speeding up all projects tenfold.
-- Finish Villager Clicker... Originally, "Bouncing Box."
-  a) {What an uninspired name, well I mean, so is mine, but at least there's a theme}.
+- Rectify Project Spark's JavaScript for all undertakings and progressively eliminate JQuery, thereby accelerating all projects
+  tenfold.
+- Completely overhaul the "bouncing box" with a Minecraft-themed, multi-tiered game.
 
 ## Time Machine
 
 ### High Priority
 
-- Finish writing the stories
-- Finish functionality
-- Finish implementing the universal images
+- Conclude the implementation of the ubiquitous imagery.
+- Conclude the composition of the narratives.
+- Conclude operationality.
 
 ### Medium Priority
 
-- Implement compatibility for both Mobile Devices & Non-code users
-- Implement an input scrubber to prevent the use of JS or HTML from the console
-
-```
+- Incorporate an input purifier to preclude the utilization of JavaScript or HyperText Markup Language via the console.
+- Incorporate compatibility for both mobile device users and non-coding individuals.

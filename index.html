@@ -3,15 +3,10 @@
 <head>
 	<title>-~= Hannah's Hallway =~-</title>
 	<meta content='width=device-width, initial-scale=1' name='viewport'/>
-	<meta content="Hannah's Personal Website" name='description'>
-	<meta content="Hannah, Hannah's, Hannah's Hallway, Temperance, Valence, Temporal, Time" name='keywords'>
-	<meta content="Hannah's Hallway" name='title'>
-	<link href='https://use.typekit.net/lyz1fxx.css' rel='stylesheet'/>
-	<link href='images/potion.webp' rel='icon' type='image/webp'/>
+	<meta content="Hannah's Individualistic Digital Domain" name='description'>
+	<link href='images/potion.webp' rel='icon'/>
 	<link href='style.css' rel='stylesheet'/>
 	<meta charset='UTF-8'/>
-	<link href='https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,500,1,0'
-	      rel='stylesheet'/>
 </head>
 
 <body>
@@ -39,7 +34,7 @@
 <div class='contentBox'>
 	<h1>Home</h1>
 	<img class='tempie' height='300' src='images/tempie.webp'/>
-	<p class='imgsubtitle'>Junior Year, Coming Fall 2023</p>
+	<p class='imgsubtitle'>Junior Year, Coming Autumn 2023</p>
 	<div class='time' id='timers'><p id='countdown'></p></div>
 </div>
 <div class='contentBox'>
@@ -47,7 +42,8 @@
 	<iframe height='650px' src='https://www.fishersci.com/search/chemical/substructure/marvinjs/' width='100%'></iframe>
 </div>
 <div class='contentBox'>
-	<p id='pseudoFooter'>All digital art (i.e. Backgrounds & CSS) is created by me, with lots of help from
+	<p id='pseudoFooter'>
+		All digital artistic creations created by me, with substantial assistance from
 		<a href='https://awsome-creeper9.github.io/'><b>Awsome_Creeper9</b></a>
 	</p>
 </div>
@@ -56,14 +52,14 @@
 <script>
   const targetDate      = new Date(`August 11, 2023, 7:24:00`).getTime(),
 		  updateCountdown = () => {
-			 let timeDifference = targetDate - Date.now();
-			 document.getElementById('timers').textContent = `${Math.floor(timeDifference /
-																								864e5)} days, ${Math.floor((timeDifference %
-																																	 864e5) /
-																																	36e5)} hours, ${Math.floor(
-				 (timeDifference % 36e5) / 6e4)} minutes, ${Math.floor((timeDifference % 6e4) / 1e3)} seconds`;
+			 document.getElementById('timers').textContent = `
+			 ${Math.trunc((targetDate - Date.now()) / 864.0e5)} days,
+			 ${Math.trunc(((targetDate - Date.now()) % 864.0e5) / 36.0e5)} hours,
+			 ${Math.trunc(((targetDate - Date.now()) % 36.0e5) / 6.0e4)} minutes,
+			 ${Math.floor((targetDate - Date.now()) % 6.0e4 / 1.0e3)} seconds
+			 `;
 		  };
   updateCountdown();
-  setInterval(updateCountdown,300);
+  setInterval(updateCountdown,50);
 </script>
 </html>
