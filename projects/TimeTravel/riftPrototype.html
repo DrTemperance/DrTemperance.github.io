@@ -59,15 +59,10 @@
 </html>
 
 <script async>
-  document.getElementById('configButton').addEventListener('click',openSettings);
+  document.getElementById('configButton')
+			 .addEventListener('click',() => {document.getElementById('configMenu').style.visibility = 'visible'});
 
-  async function openSettings() {
-	 document.getElementById('configMenu').style.visibility = 'visible';
-  }
-
-  async function closeMenu(e) {
-	 document.getElementById(e).parentElement.style.visibility = 'hidden'
-  }
+  async function closeMenu(e) {document.getElementById(e).parentElement.style.visibility = 'hidden'}
 
   let config = {
 	 custom   : {
