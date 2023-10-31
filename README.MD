@@ -2,12 +2,10 @@
 
 ## Main Website
 
-### TIME => ARG
-
 ### High Priority
 
-- Implement speed based blur filter and boolean values for CSS, Difficulty(speed) in the settings menu. _— Villager_
-- Fix & Finish css; incl. class/id names & inline **_(71% Done)_**
+- Implement speed-based blur filter and boolean values for CSS, Difficulty(speed) in the settings menu. _— Villager_
+- Fix & Finish _CSS_: including *Class* and *ID* names & inline **_(71% Done)_**
 - Incorporate PHP and Python, potentially even Java-based web applications.
 - _Music.html_
 
@@ -20,10 +18,6 @@
 ### Low Priority
 
 - Conclude the implementation of the dark/light mode dichotomy.
-
-### Lowest Priority
-
-None!
 
 ## Projects
 
@@ -40,6 +34,10 @@ None!
 - Conclude the implementation of the ubiquitous imagery.
 - Conclude the composition of the narratives.
 - Conclude operationality.
+
+### Ideas
+
+- TIME => ARG
 
 ### Medium Priority
 
