@@ -4,7 +4,7 @@ let posX    = posY = 290,
 	 speedX  = speedY = 0,
 	 speedX2 = speedY2 = 0;
 
-const runProgram = () => {
+$(document).ready(() => {
   let interval    = setInterval(newFrame,18),
 		square1     = {},
 		square2     = {},
@@ -58,7 +58,4 @@ const runProgram = () => {
 	 posX2>posX && (posX -= 50, posX2 += 50), posY2>posY && (posY -= 50, posY2 += 50);
 	 posX + width>posX2 + width && (posX += 50, posX2 -= 50), posY + height>posY2 + height && (posY += 50, posY2 -= 50);
   }
-
-};
-
-$(document).ready(runProgram);
+});

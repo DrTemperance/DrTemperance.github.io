@@ -1,24 +1,20 @@
-/* global Phaser */
-'use strict';
-(function (window) {
+(window => {
   window.opspark = window.opspark || {};
-  let opspark    = window.opspark,
-		animations = {},
+  let animations = {},
 		spawnX     = 30,
 		spawnY     = 600;
 
-  opspark.createPlayer = function (game) {
-	 let
-		 asset       = init(game),
-		 _direction  = 1,
-		 _run        = createState('run'),
-		 _duck       = createDuckState('duck'),
-		 _idle       = createState('idle'),
-		 _flyingJump = createFlyingJumpState('flyingJump'),
-		 _stop       = createStopState('stop'),
-		 _fire       = createFireState('fire'),
-		 _die        = createDieState('die'),
-		 _state      = _idle;
+  window.opspark.createPlayer = game => {
+	 let asset       = init(game),
+		  _direction  = 1,
+		  _run        = createState('run'),
+		  _duck       = createDuckState('duck'),
+		  _idle       = createState('idle'),
+		  _flyingJump = createFlyingJumpState('flyingJump'),
+		  _stop       = createStopState('stop'),
+		  _fire       = createFireState('fire'),
+		  _die        = createDieState('die'),
+		  _state      = _idle;
 
 	 function createState(name) {
 		return {
@@ -58,7 +54,7 @@
 		let xOffset = .5,
 			 yOffset = -1,
 			 state   = createState(name);
-		state.enter = function () {
+		state.enter = () => {
 		  asset.body.setSize(22,95,0,-2);
 		  asset.x += xOffset * _direction;
 		  asset.y += yOffset;
@@ -114,7 +110,7 @@
 			state.stop = state.duck = state.jump = state.flyingJump = doNothing;
 		state.enter = () => {
 		  asset.body.bounce.y = 0;
-		  game.add.tween(asset.body).to({y: asset.body.y - 100},1000,Phaser.Easing.Linear.None,!0);
+		  game.add.tween(asset.body).to({y: asset.body.y - 100},1e3,Phaser.Easing.Linear.None,!0)
 		  asset.body.velocity.x = 200 * _direction;
 		  asset.x += xOffset * _direction;
 		  asset.y += yOffset;
@@ -134,7 +130,7 @@
 
 	 function die() {
 		asset.animations.play('die');
-		asset.animations.currentAnim.onComplete.addOnce(function () {asset.destroy();},this);
+		asset.animations.currentAnim.onComplete.addOnce(() => {asset.destroy()},this);
 		setState(_die);
 	 }
 
@@ -147,9 +143,7 @@
 
 	 function duck() {
 		let duck     = animations.duck,
-			 onUpdate = function (anim,frame) {
-				if (frame.index===14) {asset.animations.stop()}
-			 };
+			 onUpdate = (anim,frame) => {frame.index===14 && asset.animations.stop()};
 
 		duck.enableUpdate = !0;
 		duck.onUpdate.add(onUpdate,this);
@@ -168,36 +162,30 @@
 	 }
 
 	 function flyingJump() {
-		let flyingJump  = animations.flyingJump,
-			 mid         = Math.floor(flyingJump.frameTotal / 2),
+		let mid         = Math.floor(animations.flyingJump.frameTotal / 2),
 			 origYOffset = asset.body.offset.y;
 
 		asset.body.offset.x += 10 * _direction;
 		asset.body.offset.y -= 30;
 		asset.body.y -= 22;
-		let onUpdate = (anim,frame) => {
-		  if (frame.index<52) {asset.body.offset.y -= 1;} else {
-			 asset.body.offset.x -= _direction;
-			 asset.body.offset.y += 2;
-		  }
-		};
+		let onUpdate = (anim,frame) => {frame.index<52 ? asset.body.offset.y -= 1 : (asset.body.offset.x -= _direction, asset.body.offset.y += 2)};
 
-		flyingJump.enableUpdate = true;
-		flyingJump.onUpdate.add(onUpdate,this);
+		animations.flyingJump.enableUpdate = !0;
+		animations.flyingJump.onUpdate.add(onUpdate,this);
 
-		flyingJump.play();
+		animations.flyingJump.play();
 		setState(_flyingJump);
 		asset.animations.currentAnim.onComplete.addOnce(function onComplete() {
 		  asset.body.offset.y += 24;
-		  flyingJump.onUpdate.remove(onUpdate,this);
+		  animations.flyingJump.onUpdate.remove(onUpdate,this);
 		  stop();
 		},this);
 	 }
 
 	 function fire() {
 		let {fire} = animations,i = 0;
-		fire.enableUpdate = true;
-		let onUpdate = (anim,frame) => {++i};
+		fire.enableUpdate = !0;
+		let onUpdate = () => {++i};
 		fire.onUpdate.add(onUpdate,this);
 		asset.animations.play('fire');
 		setState(_fire);
@@ -215,17 +203,17 @@
 
 	 return {
 		asset,
-		onKeyUp() { _state.onKeyUp(); },
-		onCursorRight() { _state.onCursorRight(); },
-		onCursorLeft() { _state.onCursorLeft(); },
-		run() { _state.run(); },
-		duck() { _state.duck(); },
-		idle() { _state.idle(); },
-		fire() { _state.fire(); },
-		flyingJump() { _state.flyingJump(); },
-		stop() { _state.stop(); },
-		die() { _state.die(); },
-		getStateName() { return _state.getName(); },
+		onKeyUp() {_state.onKeyUp()},
+		onCursorRight() {_state.onCursorRight()},
+		onCursorLeft() {_state.onCursorLeft()},
+		run() {_state.run()},
+		duck() {_state.duck()},
+		idle() {_state.idle()},
+		fire() {_state.fire()},
+		flyingJump() {_state.flyingJump()},
+		stop() {_state.stop()},
+		die() {_state.die()},
+		getStateName() {return _state.getName()},
 		setState,
 		setDirection(direction) {_direction = direction},
 	 };
@@ -236,15 +224,15 @@
 	 let asset = game.add.sprite(spawnX,spawnY,'halle');
 	 asset.anchor.setTo(0.5,1);
 
-	 animations.walk = asset.animations.add('walk',Phaser.Animation.generateFrameNames('walk-',1,30,'.png',4),30,true);
-	 animations.duck = asset.animations.add('duck',Phaser.Animation.generateFrameNames('duck-',1,28,'.png',4),30,false);
-	 animations.jump = asset.animations.add('jump',Phaser.Animation.generateFrameNames('jump-',1,24,'.png',4),30,false);
-	 animations.run = asset.animations.add('run',Phaser.Animation.generateFrameNames('run-',1,21,'.png',4),30,true);
-	 animations.flyingJump = asset.animations.add('flying-jump',Phaser.Animation.generateFrameNames('flying-jump-',1,48,'.png',4),30,false);
-	 animations.fire = asset.animations.add('fire',Phaser.Animation.generateFrameNames('lazer-',1,31,'.png',4),30,false);
-	 animations.stop = asset.animations.add('stop',Phaser.Animation.generateFrameNames('stop-',1,2,'.png',4),30,true);
-	 animations.idle = asset.animations.add('idle',Phaser.Animation.generateFrameNames('front-idle-',1,179,'.png',4),30,true);
-	 animations.die = asset.animations.add('die',Phaser.Animation.generateFrameNames('front-death-',1,64,'.png',4),30,false);
+	 animations.walk = asset.animations.add('walk',Phaser.Animation.generateFrameNames('walk-',1,30,'.png',4),30,!0);
+	 animations.duck = asset.animations.add('duck',Phaser.Animation.generateFrameNames('duck-',1,28,'.png',4),30,!1);
+	 animations.jump = asset.animations.add('jump',Phaser.Animation.generateFrameNames('jump-',1,24,'.png',4),30,!1);
+	 animations.run = asset.animations.add('run',Phaser.Animation.generateFrameNames('run-',1,21,'.png',4),30,!0);
+	 animations.flyingJump = asset.animations.add('flying-jump',Phaser.Animation.generateFrameNames('flying-jump-',1,48,'.png',4),30,!1);
+	 animations.fire = asset.animations.add('fire',Phaser.Animation.generateFrameNames('lazer-',1,31,'.png',4),30,!1);
+	 animations.stop = asset.animations.add('stop',Phaser.Animation.generateFrameNames('stop-',1,2,'.png',4),30,!0);
+	 animations.idle = asset.animations.add('idle',Phaser.Animation.generateFrameNames('front-idle-',1,179,'.png',4),30,!0);
+	 animations.die = asset.animations.add('die',Phaser.Animation.generateFrameNames('front-death-',1,64,'.png',4),30,!1);
 
 	 game.player = asset;
 	 game.physics.arcade.enable(asset);

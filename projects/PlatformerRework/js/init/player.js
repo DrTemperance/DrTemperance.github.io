@@ -1,11 +1,9 @@
-(function (window) {
-  'use strict';
+(window => {
   window.opspark = window.opspark || {};
   window.opspark.player = window.opspark.player || {};
-  let player = window.opspark.player,opspark = window.opspark;
 
-  player.init = game => {
-	 game.player = opspark.createPlayer(game);
-	 game.playerManager = opspark.createPlayerManager(game.player,game);
+  window.opspark.player.init = game => {
+	 game.player = window.opspark.createPlayer(game);
+	 game.playerManager = window.opspark.createPlayerManager(game.player,game);
   };
 })(window);

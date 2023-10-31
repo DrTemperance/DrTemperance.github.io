@@ -10,10 +10,7 @@ init();
 
 function init() {snake.body = [], makeSnakeSquare(10,10), snake.head = snake.body[0], makeApple(), updateInterval = setInterval(update,100)}
 
-function update() {
-  moveSnake(), (snake.head.row<0 || snake.head.column<0 || snake.head.row>ROWS || snake.head.column>COLUMNS || hasCollidedWithSnake())
-					&& endGame(), apple.row===snake.head.row && apple.column===snake.head.column && handleAppleCollision()
-}
+function update() {moveSnake(), (snake.head.row<0 || snake.head.column<0 || snake.head.row>ROWS || snake.head.column>COLUMNS || hasCollidedWithSnake()) && endGame(), apple.row===snake.head.row && apple.column===snake.head.column && handleAppleCollision()}
 
 function moveSnake() {
   for (let i = snake.body.length - 1; i>0; i--) {
@@ -46,7 +43,7 @@ function handleAppleCollision() {
 }
 
 function hasCollidedWithSnake() {
-  for (let j = snake.body.length - 1; j>0; j--) {if (snake.head.row===snake.body[j].row && snake.head.column===snake.body[j].column) {return !0}}
+  for (let n = snake.body.length - 1; n>0; n--) {if (snake.head.row===snake.body[n].row && snake.head.column===snake.body[n].column) {return !0}}
   return !1
 }
 

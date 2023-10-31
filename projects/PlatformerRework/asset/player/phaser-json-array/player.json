@@ -2991,12 +2991,12 @@
       "sourceSize"      : {"w": 69, "h": 107}
     }
   ], "meta": {
-  "app"        : "http://www.codeandweb.com/texturepacker",
-  "version"    : "1.0",
-  "image"      : "halle.png",
-  "format"     : "RGBA8888",
-  "size"       : {"w": 2048, "h": 2048},
-  "scale"      : "1",
-  "smartupdate": "$TexturePacker:SmartUpdate:cb2a4a92c1d78948f7eed1b821f20730:291a9d7cc40fc340899823765e5359a0:dd7796ba6e412b51e42ba9bc08bcc007$"
+  "app"         : "https://www.codeandweb.com/texturepacker",
+  "format"      : "RGBA8888",
+  "image"       : "player.png",
+  "scale"       : "1",
+  "size"        : {"w" : 2048, "h" : 2048},
+  "smartupdate" : "$TexturePacker:SmartUpdate:cb2a4a92c1d78948f7eed1b821f20730:291a9d7cc40fc340899823765e5359a0:dd7796ba6e412b51e42ba9bc08bcc007$",
+  "version"     : "1.0"
 }
 }

@@ -1,34 +1,25 @@
-/* global Phaser */
-(function (window) {
-  'use strict';
+(window => {
   window.opspark = window.opspark || {};
-  let opspark = window.opspark;
 
-  opspark.createGame = (create,update,renderDebug) => {
-	 let game,config;
-
-	 config = {
-		preload: opspark.preload,
-		create : create,
-		update : update,
-	 };
+  window.opspark.createGame = (create,update,renderDebug) => {
+	 let game,config = {preload: window.opspark.preload,create,update};
 
 	 const render = () => {
-		const asset = game.player.asset;
-		game.debug.bodyInfo(asset,32,32);
-		game.debug.spriteBounds(asset);
-		game.debug.body(asset);
-		if (game.projectile) {game.projectile.forEach(projectile => {game.debug.body(projectile);});}
+		game.debug.bodyInfo(game.player.asset,32,32);
+		game.debug.spriteBounds(game.player.asset);
+		game.debug.body(game.player.asset);
+		game.projectile && game.projectile.forEach(e => game.debug.body(e))
 	 };
 
-	 if (renderDebug) {config.render = render;}
+	 renderDebug && (config.render = render)
 	 game = new Phaser.Game(900,700,Phaser.AUTO,'',config);
 
-	 game.opspark = {};
-	 game.opspark.init = () => {
-		game.stage.backgroundColor = '#E9EEF7';
-		game.physics.startSystem(Phaser.Physics.ARCADE);
-		game.physics.arcade.TILE_BIAS = 2;
+	 game.opspark = {
+		init: () => {
+		  game.stage.backgroundColor = '#E9EEF7';
+		  game.physics.startSystem(Phaser.Physics.ARCADE);
+		  game.physics.arcade.TILE_BIAS = 2;
+		},
 	 };
 	 return game;
   };

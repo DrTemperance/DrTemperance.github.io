@@ -1,17 +1,15 @@
-(function (window) {
-  'use strict';
+(window => {
   window.opspark = window.opspark || {};
-  let opspark = window.opspark;
 
-  opspark.preload = game => {
+  window.opspark.preload = game => {
 	 game.load.image('cannon','./asset/cannon.png');
 	 game.load.image('projectile','./asset/projectile.png');
 	 game.load.image('platform','./asset/platform.png');
-	 game.load.image('db','./asset/collectable/database.png');
-	 game.load.image('steve','./asset/collectable/steve-head.png');
-	 game.load.image('grace','./asset/collectable/grace-head.png');
-	 game.load.image('kennedi','./asset/collectable/kennedi-head.png');
-	 game.load.image('max','./asset/collectable/max-head.png');
-	 game.load.atlas('halle','./asset/halle/phaser-json-array/halle.png','./asset/halle/phaser-json-array/halle.json');
+	 game.load.image('big','./asset/collectable/big-collectable.png');
+	 game.load.image('one','./asset/collectable/collectable-1.png');
+	 game.load.image('two','./asset/collectable/collectable-2.png');
+	 game.load.image('three','./asset/collectable/collectable-3.png');
+	 game.load.image('four','./asset/collectable/collectable-4.png');
+	 game.load.atlas('player','./asset/player/phaser-json-array/player.png','./asset/halle/phaser-json-array/player.json');
   };
 })(window);
