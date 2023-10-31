@@ -54,16 +54,13 @@ function endGame() {
   clearInterval(updateInterval);
   document.getElementById('board').textContent = '';
   document.getElementById('highScore').textContent = `High Score: ${Math.max(sessionStorage.getItem('highScore') || 0,score)}`;
-  document.getElementById('score').textContent = `Apples: 0`;
+  document.getElementById('score').textContent = 'Apples: 0';
   score = 0;
   setTimeout(init,500);
 }
 
 function makeSnakeSquare(row,column) {
-  const snakeSquare = {
-	 element  : document.createElement('div'),row,column,
-	 direction: [],
-  };
+  const snakeSquare = {element: document.createElement('div'),row,column,direction: []};
   snakeSquare.element.classList.add('snake');
   document.getElementById('board').appendChild(snakeSquare.element);
   repositionSquare(snakeSquare);
@@ -72,27 +69,20 @@ function makeSnakeSquare(row,column) {
   snake.tail = snakeSquare;
 }
 
-function repositionSquare(square) {
-  square.element.style.left = `${20 * square.column + 20}`;
-  square.element.style.top = `${20 * square.row + 20}`;
-}
+function repositionSquare(sq) {sq.element.style.left = `${20 * sq.column + 20}`, sq.element.style.top = `${20 * sq.row + 20}`}
 
 function makeApple() {
   apple.element = document.createElement('div'), apple.element.classList.add('apple');
   document.getElementById('board').appendChild(apple.element);
-  apple.row = getRandomAvailablePosition().row;
-  apple.column = getRandomAvailablePosition().column;
+  apple.row = getRandomAvailablePosition().row, apple.column = getRandomAvailablePosition().column;
   repositionSquare(apple);
 }
 
 function getRandomAvailablePosition() {
-  let spaceIsAvailable,randomPosition = {};
-  do {
-	 randomPosition.column = Math.round(COLUMNS * Math.random());
-	 randomPosition.row = Math.round(ROWS * Math.random());
-	 spaceIsAvailable = snake.body.every(o => randomPosition.row!==o.row || randomPosition.column!==o.column);
-  } while (!spaceIsAvailable);
-  return randomPosition;
+  let randPos = {};
+  do {randPos.column = Math.round(COLUMNS * Math.random()), randPos.row = Math.round(ROWS * Math.random());}
+  while (!(snake.body.every(o => randPos.row!==o.row || randPos.column!==o.column)));
+  return randPos;
 }
 
 document.getElementById('highScore').textContent = `High Score: ${Math.max(sessionStorage.getItem('highScore') || 0,score)}`;

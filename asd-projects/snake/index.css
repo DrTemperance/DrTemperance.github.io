@@ -29,15 +29,11 @@ body {background : #9C3;}
 	user-select : none;
 	filter      : drop-shadow(1px 1px 1px #111111A0);
 
-	&.snake {
-		background : #050;
-		z-index    : 2;
-		}
+	&.snake {background : #050;}
 
 	&.apple {
 		background    : #F23;
 		border-radius : 6px;
-		z-index       : 1;
 		}
 	}
 

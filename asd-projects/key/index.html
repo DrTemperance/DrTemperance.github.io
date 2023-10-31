@@ -1,0 +1,29 @@
+<html lang='EN'>
+<head>
+	<meta charset='UTF-8'>
+	<title>Title</title>
+	<meta content='width=device-width, initial-scale=1' name='viewport'/>
+	<link href='index.css' rel='stylesheet'>
+	<script async src='index.js'></script>
+</head>
+<body>
+<div>
+	<h1>Key</h1>
+	<p id='key'></p>
+	<h1>Code</h1>
+	<p id='code'></p>
+	<h1>Which</h1>
+	<p id='which'></p>
+	<h2>Shift Key</h2>
+	<p id='shiftKey'></p>
+</div>
+</body>
+<script>
+  document.addEventListener('keydown',({key,code,which,shiftKey}) => {
+	 document.getElementById('key').textContent = `${key}`;
+	 document.getElementById('code').textContent = `${code}`;
+	 document.getElementById('which').textContent = `${which}`;
+	 document.getElementById('shiftKey').textContent = `${shiftKey}`;
+  });
+</script>
+</html>
