@@ -1,3 +1,5 @@
+// Player Data
+
 let inventory = {
   values: {hairpins: 1,money: 3},
   items : {
@@ -19,12 +21,8 @@ let inventory = {
 		  value: 80,
 		},
 	 },
-	 sharpBone     : {
-		available: false,
-	 },
-	 looseCigarette: {
-		available: false,
-	 },
+	 sharpBone     : {available: false},
+	 looseCigarette: {available: false},
 	 revolver      : {
 		available: false,
 		stashed  : false,
@@ -39,40 +37,44 @@ let inventory = {
 	 carKeys       : {available: true},
   },
 };
-const locations      = {
-		  gasstation: [
-			 {
-				locale      : 'home',
-				outputname  : 'your house',
-				requirements: {hasKeys: true},
-			 },
-			 {
-				locale      : 'motel',
-				outputname  : 'the motel',
-				requirements: {clearedMotel: true},
-			 },
-		  ],
-		  home      : [
-			 {
-				locale      : 'gasstation',
-				outputname  : 'the gas station',
-				requirements: {onHomeArrest: false},
-			 },
-		  ],
-		  motel     : [
-			 {
-				locale      : 'home',
-				outputname  : 'your house',
-				requirements: {hasKeys: true},
-			 },
-			 {
-				locale      : 'gasstation',
-				outputname  : 'the gas station',
-				requirements: {onHomeArrest: false},
-			 },
-		  ],
-		},
-		checkItem      = item => inventory.items[item].available,
-		checkCondition = item => inventory.items[item].d,
-		checkValue     = value => inventory.values[value],
-		checkKeys      = key => inventory.keys[key].available;
+const locations = {
+  gasstation: [
+	 {
+		locale      : 'home',
+		outputname  : 'your house',
+		requirements: {hasKeys: true},
+	 },
+	 {
+		locale      : 'motel',
+		outputname  : 'the motel',
+		requirements: {clearedMotel: true},
+	 },
+  ],
+  home      : [
+	 {
+		locale      : 'gasstation',
+		outputname  : 'the gas station',
+		requirements: {onHomeArrest: false},
+	 },
+  ],
+  motel     : [
+	 {
+		locale      : 'home',
+		outputname  : 'your house',
+		requirements: {hasKeys: true},
+	 },
+	 {
+		locale      : 'gasstation',
+		outputname  : 'the gas station',
+		requirements: {onHomeArrest: false},
+	 },
+  ],
+};
+
+// Checker Functions
+
+const
+	checkItem      = item => inventory.items[item].available,
+	checkCondition = item => inventory.items[item].d,
+	checkValue     = value => inventory.values[value],
+	checkKeys      = key => inventory.keys[key].available;

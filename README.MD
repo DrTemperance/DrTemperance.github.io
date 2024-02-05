@@ -6,13 +6,11 @@
 
 - Implement speed-based blur filter and boolean values for CSS, Difficulty(speed) in the settings menu. _— Villager_
 - Fix & Finish _CSS_: including *Class* and *ID* names & inline **_(71% Done)_**
-- Incorporate PHP and Python, potentially even Java-based web applications.
 - _Music.html_
 
 ### Medium Priority
 
 - Implementing CSS dynamism to constituents whilst preserving optimal performance.
-- Accommodation for disparate aspect ratio variances.
 - Transition to _Modals_ from concealed _divs_.
 
 ### Low Priority
@@ -42,4 +40,9 @@
 ### Medium Priority
 
 - Incorporate an input purifier to preclude the utilization of JavaScript or HyperText Markup Language via the console.
+
+## Stuff I want to do but probably won't
+
+- Incorporate PHP and Python, potentially even Java-based web applications.
+- Accommodation for disparate aspect ratio variances.
 - Incorporate compatibility for both mobile device users and non-coding individuals.

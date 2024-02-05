@@ -7,7 +7,6 @@ html, body {overflow : hidden;}
 
 * {
 	font-family       : 'VGA', 'Courier New', 'Courier ', ' monospace ', 'sans-serif';
-	word-wrap         : break-word;
 	list-style-type   : none;
 	align-items       : center;
 	margin            : initial auto;
@@ -85,11 +84,11 @@ span#configButton:not(#configClose) {
 
 button {
 	&#settingsOption {
-		border     : 3px outset rgb(0, 15, 0);
+		border     : 3px outset #000F00;
 		transition : all 0.2s;
 		visibility : inherit;
 		margin     : 2px auto;
-		background : darkgreen;
+		background : #006400;
 		padding    : 3px;
 		height     : 70px;
 		z-index    : 301;
@@ -98,7 +97,7 @@ button {
 
 	&:hover {
 		border     : 3px inset #000;
-		background : rgb(0, 75, 0);
+		background : #004B00;
 		}
 	}
 
@@ -133,7 +132,7 @@ button {
 
 	&::-webkit-scrollbar-thumb {background : #0F0;}
 
-	&::-webkit-scrollbar-thumb:hover {background : rgb(0, 180, 0);}
+	&::-webkit-scrollbar-thumb:hover {background : #00B400;}
 
 	& * {font-size : .9rem;}
 	}
@@ -157,7 +156,7 @@ button {
 #configMenu {
 	border     : solid 2px #0F0;
 	visibility : hidden;
-	background : rgb(0, 50, 0);
+	background : #003200;
 	position   : fixed;
 	height     : 350px;
 	bottom     : 275px;

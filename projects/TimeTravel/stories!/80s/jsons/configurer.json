@@ -17,8 +17,6 @@
 	  "3" : {"firstName" : "?", "lastName" : "?", "friendship" : 0, "alive" : true}
 	}
   }, "setting" : {
-  "date"      : {
-	"day" : 30, "month" : "June", "year" : 1983
-  }, "season" : "Summer", "state" : "Nevada", "town" : "Ruth"
+  "date" : {"day" : 30, "month" : "June", "year" : 1983}, "season" : "Summer", "place" : "Ruth, Nevada"
 }
 }
