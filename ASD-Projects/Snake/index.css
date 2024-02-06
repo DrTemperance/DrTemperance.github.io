@@ -1,0 +1,44 @@
+* {transition : all 0.075s linear;}
+
+body {background : #9C3;}
+
+#snake-head {background : #060;}
+
+#Board {
+	margin-left : 10px;
+	margin-top  : 18px;
+	width       : 423px;
+	height      : 423px;
+	border      : 1px solid #FFF;
+	background  : url('https://dm0qx8t0i9gc9.cloudfront.net/thumbnails/image/rDtN98Qoishumwih/green-grass-minecraft-pattern_thumb.jpg') repeat;
+	}
+
+#Score,
+#HighScore {
+	color      : #006;
+	filter     : drop-shadow(1px 1px 1px #111111A0);
+	text-align : center;
+	}
+
+.snake,
+.Apple {
+	display     : block;
+	width       : 20px;
+	height      : 20px;
+	position    : absolute;
+	user-select : none;
+	filter      : drop-shadow(1px 1px 1px #111111A0);
+	&.snake {background : #050;}
+	&.Apple {
+		background    : #F23;
+		border-radius : 6px;
+		}
+	}
+
+#Scores {
+	display        : flex;
+	flex-direction : column;
+	align-items    : center;
+	width          : 423px;
+	height         : fit-content;
+	}

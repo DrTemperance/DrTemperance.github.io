@@ -1,12 +1,12 @@
 <html lang='en'>
 <head>
 	<meta content='width=device-width, initial-scale=1' name='viewport' />
-	<link href='images/potion.webp' rel='icon' />
+	<link href='Images/PurplePotion.webp' rel='icon' />
 	<link href='style.css' rel='stylesheet' />
 	<title>~ Music ~</title>
 	<meta charset='UTF-8' />
 	<style>
-		#music {
+		#Music {
 			background     : #DDD;
 			border         : 1px solid #000;
 			border-radius  : 15px;
@@ -31,7 +31,7 @@
 				}
 			}
 
-		#artistbio {
+		#ArtistBio {
 			height     : fit-content;
 			padding    : 7px;
 			text-align : justify;
@@ -42,78 +42,78 @@
 
 <body>
 <nav>
-	<h1 class='header'>-= Hannah's Hallway =-</h1>
+	<h1 class='Header'>-= Hannah's Hallway =-</h1>
 	<a href='index.html'>
-		<li class='navitems'>Home</li>
+		<li class='NavItems'>Home</li>
 	</a>
 	<a href='info.html'>
-		<li class='navitems'>About Me</li>
+		<li class='NavItems'>About Me</li>
 	</a>
 	<a>
-		<li class='active-page navitems'>Music</li>
+		<li class='ActivePage NavItems'>Music</li>
 	</a>
-	<a href='time.html'>
-		<li class='navitems'>Time Machine</li>
+	<a href='keyspage.html'>
+		<li class='NavItems'>Time Machine</li>
 	</a>
 	<a href='portfolio.html'>
-		<li class='navitems'>Portfolio</li>
+		<li class='NavItems'>Portfolio</li>
 	</a>
 </nav>
-<div class='contentBox'>
+<div class='ContentBox'>
 	<h1>❤ Favorite Artists ❤</h1>
-	<li id='music' onclick='submitToTheVoid(this)'>
+	<li id='Music' onclick='ArtistClick(this)'>
 		<div>
 			<h2>Lady Gaga</h2>
-			<div id='artistbio'>Stefani Joanne Angelina Germanotta<br></div>
+			<div id='ArtistBio'>Stefani Joanne Angelina Germanotta<br></div>
 		</div>
 	</li>
-	<li id='music' onclick='submitToTheVoid(this)'>
+	<li id='Music' onclick='ArtistClick(this)'>
 		<div>
 			<h2>Poppy</h2>
-			<div id='artistbio'>Moriah Rose Pereira<br></div>
+			<div id='ArtistBio'>Moriah Rose Pereira<br></div>
 		</div>
 	</li>
-	<li id='music' onclick='submitToTheVoid(this)'>
+	<li id='Music' onclick='ArtistClick(this)'>
 		<div>
 			<h2>Sewerslvt</h2>
-			<div id='artistbio'>Jvne<br></div>
+			<div id='ArtistBio'>Jvne<br></div>
 		</div>
 	</li>
-	<li id='music' onclick='submitToTheVoid(this)'>
+	<li id='Music' onclick='ArtistClick(this)'>
 		<div>
 			<h2>Ladyhawke</h2>
-			<div id='artistbio'>Phillipa Margaret<br></div>
+			<div id='ArtistBio'>Phillipa Margaret<br></div>
 		</div>
 	</li>
-	<li id='music' onclick='submitToTheVoid(this)'>
+	<li id='Music' onclick='ArtistClick(this)'>
 		<div>
 			<h2>SDH</h2>
-			<div id='artistbio'>x <br></div>
+			<div id='ArtistBio'>x <br></div>
 		</div>
 	</li>
-	<li id='music' onclick='submitToTheVoid(this)'>
+	<li id='Music' onclick='ArtistClick(this)'>
 		<div>
 			<h2>Crystal Castles</h2>
-			<div id='artistbio'>Alice Glass & [REDACTED]<br></div>
+			<div id='ArtistBio'>Alice Glass & [REDACTED]<br></div>
 		</div>
 	</li>
-	<li id='music' onclick='submitToTheVoid(this)'>
+	<li id='Music' onclick='ArtistClick(this)'>
 		<div>
 			<h2>Marina</h2>
-			<div id='artistbio'>Marina Lambrini Diamandis</div>
+			<div id='ArtistBio'>Marina Lambrini Diamandis</div>
 		</div>
 	</li>
-	<li id='music' onclick='submitToTheVoid(this)'>
+	<li id='Music' onclick='ArtistClick(this)'>
 		<div>
 			<h2>Lana Del Rey</h2>
-			<div id='artistbio'>Elizabeth Grant<br></div>
+			<div id='ArtistBio'>Elizabeth Grant<br></div>
 		</div>
 		<img src='https://i1.sndcdn.com/artworks-vSgX0SFjGFIHPVT9-frOitw-t500x500.webp'>
 	</li>
 </div>
 </body>
 <script>
-  const submitToTheVoid = ({style}) => {style.transform = style.transform==='scale(1.3)' ? '' : 'scale(1.3)'};
-  document.querySelectorAll('#music').forEach(({style}) => addEventListener('mouseout', () => {style.transform = ''}))
+  const ArtistClick = async ({ style }) => {style.transform = style.transform==='scale(1.3)' ? '' : 'scale(1.3)'};
+  document.querySelectorAll('#Music').forEach(({ style }) => addEventListener('mouseout', async () => {style.transform = ''}))
 </script>
 </html>

@@ -1,45 +1,45 @@
-<html lang='en'>
+<html lang='EN'>
 
 <head>
 	<title>-~= Hannah's Hallway =~-</title>
 	<meta content='width=device-width, initial-scale=1' name='viewport' />
 	<meta content="Hannah's Individualistic Digital Domain" name='description'>
-	<link href='images/potion.webp' rel='icon' />
+	<link href='Images/PurplePotion.webp' rel='icon' />
 	<link href='style.css' rel='stylesheet' />
 	<meta charset='UTF-8' />
 </head>
 
 <body>
 <nav>
-	<h1 class='header'>-= Hannah's Hallway =-</h1>
+	<h1 class='Header'>-= Hannah's Hallway =-</h1>
 	<a>
-		<div class='active-page navitems'>Home</div>
+		<div class='ActivePage NavItems'>Home</div>
 	</a>
 	<a href='info.html'>
-		<div class='navitems'>About Me</div>
+		<div class='NavItems'>About Me</div>
 	</a>
 	<a href='music.html'>
-		<div class='navitems'>Music</div>
+		<div class='NavItems'>Music</div>
 	</a>
-	<a href='time.html'>
-		<div class='navitems'>Time Machine</div>
+	<a href='keyspage.html'>
+		<div class='NavItems'>Time Machine</div>
 	</a>
 	<a href='portfolio.html'>
-		<div class='navitems'>Portfolio</div>
+		<div class='NavItems'>Portfolio</div>
 	</a>
 </nav>
-<div class='contentBox'>
+<div class='ContentBox'>
 	<h1>Home</h1>
-	<img alt='Temperance Brennan' class='tempie' height='300' width='470' src='images/tempie.webp' />
-	<p class='imgsubtitle'>Junior Year, Coming Autumn 2023</p>
-	<div class='time' id='timers'><p id='countdown'></p></div>
+	<img alt='Temperance Brennan' class='tempie' height='300' width='470' src='Images/Temperence.webp' />
+	<p class='ImgSubtitle'>Junior Year, Coming Autumn 2023</p>
+	<div class='Time' id='Timer'><p id='Countdown'></p></div>
 </div>
-<div class='contentBox'>
+<div class='ContentBox'>
 	<h1>Chemistry</h1>
 	<iframe height='650px' loading='lazy' src='https://www.fishersci.com/search/chemical/substructure/marvinjs/' title='FisherSci Chemical Structure Builder' width='100%'></iframe>
 </div>
-<div class='contentBox'>
-	<p id='pseudoFooter'>
+<div class='ContentBox'>
+	<p id='_Footer'>
 		All digital artistic creations created by me, with substantial assistance from
 		<a href='https://awsome-creeper9.github.io/'><b>Awsome_Creeper9</b></a>
 	</p>
@@ -47,17 +47,16 @@
 </body>
 
 <script>
-  const targetDate      = new Date(`August 11, 2023, 7:24:00`).getTime(),
-        updateCountdown = () =>
-	        {
-		        document.getElementById('timers').textContent = `
-			 ${Math.trunc((targetDate - Date.now()) / 864.0e5)} days,
-			 ${Math.trunc(((targetDate - Date.now()) % 864.0e5) / 36.0e5)} hours,
-			 ${Math.trunc(((targetDate - Date.now()) % 36.0e5) / 6.0e4)} minutes,
-			 ${Math.floor((targetDate - Date.now()) % 6.0e4 / 1.0e3)} seconds
+  const TargetDate      = new Date(`August 11, 2023, 7:24:00`).getTime(),
+        UpdateCountdown = () => {
+	        document.getElementById('Timer').textContent = `
+			 ${Math.trunc((TargetDate - Date.now()) / 864.0e5)} days,
+			 ${Math.trunc(((TargetDate - Date.now()) % 864.0e5) / 36.0e5)} hours,
+			 ${Math.trunc(((TargetDate - Date.now()) % 36.0e5) / 6.0e4)} minutes,
+			 ${Math.floor((TargetDate - Date.now()) % 6.0e4 / 1.0e3)} seconds
 			 `;
-	        };
-  updateCountdown();
-  setInterval(updateCountdown, 50);
+        };
+  UpdateCountdown();
+  setInterval(UpdateCountdown, 50);
 </script>
 </html>
