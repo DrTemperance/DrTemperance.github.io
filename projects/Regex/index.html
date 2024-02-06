@@ -2,8 +2,8 @@
 
 <head>
 	<title>Regex Text Remover</title>
-	<meta content='width=device-width, height=device-height, initial-scale=1' name='viewport'/>
-	<meta charset='UTF-8'/>
+	<meta content='width=device-width, height=device-height, initial-scale=1' name='viewport' />
+	<meta charset='UTF-8' />
 	<style>
 		* {
 			transition  : background-color 0.25s ease;
@@ -97,11 +97,11 @@
 	</div>
 	<div style='display: inline-flex; margin: auto;'>
 		<label for='regexPattern'>Enter Regex Pattern: </label>
-		<input autocomplete='off' id='regexPattern' spellcheck='false' type='text'/>
+		<input autocomplete='off' id='regexPattern' spellcheck='false' type='text' />
 	</div>
 	<div>
 		<label class='custom-file-upload'>
-			Choose File<input id='fileInput' style='display: none;' type='file'/>
+			Choose File<input id='fileInput' style='display: none;' type='file' />
 		</label>
 		<button id='removeButton'>Remove Matching Text</button>
 	</div>
@@ -113,16 +113,17 @@
 
 <script>
   const e = document.e('removeButton'),
-		  t = document.e('fileInput'),
-		  n = document.e('inputText'),
-		  o = document.e('outputText');
-  e.t('click',() => { o.n = n.n.replace(RegExp(document.e('regexPattern').n,'g'),'') }), t.t(
-	  'change',() => {
-		 if (t.u[0b0]) {
-			let t = new FileReader;
-			t.c = e => {n.n = e.d.o}, t.m(e)
-		 }
-	  }
+        t = document.e('fileInput'),
+        n = document.e('inputText'),
+        o = document.e('outputText');
+  e.t('click', () => { o.n = n.n.replace(RegExp(document.e('regexPattern').n, 'g'), '') }), t.t(
+				  'change', () =>
+				  {
+					  if (t.u[0b0]) {
+						  let t = new FileReader;
+						  t.c = e => {n.n = e.d.o}, t.m(e)
+					  }
+				  }
   )
 </script>
 </body>

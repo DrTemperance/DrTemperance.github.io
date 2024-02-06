@@ -1,22 +1,22 @@
 {
-  "charSet"    : {
-	"protagonist"       : {
-	  "age" : 26, "dob" : 1957, "health" : 75
-	}, "mainAntagonist" : {
-	  "charID"     : -1,
-	  "firstName"  : "Roxanne",
-	  "lastName"   : "Sterling",
-	  "age"        : 30,
-	  "dob"        : 1953,
-	  "friendship" : -100,
-	  "health"     : 100,
-	  "alive"      : true
-	}, "subChars"       : {
-	  "1" : {"firstName" : "?", "lastName" : "?", "friendship" : 0, "alive" : true},
-	  "2" : {"firstName" : "?", "lastName" : "?", "friendship" : 0, "alive" : true},
-	  "3" : {"firstName" : "?", "lastName" : "?", "friendship" : 0, "alive" : true}
-	}
-  }, "setting" : {
-  "date" : {"day" : 30, "month" : "June", "year" : 1983}, "season" : "Summer", "place" : "Ruth, Nevada"
+	"charSet"    : {
+		"protagonist"       : {
+			"age" : 26, "dob" : 1957, "health" : 75
+		}, "mainAntagonist" : {
+			"charID"     : -1,
+			"firstName"  : "Roxanne",
+			"lastName"   : "Sterling",
+			"age"        : 30,
+			"dob"        : 1953,
+			"friendship" : -100,
+			"health"     : 100,
+			"alive"      : true
+		}, "subChars"       : {
+			"1" : { "firstName" : "?", "lastName" : "?", "friendship" : 0, "alive" : true },
+			"2" : { "firstName" : "?", "lastName" : "?", "friendship" : 0, "alive" : true },
+			"3" : { "firstName" : "?", "lastName" : "?", "friendship" : 0, "alive" : true }
+		}
+	}, "setting" : {
+	"date" : { "day" : 30, "month" : "June", "year" : 1983 }, "season" : "Summer", "place" : "Ruth, Nevada"
 }
 }

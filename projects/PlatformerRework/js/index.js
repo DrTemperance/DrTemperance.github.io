@@ -1,5 +1,5 @@
-$(document).ready(() => {
-  var game  = window.opspark.createGame(create,update),
+let ready = $(document).ready(() => {
+  let game  = window.opspark.createGame(create, update),
 		lives = 5;
 
   function create() {
@@ -34,11 +34,16 @@ $(document).ready(() => {
   function onProjectileOverlap() {
 	 game.player.die();
 	 () => {
-		if (lives!==0) {
-		  lives--;
-		  game.lives.text = `Lives ${lives}`;
-		} else {setTimeout(() => game.lives.text = `Game Over: Refresh to Play Again`,475);}
-	 }
+		switch (lives) {
+		  case 0:
+			 setTimeout(() => game.lives.text = `Game Over: Refresh to Play Again`, 475);
+			 break;
+		  default:
+			 lives--;
+			 break;
+		}
+	 };
+	 game.lives.text = `Lives ${lives}`;
 	 if (lives>0) {window.opspark.player.init(game);}
   }
 

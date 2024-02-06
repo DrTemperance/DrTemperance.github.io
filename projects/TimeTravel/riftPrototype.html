@@ -1,8 +1,7 @@
 ﻿<html lang='en'>
-
 <head>
 	<meta charset='UTF-8' />
-	<title> Time Rift Prototype | 1980s </title>
+	<title> Time Rift | Prototype </title>
 	<link href='riftStylePrototype.css' rel='stylesheet' />
 	<script async src='stories!/80s/scripting/playerscripting.js'></script>
 	<script async src='stories!/80s/scripting/data.js'></script>
@@ -10,7 +9,8 @@
 	<meta content='width=device-width, height=device-height, initial-scale=1' name='viewport' />
 </head>
 
-<audio class='80sAssets' id='clicksound' preload='auto' src='click.flac'></audio>
+<audio id='80sKeyPress' src='./stories!/80s/audio/keypress.mp3' preload='auto'></audio>
+
 <body class='80sMode'>
 
 <div id='custom-cursor' style='display: none;'>
@@ -48,137 +48,143 @@
 </dialog>
 
 </body>
-
 </html>
 
-<script async>
-  let config = {
-	  custom   : {
-		  settings: [
-			  {
-				  name    : 'AdvancedUser',
-				  tooltip : 'Classic Terminal Experience',
-				  status  : false,
-				  possible: [false, true]
-			  },
-			  {
-				  name    : 'null1',
-				  tooltip : 'null1',
-				  status  : 'null1',
-				  possible: [`null1`, `null2`]
-			  },
-			  {
-				  name    : 'null2',
-				  tooltip : 'null2',
-				  status  : 'null1',
-				  possible: [`null1`, `null2`]
-			  },
-			  {
-				  name    : 'null3',
-				  tooltip : 'null3',
-				  status  : 'null1',
-				  possible: [`null1`, `null2`]
-			  }
-		  ]
-	  },
-	  constants: {
-		  era          : `unset`,
-		  currentPrompt: `>`,
-		  prompt       : {'2000s': `$`, '1990s': `C:/`, '1980s': `>`, 'unset': '>_'}
-	  }
-  };
+<script>
+	let config = {
+		custom   : {
+			settings: [
+				{
+					name    : 'AdvancedUser',
+					tooltip : 'Classic Terminal Experience',
+					status  : false,
+					possible: [false, true]
+				},
+				{
+					name    : 'null1',
+					tooltip : 'null1',
+					status  : 'null1',
+					possible: [`null1`, `null2`]
+				},
+				{
+					name    : 'null2',
+					tooltip : 'null2',
+					status  : 'null1',
+					possible: [`null1`, `null2`]
+				},
+				{
+					name    : 'null3',
+					tooltip : 'null3',
+					status  : 'null1',
+					possible: [`null1`, `null2`]
+				}
+			]
+		},
+		constants: {
+			era          : `unset`,
+			currentPrompt: `>`,
+			prompt       : { '2000s': `$`, '1990s': `C:/`, '1980s': `>`, 'unset': '>_' }
+		}
+	};
 
-  document.getElementById('configButton')
-          .addEventListener('click', () => {document.getElementById('configMenu').style.visibility = 'visible'});
+	document.getElementById('configButton')
+	        .addEventListener('click', () => {document.getElementById('configMenu').style.visibility = 'visible'});
 
-  function closeMenu (e) {document.getElementById(e).parentElement.style.visibility = 'hidden'}
+	async function closeMenu(e) {document.getElementById(e).parentElement.style.visibility = 'hidden'}
 
-  function setEra (eraChoice) {
-	  config.constants.era = eraChoice || 'unset';
-	  config.constants.currentPrompt = prompt[eraChoice];
-  }
-</script>
+	let
+					Player        = {
+						Command: {
+							Index  : -1,
+							History: []
+						}
+					},
+					TerminalInput = document.getElementById('terminal'),
+					PsuedoConsole = document.getElementById('console-log'),
+					commandIndex  = -1,
+					{ style }     = document.getElementById('custom-cursor');
 
-<script async>
-  const {style} = document.getElementById('custom-cursor');
+	document.addEventListener('DOMContentLoaded', async () =>
+					document.addEventListener('mousemove', ({ clientX, clientY, pageX, pageY }) => {
+						let { bottom, left, right, top } = PsuedoConsole.getBoundingClientRect();
 
-  document.addEventListener('DOMContentLoaded', () =>
-				  document.addEventListener('mousemove', ({clientX, clientY, pageX, pageY}) =>
-				  {
-					  const {bottom, left, right, top} = document.getElementById('console-log').getBoundingClientRect();
+						clientX>=left && clientX<=right && clientY>=top && clientY<=bottom
+						? (document.body.style.cursor = 'none',
+										style.display = 'block',
+										style.left = `${pageX}px`,
+										style.top = `${pageY}px`)
+						: (document.body.style.cursor = 'auto',
+										style.display = 'none');
+					}));
 
-					  clientX>=left && clientX<=right && clientY>=top && clientY<=bottom
-					  ? (document.body.style.cursor = 'none', style.display = 'block',
-									  style.left = `${pageX}px`, style.top = `${pageY}px`)
-					  : (document.body.style.cursor = 'auto', style.display = 'none')
-				  }));
+	// Terminal functionality //
+	TerminalInput.addEventListener('keydown', async e => {
+		switch (e.key) {
+			case 'Enter':
+				e.preventDefault();
+				if (TerminalInput.value.trim()==='') {
+					new Audio('./stories!/80s/audio/error.mp3').play();
+				} else {
+					AddToHistory(TerminalInput.value);
+					InputHandler(convertToFunctionCall(TerminalInput.value));
+					TerminalInput.value = '';
+				}
+				break;
+			case 'ArrowUp':
+				e.preventDefault();
+				commandIndex = commandIndex===Player.Command.History.length - 1 ? commandIndex : commandIndex + 1;
+				TerminalInput.value = Player.Command.History[commandIndex];
+				break;
+			case 'ArrowDown':
+				e.preventDefault();
+				commandIndex===0 && (commandIndex--, TerminalInput.value = '');
+				commandIndex!== -1 && (commandIndex--, TerminalInput.value = Player.Command.History[commandIndex]);
+				break;
+			default:
+				document.getElementById('80sKeyPress').isActive;
+				break;
+		}
+	});
 
-  // Terminal functionality //
-  const
-				  terminalElement = document.getElementById('terminal'),
-				  Console_Log     = document.getElementById('console-log'),
-				  commandHistory  = [];
+	async function InputHandler(RawInput) {
+		await console.log(`inputHandler: ${RawInput}`);
+		try {
+			const Result = await eval(RawInput);
+			AddToConsole(RawInput, JSON.stringify(Result));
+		} catch (er) {AddToConsole(RawInput, er.toString())}
+	}
 
-  let commandIndex = -1;
+	async function AddToHistory(In) {
+		Player.Command.History.unshift(In);
+		commandIndex = -1;
+		Player.Command.History.length>=30 && Player.Command.History.pop();
+	}
 
-  terminalElement.addEventListener('keydown', e =>
-  {
-	  if (e.key==='Enter' && terminalElement.value.trim()!=='') {
-		  e.preventDefault();
-		  addToHistory(terminalElement.value), inputHandler(convertToFunctionCall(terminalElement.value));
-		  terminalElement.value = '';
-		  commandIndex = -1;
-	  }
-	  if (e.key==='ArrowUp' && commandIndex!==commandHistory.length - 1) {
-		  commandIndex++, terminalElement.value = commandHistory[commandIndex];
-	  }
-	  if (e.key==='ArrowDown') {
-		  commandIndex===0 && (commandIndex--, terminalElement.value = '');
-		  commandIndex!== -1 && (commandIndex--, terminalElement.value = commandHistory[commandIndex]);
-	  }
-  });
+	function AddToConsole(command, result) {
+		let rev = document.createElement('li');
+		rev.innerHTML = `${config.constants.currentPrompt} ${command} <br><br> ${result}`;
+		PsuedoConsole.appendChild(rev);
+		PsuedoConsole.scrollTop = PsuedoConsole.scrollHeight;
+	}
 
-  function inputHandler (rawInput) {
-	  try {
-		  const result = eval(rawInput);
-		  addToConsole(rawInput, JSON.stringify(result));
-	  } catch (e) {addToConsole(rawInput, e)}
-  }
-
-  const addToHistory = i =>
-	  {
-		  commandHistory.unshift(i);
-		  commandIndex = -1;
-		  commandHistory.length>=30 && commandHistory.pop();
-	  };
-
-  function addToConsole (command, result) {
-	  let li1 = document.createElement('li');
-	  li1.innerHTML = `${config.constants.currentPrompt} ${command} <br><br> ${result}`;
-	  Console_Log.appendChild(li1);
-  }
-
-  function convertToFunctionCall (input) {
-	  let index, argument, functionName;
-	  const lowerInput = input.toLowerCase();
-
-	  switch (true) {
-		  case lowerInput.includes('go'):
-			  index = lowerInput.indexOf(' to');
-			  if (index=== -1) {return `${lowerInput}`} else {
-				  functionName = lowerInput.substring(0, index);
-				  argument = lowerInput.substring(index + 4).replace(/ /g, '');
-				  return `${functionName}('${argument}')`;
-			  }
-		  case lowerInput.includes('inspect') || lowerInput.includes('enter'):
-			  index = lowerInput.indexOf(' ');
-			  if (index=== -1) {return `${lowerInput}`} else {
-				  functionName = lowerInput.substring(0, index);
-				  argument = lowerInput.substring(index).replace(/ /g, '');
-				  return `${functionName}(${argument})`;
-			  }
-		  default:
-			  return `${lowerInput}`;
-	  }
-  }
+	function convertToFunctionCall(input) {
+		let index, argument, functionName, lowerInput = input.toLowerCase();
+		console.log(input);
+		switch (true) {
+			case lowerInput.includes('go'):
+				index = lowerInput.indexOf(' to');
+				if (index=== -1) return `${lowerInput}`;
+				functionName = lowerInput.substring(0, index);
+				argument = lowerInput.substring(index + 4).replace(/ /g, '');
+				return `${functionName}('${argument}')`;
+			case lowerInput.includes('inspect') || lowerInput.includes('enter'):
+				index = lowerInput.indexOf(' ');
+				if (index=== -1) return `${lowerInput}`;
+				functionName = lowerInput.substring(0, index);
+				argument = lowerInput.substring(index).replace(/ /g, '');
+				return `${functionName}(${argument})`;
+			default:
+				return `${lowerInput}`;
+		}
+	}
 </script>

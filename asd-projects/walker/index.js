@@ -8,7 +8,7 @@ $(document).ready(() => {
   let interval    = setInterval(newFrame,18),
 		square1     = {},
 		square2     = {},
-		tagBeginner = Math.random();
+		tagBeginner = Math.random(), speedY2, posY, posY2;
 
   $(document).on('keydown',async ({key}) => {
 	 key==='ArrowLeft' && (speedX = -5);
