@@ -3,20 +3,26 @@
 	<meta charset='UTF-8' />
 	<title> Time Rift | Prototype </title>
 	<link href='riftStylePrototype.css' rel='stylesheet' />
-	<script async src='stories!/80s/Scripting/playerscripting.js'></script>
-	<script async src='stories!/80s/Scripting/data.js'></script>
 	<link href='https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,500,1,0' rel='stylesheet' />
-	<meta content='width=device-width, height=device-height, initial-scale=1' name='viewport' />
+	<meta content='width=device-width, height=device-height, initial-scale=1' name='viewport' /><style>
+.Column {
+	float : right;
+	}
+
+.Column {
+	float : right;
+	}
+</style>
 </head>
 
-<audio id='80sKeyPress' src='stories!/80s/Audio/keypress.mp3' preload='auto'></audio>
+<audio id='80sKeyPress' src='Stories/1980s/Audio/Keypress.mp3' preload='auto'></audio>
 
 <body class='80sMode'>
 
-<div id='FakeCursor' style='display: none;'>
+<div id='PseudoCursor' style='display: none;'>
 </div>
 <div class='Column Reversed' id='Content'>
-	<img class='80sAssets' id='Scanlines' src='stories!/80s/Scanlines.gif' />
+	<img class='80sAssets' id='Scanlines' src='Stories/1980s/Scanlines.gif' />
 	<div id='ConsoleOutput'></div>
 	<div class='Column Reversed InputParent'>
 		<div class='Row'>
@@ -30,162 +36,172 @@
 	<span style='font-size: 1%; position: absolute; left: 56.5%; top: 78%; width: 100%; height: 100%; background: none; filter: drop-shadow(0 0 7px lime) blur(2px);'>*</span>
 </div>
 <dialog class='Row' id='SettingsMenu'>
-	<aside class='columns' style='float: left;'>
+	<aside class='Column' style='float: left;'>
 		<button id='Option' onclick='cycleSettings(0)'>
-			Advanced User<br /><sub>Currently: <span id='auStatus'>...</span></sub>
+			Advanced User<br /><sub>Currently: <span id='ADV-U_Status'>...</span></sub>
 		</button>
 		<button id='Option' onclick='cycleSettings(1)'>
-			Graphics Settings<br /><sub>Currently: <span id='gStatus'>...</span></sub>
+			Graphics Settings<br /><sub>Currently: <span id='Gra_Status'>...</span></sub>
 		</button>
 	</aside>
-	<aside class='columns' style='float: right;'>
+	<aside class='Column'>
 		<button id='Option' onclick='cycleSettings(3)'>unset 1<br /><sub>Currently: <span
-						id='u1Status'>...</span></sub></button>
+						id='U1_Status'>...</span></sub></button>
 		<button id='Option' onclick='cycleSettings(4)'>unset 2<br /><sub>Currently: <span
-						id='u2Status'>...</span></sub></button>
+						id='U2_Status'>...</span></sub></button>
 	</aside>
-	<span id='configClose' onclick="closeMenu('configClose')">Close Menu</span>
+	<span id='ConfigClose' onclick="this.parentElement.style.visibility = 'hidden'">Close Menu</span>
 </dialog>
 
 </body>
 </html>
 
 <script>
-	let config = {
-		custom   : {
-			settings: [
-				{
-					name    : 'AdvancedUser',
-					tooltip : 'Classic Terminal Experience',
-					status  : false,
-					possible: [false, true]
-				},
-				{
-					name    : 'null1',
-					tooltip : 'null1',
-					status  : 'null1',
-					possible: [`null1`, `null2`]
-				},
-				{
-					name    : 'null2',
-					tooltip : 'null2',
-					status  : 'null1',
-					possible: [`null1`, `null2`]
-				},
-				{
-					name    : 'null3',
-					tooltip : 'null3',
-					status  : 'null1',
-					possible: [`null1`, `null2`]
-				}
-			]
-		},
-		constants: {
-			era          : `unset`,
-			currentPrompt: `>`,
-			prompt       : { '2000s': `$`, '1990s': `C:/`, '1980s': `>`, 'unset': '>_' }
+		const TerminalInput  = document.getElementById('Terminal'),
+		      PsuedoConsole  = document.getElementById('ConsoleOutput'),
+		      Cursor         = document.getElementById('PseudoCursor'),
+		      ContentWindow  = document.getElementById('Content'),
+		      SettingsButton = document.getElementById('SettingsButton'),
+		      SettingsMenu   = document.getElementById('SettingsMenu');
+
+		let Config = {
+			    Custom   : {
+				    Settings: [
+					    {
+						    name    : 'AdvancedUser',
+						    tooltip : 'Classic Terminal Experience',
+						    status  : false,
+						    possible: [false, true]
+					    },
+					    {
+						    name    : 'null1',
+						    tooltip : 'null1',
+						    status  : 'null1',
+						    possible: [`null1`, `null2`]
+					    },
+					    {
+						    name    : 'null2',
+						    tooltip : 'null2',
+						    status  : 'null1',
+						    possible: [`null1`, `null2`]
+					    },
+					    {
+						    name    : 'null3',
+						    tooltip : 'null3',
+						    status  : 'null1',
+						    possible: [`null1`, `null2`]
+					    }
+				    ]
+			    },
+			    Constants: {
+				    era          : `unset`,
+				    currentPrompt: `>`,
+				    prompt       : { '2000s': `$`, '1990s': `C:/`, '1980s': `>`, 'unset': '>_' }
+			    }
+		    },
+		    Player = {
+			    Command: {
+				    Index  : -1,
+				    History: []
+			    }
+		    };
+		SettingsButton.addEventListener('click', () => {SettingsMenu.style.visibility = 'visible'});
+
+		// Terminal functionality //
+		TerminalInput.addEventListener('keydown', async e => {
+			switch (e.key) {
+				case 'Enter':
+					e.preventDefault();
+					if (TerminalInput.value.trim()==='') {
+						new Audio('./Stories/1980s/Audio/Error.mp3').play();
+					} else {
+						Player.Command.History.unshift(TerminalInput.value);
+						Player.Command.Index = -1;
+						Player.Command.History.length>=30 && Player.Command.History.pop();
+						ComputeInput(ConvertToFunctional(TerminalInput.value));
+						TerminalInput.value = '';
+					}
+					break;
+				case 'ArrowUp':
+					e.preventDefault();
+					Player.Command.Index =
+									Player.Command.Index===Player.Command.History.length - 1
+									? Player.Command.Index
+									: Player.Command.Index + 1;
+					TerminalInput.value = Player.Command.History[Player.Command.Index];
+					break;
+				case 'ArrowDown':
+					e.preventDefault();
+					Player.Command.Index===0 && (Player.Command.Index--, TerminalInput.value = '');
+					Player.Command.Index!== -1 && (Player.Command.Index--, TerminalInput.value
+									= Player.Command.History[Player.Command.Index]);
+					break;
+				default:
+					new audio('./Stories/1980s/Audio/Keypress.mp3').play();
+					break;
+			}
+		});
+
+		async function ComputeInput(Prompt) {
+			try {
+				Console_Log(Prompt, JSON.stringify(await eval(Prompt))).catch(Error => Console_Log(Prompt, Error.toString()));
+			} catch (Error) {Console_Log(Prompt, Error.toString())}
 		}
-	};
 
-	document.getElementById('SettingsButton')
-	        .addEventListener('click', () => {document.getElementById('SettingsMenu').style.visibility = 'visible'});
-
-	async function closeMenu(e) {document.getElementById(e).parentElement.style.visibility = 'hidden'}
-
-	let
-					Player        = {
-						Command: {
-							Index  : -1,
-							History: []
-						}
-					},
-					TerminalInput = document.getElementById('Terminal'),
-					PsuedoConsole = document.getElementById('ConsoleOutput'),
-					{ style }     = document.getElementById('FakeCursor');
-
-	document.addEventListener('DOMContentLoaded', async () =>
-					document.addEventListener('mousemove', ({ clientX, clientY, pageX, pageY }) => {
-						let { bottom, left, right, top } = PsuedoConsole.getBoundingClientRect();
-
-						clientX>=left && clientX<=right && clientY>=top && clientY<=bottom
-						? (document.body.style.cursor = 'none',
-										style.display = 'block',
-										style.left = `${pageX}px`,
-										style.top = `${pageY}px`)
-						: (document.body.style.cursor = 'auto',
-										style.display = 'none');
-					}));
-
-	// Terminal functionality //
-	TerminalInput.addEventListener('keydown', async e => {
-		switch (e.key) {
-			case 'Enter':
-				e.preventDefault();
-				if (TerminalInput.value.trim()==='') {
-					new Audio('./stories!/80s/audio/error.mp3').play();
-				} else {
-					AddToHistory(TerminalInput.value);
-					InputHandler(convertToFunctionCall(TerminalInput.value));
-					TerminalInput.value = '';
-				}
-				break;
-			case 'ArrowUp':
-				e.preventDefault();
-				Player.Command.Index = Player.Command.Index===Player.Command.History.length - 1
-				                       ? Player.Command.Index
-				                       : Player.Command.Index + 1;
-				TerminalInput.value = Player.Command.History[Player.Command.Index];
-				break;
-			case 'ArrowDown':
-				e.preventDefault();
-				Player.Command.Index===0 && (Player.Command.Index--, TerminalInput.value = '');
-				Player.Command.Index!== -1 && (Player.Command.Index--, TerminalInput.value
-								= Player.Command.History[Player.Command.Index]);
-				break;
-			default:
-				document.getElementById('80sKeyPress').isActive;
-				break;
+		async function Console_Log(Prompt, Result) {
+			let Output = await document.createElement('li');
+			Output.innerHTML = `${Config.Constants.currentPrompt} ${Prompt} <br><br> ${Result}`;
+			await PsuedoConsole.appendChild(Output);
+			PsuedoConsole.scrollTop = PsuedoConsole.scrollHeight;
 		}
-	});
 
-	async function InputHandler(RawInput) {
-		await console.log(`inputHandler: ${RawInput}`);
-		try {
-			const Result = await eval(RawInput);
-			AddToConsole(RawInput, JSON.stringify(Result));
-		} catch (er) {AddToConsole(RawInput, er.toString())}
-	}
-
-	async function AddToHistory(In) {
-		Player.Command.History.unshift(In);
-		Player.Command.Index = -1;
-		Player.Command.History.length>=30 && Player.Command.History.pop();
-	}
-
-	async function AddToConsole(command, result) {
-		let rev = await document.createElement('li');
-		rev.innerHTML = `${config.constants.currentPrompt} ${command} <br><br> ${result}`;
-		await PsuedoConsole.appendChild(rev);
-		PsuedoConsole.scrollTop = PsuedoConsole.scrollHeight;
-	}
-
-	function convertToFunctionCall(input) {
-		let Index, Argument, FunctionName, LowerInput = input.toLowerCase();
-		switch (true) {
-			case LowerInput.includes('go'):
-				Index = LowerInput.indexOf(' to');
-				if (Index=== -1) return `${LowerInput}`;
-				FunctionName = LowerInput.substring(0, Index);
-				Argument = LowerInput.substring(Index + 4).replace(/ /g, '');
-				return `${FunctionName}('${Argument}')`;
-			case LowerInput.includes('inspect') || LowerInput.includes('enter'):
-				Index = LowerInput.indexOf(' ');
-				if (Index=== -1) return `${LowerInput}`;
-				FunctionName = LowerInput.substring(0, Index);
-				Argument = LowerInput.substring(Index).replace(/ /g, '');
-				return `${FunctionName}(${Argument})`;
-			default:
-				return `${LowerInput}`;
+		function ConvertToFunctional(input) {
+			let Index, Argument, FunctionName;
+			switch (true) {
+				case input.toLowerCase().includes('go'):
+					Index = input.toLowerCase().indexOf(' to');
+					if (Index=== -1) return `${input.toLowerCase()}`;
+					FunctionName = input.toLowerCase().substring(0, Index);
+					Argument = input.toLowerCase().substring(Index + 4).replace(/ /g, '');
+					return `${FunctionName}('${Argument}')`;
+				case input.toLowerCase().includes('inspect') || input.toLowerCase().includes('enter'):
+					Index = input.toLowerCase().indexOf(' ');
+					if (Index=== -1) return `${input.toLowerCase()}`;
+					FunctionName = input.toLowerCase().substring(0, Index);
+					Argument = input.toLowerCase().substring(Index).replace(/ /g, '');
+					return `${FunctionName}(${Argument})`;
+				default:
+					return `${input.toLowerCase()}`;
+			}
 		}
-	}
+
+
+		async function PlaceContent() {
+			ContentWindow.style.right = `${(window.innerWidth / 4)}px`;
+			ContentWindow.style.width = `${window.innerWidth / 2}px`;
+			ContentWindow.style.height = `${window.innerHeight}px`;
+			ContentWindow.children[0].style.width = `${ContentWindow.children[0].parentElement.offsetWidth - 195}px`;
+			ContentWindow.children[0].style.height = `${ContentWindow.children[0].parentElement.offsetHeight / 1.825}px`;
+			ContentWindow.children[0].style.top = `${ContentWindow.children[0].parentElement.offsetTop + 5}px`;
+			ContentWindow.children[1].style.height = `${ContentWindow.children[1].parentElement.offsetHeight - 5}px`;
+			PsuedoConsole.style.height = `${ContentWindow.children[0].parentElement.offsetHeight / 1.825}px`;
+			PsuedoConsole.style.width = `${ContentWindow.children[0].parentElement.offsetWidth - 195}px`;
+			PsuedoConsole.style.top = `${ContentWindow.children[0].parentElement.offsetTop + window.innerHeight / 8.85}px`;
+		}
+
+		document.addEventListener('DOMContentLoaded', async () => {
+			ContentWindow.style.position = 'fixed';
+			PsuedoConsole.style.position = 'fixed';
+			PlaceContent();
+			window.addEventListener('resize', async () => PlaceContent());
+			document.addEventListener('mousemove', ({ clientX, clientY, pageX, pageY }) => {
+				let { bottom, left, right, top } = PsuedoConsole.getBoundingClientRect();
+
+				clientX>=left && clientX<=right && clientY>=top && clientY<=bottom
+				? (document.body.style.cursor = 'none', Cursor.style.display = 'block', Cursor.style.left = `${pageX}px`,
+								Cursor.style.top = `${pageY}px`)
+				: (document.body.style.cursor = 'auto', Cursor.style.display = 'none');
+			})
+		})
+
 </script>

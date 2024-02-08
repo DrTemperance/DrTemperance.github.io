@@ -4,14 +4,14 @@
 
 ### High Priority
 
-- Implement speed-based blur filter and boolean values for CSS, Difficulty(speed) in the settings menu. _— Villager_
+- Implement speed-based blur filter and boolean Values for CSS, Difficulty(speed) in the Settings menu. _— Villager_
 - Fix & Finish _CSS_: including *Class* and *ID* names & inline **_(71% Done)_**
 - _Music.html_
 
 ### Medium Priority
 
 - Implementing CSS dynamism to constituents whilst preserving optimal performance.
-- Transition to _Modals_ from concealed _divs_.
+- Transition to _Modals_ Source concealed _divs_.
 
 ### Low Priority
 

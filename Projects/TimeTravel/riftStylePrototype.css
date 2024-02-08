@@ -3,8 +3,6 @@
 	font-family : 'VGA';
 	}
 
-html, body {overflow : hidden;}
-
 * {
 	font-family       : 'VGA', 'Courier New', 'Courier ', ' monospace ', 'sans-serif';
 	list-style-type   : none;
@@ -47,7 +45,7 @@ html, body {overflow : hidden;}
 
 body {
 	flex-direction : column;
-	background     : #000;
+	background     : #FFF;
 	height         : 98%;
 	width          : 98%;
 	}
@@ -128,8 +126,8 @@ button {
 	#Terminal {width : 100% !important;}
 	}
 
-#FakeCursor {
-	background      : url('stories!/80s/Mouse.webp') no-repeat;
+#PseudoCursor {
+	background      : url('Stories/1980s/Mouse.webp') no-repeat;
 	background-size : contain;
 	pointer-events  : none;
 	position        : absolute;
@@ -157,17 +155,17 @@ button {
 	}
 
 #Content {
-	background      : url('stories!/80s/ScreenBorder.webp') no-repeat center;
+	background      : url('Stories/1980s/ScreenBorder.webp') no-repeat center;
 	background-size : 100% 100%;
-	padding         : 6% 6% 17.5% 6%;
-	max-height      : 96vh;
-	position        : fixed;
-	max-width       : 40vw;
-	margin          : auto;
-	bottom          : 0;
-	right           : 0;
-	left            : 0;
-	top             : 0;
+	/* padding         : 6%; */
+	/* max-height      : 96vh; */
+	/* position        : fixed; */
+	/* max-width       : 40vw; */
+	/* margin          : auto; */
+	/* bottom          : 0; */
+	/* right           : 0; */
+	/* left            : 0; */
+	/* top             : 0; */
 	> {
 		flex-direction : column;
 		display        : flex;
