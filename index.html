@@ -12,9 +12,7 @@
 <body>
 <nav>
 	<h1 class='Header'>-= Hannah's Hallway =-</h1>
-	<a>
 		<div class='ActivePage NavItems'>Home</div>
-	</a>
 	<a href='info.html'>
 		<div class='NavItems'>About Me</div>
 	</a>
@@ -30,7 +28,7 @@
 </nav>
 <div class='ContentBox'>
 	<h1>Home</h1>
-	<img alt='Temperance Brennan' class='tempie' height='300' width='470' src='Images/Temperence.webp' />
+	<img alt='Temperance Brennan' class='tempie' height='300' src='Images/Temperence.webp' width='470' />
 	<p class='ImgSubtitle'>Junior Year, Coming Autumn 2023</p>
 	<div class='Time' id='Timer'><p id='Countdown'></p></div>
 </div>
@@ -48,7 +46,7 @@
 
 <script>
   const TargetDate      = new Date(`August 11, 2023, 7:24:00`).getTime(),
-        UpdateCountdown = () => {
+        UpdateCountdown = async () => {
 	        document.getElementById('Timer').textContent = `
 			 ${Math.trunc((TargetDate - Date.now()) / 864.0e5)} days,
 			 ${Math.trunc(((TargetDate - Date.now()) % 864.0e5) / 36.0e5)} hours,
