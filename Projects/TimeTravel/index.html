@@ -4,23 +4,19 @@
 	<title> Time Rift | Prototype </title>
 	<link href='riftStylePrototype.css' rel='stylesheet' />
 	<link href='https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,500,1,0' rel='stylesheet' />
-	<meta content='width=device-width, height=device-height, initial-scale=1' name='viewport' /><style>
-.Column {
-	float : right;
-	}
-
-.Column {
-	float : right;
-	}
-</style>
+	<meta content='width=device-width, height=device-height, initial-scale=1' name='viewport' />
+	<style>
+	.Column {
+		float : right;
+		}
+	</style>
 </head>
 
 <audio id='80sKeyPress' src='Stories/1980s/Audio/Keypress.mp3' preload='auto'></audio>
 
 <body class='80sMode'>
 
-<div id='PseudoCursor' style='display: none;'>
-</div>
+<div id='PseudoCursor' style='display: none;'></div>
 <div class='Column Reversed' id='Content'>
 	<img class='80sAssets' id='Scanlines' src='Stories/1980s/Scanlines.gif' />
 	<div id='ConsoleOutput'></div>
@@ -62,7 +58,8 @@
 		      Cursor         = document.getElementById('PseudoCursor'),
 		      ContentWindow  = document.getElementById('Content'),
 		      SettingsButton = document.getElementById('SettingsButton'),
-		      SettingsMenu   = document.getElementById('SettingsMenu');
+		      SettingsMenu   = document.getElementById('SettingsMenu'),
+		      InputBox       = document.querySelector('.InputParent');
 
 		let Config = {
 			    Custom   : {
@@ -118,7 +115,7 @@
 						Player.Command.History.unshift(TerminalInput.value);
 						Player.Command.Index = -1;
 						Player.Command.History.length>=30 && Player.Command.History.pop();
-						ComputeInput(ConvertToFunctional(TerminalInput.value));
+						ComputeInput(Functionalize(TerminalInput.value));
 						TerminalInput.value = '';
 					}
 					break;
@@ -137,7 +134,7 @@
 									= Player.Command.History[Player.Command.Index]);
 					break;
 				default:
-					new audio('./Stories/1980s/Audio/Keypress.mp3').play();
+					new Audio('./Stories/1980s/Audio/Keypress.mp3').play();
 					break;
 			}
 		});
@@ -155,43 +152,42 @@
 			PsuedoConsole.scrollTop = PsuedoConsole.scrollHeight;
 		}
 
-		function ConvertToFunctional(input) {
-			let Index, Argument, FunctionName;
+		function Functionalize(Input) {
 			switch (true) {
-				case input.toLowerCase().includes('go'):
-					Index = input.toLowerCase().indexOf(' to');
-					if (Index=== -1) return `${input.toLowerCase()}`;
-					FunctionName = input.toLowerCase().substring(0, Index);
-					Argument = input.toLowerCase().substring(Index + 4).replace(/ /g, '');
-					return `${FunctionName}('${Argument}')`;
-				case input.toLowerCase().includes('inspect') || input.toLowerCase().includes('enter'):
-					Index = input.toLowerCase().indexOf(' ');
-					if (Index=== -1) return `${input.toLowerCase()}`;
-					FunctionName = input.toLowerCase().substring(0, Index);
-					Argument = input.toLowerCase().substring(Index).replace(/ /g, '');
-					return `${FunctionName}(${Argument})`;
+				case Input.toLowerCase().includes('go'):
+					if (Input.toLowerCase().indexOf(' to')=== -1) return `${Input.toLowerCase()}`;
+					return `${Input.toLowerCase().substring(0, Input.toLowerCase().indexOf(' to'))}('${Input
+									.toLowerCase().substring(Input.toLowerCase().indexOf(' to')).replace(/ /g, '')}')`;
+				case Input.toLowerCase().includes('inspect') || Input.toLowerCase().includes('enter'):
+					if (Input.toLowerCase().indexOf(' to')=== -1) return `${Input.toLowerCase()}`;
+					return `${Input.toLowerCase().substring(0, Input.toLowerCase().indexOf(' to'))}(${Input
+									.toLowerCase().substring(Input.toLowerCase().indexOf(' to')).replace(/ /g, '')})`;
 				default:
-					return `${input.toLowerCase()}`;
+					return `${Input.toLowerCase()}`;
 			}
 		}
 
 
-		async function PlaceContent() {
+		const PlaceContent = async () => {
 			ContentWindow.style.right = `${(window.innerWidth / 4)}px`;
 			ContentWindow.style.width = `${window.innerWidth / 2}px`;
 			ContentWindow.style.height = `${window.innerHeight}px`;
-			ContentWindow.children[0].style.width = `${ContentWindow.children[0].parentElement.offsetWidth - 195}px`;
-			ContentWindow.children[0].style.height = `${ContentWindow.children[0].parentElement.offsetHeight / 1.825}px`;
-			ContentWindow.children[0].style.top = `${ContentWindow.children[0].parentElement.offsetTop + 5}px`;
-			ContentWindow.children[1].style.height = `${ContentWindow.children[1].parentElement.offsetHeight - 5}px`;
-			PsuedoConsole.style.height = `${ContentWindow.children[0].parentElement.offsetHeight / 1.825}px`;
-			PsuedoConsole.style.width = `${ContentWindow.children[0].parentElement.offsetWidth - 195}px`;
-			PsuedoConsole.style.top = `${ContentWindow.children[0].parentElement.offsetTop + window.innerHeight / 8.85}px`;
-		}
+			ContentWindow.children[0].style.width = `${ContentWindow.getBoundingClientRect().width - 195}px`;
+			ContentWindow.children[0].style.height = `${ContentWindow.innerHeight / 1.825}px`;
+			ContentWindow.children[0].style.top = `${ContentWindow.offsetTop + 5}px`;
+			ContentWindow.children[1].style.height = `${ContentWindow.innerHeight - 5}px`;
+			PsuedoConsole.style.height = `${ContentWindow.getBoundingClientRect().height / 2}px`;
+			PsuedoConsole.style.width = `${ContentWindow.getBoundingClientRect().width - 195}px`;
+			PsuedoConsole.style.top = `${ContentWindow.offsetTop + window.innerHeight / 8.85}px`;
+			InputBox.style.top = `${window.innerHeight/1.575}px`;
+			InputBox.style.left = `${window.innerWidth/3.25}px`;
+			InputBox.style.width = `${PsuedoConsole.innerWidth}px`;
+		};
 
 		document.addEventListener('DOMContentLoaded', async () => {
 			ContentWindow.style.position = 'fixed';
 			PsuedoConsole.style.position = 'fixed';
+			InputBox.style.position = 'fixed';
 			PlaceContent();
 			window.addEventListener('resize', async () => PlaceContent());
 			document.addEventListener('mousemove', ({ clientX, clientY, pageX, pageY }) => {
