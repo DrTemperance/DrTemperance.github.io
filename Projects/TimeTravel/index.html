@@ -53,13 +53,16 @@
 </html>
 
 <script>
-		const TerminalInput  = document.getElementById('Terminal'),
-		      PsuedoConsole  = document.getElementById('ConsoleOutput'),
-		      Cursor         = document.getElementById('PseudoCursor'),
-		      ContentWindow  = document.getElementById('Content'),
-		      SettingsButton = document.getElementById('SettingsButton'),
-		      SettingsMenu   = document.getElementById('SettingsMenu'),
-		      InputBox       = document.querySelector('.InputParent');
+		const Elements = {
+			TerminalInput : document.getElementById('Terminal'),
+			PsuedoConsole : document.getElementById('ConsoleOutput'),
+			Cursor        : document.getElementById('PseudoCursor'),
+			ContentWindow : document.getElementById('Content'),
+			SettingsButton: document.getElementById('SettingsButton'),
+			SettingsMenu  : document.getElementById('SettingsMenu'),
+			InputBox      : document.querySelector('.InputParent'),
+			Scanlines     : document.getElementById('Scanlines')
+		};
 
 		let Config = {
 			    Custom   : {
@@ -102,21 +105,21 @@
 				    History: []
 			    }
 		    };
-		SettingsButton.addEventListener('click', () => {SettingsMenu.style.visibility = 'visible'});
+		Elements.SettingsButton.addEventListener('click', () => {Elements.SettingsMenu.style.visibility = 'visible'});
 
 		// Terminal functionality //
-		TerminalInput.addEventListener('keydown', async e => {
+		Elements.TerminalInput.addEventListener('keydown', async e => {
 			switch (e.key) {
 				case 'Enter':
 					e.preventDefault();
-					if (TerminalInput.value.trim()==='') {
+					if (Elements.TerminalInput.value.trim()==='') {
 						new Audio('./Stories/1980s/Audio/Error.mp3').play();
 					} else {
-						Player.Command.History.unshift(TerminalInput.value);
+						Player.Command.History.unshift(Elements.TerminalInput.value);
 						Player.Command.Index = -1;
 						Player.Command.History.length>=30 && Player.Command.History.pop();
-						ComputeInput(Functionalize(TerminalInput.value));
-						TerminalInput.value = '';
+						ComputeInput(Functionalize(Elements.TerminalInput.value));
+						Elements.TerminalInput.value = '';
 					}
 					break;
 				case 'ArrowUp':
@@ -125,12 +128,12 @@
 									Player.Command.Index===Player.Command.History.length - 1
 									? Player.Command.Index
 									: Player.Command.Index + 1;
-					TerminalInput.value = Player.Command.History[Player.Command.Index];
+					Elements.TerminalInput.value = Player.Command.History[Player.Command.Index];
 					break;
 				case 'ArrowDown':
 					e.preventDefault();
-					Player.Command.Index===0 && (Player.Command.Index--, TerminalInput.value = '');
-					Player.Command.Index!== -1 && (Player.Command.Index--, TerminalInput.value
+					Player.Command.Index===0 && (Player.Command.Index--, Elements.TerminalInput.value = '');
+					Player.Command.Index!== -1 && (Player.Command.Index--, Elements.TerminalInput.value
 									= Player.Command.History[Player.Command.Index]);
 					break;
 				default:
@@ -148,8 +151,8 @@
 		async function Console_Log(Prompt, Result) {
 			let Output = await document.createElement('li');
 			Output.innerHTML = `${Config.Constants.currentPrompt} ${Prompt} <br><br> ${Result}`;
-			await PsuedoConsole.appendChild(Output);
-			PsuedoConsole.scrollTop = PsuedoConsole.scrollHeight;
+			await Elements.PsuedoConsole.appendChild(Output);
+			Elements.PsuedoConsole.scrollTop = Elements.PsuedoConsole.scrollHeight;
 		}
 
 		function Functionalize(Input) {
@@ -169,35 +172,38 @@
 
 
 		const PlaceContent = async () => {
-			ContentWindow.style.right = `${(window.innerWidth / 4)}px`;
-			ContentWindow.style.width = `${window.innerWidth / 2}px`;
-			ContentWindow.style.height = `${window.innerHeight}px`;
-			ContentWindow.children[0].style.width = `${ContentWindow.getBoundingClientRect().width - 195}px`;
-			ContentWindow.children[0].style.height = `${ContentWindow.innerHeight / 1.825}px`;
-			ContentWindow.children[0].style.top = `${ContentWindow.offsetTop + 5}px`;
-			ContentWindow.children[1].style.height = `${ContentWindow.innerHeight - 5}px`;
-			PsuedoConsole.style.height = `${ContentWindow.getBoundingClientRect().height / 2}px`;
-			PsuedoConsole.style.width = `${ContentWindow.getBoundingClientRect().width - 195}px`;
-			PsuedoConsole.style.top = `${ContentWindow.offsetTop + window.innerHeight / 8.85}px`;
-			InputBox.style.top = `${window.innerHeight/1.575}px`;
-			InputBox.style.left = `${window.innerWidth/3.25}px`;
-			InputBox.style.width = `${PsuedoConsole.innerWidth}px`;
+			Elements.ContentWindow.style.right = `${(window.innerWidth / 4)}px`;
+			Elements.ContentWindow.style.width = `${window.innerWidth / 2}px`;
+			Elements.ContentWindow.style.height = `${window.innerHeight}px`;
+			Elements.Scanlines.style.width = `${Elements.ContentWindow.getBoundingClientRect().width / 1.3}px`;
+			Elements.Scanlines.style.height = `${Elements.ContentWindow.getBoundingClientRect().height / 1.825}px`;
+			Elements.Scanlines.style.top = `${Elements.ContentWindow.offsetTop / 0.5}px`;
+			Elements.PsuedoConsole.style.height = `${Elements.ContentWindow.getBoundingClientRect().height / 2}px`;
+			Elements.PsuedoConsole.style.width = `${Elements.ContentWindow.getBoundingClientRect().width / 1.3}px`;
+			Elements.PsuedoConsole.style.top = `${Elements.ContentWindow.offsetTop + window.innerHeight / 8.85}px`;
+			Elements.InputBox.style.top = `${window.innerHeight / 1.575}px`;
+			Elements.InputBox.style.left = `${window.innerWidth / 3.25}px`;
+			Elements.InputBox.style.width = `${Elements.PsuedoConsole.innerWidth}px`;
 		};
 
 		document.addEventListener('DOMContentLoaded', async () => {
-			ContentWindow.style.position = 'fixed';
-			PsuedoConsole.style.position = 'fixed';
-			InputBox.style.position = 'fixed';
+			Elements.ContentWindow.style.position = 'fixed';
+			Elements.Scanlines.style.position = 'fixed';
+			Elements.PsuedoConsole.style.position = 'fixed';
+			Elements.InputBox.style.position = 'fixed';
 			PlaceContent();
-			window.addEventListener('resize', async () => PlaceContent());
-			document.addEventListener('mousemove', ({ clientX, clientY, pageX, pageY }) => {
-				let { bottom, left, right, top } = PsuedoConsole.getBoundingClientRect();
+			window.addEventListener('resize', async () => requestAnimationFrame(await PlaceContent()));
+			document.addEventListener('mousemove', Cursor);
 
+			function Cursor({ clientX, clientY, pageX, pageY }) {
+				let { bottom, left, right, top } = Elements.PsuedoConsole.getBoundingClientRect();
 				clientX>=left && clientX<=right && clientY>=top && clientY<=bottom
-				? (document.body.style.cursor = 'none', Cursor.style.display = 'block', Cursor.style.left = `${pageX}px`,
-								Cursor.style.top = `${pageY}px`)
-				: (document.body.style.cursor = 'auto', Cursor.style.display = 'none');
-			})
-		})
-
+				? requestAnimationFrame(document.body.style.cursor = 'none',
+				                        Elements.Cursor.style.display = 'block',
+				                        Elements.Cursor.style.left = `${pageX}px`,
+				                        Elements.Cursor.style.top = `${pageY}px`)
+				: requestAnimationFrame(document.body.style.cursor = 'default',
+				                        Elements.Cursor.style.display = 'none');
+			}
+		});
 </script>
