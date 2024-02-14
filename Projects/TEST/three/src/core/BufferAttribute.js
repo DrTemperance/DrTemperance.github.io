@@ -1,8 +1,8 @@
-import { Vector3 } from '../math/Vector3.js';
-import { Vector2 } from '../math/Vector2.js';
-import { denormalize, normalize } from '../math/MathUtils.js';
-import { StaticDrawUsage, FloatType } from '../constants.js';
+import { FloatType, StaticDrawUsage } from '../constants.js';
 import { fromHalfFloat, toHalfFloat } from '../extras/DataUtils.js';
+import { denormalize, normalize } from '../math/MathUtils.js';
+import { Vector2 } from '../math/Vector2.js';
+import { Vector3 } from '../math/Vector3.js';
 import { warnOnce } from '../utils.js';
 
 const _vector = /*@__PURE__*/ new Vector3();

@@ -1,9 +1,9 @@
-import { EventDispatcher } from './EventDispatcher.js';
-import { Texture } from '../textures/Texture.js';
 import { LinearFilter, NoColorSpace, SRGBColorSpace, sRGBEncoding } from '../constants.js';
 import { Vector4 } from '../math/Vector4.js';
 import { Source } from '../textures/Source.js';
+import { Texture } from '../textures/Texture.js';
 import { warnOnce } from '../utils.js';
+import { EventDispatcher } from './EventDispatcher.js';
 
 /*
  In options, we can specify:

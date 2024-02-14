@@ -1,5 +1,5 @@
-import { EventDispatcher } from './EventDispatcher.js';
 import { StaticDrawUsage } from '../constants.js';
+import { EventDispatcher } from './EventDispatcher.js';
 
 let _id = 0;
 

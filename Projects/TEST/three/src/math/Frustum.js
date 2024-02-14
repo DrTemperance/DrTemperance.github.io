@@ -1,7 +1,7 @@
 import { WebGLCoordinateSystem, WebGPUCoordinateSystem } from '../constants.js';
-import { Vector3 } from './Vector3.js';
-import { Sphere } from './Sphere.js';
 import { Plane } from './Plane.js';
+import { Sphere } from './Sphere.js';
+import { Vector3 } from './Vector3.js';
 
 const _sphere = /*@__PURE__*/ new Sphere();
 const _vector = /*@__PURE__*/ new Vector3();

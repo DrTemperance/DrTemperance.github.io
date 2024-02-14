@@ -1,5 +1,5 @@
-import * as MathUtils from '../math/MathUtils.js';
 import { StaticDrawUsage } from '../constants.js';
+import * as MathUtils from '../math/MathUtils.js';
 import { warnOnce } from '../utils.js';
 
 class InterleavedBuffer {
