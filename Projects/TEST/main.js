@@ -2,16 +2,18 @@ import * as THREE from "./three/build/three.module.js";
 
 const Scene             = new THREE.Scene(),
       perspectiveCamera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000),
-      Renderer          = new THREE.WebGLRenderer({ antialias: true, canvas: document.getElementById("canvas") });
+      Renderer          = new THREE.WebGLRenderer({ antialias: true, canvas: document.getElementById("canvas") }),
+      Mesh              = new THREE.Mesh(
+	       new THREE.BoxGeometry(3.5, 3.5, 3.5),
+	       new THREE.MeshLambertMaterial({ color: 0xFF6050 })
+      );
 
 let Animating = false,
-    AnimStart = null;
-
-let Pre_Rotation;
+    AnimStart = null,
+    Pre_Rotation;
 
 Renderer.setSize(window.innerWidth, window.innerHeight);
 
-const Geometry = new THREE.BoxGeometry(3.5, 3.5, 3.5), Material = new THREE.MeshLambertMaterial({ color: 0xFFA050 }), Mesh = new THREE.Mesh(Geometry, Material);
 
 document.body.appendChild(Renderer.domElement);
 
