@@ -2,6 +2,3 @@
 .git
 .github!
 /.idea/
-!/CNAME
-!/README.MD
-!/quotes.txt
