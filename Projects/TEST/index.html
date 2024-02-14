@@ -1,34 +1,74 @@
 <html lang='EN'>
 <head>
-  <meta charset='UTF-8'>
-  <title>TEST</title>
+	<meta charset='UTF-8'>
+	<title>TEST</title>
+	<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+	<style>
+		html {
+			height     : 100%;
+			width      : 100%;
+			background : #000;
+			}
+
+		.Coord {
+			position      : fixed;
+			width         : 10px;
+			height        : 10px;
+			border-radius : 50%;
+			background    : #F00;
+			transition    : 0.05s;
+			border        : 3px outset #D00;
+			}
+	</style>
 </head>
 <body>
-<button onclick='StartWave()' style='width: 3%; height: 3%;'></button>
+<button id='SinButton' onclick='StartSinWave()'>Sin</button>
 </body>
 </html>
 
 <script>
-	// Sin Wave Test //
-	let SinCoord = document.createElement('div');
+  // Sin Wave Test with Trail Effect //
+  async function StartSinWave() {
+	  let trailLength = 10; // Length of the trail
+	  let trailDelay = 2; // Delay between trail elements
+	  let trailElements = []; // Store trail elements
 
+	  // Create main element
+	  let Coord = document.createElement('div');
+	  Coord.classList.add('Coord');
+	  document.body.appendChild(Coord);
 
-	async function StartWave() {
-		SinCoord.style.position = 'fixed';
-		SinCoord.style.backgroundColor = 'red';
-		SinCoord.style.width = '10px';
-		SinCoord.style.height = '10px';
-		SinCoord.style.borderRadius = '50%';
-		SinCoord.style.left = '0';
-		SinCoord.style.top = `${window.innerHeight / 2}px`;
-		SinCoord.style.bottom = '0';
-		document.body.appendChild(await SinCoord);
-		setInterval(await SinWave, 100);
-	}
+	  // Create trail elements
+	  for (let i = 0; i<trailLength; i++) {
+		  let trailElement = document.createElement('div');
+		  trailElement.classList.add('Coord');
+		  trailElement.style.opacity = (1 - i / trailLength).toString(); // Gradually reduce opacity
+		  document.body.appendChild(trailElement);
+		  trailElements.push(trailElement);
+	  }
 
-	async function SinWave() {
-		if (SinCoord.style.left.replace('px', '')>=window.innerWidth - SinCoord.offsetWidth / 2)
-			SinCoord.style.left = `${0 - SinCoord.offsetWidth / 2}px`;
-		SinCoord.style.left = `${SinCoord.style.left.replace('px', '') + 1}px`;
-	}
+	  let Pos_X = 0;
+
+	  async function animate() {
+		  if (Pos_X>=window.innerWidth) Pos_X = -Coord.offsetWidth / 2;
+		  let currentTop = window.innerHeight / 2 + Math.sin(Pos_X / 100) * 100 - Coord.offsetHeight / 2;
+		  Coord.style.left = `${Pos_X += 1}px`;
+		  Coord.style.top = `${currentTop}px`;
+
+		  // Update trail elements
+		  for (let i = 0; i<trailLength; i++) {
+			  if (Pos_X - i * trailDelay>=0) { // Check to avoid negative positions
+				  trailElements[i].style.left = `${Pos_X - i * trailDelay}px`;
+				  trailElements[i].style.top = `${window.innerHeight / 2 + Math.sin((Pos_X - i * trailDelay) / 100) * 100 - Coord.offsetHeight / 2}px`;
+			  }
+		  }
+
+		  window.requestAnimationFrame(animate);
+	  }
+
+	  window.requestAnimationFrame(animate);
+  }
+
+  // Start the animation with trail effect
+  StartSinWave();
 </script>

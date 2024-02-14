@@ -1,32 +1,113 @@
-const THREE = require("three");
+import * as THREE from "./three/build/three.module.js";
 
-const IteratableLaterals      = ['west', 'south', 'east', 'north'],
-      IteratableLongitudinals = ['top', 'bottom'];
+const Scene             = new THREE.Scene(),
+      perspectiveCamera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000),
+      Renderer          = new THREE.WebGLRenderer({ antialias: true, canvas: document.getElementById("canvas") });
 
-let FaceIterator = 1;
+let Animating = false,
+    AnimStart = null;
 
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-const renderer = new THREE.WebGLRenderer();
+let Pre_Rotation;
 
-renderer.setSize(window.innerWidth, window.innerHeight);
+Renderer.setSize(window.innerWidth, window.innerHeight);
 
-const geometry = new THREE.BoxGeometry(1, 1, 1);
-const material = new THREE.MeshLambertMaterial({ color: 0x00ff00 });
-const cube = new THREE.Mesh(geometry, material);
+const Geometry = new THREE.BoxGeometry(3.5, 3.5, 3.5), Material = new THREE.MeshLambertMaterial({ color: 0xFFA050 }), Mesh = new THREE.Mesh(Geometry, Material);
 
-scene.add(cube);
+document.body.appendChild(Renderer.domElement);
 
-document.body.appendChild(renderer.domElement);
+const StartScene = async () => {
+	let SceneLighting = await new THREE.HemisphereLight(0xAA55AA);
+	Scene.add(SceneLighting)
+	     .add(Mesh);
+	SceneLighting.position.set(0, 5, 0);
 
+	perspectiveCamera.position.set(1, 0, 5);
+	Mesh.castShadow = true;
+	Mesh.receiveShadow = true;
 
-function animate() {
+	Renderer.setClearColor(0x111111);
+};
+
+const animate = async () => {
+	perspectiveCamera.updateProjectionMatrix();
 	requestAnimationFrame(animate);
 
-	cube.rotation.x += 0.01;
-	cube.rotation.y += 0.01;
+	perspectiveCamera.lookAt(Mesh.position);
 
-	renderer.render(scene, camera);
-}
+
+	Renderer.render(Scene, perspectiveCamera);
+};
 
 animate();
+StartScene();
+
+document.addEventListener('keydown', async ({ key }) => {
+	if (!Animating) {
+		switch (key) {
+			case 'w':
+				Animating = true;
+				AnimStart = null;
+				Pre_Rotation = Mesh.rotation.x;
+
+				const AnimateUp = async time => {
+					if (AnimStart===null) AnimStart = time;
+					const progress = (time - AnimStart) / 500;
+					Mesh.rotation.x = Pre_Rotation + (Math.PI / 2 - Pre_Rotation) * progress;
+
+					if (progress<1) requestAnimationFrame(AnimateUp);
+					else Mesh.rotation.x = Math.PI / 2, Animating = false;
+				};
+
+				requestAnimationFrame(AnimateUp);
+				break;
+			case 's':
+				Animating = true;
+				AnimStart = null;
+				Pre_Rotation = Mesh.rotation.x;
+
+				const AnimateDown = async time => {
+					if (AnimStart===null) AnimStart = time;
+					const progress = (time - AnimStart) / 500;
+					Mesh.rotation.x = Pre_Rotation - (Pre_Rotation) * progress;
+
+					if (progress<1) requestAnimationFrame(AnimateDown);
+					else Mesh.rotation.x = 0, Animating = false;
+				};
+
+				requestAnimationFrame(AnimateDown);
+				break;
+			case 'a' :
+				Animating = true;
+				AnimStart = null;
+				Pre_Rotation = Mesh.rotation.y;
+
+				const AnimateWest = async time => {
+					if (AnimStart===null) AnimStart = time;
+					const progress = (time - AnimStart) / 500;
+					Mesh.rotation.y = Pre_Rotation + (Math.PI / 2 - Pre_Rotation) * progress;
+
+					if (progress<1) requestAnimationFrame(AnimateWest);
+					else Mesh.rotation.y = Math.PI / 2, Animating = false;
+				};
+
+				requestAnimationFrame(AnimateWest);
+				break;
+			case 'd' :
+				Animating = true;
+				AnimStart = null;
+				Pre_Rotation = Mesh.rotation.y;
+
+				const AnimateEast = async time => {
+					if (AnimStart===null) AnimStart = time;
+					const progress = (time - AnimStart) / 500;
+					Mesh.rotation.y = Pre_Rotation - (Pre_Rotation) * progress;
+
+					if (progress<1) requestAnimationFrame(AnimateEast);
+					else Mesh.rotation.y = 0, Animating = false;
+				};
+
+				requestAnimationFrame(AnimateEast);
+				break;
+		}
+	}
+});
