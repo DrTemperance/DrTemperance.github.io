@@ -161,24 +161,9 @@ export { createCanvasElement } from './utils.js';
 export * from './constants.js';
 export * from './Three.Legacy.js';
 
-if ( typeof __THREE_DEVTOOLS__ !== 'undefined' ) {
+if (typeof __THREE_DEVTOOLS__!=='undefined') {__THREE_DEVTOOLS__.dispatchEvent(new CustomEvent('register', { detail: { revision: REVISION } }))}
 
-	__THREE_DEVTOOLS__.dispatchEvent( new CustomEvent( 'register', { detail: {
-		revision: REVISION,
-	} } ) );
-
-}
-
-if ( typeof window !== 'undefined' ) {
-
-	if ( window.__THREE__ ) {
-
-		console.warn( 'WARNING: Multiple instances of Three.js being imported.' );
-
-	} else {
-
-		window.__THREE__ = REVISION;
-
-	}
-
+if (typeof window!=='undefined') {
+	if (window.__THREE__) console.warn('WARNING: Multiple instances of Three.js being imported.');
+	else window.__THREE__ = REVISION;
 }

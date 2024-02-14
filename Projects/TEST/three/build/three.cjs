@@ -1,8 +1,3 @@
-/**
- * @license
- * Copyright 2010-2023 Three.js Authors
- * SPDX-License-Identifier: MIT
- */
 'use strict';
 
 const REVISION = '161';
@@ -221,10 +216,6 @@ const _SRGBAFormat = 1035; // fallback for WebGL 1
 
 const WebGLCoordinateSystem = 2000;
 const WebGPUCoordinateSystem = 2001;
-
-/**
- * https://github.com/mrdoob/eventdispatcher.js/
- */
 
 class EventDispatcher {
 
