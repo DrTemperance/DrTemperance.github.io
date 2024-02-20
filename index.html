@@ -13,18 +13,10 @@
 <nav>
 	<h1 class='Header'>-= Hannah's Hallway =-</h1>
 		<div class='ActivePage NavItems'>Home</div>
-	<a href='info.html'>
-		<div class='NavItems'>About Me</div>
-	</a>
-	<a href='music.html'>
-		<div class='NavItems'>Music</div>
-	</a>
-	<a href='keyspage.html'>
-		<div class='NavItems'>Time Machine</div>
-	</a>
-	<a href='portfolio.html'>
-		<div class='NavItems'>Portfolio</div>
-	</a>
+	<a href='info.html'><div class='NavItems'>About Me</div></a>
+	<a href='music.html'><div class='NavItems'>Music</div></a>
+	<a href='keyspage.html'><div class='NavItems'>Time Machine</div></a>
+	<a href='portfolio.html'><div class='NavItems'>Portfolio</div></a>
 </nav>
 <div class='ContentBox'>
 	<h1>Home</h1>
@@ -37,10 +29,7 @@
 	<iframe height='650px' loading='lazy' src='https://www.fishersci.com/search/chemical/substructure/marvinjs/' title='FisherSci Chemical Structure Builder' width='100%'></iframe>
 </div>
 <div class='ContentBox'>
-	<p id='_Footer'>
-		All digital artistic creations created by me, with substantial assistance Source
-		<a href='https://awsome-creeper9.github.io/'><b>Awsome_Creeper9</b></a>
-	</p>
+	<p id='_Footer'>All digital artistic creations created by me, with substantial assistance Source<a href='https://awsome-creeper9.github.io/'><b>Awsome_Creeper9</b></a></p>
 </div>
 </body>
 
@@ -51,8 +40,7 @@
 			 ${Math.trunc((TargetDate - Date.now()) / 864.0e5)} days,
 			 ${Math.trunc(((TargetDate - Date.now()) % 864.0e5) / 36.0e5)} hours,
 			 ${Math.trunc(((TargetDate - Date.now()) % 36.0e5) / 6.0e4)} minutes,
-			 ${Math.floor((TargetDate - Date.now()) % 6.0e4 / 1.0e3)} seconds
-			 `;
+			 ${Math.floor((TargetDate - Date.now()) % 6.0e4 / 1.0e3)} seconds`;
         };
   UpdateCountdown();
   setInterval(UpdateCountdown, 50);

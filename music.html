@@ -3,8 +3,8 @@
 	<meta content='width=device-width, initial-scale=1' name='viewport' />
 	<link href='Images/PurplePotion.webp' rel='icon' />
 	<link href='style.css' rel='stylesheet' />
-	<title>~ Music ~</title>
 	<meta charset='UTF-8' />
+	<title>~ Music ~</title>
 	<style>
 		#Music {
 			background     : #DDD;
@@ -41,21 +41,11 @@
 <body>
 <nav>
 	<h1 class='Header'>-= Hannah's Hallway =-</h1>
-	<a href='index.html'>
-		<li class='NavItems'>Home</li>
-	</a>
-	<a href='info.html'>
-		<li class='NavItems'>About Me</li>
-	</a>
-	<a>
-		<li class='ActivePage NavItems'>Music</li>
-	</a>
-	<a href='keyspage.html'>
-		<li class='NavItems'>Time Machine</li>
-	</a>
-	<a href='portfolio.html'>
-		<li class='NavItems'>Portfolio</li>
-	</a>
+	<a href='index.html'><li class='NavItems'>Home</li></a>
+	<a href='info.html'><li class='NavItems'>About Me</li></a>
+	<a><li class='ActivePage NavItems'>Music</li></a>
+	<a href='keyspage.html'><li class='NavItems'>Time Machine</li></a>
+	<a href='portfolio.html'><li class='NavItems'>Portfolio</li></a>
 </nav>
 <div class='ContentBox'>
 	<h1>❤ Favorite Artists ❤</h1>
@@ -85,7 +75,7 @@
 	</li>
 	<li id='Music' onclick='ArtistClick(this)'>
 		<div>
-			<h2>SDH</h2>
+			<h2>The Cranberries</h2>
 			<div id='ArtistBio'>x <br></div>
 		</div>
 	</li>
@@ -112,7 +102,6 @@
 </body>
 <script>
   const ArtistClick = async ({ style }) => {style.transform = style.transform==='scale(1.3)' ? '' : 'scale(1.3)'};
-  document.querySelectorAll('#Music')
-          .forEach(({ style }) => addEventListener('mouseout', async () => {style.transform = ''}))
+  document.querySelectorAll('#Music').forEach(({ style }) => addEventListener('mouseout', async () => {style.transform = ''}))
 </script>
 </html>

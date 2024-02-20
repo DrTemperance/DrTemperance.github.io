@@ -61,7 +61,7 @@ document.addEventListener('keydown', async ({ key }) => {
 				const AnimateDown = async time => {
 					if (AnimStart===null) AnimStart = time;
 					AnimProgress = (time - AnimStart) / 500;
-					Mesh.rotation.x = Pre_Rotation - (Pre_Rotation) * AnimProgress;
+					Mesh.rotation.x = Pre_Rotation - Pre_Rotation * AnimProgress;
 
 					AnimProgress<1 ? requestAnimationFrame(AnimateDown) : (Mesh.rotation.x = 0, Animating = false);
 				};
@@ -87,7 +87,7 @@ document.addEventListener('keydown', async ({ key }) => {
 				const AnimateEast = async time => {
 					if (AnimStart===null) AnimStart = time;
 					AnimProgress = (time - AnimStart) / 500;
-					Mesh.rotation.y = Pre_Rotation - (Pre_Rotation) * AnimProgress;
+					Mesh.rotation.y = Pre_Rotation - Pre_Rotation * AnimProgress;
 
 					AnimProgress<1 ? requestAnimationFrame(AnimateEast) : (Mesh.rotation.y = 0, Animating = false);
 				};
