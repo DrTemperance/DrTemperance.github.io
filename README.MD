@@ -6,7 +6,7 @@
 
 - Implement speed-based blur filter and boolean Values for CSS, Difficulty(speed) in the Settings menu. _— Villager_
 - Fix & Finish _CSS_: including *Class* and *ID* names & inline **_(71% Done)_**
-- _Music.html_
+- _music.html_
 
 ### Medium Priority
 

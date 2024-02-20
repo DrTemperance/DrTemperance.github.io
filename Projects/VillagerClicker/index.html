@@ -378,7 +378,7 @@
       VillagerWidth  = parseInt(GameLevels[level].size.width),
       ClientHeight   = Board.clientHeight,
       ClientWidth    = Board.clientWidth,
-      Speed_Y        = 30,
+      Speed_Y1       = 30,
       Speed_X        = 30,
       PlayerDamage   = 0,
       Points         = 0,
@@ -437,7 +437,7 @@
 		  JoinMessage();
 		  Villager.style.backgroundImage = `url(${GameLevels[level].head})`;
 		  Bossbar.max = GameLevels[level].health;
-		  Speed_Y *= 0.75;
+		  Speed_Y1 *= 0.75;
 		  Speed_X *= 0.75;
 		  Points = 0;
 		  await GameAudio.Villager_Death.play();
@@ -447,7 +447,7 @@
 	  }
 
 	  let DX = Pos_X + Speed_X * D_Time,
-	      DY = Pos_Y + Speed_Y * D_Time;
+	      DY = Pos_Y + Speed_Y1 * D_Time;
 
 	  Villager.style.width = GameLevels[level].size;
 	  Villager.style.height = `${(parseInt(GameLevels[level].size) * 1.25)}px`;
@@ -456,8 +456,8 @@
 
 	  // Check for collisions
 	  VilOffset = Math.ceil(VillagerWidth / 3.75),
-	  !(DY<ClientHeight) && (DY = ClientHeight, Speed_Y = -Speed_Y),
-	  DY<0 && (DY = 0, Speed_Y = -Speed_Y),
+	  !(DY<ClientHeight) && (DY = ClientHeight, Speed_Y1 = -Speed_Y1),
+	  DY<0 && (DY = 0, Speed_Y1 = -Speed_Y1),
 	  !(DX<ClientWidth + VilOffset) && (DX = ClientWidth + VilOffset, Speed_X = -Speed_X),
 	  !(DX>=0) && (DX = 0, Speed_X = -Speed_X);
 
@@ -475,10 +475,10 @@
 	  GameAudio.Villager_Hurt.play();
 	  SetBossbar();
 
-	  Speed_X = -Speed_Y;
-	  Speed_Y = -Speed_X;
+	  Speed_X = -Speed_Y1;
+	  Speed_Y1 = -Speed_X;
 	  Speed_X>0 ? Speed_X += 50 : Speed_X -= 50;
-	  Speed_Y>0 ? Speed_Y += 50 : Speed_Y -= 50;
+	  Speed_Y1>0 ? Speed_Y1 += 50 : Speed_Y1 -= 50;
 
 	  Villager.style.rotate = '25deg';
 	  Villager.style.filter = `blur(${(Math.PI / Speed_X)}px)`;

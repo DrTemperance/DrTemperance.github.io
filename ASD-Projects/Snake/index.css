@@ -2,7 +2,7 @@
 
 body {background : #9C3;}
 
-#snake-head {background : #060;}
+#Snake_Head {background : #060;}
 
 #Board {
 	margin-left : 10px;
@@ -20,7 +20,7 @@ body {background : #9C3;}
 	text-align : center;
 	}
 
-.snake,
+.Snake,
 .Apple {
 	display     : block;
 	width       : 20px;
@@ -28,7 +28,7 @@ body {background : #9C3;}
 	position    : absolute;
 	user-select : none;
 	filter      : drop-shadow(1px 1px 1px #111111A0);
-	&.snake {background : #050;}
+	&.Snake {background : #050;}
 	&.Apple {
 		background    : #F23;
 		border-radius : 6px;

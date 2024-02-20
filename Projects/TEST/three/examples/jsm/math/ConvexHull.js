@@ -1,9 +1,4 @@
-import {
-	Line3,
-	Plane,
-	Triangle,
-	Vector3
-} from 'three';
+import { Line3, Plane, Triangle, Vector3 } from 'three';
 
 /**
  * Ported from: https://github.com/maurizzzio/quickhull3d/ by Mauricio Poppe (https://github.com/maurizzzio)
@@ -145,7 +140,7 @@ class ConvexHull {
 
 			// compute the distance from the ray’s origin to the intersection with the plane
 
-			const t = ( vD !== 0 ) ? ( - vN / vD ) : 0;
+			const t = vD !== 0 ? - vN / vD : 0;
 
 			// only proceed if the distance is positive. a negative distance means the intersection point
 			// lies "behind" the origin
@@ -784,7 +779,7 @@ class ConvexHull {
 
 	}
 
-	// Creates a face with the vertices 'eyeVertex.point', 'horizonEdge.tail' and 'horizonEdge.head' in CCW order
+	// Creates a face with the vertices 'eyeVertex.point', 'horizonEdge.Tail' and 'horizonEdge.head' in CCW order
 
 	addAdjoiningFace( eyeVertex, horizonEdge ) {
 
@@ -1166,7 +1161,7 @@ class VertexList {
 		}
 
 		vertex.prev = this.tail;
-		vertex.next = null; // the tail has no subsequent vertex
+		vertex.next = null; // the Tail has no subsequent vertex
 
 		this.tail = vertex;
 
@@ -1190,7 +1185,7 @@ class VertexList {
 
 		vertex.prev = this.tail;
 
-		// ensure that the 'tail' reference points to the last vertex of the chain
+		// ensure that the 'Tail' reference points to the last vertex of the chain
 
 		while ( vertex.next !== null ) {
 
@@ -1232,7 +1227,7 @@ class VertexList {
 
 	}
 
-	// Removes a list of vertices whose 'head' is 'a' and whose 'tail' is b
+	// Removes a list of vertices whose 'head' is 'a' and whose 'Tail' is b
 
 	removeSubList( a, b ) {
 
