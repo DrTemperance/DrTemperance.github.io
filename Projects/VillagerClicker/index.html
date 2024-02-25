@@ -160,7 +160,7 @@
 			cursor      : pointer;
 			font-weight : bolder;
 			}
-</style>
+	</style>
 </head>
 
 <body>
@@ -185,18 +185,18 @@
 </div>
 <div id='Stats'>
 	<div id='HeartBar'>
-		<img alt='Heart 1' class='Heart' id='health1' src='Stats/FullHeart.png' />
-		<img alt='Heart 2' class='Heart' id='health2' src='Stats/FullHeart.png' />
-		<img alt='Heart 3' class='Heart' id='health3' src='Stats/FullHeart.png' />
-		<img alt='Heart 4' class='Heart' id='health4' src='Stats/FullHeart.png' />
-		<img alt='Heart 5' class='Heart' id='health5' src='Stats/FullHeart.png' />
-		<img alt='Heart 6' class='Heart' id='health6' src='Stats/FullHeart.png' />
-		<img alt='Heart 7' class='Heart' id='health7' src='Stats/FullHeart.png' />
-		<img alt='Heart 8' class='Heart' id='health8' src='Stats/FullHeart.png' />
-		<img alt='Heart 9' class='Heart' id='health9' src='Stats/FullHeart.png' />
-		<img alt='Heart 10' class='Heart' id='health10' src='Stats/FullHeart.png' />
+		<img class='Heart' id='health1' src='Stats/FullHeart.png' />
+		<img class='Heart' id='health2' src='Stats/FullHeart.png' />
+		<img class='Heart' id='health3' src='Stats/FullHeart.png' />
+		<img class='Heart' id='health4' src='Stats/FullHeart.png' />
+		<img class='Heart' id='health5' src='Stats/FullHeart.png' />
+		<img class='Heart' id='health6' src='Stats/FullHeart.png' />
+		<img class='Heart' id='health7' src='Stats/FullHeart.png' />
+		<img class='Heart' id='health8' src='Stats/FullHeart.png' />
+		<img class='Heart' id='health9' src='Stats/FullHeart.png' />
+		<img class='Heart' id='health10' src='Stats/FullHeart.png' />
 	</div>
-	<div class='bar'><img class='item' draggable='false' id='item0' onclick='HotbarClick(this)'></div>
+	<div class='Bar'><img class='Item' draggable='false' id='item0' onclick='HotbarClick(this)'></div>
 	<div draggable='false' id='Hotbar' onclick='GameAudio.GUI_Click.play()'>
 		<div class='Bar'><img class='item' draggable='false' id='item1' onclick='HotbarClick(this)'></div>
 		<div class='Bar'><img class='item' draggable='false' id='item2' onclick='HotbarClick(this)'></div>
@@ -213,7 +213,7 @@
 <button id='ShopButton' onclick="document.getElementById('Player.Command.Index').showModal()">Outpost</button>
 
 <dialog id='Player.Command.Index'>
-	<span id='Close' style='cursor: pointer; font-weight: bolder;'>X</span>
+	<span id='Close'>X</span>
 	<p>You left and went to the store! I hope you had a good time!</p>
 	<div id='Shops'>
 		<button onclick="OpenShop('nurse')">Nurse Rancid</button>
@@ -415,21 +415,21 @@
 	  DrawHearts();
   }
 
-  const DeathMessage = () => {//TODO `some dom selector manipulation`-->
+  const DeathMessage = () => {//TODO  dom selector manipulation
   };
-  const JoinMessage = () => {//TODO `some dom selector manipulation`
+  const JoinMessage = () => {//TODO  dom selector manipulation
   };
 
   async function Update(Timestamp) {
-	  // Update timing for FPS calculations
+	  // Update timing for FPS calculations //
 	  let VilOffset;
 	  LastTime || (LastTime = Timestamp);
 	  const D_Time = (LastTime - Timestamp) / 500;
 
 	  LevelTxt.textContent = `Level ${level} - ${GameLevels[level].name}`;
 
-	  // Progress level check
-	  if (!(Points<VillagerHealth)) {
+	  // Progress level check //
+	  if (Points>=VillagerHealth) {
 		  level++;
 		  DeathMessage();
 		  document.querySelector('title').textContent = `${GameLevels[level].name} - Villager Clicker`;
@@ -454,14 +454,14 @@
 	  Villager.style.left = `${Pos_X}px`;
 	  Villager.style.top = `${Pos_Y}px`;
 
-	  // Check for collisions
+	  // Check for collisions //
 	  VilOffset = Math.ceil(VillagerWidth / 3.75),
 	  !(DY<ClientHeight) && (DY = ClientHeight, Speed_Y1 = -Speed_Y1),
 	  DY<0 && (DY = 0, Speed_Y1 = -Speed_Y1),
 	  !(DX<ClientWidth + VilOffset) && (DX = ClientWidth + VilOffset, Speed_X = -Speed_X),
 	  !(DX>=0) && (DX = 0, Speed_X = -Speed_X);
 
-	  // Update the positions after all checks
+	  // Update the positions after all checks //
 	  Pos_X = DX;
 	  Pos_Y = DY;
 
@@ -877,61 +877,58 @@
 	  }
   };
 
-  // Function Calls
+  // Function Calls //
   document.addEventListener('keydown', async e => {
 	  switch (e.key) {
 		  case 'Tab':
 			  document.getElementById('Player.Command.Index').showModal;
-			  break;
+
 		  case 'Escape':
 			  document.getElementById('Player.Command.Index').close();
-			  break;
+
 		  default:
 			  typeof e==='number' ? document.getElementById(`item${e.key}`).click() : null;
 			  break;
 	  }
   });
 
-  // Start Shops
+  // Start Shops //
 
   for (let s = 0; s<Shops.length; s++) {
 	  document.getElementById('Shops').children[s].innerHTML = PlayerData.Shops[i]
   }
 
-  // Check For 'Next' Open Slot
+  // Check For 'Next' Open Slot //
   async function OpenSlot() {
 	  for (let Slot of PlayerData.Hotbar) if (Slot.item===0 || Slot.type==='empty') return Slot;
   }
 
   function HotbarClick(IntSlot) {
-	  const Slot = IntSlot.id.slice(4),
-	        Item = PlayerData.Hotbar[Slot];
+	  const Slot = IntSlot.id.slice(4), Item = PlayerData.Hotbar[Slot];
 	  Item.type ? new HandleItem(Slot, Item) : console.error(`Slot ${Slot} returned w/ ${Item.item}`);
   }
 
-  const SetAttack = (aoa, damage, attackSpeed, name, image, aria) => {
+  const AttackData = (aoa, damage, attackSpeed, name, image, aria) => {
 	  let AttackData = { aoa, damage, attackSpeed, name, image, aria };
-	  console.log(AttackData);
+	  console.info(AttackData);
   };
 
   function HandleItem(ID) {
-	  let slot = ID.id.split('item')[1].trim();
-	  let item = [... (PlayerData.Hotbar)][slot];
-	  console.log(`slot: ${slot}, item: ${item}`);
-	  switch (item.type) {
+	  let Slot = ID.id.split('item')[1].trim();
+	  let Item = [... (PlayerData.Hotbar)][Slot];
+	  console.info(`slot: ${Slot}, item: ${Item}`);
+	  switch (Item.type) {
 		  case 'sword':
-			  let { aoa, damage, attackSpeed, name, image, aria } = item.tier[`${item.tier}`];
-			  SetAttack(aoa, damage, attackSpeed, name, image, aria);
-			  break;
+			  let { aoa, damage, attackSpeed, name, image, aria } = Item.tier[`${Item.tier}`];
+			  AttackData(aoa, damage, attackSpeed, name, image, aria);
+
 		  case 'axe':
-			  break;
 		  case 'pickaxe':
-			  break;
 		  case 'potion':
-			  break;
 		  case 'Totem':
+
 		  default:
-			  console.log(`Case saw ${item}, ${this}`);
+			  console.info(`Case saw ${Item}, ${this}`);
 			  break;
 	  }
   }

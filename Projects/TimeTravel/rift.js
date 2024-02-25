@@ -34,5 +34,5 @@ async function Phase2(Output, Bold, Italicized) {
 
 	Bold && (OutputElement.style.fontWeight = 'bold'), Italicized && (OutputElement.style.fontStyle = 'italic');
 
-	document.getElementById('ConsoleOutput').insertAdjacentElement('afterend', document.createElement('li').appendChild(OutputElement))
+	document.getElementById('Console-Output').insertAdjacentElement('afterend', document.createElement('li').appendChild(OutputElement))
 }

@@ -1,4 +1,4 @@
-<html lang='en'>
+<html lang='EN'>
 <head>
 	<meta charset='UTF-8' />
 	<title> Time Rift | Prototype </title>
@@ -9,22 +9,45 @@
 		.Column {
 			float : right;
 			}
+
+		#TextMode, #GUIMode {
+			padding    : 0.5em;
+			width      : 100%;
+			height     : 100%;
+			text-align : center;
+			font-size  : xxx-large;
+			}
+
+		.Active {
+			color      : #000;
+			background : #AA9;
+			}
+
+		.Inactive {
+			color      : #222;
+			background : #CCB;
+			}
 	</style>
 </head>
 
-<audio id='80sKeyPress' src='Stories/1980s/Audio/Keypress.mp3' preload='auto'></audio>
 
-<body class='80sMode'>
+<body class='80s_Mode'>
+<audio id='KeyPress_80s' src='Stories/1980s/Audio/Keypress.mp3' preload='auto'></audio>
 
-<div id='PseudoCursor' style='display: none;'></div>
+<aside class='Column' style='float: left; padding: 10px;'>
+	<button class='Active' id='TextMode' onclick='this.classList.toggle("Active"), this.classList.toggle("Inactive");document.getElementById(`GUIMode`).classList.toggle("Active"), document.getElementById(`GUIMode`).classList.toggle("Inactive");'>Text Mode</button>
+	<button class='Inactive' id='GUIMode' onclick='this.classList.toggle("Active"), this.classList.toggle("Inactive");document.getElementById(`TextMode`).classList.toggle("Active"), document.getElementById(`TextMode`).classList.toggle("Inactive");'>GUI Mode</button>
+</aside>
+
+<div id='Pseudo_Cursor' style='display: none;'></div>
 <div class='Column Reversed' id='Content'>
-	<img class='80sAssets' id='Scanlines' src='Stories/1980s/Scanlines.gif' />
-	<div id='ConsoleOutput'></div>
+	<img class='Assets_80s' id='Scanlines' src='Stories/1980s/Scanlines.gif' />
+	<div id='Console-Output'></div>
 	<div class='Column Reversed InputParent'>
 		<div class='Row'>
-			<span id='prompt'>>_</span>
-			<input alt='terminal input' autocomplete='off' id='Terminal' maxlength='90' spellcheck='false' type='text' value='' />
-			<span class='material-symbols-outlined' id='SettingsButton'>more_vert</span>
+			<span id='Prompt'>>_</span>
+			<input autocomplete='off' id='Terminal' maxlength='90' spellcheck='false' type='text' value='' />
+			<span class='material-symbols-outlined' id='Settings_Button'>more_vert</span>
 		</div>
 	</div>
 	<button style='border: none;position: fixed; left:1161px;top: 696px;width: 50px;height: 30px;cursor: pointer; background: none;'
@@ -50,15 +73,13 @@
 </dialog>
 
 </body>
-</html>
-
 <script>
   const Elements = {
 	  TerminalInput : document.getElementById('Terminal'),
-	  PsuedoConsole : document.getElementById('ConsoleOutput'),
-	  Cursor        : document.getElementById('PseudoCursor'),
+	  PsuedoConsole : document.getElementById('Console-Output'),
+	  Cursor        : document.getElementById('Pseudo_Cursor'),
 	  ContentWindow : document.getElementById('Content'),
-	  SettingsButton: document.getElementById('SettingsButton'),
+	  SettingsButton: document.getElementById('Settings_Button'),
 	  SettingsMenu  : document.getElementById('SettingsMenu'),
 	  InputBox      : document.querySelector('.InputParent'),
 	  Scanlines     : document.getElementById('Scanlines')
@@ -101,41 +122,36 @@
       },
       Player = {
 	      Command: {
-		      Index  : -1,
-		      History: []
+		      Index: -1, History: []
 	      }
       };
-  Elements.SettingsButton.addEventListener('click', () => {Elements.SettingsMenu.style.visibility = 'visible'});
+  Elements.SettingsButton.addEventListener('click', () => Elements.SettingsMenu.style.visibility = 'visible');
 
   // Terminal functionality //
   Elements.TerminalInput.addEventListener('keydown', async e => {
 	  switch (e.key) {
 		  case 'Enter':
 			  e.preventDefault();
-			  if (Elements.TerminalInput.value.trim()==='') {
-				  new Audio('./Stories/1980s/Audio/Error.mp3').play();
-			  } else {
+			  if (Elements.TerminalInput.value.trim()==='') new Audio('./Stories/1980s/Audio/Error.mp3').play();
+			  else {
 				  Player.Command.History.unshift(Elements.TerminalInput.value);
 				  Player.Command.Index = -1;
 				  Player.Command.History.length>=30 && Player.Command.History.pop();
 				  ComputeInput(Functionalize(Elements.TerminalInput.value));
 				  Elements.TerminalInput.value = '';
 			  }
-			  break;
+
 		  case 'ArrowUp':
 			  e.preventDefault();
-			  Player.Command.Index =
-							  Player.Command.Index===Player.Command.History.length - 1
-							  ? Player.Command.Index
-							  : Player.Command.Index + 1;
+			  Player.Command.Index = Player.Command.Index===Player.Command.History.length - 1
+			                         ? Player.Command.Index : Player.Command.Index + 1;
 			  Elements.TerminalInput.value = Player.Command.History[Player.Command.Index];
-			  break;
+
 		  case 'ArrowDown':
 			  e.preventDefault();
 			  Player.Command.Index===0 && (Player.Command.Index--, Elements.TerminalInput.value = '');
-			  Player.Command.Index!== -1 && (Player.Command.Index--, Elements.TerminalInput.value
-							  = Player.Command.History[Player.Command.Index]);
-			  break;
+			  Player.Command.Index!== -1 && (Player.Command.Index--, Elements.TerminalInput.value = Player.Command.History[Player.Command.Index]);
+
 		  default:
 			  new Audio('./Stories/1980s/Audio/Keypress.mp3').play();
 			  break;
@@ -158,13 +174,13 @@
   function Functionalize(Input) {
 	  switch (true) {
 		  case Input.toLowerCase().includes('go'):
-			  if (Input.toLowerCase().indexOf(' to')=== -1) return `${Input.toLowerCase()}`;
-			  return `${Input.toLowerCase().substring(0, Input.toLowerCase().indexOf(' to'))}('${Input
-							  .toLowerCase().substring(Input.toLowerCase().indexOf(' to')).replace(/ /g, '')}')`;
+			  if (Input.toLowerCase().indexOf(' to')=== -1) return Input.toLowerCase();
+			  return `${Input.toLowerCase().substring(0, Input.toLowerCase().indexOf(' to'))}('${Input.toLowerCase().substring(Input.toLowerCase().indexOf(' to')).replace(/ /g, '')}')`;
+
 		  case Input.toLowerCase().includes('inspect') || Input.toLowerCase().includes('enter'):
-			  if (Input.toLowerCase().indexOf(' to')=== -1) return `${Input.toLowerCase()}`;
-			  return `${Input.toLowerCase().substring(0, Input.toLowerCase().indexOf(' to'))}(${Input
-							  .toLowerCase().substring(Input.toLowerCase().indexOf(' to')).replace(/ /g, '')})`;
+			  if (Input.toLowerCase().indexOf(' to')=== -1) return Input.toLowerCase();
+			  return `${Input.toLowerCase().substring(0, Input.toLowerCase().indexOf(' to'))}(${Input.toLowerCase().substring(Input.toLowerCase().indexOf(' to')).replace(/ /g, '')})`;
+
 		  default:
 			  return `${Input.toLowerCase()}`;
 	  }
@@ -192,24 +208,19 @@
 	  Elements.PsuedoConsole.style.position = 'fixed';
 	  Elements.InputBox.style.position = 'fixed';
 	  PlaceContent();
-	  window.addEventListener('resize', async () => window.requestAnimationFrame(await PlaceContent()));
-	  document.addEventListener('mousemove', Cursor);
+	  window.addEventListener('resize', () => window.requestAnimationFrame(PlaceContent()));
 
-	  function Cursor({ clientX, clientY, pageX, pageY }) {
-		  let { bottom, left, right, top } = Elements.PsuedoConsole.getBoundingClientRect();
+	  document.addEventListener('mousemove', ({ clientX, clientY, pageX, pageY }) => {
+		  const { bottom, left, right, top } = Elements.PsuedoConsole.getBoundingClientRect();
 		  clientX>=left && clientX<=right && clientY>=top && clientY<=bottom
-		  ? window.requestAnimationFrame(() => {
-			                                 document.body.style.cursor = 'none';
-			                                 Elements.Cursor.style.display = 'block';
-			                                 Elements.Cursor.style.left = `${pageX}px`;
-			                                 Elements.Cursor.style.top = `${pageY}px`;
-		                                 }
+		  ? window.requestAnimationFrame(
+						  document.body.style.cursor = 'none',
+						  Elements.Cursor.style.display = 'block',
+						  Elements.Cursor.style.left = `${pageX}px`,
+						  Elements.Cursor.style.top = `${pageY}px`
 		  )
-		  : window.requestAnimationFrame(() => {
-			                                 document.body.style.cursor = 'default';
-			                                 Elements.Cursor.style.display = 'none';
-		                                 }
-		  );
-	  }
+		  : window.requestAnimationFrame(document.body.style.cursor = 'default', Elements.Cursor.style.display = 'none');
+	  });
   });
 </script>
+</html>

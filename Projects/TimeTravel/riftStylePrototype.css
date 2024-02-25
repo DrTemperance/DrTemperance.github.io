@@ -68,13 +68,13 @@ img {
 		}
 	}
 
-span#SettingsButton:not(#SettingsClose) {
+span#Settings_Button:not(#SettingsClose) {
 	padding   : 3px;
 	order     : 3;
 	font-size : 1.1rem;
 	}
 
-button {
+button:not(#TextMode, #GUIMode) {
 	&#Option {
 		border     : 3px outset #000F00;
 		transition : all 0.2s;
@@ -101,7 +101,7 @@ button {
 	&:hover {cursor : none;}
 	}
 
-#ConsoleOutput {
+#Console-Output {
 	margin     : auto;
 	overflow-y : auto;
 	order      : 1;
@@ -126,7 +126,7 @@ button {
 	#Terminal {width : 100% !important;}
 	}
 
-#PseudoCursor {
+#Pseudo_Cursor {
 	background      : url('Stories/1980s/Mouse.webp') no-repeat;
 	background-size : contain;
 	pointer-events  : none;
