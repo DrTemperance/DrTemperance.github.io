@@ -5,7 +5,7 @@
 ### High Priority
 
 - Implement speed-based blur filter and boolean Values for CSS, Difficulty(speed) in the Settings menu. _— Villager_
-- Fix & Finish _CSS_: including *Class* and *ID* names & inline **_(71% Done)_**
+- Fix & Finish _CSS_: including _Class_ and _ID_ names & inline **_(71% Done)_**
 - _music.html_
 
 ### Medium Priority

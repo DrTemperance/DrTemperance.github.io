@@ -2,9 +2,11 @@
 
 <head>
 	<title>~ Time Machine ? ~</title>
-	<link href='Images/PurplePotion.webp' rel='icon' />
+	<link href='Media/PurplePotion.webp' rel='icon' />
 	<link href='style.css' rel='stylesheet' />
 	<meta content='width=device-width, initial-scale=1' name='viewport' />
+	<meta content='Keyspage' name='title'>
+	<meta content='Find all the keys hidden around my website to enter this room.' name='description'>
 	<meta charset='UTF-8' />
 </head>
 
@@ -16,6 +18,7 @@
 	<a href='music.html'><li class='NavItems'>Music</li></a>
 	<li class='ActivePage NavItems'>Time Machine</li>
 	<a href='portfolio.html'><li class='NavItems'>Portfolio</li></a>
+	<a href='archive.html'><li class='NavItems'>Archives</li></a>
 </nav>
 <div class='Content_Box'>
 	<h2>Find The 5 Keys</h2>
@@ -37,7 +40,7 @@
 	  function SubmitAnswers() {
 
 		  for (let j = 1; j<=5; j++) {document.getElementById(`x${j}`).value==='' && EmptyKeys++}
-		  if (!EmptyKeys && Answers.map(e => document.getElementById(`x${Answers.indexOf(e) + 1}`).value.toLowerCase())
+		  if (!EmptyKeys && Answers.map(e=>document.getElementById(`x${Answers.indexOf(e) + 1}`).value.toLowerCase())
 		                           .join()===Answers.join()) {
 			  alert(`the time machine being worked on, but here's the second best thing...`);
 			  window.open(`https://archive.org`, `_blank`)

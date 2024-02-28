@@ -1,0 +1,2 @@
+const ArtistClick = async ({style})=>{style.transform = style.transform==='scale(1.3)' ? '' : 'scale(1.3)'};
+document.querySelectorAll('#Music').forEach(({style})=>addEventListener('mouseout', async ()=>{style.transform = ''}));

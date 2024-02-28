@@ -1,0 +1,16 @@
+[
+	{
+		"Title": "Test",
+		"Preview": "Archive/Previews/Test.webp",
+		"Type": "Image",
+		"Info": "The original backrooms image.",
+		"Date": "2019"
+	},
+	{
+		"Title": "Test",
+		"Preview": "Archive/Previews/Test.webp",
+		"Type": "Music",
+		"Info": "Test",
+		"Date": "2022"
+	}
+]

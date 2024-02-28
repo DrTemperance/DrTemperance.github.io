@@ -13,7 +13,7 @@
 	}
 
 body {
-	background-image : url(Images/back.webp);
+	background-image : url(Media/back.webp);
 	background-size  : 5%;
 	overflow-x       : hidden;
 	text-align       : center;
@@ -45,7 +45,7 @@ div {
 	}
 
 nav {
-	background      : url(/Images/nav.webp) no-repeat center;
+	background      : url(/Media/nav.webp) no-repeat center;
 	background-size : 100% 100%;
 	border          : 6px ridge #315;
 	border-radius   : 0;
@@ -235,6 +235,57 @@ ul {
 	}
 
 div.Content_Box {
-	flex-direction : column;
 	display        : table;
+	flex-direction : column;
+	}
+
+#Music {
+	background     : #DDD;
+	border         : 1px solid #000;
+	border-radius  : 15px;
+	display        : flex;
+	flex-direction : column;
+	height         : 200px;
+	margin         : 10px auto;
+	overflow       : hidden;
+	padding        : 8px;
+	transition     : all 0.5s;
+	width          : 450px;
+	&:hover {
+		filter : invert();
+		height : 500px;
+		width  : 700px;
+		& img {
+			filter : invert();
+			margin : initial 0;
+			}
+		}
+	}
+
+#ArtistBio {
+	height     : fit-content;
+	padding    : 7px;
+	text-align : justify;
+	width      : fit-content;
+	}
+
+table#Archive {
+	justify-content : center;
+	text-align      : center;
+	width           : 100%;
+
+	& th {
+		color       : #FFF;
+		font-size   : x-large;
+		font-weight : bolder;
+		&:not(.decor) {
+			background-color : #333;
+			padding          : 12px;
+			border           : outset 3px #000;
+			}
+		&.decor {
+			background-color : #222;
+			border           : outset 2px #000;
+			}
+		}
 	}
