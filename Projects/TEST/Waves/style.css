@@ -32,10 +32,18 @@ html {
 			padding     : 0;
 			margin      : 4px auto;
 			height      : fit-content;
+			font-family : 'AppleGothic', sans-serif;
+			font-size   : small;
+			text-align  : center;
 			}
 		input[type='range'] {
-			background : cornflowerblue;
-			color      : red;
+			-webkit-appearance : none;
+			cursor             : pointer;
+			appearance         : none;
+			background         : none;
+			&::-webkit-slider-runnable-track {background : #999; border : inset;}
+			&::-moz-range-track {background : cornflowerblue;}
+			&::-moz-range-thumb {border-radius : 0;}
 			}
 		}
 
@@ -75,18 +83,23 @@ html {
 		&#Tan {
 			background   : #0F0;
 			border-color : #0A0;
-			> p {color : darkolivegreen;}
+			> p {color : #A8CC6C;}
 			}
 		}
 	}
 
 
 .Coord {
-	&.Sin {background : #00F;}
-	&.Cos {background : #F00;}
-	&.Tan {background : #0F0;}
+	&.Sin {
+		background : #00F;
+		filter     : drop-shadow(0 0 10px #00F);}
+	&.Cos {
+		background : #F00;
+		filter     : drop-shadow(0 0 10px #F00);}
+	&.Tan {
+		background : #0F0;
+		filter     : drop-shadow(0 0 10px #0F0);}
 	border-radius : 50%;
-	filter        : drop-shadow(5px 0 red);
 	overflow      : visible;
 	position      : absolute;
 	transition    : 0.05s;
