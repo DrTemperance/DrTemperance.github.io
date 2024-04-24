@@ -241,16 +241,14 @@
 <dialog id='InitMsg'></dialog>
 
 <script>
-  const OpenShop = Target => {
+  const OpenShop = Target=>{
 	  let ShopUI = document.getElementById('Player.Command.Index'), Data = PlayerData.Shops[Target];
 	  ShopUI.appendChild(document.createElement('h1').textContent = Data.name);
 	  for (let Content of Data.content) {
 		  ShopUI.appendChild(document.createElement('div'));
 		  ShopUI.children[ShopUI.children.length - 1].appendChild(document.createElement('img').src = Content.img);
-		  ShopUI.children[ShopUI.children.length - 1].appendChild(document.createElement('h2').textContent
-						                                                          = Content.name);
-		  ShopUI.children[ShopUI.children.length - 1].appendChild(document.createElement('p').textContent
-						                                                          = Content.description);
+		  ShopUI.children[ShopUI.children.length - 1].appendChild(document.createElement('h2').textContent = Content.name);
+		  ShopUI.children[ShopUI.children.length - 1].appendChild(document.createElement('p').textContent = Content.description);
 	  }
 	  ShopUI.appendChild(document.createElement('div'));
   };
@@ -391,7 +389,7 @@
 
   document.querySelector('title').textContent = `${GameLevels[level].name} - Villager Clicker`;
 
-  const SetBossbar = () => Bossbar.value = (Points / VillagerHealth) * Bossbar.max - Bossbar.max;
+  const SetBossbar = ()=>Bossbar.value = (Points / VillagerHealth) * Bossbar.max - Bossbar.max;
 
   async function DrawBoard() {
 	  VillagerWidth = parseInt(GameLevels[level].size);
@@ -408,16 +406,14 @@
 	  Villager.style.backgroundImage = `url(${GameLevels[level].head})`;
 	  Board.style.background = `url(${GameLevels[level].background})`;
 	  Board.style.Backgroundsize = '100% 100%';
-	  for (let I = 0; I<PlayerData.Hotbar.length; I++) {
-		  document.getElementById(`item${I}`).src = PlayerData.Items[PlayerData.Hotbar[I].item].image;
-	  }
+	  for (let I = 0; I<PlayerData.Hotbar.length; I++) document.getElementById(`item${I}`).src = PlayerData.Items[PlayerData.Hotbar[I].item].image;
 
 	  DrawHearts();
   }
 
-  const DeathMessage = () => {//TODO  dom selector manipulation
+  const DeathMessage = ()=>{//TODO  dom selector manipulation
   };
-  const JoinMessage = () => {//TODO  dom selector manipulation
+  const JoinMessage = ()=>{//TODO  dom selector manipulation
   };
 
   async function Update(Timestamp) {
@@ -469,7 +465,7 @@
 	  requestAnimationFrame(Update);
   }
 
-  const PlayerAttack = () => {
+  const PlayerAttack = ()=>{
 	  Points++;
 
 	  GameAudio.Villager_Hurt.play();
@@ -483,7 +479,7 @@
 	  Villager.style.rotate = '25deg';
 	  Villager.style.filter = `blur(${(Math.PI / Speed_X)}px)`;
 	  Villager.style.transition = '0.1s ease-out';
-	  setTimeout(() => {
+	  setTimeout(()=>{
 		  Villager.style.filter = '';
 		  Villager.style.transition = '';
 		  Villager.style.rotate = '0deg';
@@ -491,12 +487,12 @@
 	  DrawBoard();
   };
 
-  const VillagerAttack = () => {
+  const VillagerAttack = ()=>{
 	  PlayerDamage++;
 
 	  level!==0 && (GameAudio.Player_Hurt.play(), DrawHearts());
 
-	  if (PlayerDamage>=20 && level!==0) if (() => Hotbar.forEach(item => item.type==='Totem')) {
+	  if (PlayerDamage>=20 && level!==0) if (()=>Hotbar.forEach(item=>item.type==='Totem')) {
 		  PlayerDamage *= 0.25;
 		  Totem--;
 	  } else {
@@ -506,12 +502,8 @@
 		  let rotate = 0;
 		  document.getElementById('Hotbar').transition = '1s linear';
 		  document.getElementById('Hotbar').scaleY = 0;
-		  setInterval(() => {
-			  for (let H = 1; H<=10; H++) {
-				  rotate += 50 * Math.random(),
-								  Heart[`health${H}`].style.transition = '0.2s linear',
-								  Heart[`health${H}`].style.transform = `rotate(${rotate}deg)`;
-			  }
+		  setInterval(()=>{
+			  for (let H = 1; H<=10; H++) {rotate += 50 * Math.random(), Heart[`health${H}`].style.transition = '0.2s linear', Heart[`health${H}`].style.transform = `rotate(${rotate}deg)`;}
 		  }, 25);
 		  cancelAnimationFrame(Interval);
 	  }
@@ -520,21 +512,18 @@
   async function DrawHearts() {
 	  for (let D = 10; D>=1; D--) {
 		  20 - PlayerDamage<2 * D
-		  ? 20 - PlayerDamage===1 - 2 * D && (Heart[`health${D}`].status = 'half', Heart[`health${D}`].src
-						  = 'stats/halfHeart.png')
+		  ? 20 - PlayerDamage===1 - 2 * D && (Heart[`health${D}`].status = 'half', Heart[`health${D}`].src = 'stats/halfHeart.png')
 		  : Heart[`health${D}`].status = 'full', Heart[`health${D}`].src = 'stats/fullHeart.png',
-		  20 - PlayerDamage<1 - 2 * D && (Heart[`health${D}`].status = 'empty', Heart[`health${D}`].src
-						  = 'stats/empty.png');
+		  20 - PlayerDamage<1 - 2 * D && (Heart[`health${D}`].status = 'empty', Heart[`health${D}`].src = 'stats/empty.png');
 	  }
   }
 
-  window.addEventListener('resize', async () => DrawBoard());
+  window.addEventListener('resize', async ()=>DrawBoard());
 
   Villager.addEventListener('mousedown', PlayerAttack);
   Board.addEventListener('mousedown', VillagerAttack);
-  document.getElementById('Close')
-          .addEventListener('click', async () => document.getElementById('Player.Command.Index').close());
-  document.addEventListener('keydown', async ({ code }) => {
+  document.getElementById('Close').addEventListener('click', async ()=>document.getElementById('Player.Command.Index').close());
+  document.addEventListener('keydown', async ({code})=>{
 	  switch (code) {
 		  case 'Tab':
 			  document.getElementById('Player.Command.Index').showModal();
@@ -543,7 +532,7 @@
 			  document.getElementById('Player.Command.Index').close();
 			  break;
 		  case 'Slash':
-			  // TODO quasi-Chat //
+			  // TODO quasi-Chat
 			  Chat.style.width = '500px';
 			  Chat.appendChild(document.createElement('input'));
 			  break;
@@ -562,7 +551,7 @@
   const PlayerData = {
 	  Items : [
 		  {
-			  action: () => console.log('This is empty.'),
+			  action: ()=>console.log('This is empty.'),
 			  id    : 0,
 			  image : 'Items/empty.webp',
 			  item  : null,
@@ -578,7 +567,7 @@
 					  aoa        : 7,
 					  image      : 'Items/diamondSword.png',
 					  attackSpeed: 630,
-					  aria       : { name: 'Diamond Sword', lore: 'diamondy' }
+					  aria       : {name: 'Diamond Sword', lore: 'diamondy'}
 				  },
 				  id          : 1,
 				  iron        : {
@@ -587,28 +576,28 @@
 					  aoa        : 7,
 					  image      : 'Items/ironSword.png',
 					  attackSpeed: 630,
-					  aria       : { name: 'Iron Sword', lore: 'irony' }
+					  aria       : {name: 'Iron Sword', lore: 'irony'}
 				  }, netherite: {
 					  name       : 'Netherite Sword',
 					  damage     : 7,
 					  aoa        : 8,
 					  image      : 'Items/netheriteSword.png',
 					  attackSpeed: 630,
-					  aria       : { name: 'Netherite Sword', lore: 'tina' }
+					  aria       : {name: 'Netherite Sword', lore: 'tina'}
 				  }, stone    : {
 					  name       : 'Stone Sword',
 					  damage     : 1,
 					  aoa        : 6,
 					  image      : 'Items/stoneSword.png',
 					  attackSpeed: 630,
-					  aria       : { name: 'Stone Sword', lore: 'stoney' }
+					  aria       : {name: 'Stone Sword', lore: 'stoney'}
 				  }, wooden   : {
 					  name       : 'Wooden Sword',
 					  damage     : 0,
 					  aoa        : 6,
 					  image      : 'Items/woodenSword.png',
 					  attackSpeed: 630,
-					  aria       : { name: 'Wooden Sword', lore: 'woody' }
+					  aria       : {name: 'Wooden Sword', lore: 'woody'}
 				  }
 			  }
 		  },
@@ -621,35 +610,35 @@
 					  aoa        : 0,
 					  image      : 'Items/woodenAxe.png',
 					  attackSpeed: 1250,
-					  aria       : { name: 'Wooden Axe', lore: 'woody' }
+					  aria       : {name: 'Wooden Axe', lore: 'woody'}
 				  }, stone    : {
 					  name       : 'Stone Axe',
 					  damage     : 3,
 					  aoa        : 0,
 					  image      : 'Items/stoneAxe.png',
 					  attackSpeed: 1250,
-					  aria       : { name: 'Stone Axe', lore: 'stoney' }
+					  aria       : {name: 'Stone Axe', lore: 'stoney'}
 				  }, iron     : {
 					  name       : 'Iron Axe',
 					  damage     : 4,
 					  aoa        : 0,
 					  image      : 'Items/ironAxe.png',
 					  attackSpeed: 1110,
-					  aria       : { name: 'Iron Axe', lore: 'irony' }
+					  aria       : {name: 'Iron Axe', lore: 'irony'}
 				  }, diamond  : {
 					  name       : 'Diamond Axe',
 					  damage     : 7,
 					  aoa        : 0,
 					  image      : 'Items/diamondAxe.png',
 					  attackSpeed: 1000,
-					  aria       : { name: 'Diamond Axe', lore: 'diamondy' }
+					  aria       : {name: 'Diamond Axe', lore: 'diamondy'}
 				  }, netherite: {
 					  name       : 'Netherite Axe',
 					  damage     : 9,
 					  aoa        : 0,
 					  image      : 'Items/netheriteAxe.png',
 					  attackSpeed: 1000,
-					  aria       : { name: 'Netherite Axe', lore: 'tina' }
+					  aria       : {name: 'Netherite Axe', lore: 'tina'}
 				  }, id       : 2
 			  }
 		  },
@@ -662,51 +651,51 @@
 					  aoa        : -7,
 					  image      : 'Items/woodenPickaxe.png',
 					  attackSpeed: 200,
-					  aria       : { name: 'Wooden Pickaxe', lore: 'woody' }
+					  aria       : {name: 'Wooden Pickaxe', lore: 'woody'}
 				  }, stone    : {
 					  name       : 'Stone Pickaxe',
 					  damage     : 1,
 					  aoa        : -6,
 					  image      : 'Items/stonePickaxe.png',
 					  attackSpeed: 200,
-					  aria       : { name: 'Stone Pickaxe', lore: 'stoney' }
+					  aria       : {name: 'Stone Pickaxe', lore: 'stoney'}
 				  }, iron     : {
 					  name       : 'Iron Pickaxe',
 					  damage     : 2,
 					  aoa        : -5,
 					  image      : 'Items/ironPickaxe.png',
 					  attackSpeed: 200,
-					  aria       : { name: 'Iron Pickaxe', lore: 'irony' }
+					  aria       : {name: 'Iron Pickaxe', lore: 'irony'}
 				  }, diamond  : {
 					  name       : 'Diamond Pickaxe',
 					  damage     : 3,
 					  aoa        : -4,
 					  image      : 'Items/diamondPickaxe.png',
 					  attackSpeed: 150,
-					  aria       : { name: 'Diamond Pickaxe', lore: 'diamondy' }
+					  aria       : {name: 'Diamond Pickaxe', lore: 'diamondy'}
 				  }, netherite: {
 					  name       : 'Netherite Pickaxe',
 					  damage     : 5,
 					  aoa        : -3,
 					  image      : 'Items/netheritePickaxe.png',
 					  attackSpeed: 100,
-					  aria       : { name: 'Netherite Pickaxe', lore: 'tina' }
+					  aria       : {name: 'Netherite Pickaxe', lore: 'tina'}
 				  }, id       : 3
 			  }
 		  },
-		  { action: null, id: 4, image: 'Items/totem.png', item: 'Totem', name: 'Totem of Undying', type: 'Totem' }
+		  {action: null, id: 4, image: 'Items/totem.png', item: 'Totem', name: 'Totem of Undying', type: 'Totem'}
 	  ],
 	  Hotbar: [
-		  { item: 0 },
-		  { item: 0 },
-		  { item: 0 },
-		  { item: 0 },
-		  { item: 0 },
-		  { item: 0 },
-		  { item: 0 },
-		  { item: 0 },
-		  { item: 0 },
-		  { item: 0 }
+		  {item: 0},
+		  {item: 0},
+		  {item: 0},
+		  {item: 0},
+		  {item: 0},
+		  {item: 0},
+		  {item: 0},
+		  {item: 0},
+		  {item: 0},
+		  {item: 0}
 	  ],
 	  Shops : {
 		  cleric     : {
@@ -772,7 +761,7 @@
 						  Speed    : 0.7
 					  }
 				  },
-				  { SmithingTable: !1 }
+				  {SmithingTable: !1}
 			  ],
 			  model   : 'Shops/cleric.png'
 		  },
@@ -849,12 +838,12 @@
 			  icon   : 'Shops/mason.png'
 		  },
 		  stations   : {
-			  enchantingTable: { acquired: !1, lapis: 0, level: 1 },
-			  smithingTable  : { acquired: !1 },
-			  stonecutter    : { acquired: !1, level: 0 },
-			  grindstone     : { acquired: !1, modules: { recycle: !1 } },
-			  anvil          : { acquired: !1, damage: 0 },
-			  campfire       : { acquired: !1, fuel: 0 },
+			  enchantingTable: {acquired: !1, lapis: 0, level: 1},
+			  smithingTable  : {acquired: !1},
+			  stonecutter    : {acquired: !1, level: 0},
+			  grindstone     : {acquired: !1, modules: {recycle: !1}},
+			  anvil          : {acquired: !1, damage: 0},
+			  campfire       : {acquired: !1, fuel: 0},
 			  furnace        : {
 				  acquired: !1,
 				  fuel    : 0,
@@ -878,7 +867,7 @@
   };
 
   // Function Calls //
-  document.addEventListener('keydown', async e => {
+  document.addEventListener('keydown', async e=>{
 	  switch (e.key) {
 		  case 'Tab':
 			  document.getElementById('Player.Command.Index').showModal;
@@ -894,22 +883,18 @@
 
   // Start Shops //
 
-  for (let s = 0; s<Shops.length; s++) {
-	  document.getElementById('Shops').children[s].innerHTML = PlayerData.Shops[i]
-  }
+  for (let s = 0; s<Shops.length; s++) document.getElementById('Shops').children[s].innerHTML = PlayerData.Shops[i];
 
   // Check For 'Next' Open Slot //
-  async function OpenSlot() {
-	  for (let Slot of PlayerData.Hotbar) if (Slot.item===0 || Slot.type==='empty') return Slot;
-  }
+  async function OpenSlot() {for (let Slot of PlayerData.Hotbar) if (Slot.item===0 || Slot.type==='empty') return Slot;}
 
   function HotbarClick(IntSlot) {
 	  const Slot = IntSlot.id.slice(4), Item = PlayerData.Hotbar[Slot];
 	  Item.type ? new HandleItem(Slot, Item) : console.error(`Slot ${Slot} returned w/ ${Item.item}`);
   }
 
-  const AttackData = (aoa, damage, attackSpeed, name, image, aria) => {
-	  let AttackData = { aoa, damage, attackSpeed, name, image, aria };
+  const AttackData = (aoa, damage, attackSpeed, name, image, aria)=>{
+	  let AttackData = {aoa, damage, attackSpeed, name, image, aria};
 	  console.info(AttackData);
   };
 
@@ -919,7 +904,7 @@
 	  console.info(`slot: ${Slot}, item: ${Item}`);
 	  switch (Item.type) {
 		  case 'sword':
-			  let { aoa, damage, attackSpeed, name, image, aria } = Item.tier[`${Item.tier}`];
+			  let {aoa, damage, attackSpeed, name, image, aria} = Item.tier[`${Item.tier}`];
 			  AttackData(aoa, damage, attackSpeed, name, image, aria);
 
 		  case 'axe':
@@ -935,37 +920,32 @@
 
   const MimisKetamineAddiction = 'tilly123';
 
-  const _Give = (key, itemId) =>
+  const _Give = (key, itemId)=>
 				  key===MimisKetamineAddiction
 				  ? (PlayerData.Hotbar[OpenSlot()].item = PlayerData.Items[itemId])
 				  : console.log(`Not that easy, ${key} is NOT correct!`);
 
-  const _Damage = (key, delay) =>
+  const _Damage = (key, delay)=>
 				  key===MimisKetamineAddiction
-				  ? () => delay ? () =>
-								  setInterval(
-												  () => document.getElementById('Villager').click(),
-												  Number(delay<200 ? 200 : delay)
-								  ) : document.getElementById('Villager').click()
+				  ? ()=>delay ? ()=>setInterval(()=>document.getElementById('Villager').click(), Number(delay<200 ? 200 : delay)) : document.getElementById('Villager').click()
 				  : console.log(`Not that easy, ${key} is NOT correct!`);
 
-  const _XP = (key, inLevel) => {
+  const _XP = (key, inLevel)=>{
 	  if (key!=='tilly123') {console.log(`Not that easy, ${key} is NOT correct!`);}
-	  (level = inLevel), DrawBoard();
+	  level = inLevel, DrawBoard();
   };
 
   // Movement //
-
   const Movement = {
-	  logarithmic: async () => Math.log(x),
-	  squared    : async () => Math.pow(x, 2),
-	  cubic      : async () => Math.pow(x, 3),
-	  sine       : async () => Math.sin(x),
-	  cosine     : async () => Math.cos(x),
-	  tangent    : async () => Math.sin(x) / Math.cos(x),
-	  cotangent  : async () => Math.cos(x) / Math.sin(x),
-	  secant     : async () => 1 / Math.cos(x),
-	  cosecant   : async () => 1 / Math.sin(x)
+	  logarithmic: async ()=>Math.log(x),
+	  squared    : async ()=>Math.pow(x, 2),
+	  cubic      : async ()=>Math.pow(x, 3),
+	  sine       : async ()=>Math.sin(x),
+	  cosine     : async ()=>Math.cos(x),
+	  tangent    : async ()=>Math.sin(x) / Math.cos(x),
+	  cotangent  : async ()=>Math.cos(x) / Math.sin(x),
+	  secant     : async ()=>1 / Math.cos(x),
+	  cosecant   : async ()=>1 / Math.sin(x)
   };
 
   // Begin //

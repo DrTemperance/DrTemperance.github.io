@@ -1,0 +1,50 @@
+<html lang='EN'>
+
+<head>
+<meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
+<title>test</title>
+</head>
+
+<body>
+<table>
+	<thead>
+	<tr>
+		<td><p>Re</p></td>
+	</tr>
+	</thead>
+	<tr>
+		<td><p>Mi</p></td>
+	</tr>
+	<tr>
+		<td><p>Le</p></td>
+	</tr>
+</table>
+</body>
+
+<style>
+	body {
+		background-image : url('https://siliconic.files.wordpress.com/2011/04/img2.jpg');
+		padding          : 15px;
+
+		thead {
+			background-color : #8A2BE266;
+			}
+		table > :not(thead) {
+			> :nth-child(even) {background-color : #FF7F5022;}
+			> :nth-child(odd) {background-color : #0000FF22;}
+			}
+		}
+
+	td {
+		border     : 1px #000;
+		width      : 64px;
+		height     : 64px;
+		padding    : 5px;
+		margin     : 0 auto;
+		text-align : center;
+		p {
+			filter : drop-shadow(1px 1px 2px #000000AA);
+			}
+		}
+</style>
+</html>

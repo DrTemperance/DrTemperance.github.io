@@ -3,11 +3,11 @@ document.addEventListener('DOMContentLoaded', ()=>
 			.then(response=>response.json())
 			.then(data=>{
 				const fragment = document.createDocumentFragment();
-				data.forEach(({Date, Info, Preview, Source, Title, Type})=>{
+				data.forEach(({Date, Info, Preview, Source, Title, Type, Download})=>{
 					let IterativeElement = document.createElement('tr');
 					IterativeElement.innerHTML = `
                     <td>
-                        <div class='ArchiveTitle'>
+                        <div class='ArchiveTitle'>                              
                             <img src='${Preview}'>
                             <p>${Title}</p>
                         </div>
@@ -20,10 +20,10 @@ document.addEventListener('DOMContentLoaded', ()=>
                     <td><em>${Info}</em></td>
                     <th class='decor'></th>
                     <td>
-                      <div class='ArchiveLinks'>
-                        <button onclick='window.open("${Source}")'>Open</button>
-                        <button >Download</button>
-                      </div>
+                      <form class='ArchiveLinks' method='get' action='${Download}'>
+                        <button type='button' onclick='window.open("${Source}")'>Open</button>
+                        <button type='submit'>Download</button>
+                      </form>
                     </td>
                 `;
 					fragment.appendChild(IterativeElement);

@@ -1,16 +1,13 @@
 [
 	{
-		"Title": "Test",
-		"Preview": "Archive/Previews/Test.webp",
-		"Type": "Image",
-		"Info": "The original backrooms image.",
-		"Date": "2019"
-	},
-	{
-		"Title": "Test",
-		"Preview": "Archive/Previews/Test.webp",
-		"Type": "Music",
-		"Info": "Test",
-		"Date": "2022"
-	}
+		"Title"    : "The Backrooms",
+		"Preview"  : "Archive/Previews/backrooms.jpg",
+		"Type"     : "Image",
+		"Info"     : "The original backrooms image.",
+		"Source"   : "Archive/Media/1523164430760.jpg",
+		"Download" : "Archive/Media/1523164430760.jpg",
+		"Date"     : "2019"
+	}, {
+	"Title" : "Test", "Preview" : "Archive/Previews/Test.webp", "Type" : "Music", "Info" : "Test", "Date" : "2022"
+}
 ]
