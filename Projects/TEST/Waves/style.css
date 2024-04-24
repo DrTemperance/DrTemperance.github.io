@@ -42,7 +42,7 @@ html {
 			appearance         : none;
 			background         : none;
 			&::-webkit-slider-runnable-track {background : #999; border : inset;}
-			&::-moz-range-track {background : cornflowerblue;}
+			&::-moz-range-track {background : #999; border : inset;}
 			&::-moz-range-thumb {border-radius : 0;}
 			}
 		}
