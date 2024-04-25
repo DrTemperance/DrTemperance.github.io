@@ -1,0 +1,148 @@
+* {
+	user-select : none;
+	}
+
+html {
+	align-content : center;
+	background    : #000;
+	height        : 100%;
+	width         : 100%;
+	z-index       : -1;
+	}
+
+#User_Controls {
+	align-content  : center;
+	background     : rgba(150, 93, 56, 0.43);
+	border         : ridge rgba(112, 72, 45, 0.62) 3px;
+	display        : flex;
+	flex           : fit-content;
+	flex-direction : row;
+	height         : fit-content;
+	margin         : 5px auto;
+	padding        : 4px 3px;
+	width          : 90%;
+
+	div.Sub_Control {
+		align-content : center;
+		background    : rgba(150, 93, 56, 0.24);
+		border        : ridge rgba(112, 72, 45, 0.43) 2px;
+		height        : 43px;
+		margin        : 1px 3px;
+		padding       : 1px;
+
+		p {
+			align-content : center;
+			font-family   : 'AppleGothic', 'Hiragino Maru Gothic ProN', 'Fira Code', 'Source Code Pro', serif;
+			font-size     : small;
+			height        : fit-content;
+			line-height   : 4px;
+			margin        : 4px auto;
+			padding       : 0;
+			text-align    : center;
+			}
+
+		&.Slider em {font-weight : bold;}
+
+		input[type='range'] {
+			-webkit-appearance : none;
+			align-content      : center;
+			appearance         : none;
+			background         : none;
+			cursor             : pointer;
+			&::-webkit-slider-runnable-track {background : #999; border : inset;}
+			&::-webkit-slider-thumb {border-radius : 0;}
+			&::-moz-range-track {background : #999; border : inset;}
+			&::-moz-range-thumb {border-radius : 0;}
+			}
+		}
+
+
+	button {
+		align-content : center;
+		cursor        : pointer;
+		height        : 38px;
+		margin        : auto 2px;
+		padding       : 2px;
+		width         : 75px;
+		z-index       : 1000;
+
+		> p {
+			align-content : center;
+			filter        : drop-shadow(1px 1px 2px #000);
+			font-family   : 'Futura', 'Helvetica Neue', 'Inconsolata', 'sans-serif';
+			font-size     : 14px;
+			line-height   : 2px;
+			margin        : auto;
+			padding       : 0;
+			user-select   : none;
+			}
+
+		&:not(.Active) {
+			&:active {border : inset;}
+			&:not(:active) {border : outset;}
+			}
+		&.Active {
+			&:active {border : outset;}
+			&:not(:active) {border : inset;}
+			}
+
+		&#Sin {
+			> p {color : darkcyan;}
+			background   : #00F;
+			border-color : #00A;
+			}
+		&#Cos {
+			> p {color : coral;}
+			background   : #F00;
+			border-color : #A00;
+			}
+		&#Tan {
+			> p {color : #B1D772;}
+			background   : #0F0;
+			border-color : #0A0;
+			}
+		&#Sec {
+			> p {color : #157054;}
+			background   : #0FF;
+			border-color : #0AA;
+			}
+		&#Csc {
+			> p {color : #7E7130;}
+			background   : #FF0;
+			border-color : #AA0;
+			}
+		}
+	}
+
+
+.Coord.Active {
+	&.Sin {
+		background : #00F;
+		filter     : drop-shadow(0 0 10px #00F);}
+	&.Cos {
+		background : #F00;
+		filter     : drop-shadow(0 0 10px #F00);}
+	&.Tan {
+		background : #0F0;
+		filter     : drop-shadow(0 0 10px #0F0);}
+	&.Sec {
+		background : #0FF;
+		filter     : drop-shadow(0 0 10px #0FF);}
+	&.Csc {
+		background : #FF0;
+		filter     : drop-shadow(0 0 10px #FF0);}
+	border-radius : 50%;
+	overflow      : visible;
+	position      : absolute;
+	z-index       : 500;
+	}
+
+noscript {
+	align-content : center;
+	color         : #F00;
+	filter        : drop-shadow(0 0 3px #F00);
+	font-family   : 'Consola', 'Inconsolata', 'Source Code Pro', 'Arial Unicode MS', serif;
+	font-size     : 24px;
+	margin        : 12px auto;
+	text-align    : center;
+	}
