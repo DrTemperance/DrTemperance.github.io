@@ -8,6 +8,7 @@ html {
 	height        : 100%;
 	width         : 100%;
 	z-index       : -1;
+	overflow      : hidden;
 	}
 
 #User_Controls {
@@ -111,6 +112,11 @@ html {
 			background   : #FF0;
 			border-color : #AA0;
 			}
+		&#Cot {
+			> p {color : #4C1152;}
+			background   : #F0F;
+			border-color : #A0A;
+			}
 		}
 	}
 
@@ -131,6 +137,9 @@ html {
 	&.Csc {
 		background : #FF0;
 		filter     : drop-shadow(0 0 10px #FF0);}
+	&.Cot {
+		background : #F0F;
+		filter     : drop-shadow(0 0 10px #F0F);}
 	border-radius : 50%;
 	overflow      : visible;
 	position      : absolute;
