@@ -1,0 +1,76 @@
+<html lang='EN'>
+<head>
+	<meta charset='UTF-8'>
+	<title>TEST</title>
+	<meta content='width=device-width, initial-scale=1.0' name='viewport'>
+	<link href='Style.css' rel='stylesheet'>
+</head>
+
+<body>
+<div id='User_Controls' draggable='false'>
+	<div class='Sub_Control'>
+		<button id='Sin' onmousedown='StartWave("Sin")' onmouseup='this.classList.toggle("Active")'><p>Sin</p></button>
+		<button id='Cos' onmousedown='StartWave("Cos")' onmouseup='this.classList.toggle("Active")'><p>Cos</p></button>
+		<button id='Tan' onmousedown='StartWave("Tan")' onmouseup='this.classList.toggle("Active")'><p>Tan</p></button>
+	</div>
+	<div class='Sub_Control'>
+		<button id='Sec' onmousedown='StartWave("Sec")' onmouseup='this.classList.toggle("Active")'><p>Sec</p></button>
+		<button id='Csc' onmousedown='StartWave("Csc")' onmouseup='this.classList.toggle("Active")'><p>Csc</p></button>
+		<button id='Cot' onmousedown='StartWave("Cot")' onmouseup='this.classList.toggle("Active")'><p>Cot</p></button>
+	</div>
+	<div class='Sub_Control Slider'>
+		<p>Size: <em class='Value'>10</em></p>
+		<input id='CoordSize' max='50' min='5' onmousemove='Config.Size = this.value;' onmouseup='Config.Size = this.value;' type='range' value='10'>
+	</div>
+	<div class='Sub_Control Slider'>
+		<p>Amplitude: x<em class='Value'>3</em></p>
+		<input id='CoordSize' max='6' min='1' onmousemove='Config.Amplitude = this.value;' onmouseup='Config.Amplitude = this.value;' type='range' value='2'>
+	</div>
+</div>
+<noscript>This Page Does Not Function Withiout JavaScript</noscript>
+</body>
+</html>
+
+<script>
+		let Comp   = {Sin: !1, Cos: !1, Tan: !1},
+		    Config = {Amplitude: 2, Size: 10, Speed: 1},
+		    Pos_X  = 0 - Config.Size / 2;
+
+		setInterval(()=>{if (Pos_X>=window.innerWidth) Pos_X = 0 - Config.Size / 2; else {Pos_X += Config.Speed}}, 1.5);
+
+		function StartWave(type) {
+			if (Comp[type]) {
+				document.querySelector(`.${type}`).classList.toggle('Active');
+				return;
+			}
+			const Coord = document.createElement('div');
+			Coord.classList.add('Coord');
+			Coord.classList.add(type);
+
+			document.body.appendChild(Coord).classList.toggle('Active');
+
+			setInterval(()=>{if (document.getElementById(type).classList.contains('Active')) window.requestAnimationFrame(Animate(type));}, 0.5);
+
+			Comp[type] = !0;
+		}
+
+		function Animate(Type) {
+			document.querySelector(`.${Type}`).style.width = `${Config.Size}px`;
+			document.querySelector(`.${Type}`).style.height = `${Config.Size}px`;
+			document.querySelector(`.${Type}`).style.left = `${Pos_X}px`;
+			switch (Type) {
+				case 'Sin':
+					document.querySelector('.Sin').style.top = `${window.innerHeight / 2 + (Config.Amplitude * 0.5 * Math.sin(Pos_X / 100) * 100 - Config.Size / 2)}px`;
+				case 'Cos':
+					document.querySelector('.Cos').style.top = `${window.innerHeight / 2 + (Config.Amplitude * 0.5 * Math.cos(Pos_X / 100) * 100 - Config.Size / 2)}px`;
+				case 'Tan':
+					document.querySelector('.Tan').style.top = `${window.innerHeight / 2 + (Config.Amplitude * 0.5 * Math.tan(Pos_X / 100) * 100 - Config.Size / 2)}px`;
+				case 'Sec':
+					document.querySelector('.Sec').style.top = `${window.innerHeight / 2 + (Config.Amplitude * 0.5 * (1 / Math.cos(Pos_X / 100)) * 100 - Config.Size / 2)}px`;
+				case 'Csc':
+					document.querySelector('.Csc').style.top = `${window.innerHeight / 2 + (Config.Amplitude * 0.5 * (1 / Math.sin(Pos_X / 100)) * 100 - Config.Size / 2)}px`;
+				case 'Cot':
+					document.querySelector('.Cot').style.top = `${window.innerHeight / 2 + (Config.Amplitude * 0.5 * (1 / Math.tan(Pos_X / 100)) * 100 - Config.Size / 2)}px`;
+			}
+		}
+</script>
