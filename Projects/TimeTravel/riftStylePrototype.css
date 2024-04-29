@@ -3,6 +3,28 @@
 	font-family : 'VGA';
 	}
 
+.Column {
+	float : right;
+	}
+
+#TextMode, #GUIMode {
+	padding    : 0.5em;
+	width      : 100%;
+	height     : 100%;
+	text-align : center;
+	font-size  : xxx-large;
+	}
+
+.Active {
+	color      : #000;
+	background : #AA9;
+	}
+
+.Inactive {
+	color      : #222;
+	background : #CCB;
+	}
+
 * {
 	font-family       : 'VGA', 'Courier New', 'Courier ', ' monospace ', 'sans-serif';
 	list-style-type   : none;

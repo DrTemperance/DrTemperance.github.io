@@ -1,189 +1,18 @@
 <html lang='EN'>
 <head>
 	<link href='Heads/Nitwit.webp' id='favicon' rel='icon' />
+	<link href='style.css' rel='stylesheet' type='text/css' />
 	<title>ERR!!!</title>
 	<meta charset='UTF-8' />
-	<style>
-		@font-face {
-			src         : url(Minecraft.otf);
-			font-family : MCFont;
-			}
-
-		* {
-			font-family     : 'MCFont', 'Curlz MT', 'sans-serif' !important;
-			font-size       : xx-large;
-			user-select     : none;
-			overflow        : hidden;
-			cursor          : default;
-			margin          : auto;
-			list-style-type : none;
-			}
-
-		#Shop_Button {
-			position   : fixed;
-			bottom     : 0;
-			right      : 0;
-			z-index    : 1000;
-			cursor     : pointer;
-			transition : 0.5s ease;
-			filter     : drop-shadow(0 1px 3px rgba(0, 0, 0, 0.25));
-			}
-
-		progress, #Bossbar {
-			accent-color : #60B;
-			filter       : drop-shadow(0 1px 3px rgba(0, 0, 0, 0.25));
-			width        : 750px;
-			margin       : auto;
-			position     : absolute;
-			top          : 28px;
-			left         : 0;
-			right        : 0;
-			transition   : 0.5s ease;
-			}
-
-		#Villager {
-			background-size : 100% 100%;
-			position        : fixed;
-			}
-
-		.Board {
-			background-size : 100% 100%;
-			position        : fixed;
-			z-index         : -1000;
-			height          : 100vh;
-			width           : 100vw;
-			bottom          : 0;
-			right           : 0;
-			left            : 0;
-			top             : 0;
-			}
-
-		.Level {
-			pointer-events : none;
-			text-align     : center;
-			width          : fit-content;
-			position       : fixed;
-			top            : 0;
-			left           : 0;
-			right          : 0;
-			order          : 0;
-			}
-
-		.Chat {
-			background  : rgba(0, 0, 0, 0.5);
-			height      : fit-content;
-			align-items : center;
-			width       : fit-content;
-			position    : fixed;
-			text-align  : left;
-			z-index     : 1000;
-			padding     : 3px;
-			bottom      : 75px;
-			left        : 0;
-			color       : #FFF;
-			& .Death,
-			& .Join {
-				text-align : left;
-				font-size  : 28px;
-				margin     : 8px 0;
-				z-index    : 1000;
-				&.Join,
-				&.Death {
-					display : none;
-					&.Join {color : #FF0;}
-					}
-				}
-			}
-
-		#Villager {
-			position : fixed;
-			z-index  : 750;
-			cursor   : pointer;
-			}
-
-		#Stats {
-			filter         : drop-shadow(0px 0px 1px #111);
-			flex-direction : column;
-			height         : fit-content;
-			width          : fit-content;
-			position       : absolute;
-			z-index        : 1000;
-			bottom         : 0;
-			right          : 0;
-			left           : 0;
-			& #Heart_Bar {
-				background-size : 32px 32px;
-				display         : inline-flex;
-				height          : fit-content;
-				width           : fit-content;
-				padding         : 4px;
-				order           : 0;
-				pointer-events  : none;
-				& .Heart {
-					padding : 1px;
-					width   : 56px;
-					}
-				}
-			& #Hotbar {
-				background      : url(Stats/Hotbar.png) no-repeat center;
-				background-size : 100% 100%;
-				width           : 576px;
-				display         : flex;
-				padding         : 4px;
-				height          : 64px;
-				order           : 1;
-				& .Bar {
-					background      : url(Stats/HotbarSlot.webp) no-repeat center;
-					background-size : 100% 100%;
-					height          : 64px;
-					width           : 64px;
-					padding         : 0;
-					margin          : 0;
-					& img {
-						background : none;
-						cursor     : pointer;
-						height     : 50px;
-						margin     : auto;
-						width      : 50px;
-						padding    : 7px;
-						}
-					&:hover {
-						background-image : url(Stats/SelectedSlot.webp);
-						transform        : scale(1.1);
-						transition       : all 0.2s;
-						}
-					}
-				}
-			}
-
-		#Close {
-			cursor      : pointer;
-			font-weight : bolder;
-			}
-	</style>
+	<meta content='width=device-width, initial-scale=1.0' name='viewport' />
 </head>
 
-<body>
+<body draggable='false'>
 <div class='Level'>Main Menu - Villager Clicker</div>
-<progress id='Bossbar' max='100' value='100'></progress>
-<div class='Board'></div>
-<span id='Villager'></span>
-<div class='Chat'>
-	<li class='nitwit Death'>Nitwit was slain by @p</li>
-	<li class='farmer Join'>Farmer joined the game</li>
-	<li class='farmer Death'>Farmer was slain by @p</li>
-	<li class='mason Join'>Mason joined the game</li>
-	<li class='mason Death'>Mason was slain by @p</li>
-	<li class='librarian Join'>Librarian joined the game</li>
-	<li class='librarian Death'>Librarian was slain by @p</li>
-	<li class='weaponsmith Join'>Weaponsmith joined the game</li>
-	<li class='weaponsmith Death'>Weaponsmith was slain by @p</li>
-	<li class='cleric Join'>Cleric joined the game</li>
-	<li class='cleric Death'>Cleric was slain by @p</li>
-	<li class='trader Join'>Wandering Trader joined the game</li>
-	<li class='trader Death'>Wandering Trader was slain by @p</li>
-</div>
-<div id='Stats'>
+<progress id='Bossbar'></progress>
+<div class='Board' onmousedown='VillagerAttack()'></div>
+<span id='Villager' onmousedown='PlayerAttack()'></span>
+<div draggable='false' id='Stats'>
 	<div id='Heart_Bar'>
 		<img class='Heart' id='health1' src='Stats/FullHeart.png' />
 		<img class='Heart' id='health2' src='Stats/FullHeart.png' />
@@ -196,8 +25,8 @@
 		<img class='Heart' id='health9' src='Stats/FullHeart.png' />
 		<img class='Heart' id='health10' src='Stats/FullHeart.png' />
 	</div>
-	<div class='Bar'><img class='Item' draggable='false' id='item0' onclick='HotbarClick(this)'></div>
-	<div draggable='false' id='Hotbar' onclick='GameAudio.GUI_Click.play()'>
+	<div class='Bar'><img class='Item' id='item0' onclick='HotbarClick(this)'></div>
+	<div id='Hotbar' onclick='GameAudio.GUI_Click.play()'>
 		<div class='Bar'><img class='item' draggable='false' id='item1' onclick='HotbarClick(this)'></div>
 		<div class='Bar'><img class='item' draggable='false' id='item2' onclick='HotbarClick(this)'></div>
 		<div class='Bar'><img class='item' draggable='false' id='item3' onclick='HotbarClick(this)'></div>
@@ -241,17 +70,17 @@
 <dialog id='InitMsg'></dialog>
 
 <script>
-  const OpenShop = Target=>{
-	  let ShopUI = document.getElementById('Player.Command.Index'), Data = PlayerData.Shops[Target];
-	  ShopUI.appendChild(document.createElement('h1').textContent = Data.name);
-	  for (let Content of Data.content) {
-		  ShopUI.appendChild(document.createElement('div'));
-		  ShopUI.children[ShopUI.children.length - 1].appendChild(document.createElement('img').src = Content.img);
-		  ShopUI.children[ShopUI.children.length - 1].appendChild(document.createElement('h2').textContent = Content.name);
-		  ShopUI.children[ShopUI.children.length - 1].appendChild(document.createElement('p').textContent = Content.description);
-	  }
-	  ShopUI.appendChild(document.createElement('div'));
-  };
+  //const OpenShop = Target=>{
+  //  let ShopUI = document.querySelector('#Player.Command.Index'), Data = PlayerData.Shops[Target];
+  //  ShopUI.appendChild(document.createElement('h1').textContent = Data.name);
+  //  for (let {description, img, name} of Data.content) {
+  //	  ShopUI.appendChild(document.createElement('div'));
+  //	  ShopUI.children[ShopUI.children.length - 1].appendChild(document.createElement('img').src = img);
+  //	  ShopUI.children[ShopUI.children.length - 1].appendChild(document.createElement('h2').textContent = name);
+  //	  ShopUI.children[ShopUI.children.length - 1].appendChild(document.createElement('p').textContent = description);
+  //  }
+  //  ShopUI.appendChild(document.createElement('div'));
+  //};
 
   const GameAudio = {
 	        GUI_Click       : new Audio('Audio/Click.mp3'),
@@ -260,19 +89,27 @@
 	        Villager_Death  : new Audio('Audio/Villager_Death.mp3'),
 	        Villager_Hurt   : new Audio('Audio/Villager_Hurt.mp3')
         },
-        LevelTxt  = document.querySelector('.Level'),
-        Villager  = document.getElementById('Villager'),
-        Board     = document.querySelector('.Board'),
-        Chat      = document.querySelector('.Chat'),
         Heart     = {};
 
+  //const Movement = {
+  //  cosecant   : async ()=>1 / Math.sin(x),
+  //  cosine     : async ()=>Math.cos(x),
+  //  cotangent  : async ()=>Math.cos(x) / Math.sin(x),
+  //  cubic      : async ()=>Math.pow(x, 3),
+  //  logarithmic: async ()=>Math.log(x),
+  //  secant     : async ()=>1 / Math.cos(x),
+  //  sine       : async ()=>Math.sin(x),
+  //  squared    : async ()=>Math.pow(x, 2),
+  //  tangent    : async ()=>Math.sin(x) / Math.cos(x)
+  //};
+
   for (let H = 10; H>=1; H--) {
-	  Heart[`health${H}`] = document.getElementById(`health${H}`);
+	  Heart[`health${H}`] = document.querySelector(`#health${H}`);
 	  Heart[`health${H}`].requirement = H * 2;
   }
 
   let level = 1,
-      x     = Villager.x;
+      x     = document.querySelector('#Villager').x;
 
   const GameLevels = [
 	  {
@@ -374,8 +211,6 @@
   let VillagerHealth = GameLevels[level].health / GameLevels[level].phases,
       VillagerHeight = parseInt(GameLevels[level].size.height),
       VillagerWidth  = parseInt(GameLevels[level].size.width),
-      ClientHeight   = Board.clientHeight,
-      ClientWidth    = Board.clientWidth,
       Speed_Y1       = 30,
       Speed_X        = 30,
       PlayerDamage   = 0,
@@ -383,173 +218,81 @@
       Pos_X, Pos_Y,
       Interval,
       VillagerSize,
-      LastTime, Totem;
+      LastTime;
 
   document.querySelector('title').textContent = `${GameLevels[level].name} - Villager Clicker`;
 
-  function DrawBoard() {
-	  VillagerWidth = parseInt(GameLevels[level].size);
-	  VillagerHeight = VillagerWidth * 1.25;
-	  VillagerSize = Math.max(Villager.clientWidth, Villager.clientHeight);
 
-	  Pos_Y = Math.random() * (Board.clientHeight - VillagerSize - VillagerHeight);
-	  Pos_X = Math.random() * (Board.clientWidth - VillagerSize - VillagerWidth);
-
-	  Villager.style.width = GameLevels[level].size;
-	  Villager.style.height = `${VillagerHeight}px`;
-	  Villager.style.left = `${Pos_X}px`;
-	  Villager.style.top = `${Pos_Y}px`;
-	  Villager.style.backgroundImage = `url(${GameLevels[level].head})`;
-
-	  Board.style.background = `url(${GameLevels[level].background})`;
-	  Board.style.Backgroundsize = '100% 100%';
-
-	  //for (let I = 0; I<PlayerData.Hotbar.length; I++) document.getElementById(`item${I}`).src = PlayerData.Items[PlayerData.Hotbar[I].item].image;
-
-	  document.getElementById('Bossbar').max = GameLevels[level].health;
-	  document.getElementById('Bossbar').value = GameLevels[level].health - Points;
-
-	  DrawHearts();
-  }
-
-  async function Update(Timestamp) {
+  const Update = Timestamp=>{
 	  // Update timing for FPS calculations //
 	  let VillagerOffset;
 	  LastTime || (LastTime = Timestamp);
-	  const D_Time = (LastTime - Timestamp) / 500;
+	  document.querySelector('.Level').textContent = `Level ${level} - ${GameLevels[level].name}`;
 
-	  LevelTxt.textContent = `Level ${level} - ${GameLevels[level].name}`;
-
-	  // Progress level check //
 	  if (Points>=VillagerHealth) {
 		  level++;
-		  //DeathMessage();
+
 		  document.querySelector('title').textContent = `${GameLevels[level].name} - Villager Clicker`;
-		  document.getElementById('favicon').href = GameLevels[level].head;
-		  //JoinMessage();
-		  Villager.style.backgroundImage = `url(${GameLevels[level].head})`;
+		  document.querySelector('#favicon').href = GameLevels[level].head;
+		  document.querySelector('#Villager').style.backgroundImage = `url(${GameLevels[level].head})`;
+
 		  Speed_Y1 *= 0.75;
 		  Speed_X *= 0.75;
 		  Points = 0;
 		  GameAudio.Villager_Death.play();
 		  DrawBoard();
-		  DrawBoard();
 	  }
 
-	  let DX = Pos_X + Speed_X * D_Time,
-	      DY = Pos_Y + Speed_Y1 * D_Time;
+	  let DX = Pos_X + Speed_X * ((LastTime - Timestamp) / 500), DY = Pos_Y + Speed_Y1 * ((LastTime - Timestamp) / 500);
 
-	  Villager.style.width = GameLevels[level].size;
-	  Villager.style.height = `${(parseInt(GameLevels[level].size) * 1.25)}px`;
-	  Villager.style.left = `${Pos_X}px`;
-	  Villager.style.top = `${Pos_Y}px`;
+	  document.querySelector('#Villager').style.width = GameLevels[level].size;
+	  document.querySelector('#Villager').style.height = `${(parseInt(GameLevels[level].size) * 1.25)}px`;
+	  document.querySelector('#Villager').style.left = `${Pos_X}px`;
+	  document.querySelector('#Villager').style.top = `${Pos_Y}px`;
 
 	  // Check for collisions //
 	  VillagerOffset = Math.ceil(VillagerWidth / 3.75),
-	  !(DY<ClientHeight) && (DY = ClientHeight, Speed_Y1 = -Speed_Y1),
-	  DY<0 && (DY = 0, Speed_Y1 = -Speed_Y1),
-	  !(DX<ClientWidth + VillagerOffset) && (DX = ClientWidth + VillagerOffset, Speed_X = -Speed_X),
+	  !(DY<document.querySelector('.Board').clientHeight) && (DY = document.querySelector('.Board').clientHeight, Speed_Y1 = -Speed_Y1), DY<0 && (DY = 0, Speed_Y1 = -Speed_Y1),
+	  !(DX<document.querySelector('.Board').clientWidth + VillagerOffset) && (DX = document.querySelector('.Board').clientWidth + VillagerOffset, Speed_X = -Speed_X),
 	  !(DX>=0) && (DX = 0, Speed_X = -Speed_X);
 
 	  // Update the positions after all checks //
-	  Pos_X = DX;
-	  Pos_Y = DY;
+	  Pos_X = DX, Pos_Y = DY;
 
 	  LastTime = Timestamp;
 	  requestAnimationFrame(Update);
-  }
-
-  const PlayerAttack = ()=>{
-	  Points++;
-
-	  GameAudio.Villager_Hurt.play();
-
-	  Speed_X = -Speed_Y1;
-	  Speed_Y1 = -Speed_X;
-	  Speed_X>0 ? Speed_X += 50 : Speed_X -= 50;
-	  Speed_Y1>0 ? Speed_Y1 += 50 : Speed_Y1 -= 50;
-
-	  Villager.style.rotate = '25deg';
-	  Villager.style.filter = `blur(${(Math.PI / Speed_X)}px)`;
-	  Villager.style.transition = '0.1s ease-out';
-	  setTimeout(()=>{
-		  Villager.style.filter = '';
-		  Villager.style.transition = '';
-		  Villager.style.rotate = '0deg';
-	  }, 150);
-	  DrawBoard();
   };
 
-  const VillagerAttack = ()=>{
-	  PlayerDamage++;
+  window.addEventListener('resize', ()=>DrawBoard());
 
-	  level!==0 && (GameAudio.Player_Hurt.play(), DrawHearts());
+  //document.querySelector('#Close').addEventListener('click', async ()=>document.querySelector('#Player.Command.Index').close());
+  //document.addEventListener('keydown', async ({code})=>{
+  //  switch (code) {
+  //	  case 'Tab':
+  //		  document.querySelector('#Player.Command.Index').showModal();
+  //		  break;
+  //	  case 'Escape':
+  //		  document.querySelector('#Player.Command.Index').close();
+  //		  break;
+  //				  case 'Slash':
+  //				    document.querySelector('.Chat').style.width = '500px';
+  //				    document.querySelector('.Chat').appendChild(document.createElement('input'));
+  //				    break;
+  //				  case 'Enter':
+  //				    document.querySelector('.Chat').style.width = 'fit-content';
+  //				    document.querySelector('.Chat').appendChild(document.createElement('input'));
+  //				    break;
+  //  }
+  //});
 
-	  if (PlayerDamage>=20 && level!==0) if (()=>Hotbar.forEach(item=>item.type==='Totem')) {
-		  PlayerDamage *= 0.25;
-		  Totem--;
-	  } else {
-		  level = 0;
-		  DrawBoard();
-		  Chat.style.display = 'none';
-		  let rotate = 0;
-		  document.getElementById('Hotbar').transition = '1s linear';
-		  document.getElementById('Hotbar').scaleY = 0;
-		  setInterval(()=>{
-			  for (let H = 1; H<=10; H++) {rotate += 50 * Math.random(), Heart[`health${H}`].style.transition = '0.2s linear', Heart[`health${H}`].style.transform = `rotate(${rotate}deg)`;}
-		  }, 25);
-		  cancelAnimationFrame(Interval);
-	  }
-  };
-
-  async function DrawHearts() {
-	  for (let D = 10; D>=1; D--) {
-		  20 - PlayerDamage<2 * D
-		  ? 20 - PlayerDamage===1 - 2 * D && (Heart[`health${D}`].status = 'half', Heart[`health${D}`].src = 'Stats/HalfHeart.png')
-		  : Heart[`health${D}`].status = 'full', Heart[`health${D}`].src = 'Stats/FullHeart.png',
-		  20 - PlayerDamage<1 - 2 * D && (Heart[`health${D}`].status = 'empty', Heart[`health${D}`].src = 'Stats/Empty.png');
-	  }
-  }
-
-  window.addEventListener('resize', async ()=>DrawBoard());
-
-  Villager.addEventListener('mousedown', PlayerAttack);
-  Board.addEventListener('mousedown', VillagerAttack);
-  document.getElementById('Close').addEventListener('click', async ()=>document.getElementById('Player.Command.Index').close());
-  document.addEventListener('keydown', async ({code})=>{
-	  switch (code) {
-		  case 'Tab':
-			  document.getElementById('Player.Command.Index').showModal();
-			  break;
-		  case 'Escape':
-			  document.getElementById('Player.Command.Index').close();
-			  break;
-		  case 'Slash':
-			  // TODO quasi-Chat
-			  Chat.style.width = '500px';
-			  Chat.appendChild(document.createElement('input'));
-			  break;
-		  case 'Enter':
-			  Chat.style.width = 'fit-content';
-			  Chat.appendChild(document.createElement('input'));
-			  break;
-		  default:
-			  break;
-	  }
-  });
-
-  DrawBoard();
   Interval = requestAnimationFrame(Update);
 
   const PlayerData = {
 	  Items : [
 		  {
-			  action: ()=>console.log('This is empty.'),
-			  id    : 0,
-			  image : 'Items/empty.webp',
-			  item  : null,
-			  name  : 'Empty',
-			  type  : null
+			  id   : 0,
+			  image: 'Items/Empty.webp',
+			  name : 'Empty'
 		  },
 		  {
 			  type: 'sword', action: 'attack',
@@ -558,7 +301,7 @@
 					  name       : 'Diamond Sword',
 					  damage     : 5,
 					  aoa        : 7,
-					  image      : 'Items/diamondSword.png',
+					  image      : 'Items/DiamondSword.png',
 					  attackSpeed: 630,
 					  aria       : {name: 'Diamond Sword', lore: 'diamondy'}
 				  },
@@ -567,28 +310,28 @@
 					  name       : 'Iron Sword',
 					  damage     : 3,
 					  aoa        : 7,
-					  image      : 'Items/ironSword.png',
+					  image      : 'Items/IronSword.png',
 					  attackSpeed: 630,
 					  aria       : {name: 'Iron Sword', lore: 'irony'}
 				  }, netherite: {
 					  name       : 'Netherite Sword',
 					  damage     : 7,
 					  aoa        : 8,
-					  image      : 'Items/netheriteSword.png',
+					  image      : 'Items/NetheriteSword.png',
 					  attackSpeed: 630,
 					  aria       : {name: 'Netherite Sword', lore: 'tina'}
 				  }, stone    : {
 					  name       : 'Stone Sword',
 					  damage     : 1,
 					  aoa        : 6,
-					  image      : 'Items/stoneSword.png',
+					  image      : 'Items/StoneSword.png',
 					  attackSpeed: 630,
 					  aria       : {name: 'Stone Sword', lore: 'stoney'}
 				  }, wooden   : {
 					  name       : 'Wooden Sword',
 					  damage     : 0,
 					  aoa        : 6,
-					  image      : 'Items/woodenSword.png',
+					  image      : 'Items/WoodenSword.png',
 					  attackSpeed: 630,
 					  aria       : {name: 'Wooden Sword', lore: 'woody'}
 				  }
@@ -601,35 +344,35 @@
 					  name       : 'Wooden Axe',
 					  damage     : 1,
 					  aoa        : 0,
-					  image      : 'Items/woodenAxe.png',
+					  image      : 'Items/WoodenAxe.png',
 					  attackSpeed: 1250,
 					  aria       : {name: 'Wooden Axe', lore: 'woody'}
 				  }, stone    : {
 					  name       : 'Stone Axe',
 					  damage     : 3,
 					  aoa        : 0,
-					  image      : 'Items/stoneAxe.png',
+					  image      : 'Items/StoneAxe.png',
 					  attackSpeed: 1250,
 					  aria       : {name: 'Stone Axe', lore: 'stoney'}
 				  }, iron     : {
 					  name       : 'Iron Axe',
 					  damage     : 4,
 					  aoa        : 0,
-					  image      : 'Items/ironAxe.png',
+					  image      : 'Items/IronAxe.png',
 					  attackSpeed: 1110,
 					  aria       : {name: 'Iron Axe', lore: 'irony'}
 				  }, diamond  : {
 					  name       : 'Diamond Axe',
 					  damage     : 7,
 					  aoa        : 0,
-					  image      : 'Items/diamondAxe.png',
+					  image      : 'Items/DiamondAxe.png',
 					  attackSpeed: 1000,
 					  aria       : {name: 'Diamond Axe', lore: 'diamondy'}
 				  }, netherite: {
 					  name       : 'Netherite Axe',
 					  damage     : 9,
 					  aoa        : 0,
-					  image      : 'Items/netheriteAxe.png',
+					  image      : 'Items/NetheriteAxe.png',
 					  attackSpeed: 1000,
 					  aria       : {name: 'Netherite Axe', lore: 'tina'}
 				  }, id       : 2
@@ -642,41 +385,41 @@
 					  name       : 'Wooden Pickaxe',
 					  damage     : 0,
 					  aoa        : -7,
-					  image      : 'Items/woodenPickaxe.png',
+					  image      : 'Items/WoodenPickaxe.png',
 					  attackSpeed: 200,
 					  aria       : {name: 'Wooden Pickaxe', lore: 'woody'}
 				  }, stone    : {
 					  name       : 'Stone Pickaxe',
 					  damage     : 1,
 					  aoa        : -6,
-					  image      : 'Items/stonePickaxe.png',
+					  image      : 'Items/StonePickaxe.png',
 					  attackSpeed: 200,
 					  aria       : {name: 'Stone Pickaxe', lore: 'stoney'}
 				  }, iron     : {
 					  name       : 'Iron Pickaxe',
 					  damage     : 2,
 					  aoa        : -5,
-					  image      : 'Items/ironPickaxe.png',
+					  image      : 'Items/IronPickaxe.png',
 					  attackSpeed: 200,
 					  aria       : {name: 'Iron Pickaxe', lore: 'irony'}
 				  }, diamond  : {
 					  name       : 'Diamond Pickaxe',
 					  damage     : 3,
 					  aoa        : -4,
-					  image      : 'Items/diamondPickaxe.png',
+					  image      : 'Items/DiamondPickaxe.png',
 					  attackSpeed: 150,
 					  aria       : {name: 'Diamond Pickaxe', lore: 'diamondy'}
 				  }, netherite: {
 					  name       : 'Netherite Pickaxe',
 					  damage     : 5,
 					  aoa        : -3,
-					  image      : 'Items/netheritePickaxe.png',
+					  image      : 'Items/NetheritePickaxe.png',
 					  attackSpeed: 100,
 					  aria       : {name: 'Netherite Pickaxe', lore: 'tina'}
 				  }, id       : 3
 			  }
 		  },
-		  {action: null, id: 4, image: 'Items/totem.png', item: 'Totem', name: 'Totem of Undying', type: 'Totem'}
+		  {action: null, id: 4, image: 'Items/Totem.png', item: 'Totem', name: 'Totem of Undying', type: 'Totem'}
 	  ],
 	  Hotbar: [
 		  {item: 0},
@@ -859,37 +602,101 @@
 	  }
   };
 
-  // Function Calls //
-  document.addEventListener('keydown', async e=>{
-	  switch (e.key) {
-		  case 'Tab':
-			  document.getElementById('Player.Command.Index').showModal;
+  // Functions //
 
-		  case 'Escape':
-			  document.getElementById('Player.Command.Index').close();
-
-		  default:
-			  typeof e==='number' ? document.getElementById(`item${e.key}`).click() : null;
-			  break;
+  async function DrawHearts() {
+	  for (let D = 10; D>=1; D--) {
+		  20 - PlayerDamage<2 * D
+		  ? 20 - PlayerDamage===1 - 2 * D && (Heart[`health${D}`].status = 'half', Heart[`health${D}`].src = 'Stats/HalfHeart.png')
+		  : Heart[`health${D}`].status = 'full', Heart[`health${D}`].src = 'Stats/FullHeart.png',
+		  20 - PlayerDamage<1 - 2 * D && (Heart[`health${D}`].status = 'empty', Heart[`health${D}`].src = 'Stats/Empty.png');
 	  }
-  });
+  }
 
-  // Start Shops //
+  async function PlayerAttack() {
+	  Points++;
 
-  for (let s = 0; s<Shops.length; s++) document.getElementById('Shops').children[s].innerHTML = PlayerData.Shops[i];
+	  GameAudio.Villager_Hurt.play();
 
-  // Check For 'Next' Open Slot //
-  async function OpenSlot() {for (let Slot of PlayerData.Hotbar) if (Slot.item===0 || Slot.type==='empty') return Slot;}
+	  Speed_X = -Speed_Y1, Speed_Y1 = -Speed_X;
+	  Speed_X>0 ? Speed_X += 50 : Speed_X -= 50, Speed_Y1>0 ? Speed_Y1 += 50 : Speed_Y1 -= 50;
+
+	  //smooth rotation
+
+	  for (let i = 0; i<=35; i++) {
+		  requestAnimationFrame(()=>{
+			  if (Math.random()<0.5) document.getElementById('Villager').style.rotate = `${i}deg`; else document.getElementById('Villager').style.rotate = `-${i}deg`;
+		  })
+	  }
+	  document.getElementById('Villager').style.filter = `blur(${(Math.PI / Speed_X)}px)`;
+	  document.getElementById('Villager').style.transition = '0.1s ease-out';
+	  setTimeout(()=>{
+		  document.getElementById('Villager').style.filter = '';
+		  document.getElementById('Villager').style.transition = '';
+		  for (let i = 35; i>=0; i--) {
+			  requestAnimationFrame(()=>{
+				  document.getElementById('Villager').style.rotate = `${i}deg`;
+			  })
+		  }
+	  }, 175);
+
+	  DrawBoard();
+  }
+
+  function VillagerAttack() {
+	  PlayerDamage++;
+
+	  level!==0 && (GameAudio.Player_Hurt.play(), DrawHearts());
+
+	  if (PlayerDamage>=20 && level!==0) {
+		  if (()=>Hotbar.forEach(item=>item.type==='Totem')) {
+			  PlayerDamage *= 0.25;
+		  } else {
+			  level = 0;
+			  document.querySelector('.Chat').style.display = 'none';
+			  let rotate = 0;
+			  document.getElementById('Hotbar').transition = '1s linear';
+			  document.getElementById('Hotbar').scaleY = 0;
+			  DrawBoard();
+			  setInterval(()=>{
+				  for (let H = 1; H<=10; H++) {rotate += 50 * Math.random(), Heart[`health${H}`].style.transition = '0.2s linear', Heart[`health${H}`].style.transform = `rotate(${rotate}deg)`}
+			  }, 25);
+			  cancelAnimationFrame(Interval);
+		  }
+	  }
+  }
+
+  function DrawBoard() {
+	  VillagerWidth = parseInt(GameLevels[level].size);
+	  VillagerHeight = VillagerWidth * 1.25;
+	  VillagerSize = Math.max(document.getElementById('Villager').clientWidth, document.getElementById('Villager').clientHeight);
+
+	  Pos_Y = Math.random() * (document.querySelector('.Board').clientHeight - VillagerSize - VillagerHeight);
+	  Pos_X = Math.random() * (document.querySelector('.Board').clientWidth - VillagerSize - VillagerWidth);
+
+	  document.getElementById('Villager').style.width = GameLevels[level].size;
+	  document.getElementById('Villager').style.height = `${VillagerHeight}px`;
+	  document.getElementById('Villager').style.left = `${Pos_X}px`;
+	  document.getElementById('Villager').style.top = `${Pos_Y}px`;
+	  document.getElementById('Villager').style.backgroundImage = `url(${GameLevels[level].head})`;
+
+	  document.querySelector('.Board').style.background = `url(${GameLevels[level].background})`;
+	  document.querySelector('.Board').style.Backgroundsize = '100% 100%';
+
+	  //for (let I = 0; I<PlayerData.Hotbar.length; I++) document.getElementById(`item${I}`).src = PlayerData.Items[PlayerData.Hotbar[I].item].image;
+
+	  document.getElementById('Bossbar').value = GameLevels[level].health - Points;
+	  document.getElementById('Bossbar').max = GameLevels[level].health;
+
+	  DrawHearts();
+  }
 
   function HotbarClick(IntSlot) {
 	  const Slot = IntSlot.id.slice(4), Item = PlayerData.Hotbar[Slot];
 	  Item.type ? new HandleItem(Slot, Item) : console.error(`Slot ${Slot} returned w/ ${Item.item}`);
   }
 
-  const AttackData = (aoa, damage, attackSpeed, name, image, aria)=>{
-	  let AttackData = {aoa, damage, attackSpeed, name, image, aria};
-	  console.info(AttackData);
-  };
+  function OpenSlot() {for (let Slot of PlayerData.Hotbar) if (Slot.item===0 || Slot.type==='empty') return Slot;}
 
   function HandleItem(ID) {
 	  let Slot = ID.id.split('item')[1].trim();
@@ -911,35 +718,11 @@
 	  }
   }
 
-  const MimisKetamineAddiction = 'tilly123';
+  // Start Shops //
 
-  const _Give = (key, itemId)=>
-				  key===MimisKetamineAddiction
-				  ? (PlayerData.Hotbar[OpenSlot()].item = PlayerData.Items[itemId])
-				  : console.log(`Not that easy, ${key} is NOT correct!`);
+  for (let s = 0; s<Shops.length; s++) document.getElementById('Shops').children[s].innerHTML = PlayerData.Shops[i];
 
-  const _Damage = (key, delay)=>
-				  key===MimisKetamineAddiction
-				  ? ()=>delay ? ()=>setInterval(()=>document.getElementById('Villager').click(), Number(delay<200 ? 200 : delay)) : document.getElementById('Villager').click()
-				  : console.log(`Not that easy, ${key} is NOT correct!`);
-
-  const _XP = (key, inLevel)=>{
-	  if (key!=='tilly123') {console.log(`Not that easy, ${key} is NOT correct!`);}
-	  level = inLevel, DrawBoard();
-  };
-
-  // Movement //
-  const Movement = {
-	  logarithmic: async ()=>Math.log(x),
-	  squared    : async ()=>Math.pow(x, 2),
-	  cubic      : async ()=>Math.pow(x, 3),
-	  sine       : async ()=>Math.sin(x),
-	  cosine     : async ()=>Math.cos(x),
-	  tangent    : async ()=>Math.sin(x) / Math.cos(x),
-	  cotangent  : async ()=>Math.cos(x) / Math.sin(x),
-	  secant     : async ()=>1 / Math.cos(x),
-	  cosecant   : async ()=>1 / Math.sin(x)
-  };
+  const AttackData = (aoa, damage, attackSpeed, name, image, aria)=>{let AttackData = {aoa, damage, attackSpeed, name, image, aria}};
 
   // Begin //
 
