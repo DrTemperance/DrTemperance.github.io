@@ -264,7 +264,6 @@
         Villager  = document.getElementById('Villager'),
         Board     = document.querySelector('.Board'),
         Chat      = document.querySelector('.Chat'),
-        Bossbar   = document.getElementById('Bossbar'),
         Heart     = {};
 
   for (let H = 10; H>=1; H--) {
@@ -278,6 +277,7 @@
   const GameLevels = [
 	  {
 		  name      : 'The Death',
+		  health    : NaN,
 		  size      : '0px',
 		  background: 'Backgrounds/DeathScreen.webp',
 		  head      : undefined,
@@ -389,8 +389,6 @@
 
   document.querySelector('title').textContent = `${GameLevels[level].name} - Villager Clicker`;
 
-  const SetBossbar = ()=>Bossbar.value = (Points / VillagerHealth) * Bossbar.max - Bossbar.max;
-
   async function DrawBoard() {
 	  VillagerWidth = parseInt(GameLevels[level].size);
 	  VillagerHeight = VillagerWidth * 1.25;
@@ -408,13 +406,11 @@
 	  Board.style.Backgroundsize = '100% 100%';
 	  for (let I = 0; I<PlayerData.Hotbar.length; I++) document.getElementById(`item${I}`).src = PlayerData.Items[PlayerData.Hotbar[I].item].image;
 
+	  document.getElementById('Bossbar').max = GameLevels[level].health;
+	  document.getElementById('Bossbar').value = GameLevels[level].health - Points;
+
 	  DrawHearts();
   }
-
-  const DeathMessage = ()=>{//TODO  dom selector manipulation
-  };
-  const JoinMessage = ()=>{//TODO  dom selector manipulation
-  };
 
   async function Update(Timestamp) {
 	  // Update timing for FPS calculations //
@@ -427,17 +423,15 @@
 	  // Progress level check //
 	  if (Points>=VillagerHealth) {
 		  level++;
-		  DeathMessage();
+		  //DeathMessage();
 		  document.querySelector('title').textContent = `${GameLevels[level].name} - Villager Clicker`;
 		  document.getElementById('favicon').href = GameLevels[level].head;
-		  JoinMessage();
+		  //JoinMessage();
 		  Villager.style.backgroundImage = `url(${GameLevels[level].head})`;
-		  Bossbar.max = GameLevels[level].health;
 		  Speed_Y1 *= 0.75;
 		  Speed_X *= 0.75;
 		  Points = 0;
 		  await GameAudio.Villager_Death.play();
-		  SetBossbar();
 		  DrawBoard();
 		  DrawBoard();
 	  }
@@ -469,7 +463,6 @@
 	  Points++;
 
 	  GameAudio.Villager_Hurt.play();
-	  SetBossbar();
 
 	  Speed_X = -Speed_Y1;
 	  Speed_Y1 = -Speed_X;

@@ -1,5 +1,5 @@
 * {
-	font-family     : 'SF Pro Display', 'SF Pro Text', 'Trebuchet MS', 'Helvetica', 'Helvetica Neue' 'sans-serif';
+	font-family     : 'SF Pro Display', 'SF Pro Text', 'Trebuchet MS', Helvetica, 'Helvetica Neue', sans-serif;
 	list-style-type : none;
 	vertical-align  : middle;
 	&:not(body, a) {transition : all 0.25s;}
@@ -12,9 +12,7 @@
 	&::-webkit-scrollbar-thumb {background : #214;}
 	}
 
-img {
-	filter : drop-shadow(0 3px 6px rgba(0, 0, 0, 0.16));
-	}
+img {filter : drop-shadow(0 3px 6px rgba(0, 0, 0, 0.16));}
 
 body {
 	background-image : url(Media/back.webp);
