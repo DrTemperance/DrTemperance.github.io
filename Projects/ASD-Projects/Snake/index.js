@@ -1,11 +1,11 @@
 const Rows = Columns = 20;
-let Snake = { Body: [], Head: [], Tail: [], Direction: null },
-    Apple = { element: [], row: [], column: [] },
+let Snake = {Body: [], Head: [], Tail: [], Direction: null},
+    Apple = {element: [], row: [], column: []},
     Score = 0,
     UpdateInterval,
     ActiveKey;
 
-document.addEventListener('keydown', ({ key }) => ActiveKey = key);
+document.addEventListener('keydown', ({key})=>ActiveKey = key);
 Init();
 
 async function Init() {Snake.Body = [], CreateSnake(10, 10), Snake.Head = Snake.Body[0], CreateApple(), UpdateInterval = setInterval(Update, 100)}
@@ -55,7 +55,7 @@ function EndGame() {
 }
 
 function CreateSnake(row, column) {
-	const SnakeSquare = { element: document.createElement('div'), row, column, Direction: [] };
+	const SnakeSquare = {element: document.createElement('div'), row, column, Direction: []};
 	SnakeSquare.element.classList.add('snake');
 	document.getElementById('Board').appendChild(SnakeSquare.element);
 	RepositionSquare(SnakeSquare);
@@ -74,9 +74,9 @@ function CreateApple() {
 }
 
 function RandomPosition() {
-	let Random_Coord = { column: NaN, row: NaN };
+	let Random_Coord = {column: NaN, row: NaN};
 	do {Random_Coord.column = Math.round(Columns * Math.random()), Random_Coord.row = Math.round(Rows * Math.random());}
-	while (!Snake.Body.every(o => Random_Coord.row!==o.row || Random_Coord.column!==o.column));
+	while (!Snake.Body.every(o=>Random_Coord.row!==o.row || Random_Coord.column!==o.column));
 	return Random_Coord;
 }
 

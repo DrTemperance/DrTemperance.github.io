@@ -8,7 +8,7 @@
 		color   : #888;
 		opacity : 0.75;
 		}
-	&::-webkit-scrollbar {background : #613;}
+	&::-webkit-scrollbar, &::-moz-viewport-scroll {background : #613;}
 	&::-webkit-scrollbar-thumb {background : #214;}
 	}
 
@@ -31,23 +31,6 @@ div {
 	padding         : 10px 25px;
 	}
 
-#P-Icon {
-	align-items      : center;
-	border-radius    : 1vh;
-	cursor           : pointer;
-	display          : flex;
-	flex-direction   : column;
-	justify-content  : center;
-	margin           : 1px;
-	padding          : 3px;
-	transform-origin : center;
-	transition       : all 0.4s ease-in-out;
-	&:hover {
-		filter    : drop-shadow(2px 2px 0.4em #000);
-		transform : scale(125%) rotate(5deg);
-		}
-	}
-
 nav {
 	background      : url(/Media/nav.webp) no-repeat center;
 	background-size : 100% 100%;
@@ -68,7 +51,7 @@ nav {
 		filter    : drop-shadow(0 0 2px rgba(0, 0, 0, 0.12));
 		}
 
-	.NavItems {
+	.Nav_Items {
 		backdrop-filter : blur(2px);
 		background      : rgba(255, 255, 255, 50%);
 		font-size       : 1.5rem;
@@ -77,14 +60,13 @@ nav {
 		width           : 75%;
 		box-shadow      : 3px 3px 6px 0 #CCDBE8 inset, -3px -3px 6px 1px rgba(255, 255, 255, 0.5) inset; border-radius : 100px;
 
-		&:hover:not(.ActivePage) {background : rgba(255, 255, 255, 20%);}
-		&:not(.ActivePage) {cursor : pointer;}
+		&:hover:not(.Active_Page) {background : rgba(255, 255, 255, 20%);}
+		&:not(.Active_Page) {cursor : pointer;}
 		}
 	}
 
 
-input,
-button {
+input, button {
 	background-color : #222;
 	color            : #BBB;
 	}
@@ -141,7 +123,7 @@ ul {
 	filter         : drop-shadow(0 3px 6px rgba(0, 0, 0, 0.16));
 	}
 
-.ActivePage {font-weight : bolder;}
+.Active_Page {font-weight : bolder;}
 
 .Tempie {
 	border        : 7px ridge #205;
@@ -162,13 +144,13 @@ ul {
 	text-align   : center;
 	}
 
-.Info-Head {
+.Info_Head {
 	font-size   : 1.8rem;
 	font-weight : 400;
 	line-height : 3vh;
 	}
 
-.Img-Sub {
+.Img_Sub {
 	color       : #FFF;
 	font-size   : 1.8rem;
 	font-style  : italic;
@@ -202,39 +184,40 @@ ul {
 	margin-top : 1.5%;
 	}
 
-#P-Img {
-	border        : 3px solid #000;
-	border-radius : 5px;
-	height        : 20vh;
-	margin-left   : auto;
-	margin-right  : auto;
-	max-width     : 20vw;
-	z-index       : 250;
-	}
-
-#P-Title {
-	font-size   : 1.3rem;
-	font-weight : 700;
-	margin      : 1px auto 0 auto;
-	padding     : 8px 0;
-	}
-
-#P-Icon {
+#Project_Icon {
 	background-color : #620D40;
 	border           : 3px solid #202;
-	border-radius    : 0;
-	display          : block;
 	height           : 250px;
-	margin-top       : 0;
-	padding          : 1vh;
 	text-align       : left;
-	width            : 11.25vw;
+	width            : 215px;
+	border-radius    : 2px;
+	cursor           : pointer;
+	padding          : 5px 10px;
+	transition       : all 0.3s ease-in-out;
+	&:hover {
+		filter    : drop-shadow(2px 2px 0.4em #000);
+		transform : scale(125%) rotate(5deg);
+		}
+
+	.Title {
+		font-size   : 1.2rem;
+		font-weight : 750;
+		margin      : 1px auto;
+		padding     : 8px 0;
+		}
 	}
 
 #Footer {
-	font-size       : 1rem;
-	margin          : auto;
+	font-size       : 1.3rem;
 	text-decoration : underline;
+	> em {
+		margin      : 0;
+		line-height : 0;
+
+		cursor      : pointer;
+		&:hover {filter : invert();}
+		&:active {scale : 0.9;}
+		}
 	}
 
 div.Content_Box {
@@ -265,7 +248,7 @@ div.Content_Box {
 		}
 	}
 
-#ArtistBio {
+#Artist_Bio {
 	height     : fit-content;
 	padding    : 7px;
 	text-align : justify;
@@ -281,12 +264,12 @@ table#Archive {
 		color       : #FFF;
 		font-size   : x-large;
 		font-weight : bolder;
-		&:not(.decor) {
+		&:not(.Decor) {
 			background-color : #333;
 			padding          : 12px;
 			border           : outset 3px #000;
 			}
-		&.decor {
+		&.Decor {
 			background-color : #222;
 			border           : outset 2px #000;
 			}

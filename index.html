@@ -2,17 +2,16 @@
 
 <head>
 	<title>-~= Hannah's Hallway =~-</title>
-	<meta content='width=device-width, initial-scale=1' name='viewport' />
+	<meta content='width=device-width, initial-scale=1' name='viewport'>
 	<meta content="Hannah's Hallway" name='title'>
 	<meta content="Hannah's Personal Web Archive" name='description'>
-	<meta charset='UTF-8' />
-	<link href='Media/PurplePotion.webp' rel='icon' />
-	<link href='style.css' rel='stylesheet' />
+	<meta charset='UTF-8'>
+	<link href='Media/PurplePotion.webp' rel='icon'>
+	<link href='style.css' rel='stylesheet'>
 	<script>
 setInterval(()=>{
 	const targetDate = new Date(`August 11, 2023, 7:24:00`).getTime() - Date.now();
-	document.getElementById('Timer').textContent =
-					`${Math.trunc(targetDate / 86400000)} days,
+	document.getElementById('Timer').textContent = `${Math.trunc(targetDate / 86400000)} days,
 		${Math.trunc((targetDate % 86400000) / 3600000)} hours,
 		${Math.trunc((targetDate % 3600000) / 60000)} minutes,
 		${Math.floor((targetDate % 60000) / 1000)} seconds`;
@@ -23,26 +22,26 @@ setInterval(()=>{
 <body>
 <nav>
 	<h1 class='Header'>-= Hannah's Hallway =-</h1>
-	<div class='ActivePage NavItems'>Home</div>
-	<a href='info.html'><div class='NavItems'>About Me</div></a>
-	<a href='music.html'><div class='NavItems'>Music</div></a>
-	<a href='keyspage.html'><div class='NavItems'>Time Machine</div></a>
-	<a href='portfolio.html'><div class='NavItems'>Portfolio</div></a>
-	<a href='archive.html'><div class='NavItems'>Archives</div></a>
+	<div class='Active_Page Nav_Items'>Home</div>
+	<a href='info.html'><div class='Nav_Items'>About Me</div></a>
+	<a href='music.html'><div class='Nav_Items'>Music</div></a>
+	<a href='keyspage.html'><div class='Nav_Items'>Time Machine</div></a>
+	<a href='portfolio.html'><div class='Nav_Items'>Portfolio</div></a>
+	<a href='archive.html'><div class='Nav_Items'>Archives</div></a>
 </nav>
 <div class='Content_Box'>
 	<h1>Home</h1>
 	<h2>Hi, I'm Hannah. I love science and am a self proclaimed internet archivist.</h2>
-	<img alt='Temperance Brennan' class='Tempie' height='300' src='Media/Temperence.webp' width='470' />
-	<p class='Img-Sub'>Junior Year, Coming Autumn 2023</p>
-	<div class='Time' id='Timer'><p id='Countdown'></p></div>
+	<img alt='Temperance Brennan' class='Tempie' height='300' src='Media/Temperence.webp' width='470'>
+	<p class='Img_Sub'>Junior Year, Coming Autumn 2023</p>
+	<div class='Time' id='Timer'><p id='Countdown'></div>
 </div>
 <div class='Content_Box'>
 	<h1>Chemistry</h1>
 	<iframe height='650px' loading='lazy' src='https://www.fishersci.com/search/chemical/substructure/marvinjs/' title='FisherSci Chemical Structure Builder' width='100%'></iframe>
 </div>
 <div class='Content_Box'>
-	<p id='Footer'>All digital artistic creations created by me, with substantial assistance Source<a href='https://awsome-creeper9.github.io/'><b>Awsome_Creeper9</b></a></p>
+	<p id='Footer'>All digital artistic creations created by me, with substantial assistance from <em onclick='window.open("https://awsome-creeper9.github.io/")'>Awsome_Creeper9</em></p>
 </div>
 </body>
 </html>

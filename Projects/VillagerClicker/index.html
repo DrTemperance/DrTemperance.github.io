@@ -19,7 +19,7 @@
 			list-style-type : none;
 			}
 
-		#ShopButton {
+		#Shop_Button {
 			position   : fixed;
 			bottom     : 0;
 			right      : 0;
@@ -111,7 +111,7 @@
 			bottom         : 0;
 			right          : 0;
 			left           : 0;
-			& #HeartBar {
+			& #Heart_Bar {
 				background-size : 32px 32px;
 				display         : inline-flex;
 				height          : fit-content;
@@ -184,7 +184,7 @@
 	<li class='trader Death'>Wandering Trader was slain by @p</li>
 </div>
 <div id='Stats'>
-	<div id='HeartBar'>
+	<div id='Heart_Bar'>
 		<img class='Heart' id='health1' src='Stats/FullHeart.png' />
 		<img class='Heart' id='health2' src='Stats/FullHeart.png' />
 		<img class='Heart' id='health3' src='Stats/FullHeart.png' />
@@ -210,7 +210,7 @@
 	</div>
 </div>
 
-<button id='ShopButton' onclick="document.getElementById('Player.Command.Index').showModal()">Outpost</button>
+<button id='Shop_Button' onclick="document.getElementById('Player.Command.Index').showModal()">Outpost</button>
 
 <dialog id='Player.Command.Index'>
 	<span id='Close'>X</span>
@@ -512,9 +512,9 @@
   async function DrawHearts() {
 	  for (let D = 10; D>=1; D--) {
 		  20 - PlayerDamage<2 * D
-		  ? 20 - PlayerDamage===1 - 2 * D && (Heart[`health${D}`].status = 'half', Heart[`health${D}`].src = 'stats/halfHeart.png')
-		  : Heart[`health${D}`].status = 'full', Heart[`health${D}`].src = 'stats/fullHeart.png',
-		  20 - PlayerDamage<1 - 2 * D && (Heart[`health${D}`].status = 'empty', Heart[`health${D}`].src = 'stats/empty.png');
+		  ? 20 - PlayerDamage===1 - 2 * D && (Heart[`health${D}`].status = 'half', Heart[`health${D}`].src = 'Stats/HalfHeart.png')
+		  : Heart[`health${D}`].status = 'full', Heart[`health${D}`].src = 'Stats/FullHeart.png',
+		  20 - PlayerDamage<1 - 2 * D && (Heart[`health${D}`].status = 'empty', Heart[`health${D}`].src = 'Stats/Empty.png');
 	  }
   }
 
