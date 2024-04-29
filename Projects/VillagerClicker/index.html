@@ -380,16 +380,14 @@
       Speed_X        = 30,
       PlayerDamage   = 0,
       Points         = 0,
-      Pos_X,
-      Pos_Y,
+      Pos_X, Pos_Y,
       Interval,
       VillagerSize,
-      LastTime,
-      Totem;
+      LastTime, Totem;
 
   document.querySelector('title').textContent = `${GameLevels[level].name} - Villager Clicker`;
 
-  async function DrawBoard() {
+  function DrawBoard() {
 	  VillagerWidth = parseInt(GameLevels[level].size);
 	  VillagerHeight = VillagerWidth * 1.25;
 	  VillagerSize = Math.max(Villager.clientWidth, Villager.clientHeight);
@@ -402,9 +400,11 @@
 	  Villager.style.left = `${Pos_X}px`;
 	  Villager.style.top = `${Pos_Y}px`;
 	  Villager.style.backgroundImage = `url(${GameLevels[level].head})`;
+
 	  Board.style.background = `url(${GameLevels[level].background})`;
 	  Board.style.Backgroundsize = '100% 100%';
-	  for (let I = 0; I<PlayerData.Hotbar.length; I++) document.getElementById(`item${I}`).src = PlayerData.Items[PlayerData.Hotbar[I].item].image;
+
+	  //for (let I = 0; I<PlayerData.Hotbar.length; I++) document.getElementById(`item${I}`).src = PlayerData.Items[PlayerData.Hotbar[I].item].image;
 
 	  document.getElementById('Bossbar').max = GameLevels[level].health;
 	  document.getElementById('Bossbar').value = GameLevels[level].health - Points;
@@ -414,7 +414,7 @@
 
   async function Update(Timestamp) {
 	  // Update timing for FPS calculations //
-	  let VilOffset;
+	  let VillagerOffset;
 	  LastTime || (LastTime = Timestamp);
 	  const D_Time = (LastTime - Timestamp) / 500;
 
@@ -431,7 +431,7 @@
 		  Speed_Y1 *= 0.75;
 		  Speed_X *= 0.75;
 		  Points = 0;
-		  await GameAudio.Villager_Death.play();
+		  GameAudio.Villager_Death.play();
 		  DrawBoard();
 		  DrawBoard();
 	  }
@@ -445,10 +445,10 @@
 	  Villager.style.top = `${Pos_Y}px`;
 
 	  // Check for collisions //
-	  VilOffset = Math.ceil(VillagerWidth / 3.75),
+	  VillagerOffset = Math.ceil(VillagerWidth / 3.75),
 	  !(DY<ClientHeight) && (DY = ClientHeight, Speed_Y1 = -Speed_Y1),
 	  DY<0 && (DY = 0, Speed_Y1 = -Speed_Y1),
-	  !(DX<ClientWidth + VilOffset) && (DX = ClientWidth + VilOffset, Speed_X = -Speed_X),
+	  !(DX<ClientWidth + VillagerOffset) && (DX = ClientWidth + VillagerOffset, Speed_X = -Speed_X),
 	  !(DX>=0) && (DX = 0, Speed_X = -Speed_X);
 
 	  // Update the positions after all checks //
