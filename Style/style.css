@@ -15,7 +15,7 @@
 img {filter : drop-shadow(0 3px 6px rgba(0, 0, 0, 0.16));}
 
 body {
-	background-image : url(Media/back.webp);
+	background-image : url(../Media/back.webp);
 	background-size  : 5%;
 	overflow-x       : hidden;
 	text-align       : center;
@@ -50,16 +50,21 @@ nav {
 		}
 
 	.Nav_Items {
-		backdrop-filter : blur(2px);
-		background      : rgba(255, 255, 255, 50%);
-		font-size       : 1.5rem;
-		margin          : 10px auto;
-		padding         : 16px;
-		width           : 75%;
-		box-shadow      : 3px 3px 6px 0 #CCDBE8 inset, -3px -3px 6px 1px rgba(255, 255, 255, 0.5) inset; border-radius : 100px;
+		margin  : 10px auto;
+		padding : 16px 12px;
 
-		&:hover:not(.Active_Page) {background : rgba(255, 255, 255, 20%);}
-		&:not(.Active_Page) {cursor : pointer;}
+		li {
+			backdrop-filter : blur(2px);
+			background      : rgba(255, 255, 255, 50%);
+			font-size       : 1.5rem;
+			margin          : 10px auto;
+			padding         : 16px;
+			width           : 75%;
+			box-shadow      : 3px 3px 6px 0 rgb(204, 219, 232) inset, -3px -3px 6px 1px rgba(255, 255, 255, 0.5) inset; border-radius : 100px;
+
+			&:hover:not(.Active_Page) {background : rgba(255, 255, 255, 20%);}
+			&:not(.Active_Page) {cursor : pointer;}
+			}
 		}
 	}
 
@@ -121,7 +126,7 @@ ul {
 	filter         : drop-shadow(0 3px 6px rgba(0, 0, 0, 0.16));
 	}
 
-.Active_Page {font-weight : bolder;}
+.Bolder {font-weight : bolder;}
 
 .Tempie {
 	border        : 7px ridge #205;
@@ -183,18 +188,18 @@ ul {
 	}
 
 #Project_Icon {
-	background-color : #620D40;
-	border           : 3px solid #202;
-	height           : 250px;
-	text-align       : left;
-	width            : 215px;
-	border-radius    : 2px;
-	cursor           : pointer;
-	padding          : 5px 10px;
-	transition       : all 0.3s ease-in-out;
+	background-color           : #620D40;
+	border                     : 3px solid #202;
+	height                     : 250px;
+	text-align                 : left;
+	width                      : 215px;
+	border-radius              : 2px;
+	cursor                     : pointer;
+	padding                    : 5px 10px;
+	transition                 : all 450ms cubic-bezier(0.685, -0.025, 0.355, 1.650);
+	transition-timing-function : cubic-bezier(0.685, -0.025, 0.355, 1.650);
 	&:hover {
-		filter    : drop-shadow(2px 2px 0.4em #000);
-		transform : scale(125%) rotate(5deg);
+		filter : drop-shadow(2px 2px 0.4em #000);
 		}
 
 	.Title {
