@@ -29,28 +29,26 @@ let level = 1, x = Villager.x;
 let clientWidth = BoardElem.clientWidth, clientHeight = BoardElem.clientHeight;
 
 const GameLevels = [
-	{name: 'The Death', health: NaN, size: '0', background: 'Backgrounds/DeathScreen.webp', head: undefined},
-	{name: 'The Nitwit', health: 10, phases: 1, size: '300px', background: 'Backgrounds/generic.webp', head: 'Heads/Nitwit.webp'},
-	{name: 'The Farmer', health: 20, phases: 2, size: '275px', background: 'Backgrounds/farm.webp', head: 'Heads/Farmer.webp'},
-	{name: 'The Mason', health: 30, phases: 2, size: '250px', background: 'Backgrounds/mason.jpg', head: 'Heads/Nitwit.webp'},
-	{name: 'The Librarian', health: 40, phases: 3, size: '200px', background: 'Backgrounds/library.webp', head: 'Heads/Librarian.webp'},
+	{name: 'The Death', health: NaN, size: '0', background: 'Backgrounds/Exterior1.png', head: undefined},
+	{name: 'The Nitwit', health: 10, phases: 1, size: '300px', background: 'Backgrounds/Nitwit.png', head: 'Heads/Nitwit.webp'},
+	{name: 'The Farmer', health: 20, phases: 2, size: '275px', background: 'Backgrounds/Farm.png', head: 'Heads/Farmer.webp'},
+	{name: 'The Mason', health: 30, phases: 2, size: '250px', background: 'Backgrounds/Mason.png', head: 'Heads/Nitwit.webp'},
+	{name: 'The Librarian', health: 40, phases: 3, size: '200px', background: 'Backgrounds/Interior1.png', head: 'Heads/Librarian.webp'},
 	{name: 'The Weaponsmith', health: 50, phases: 3, size: '180px', background: 'Backgrounds/blacksmith.webp', head: 'Heads/Weaponsmith.webp'},
-	{name: 'The Cleric', health: 64, phases: 4, size: '150px', background: 'Backgrounds/church.webp', head: 'Heads/Cleric.webp'},
-	{name: 'The Wandering Trader', health: 100, phases: 5, size: '100px', background: 'Backgrounds/traderBack.webp', head: 'Heads/trader.webp'},
-	{name: 'Main Menu', size: '0', background: 'Backgrounds/MainMenu.webp', head: undefined}
+	{name: 'The Cleric', health: 64, phases: 4, size: '150px', background: 'Backgrounds/Cleric.png', head: 'Heads/Cleric.webp'},
+	{name: 'The Wandering Trader', health: 100, phases: 5, size: '100px', background: 'Backgrounds/Trader.png', head: 'Heads/trader.webp'},
+	{name: 'Main Menu', size: '0', background: 'Backgrounds/MainMenu.png', head: undefined}
 ];
 
 let VillagerHealth = GameLevels[level].health / GameLevels[level].phases,
-    VillagerHeight = parseInt(GameLevels[level].size.height),
-    VillagerWidth  = parseInt(GameLevels[level].size.width),
+    VillagerHeight = parseFloat(GameLevels[level].size.height),
+    VillagerWidth  = parseFloat(GameLevels[level].size.width),
     Speed_Y        = 30,
     Speed_X        = 30,
     PlayerDamage   = 0,
     Points         = 0,
-    Pos_X,
-    Pos_Y,
+    Pos            = {X: 0, Y: 0},
     Interval,
-    VillagerSize,
     LastTime;
 
 Title.textContent = `${GameLevels[level].name} - Villager Clicker`;
@@ -71,16 +69,17 @@ const Update = Timestamp=>{
 		Speed_X *= 0.75;
 		Points = 0;
 		new Audio('Audio/Villager_Death.mp3').play();
-		DrawAll();
+		DrawAll(true);
 	}
 
-	DrawVillager(Timestamp);
+	DrawVillager();
 
+	TimePosCalc(Timestamp);
 	LastTime = Timestamp;
 	requestAnimationFrame(Update);
 };
 
-window.addEventListener('resize', ()=>DrawAll());
+window.addEventListener('resize', ()=>DrawAll(true));
 
 Interval = requestAnimationFrame(Update);
 
@@ -224,24 +223,13 @@ const PlayerData = {
 };
 
 // Draw //
-
-function DrawAll() {
-	VillagerWidth = parseInt(GameLevels[level].size);
-	VillagerHeight = VillagerWidth * 1.25;
-	VillagerSize = Math.max(Villager.clientWidth, Villager.clientHeight);
-
-	Pos_Y = Math.random() * (BoardElem.clientHeight - VillagerSize - VillagerHeight);
-	Pos_X = Math.random() * (BoardElem.clientWidth - VillagerSize - VillagerWidth);
-
-	Villager.style.width = GameLevels[level].size;
-	Villager.style.height = `${VillagerHeight}px`;
-	Villager.style.left = `${Pos_X}px`;
-	Villager.style.top = `${Pos_Y}px`;
-	Villager.style.backgroundImage = `url(${GameLevels[level].head})`;
-
+function DrawAll(Move) {
+	DrawVillager();
 	DrawBackground();
 	DrawBossbar();
 	DrawHearts();
+
+	Move ? MoveVillager() : null;
 }
 
 function DrawHearts() {
@@ -253,31 +241,32 @@ function DrawHearts() {
 	}
 }
 
+function MoveVillager() {
+	Pos.Y = Math.random() * (BoardElem.clientHeight - VillagerHeight);
+	Pos.X = Math.random() * (BoardElem.clientWidth - VillagerWidth);
+}
+
 function DrawBossbar() {
 	Bossbar.value = GameLevels[level].health - Points;
 	Bossbar.max = GameLevels[level].health;
 }
 
 function DrawBackground() {
-	BoardElem.style.background = `url(${GameLevels[level].background})`;
-	BoardElem.style.Backgroundsize = '100% 100%';
+	BoardElem.style.backgroundImage = `url(${GameLevels[level].background})`;
+	BoardElem.style.BackgroundSize = '100% 100%';
 }
 
-function DrawVillager(Timestamp) {
-	let Delta_X = Pos_X + Speed_X * ((LastTime - Timestamp) / 500), DY = Pos_Y + Speed_Y * ((LastTime - Timestamp) / 500);
-
-	if (DY>=clientHeight - VillagerHeight) DY = clientHeight - VillagerHeight, Speed_Y *= -1;
-	if (DY<0) DY = 0, Speed_Y = -Speed_Y;
-	if (Delta_X>=clientWidth - VillagerWidth) Delta_X = clientWidth - VillagerWidth, Speed_X *= -1;
-	if (Delta_X<0) Delta_X = 0, Speed_X = -Speed_X;
-
-	Pos_X = Delta_X, Pos_Y = DY;
-
-	Villager.style.width = GameLevels[level].size;
+function DrawVillager() {
+	VillagerWidth = parseInt(GameLevels[level].size);
+	VillagerHeight = VillagerWidth * 1.25;
+	Villager.style.backgroundImage = `url(${GameLevels[level].head})`;
 	Villager.style.height = `${(parseInt(GameLevels[level].size) * 1.25)}px`;
-	Villager.style.left = `${Pos_X}px`;
-	Villager.style.top = `${Pos_Y}px`;
+	Villager.style.height = `${VillagerHeight}px`;
+	Villager.style.left = `${Pos.X}px`;
+	Villager.style.top = `${Pos.Y}px`;
+	Villager.style.width = GameLevels[level].size;
 }
+
 
 // Functions //
 
@@ -303,7 +292,7 @@ function PlayerAttack() {
 		for (let i = 35; i>=0; i--) {requestAnimationFrame(()=>Villager.style.rotate = `${i}deg`)}
 	}, 175);
 
-	DrawAll();
+	DrawAll(true);
 }
 
 function VillagerAttack() {
@@ -345,11 +334,21 @@ function HandleItem(ID) {
 
 // Start Shops //
 
-for (let s = 0; s<Shops.length; s++) Shops.children[s].innerHTML = PlayerData.Shops[i];
+//for (let s = 0; s<Shops.length; s++) Shops.children[s].innerHTML = PlayerData.Shops[i];
 
 //const AttackData = (aoa, damage, attackSpeed, name, image, aria)=>{let AttackData = {aoa, damage, attackSpeed, name, image, aria}};
 
-// Begin //
 
-DrawAll();
-DrawHearts();
+function TimePosCalc(Timestamp) {
+	let Delta = {X: Pos.X + Speed_X * ((LastTime - Timestamp) / 500), Y: Pos.Y + Speed_Y * ((LastTime - Timestamp) / 500)};
+
+	if (Delta.Y>=clientHeight - VillagerHeight) Delta.Y = clientHeight - VillagerHeight, Speed_Y *= -1;
+	if (Delta.Y<0) Delta.Y = 0, Speed_Y = -Speed_Y;
+	if (Delta.X>=clientWidth - VillagerWidth) Delta.X = clientWidth - VillagerWidth, Speed_X *= -1;
+	if (Delta.X<0) Delta.X = 0, Speed_X = -Speed_X;
+
+	Pos.X = Delta.X, Pos.Y = Delta.Y;
+}
+
+// Begin //
+DrawAll(true);
