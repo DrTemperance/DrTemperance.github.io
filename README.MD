@@ -4,8 +4,8 @@
 
 ### High Priority
 
-- Implement speed-based blur filter and boolean Values for CSS, Difficulty(speed) in the Settings menu. _— Villager_
 - Fix & Finish _CSS_: including _Class_ and _ID_ names & inline **_(71% Done)_**
+- Implement speed-based blur filter and boolean Values for CSS, Difficulty(speed) in the Settings menu. _— Villager_
 - _music.html_
 
 ### Medium Priority
@@ -29,9 +29,9 @@
 
 ### High Priority
 
-- Conclude the implementation of the ubiquitous imagery.
-- Conclude the composition of the narratives.
 - Conclude operationality.
+- Conclude the composition of the narratives.
+- Conclude the implementation of the ubiquitous imagery.
 
 ### Ideas
 
@@ -43,6 +43,6 @@
 
 ## Stuff I want to do but probably won't
 
-- Incorporate PHP and Python, potentially even Java-based web applications.
 - Accommodation for disparate aspect ratio variances.
+- Incorporate PHP and Python, potentially even Java-based web applications.
 - Incorporate compatibility for both mobile device users and non-coding individuals.

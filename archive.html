@@ -6,19 +6,21 @@
 	<meta content="Hannah's Personal Web Archive" name='description'>
 	<meta charset='UTF-8' />
 	<link href='Media/PurplePotion.webp' rel='icon' />
-	<link href='style.css' rel='stylesheet' />
+	<link href='Style/style.css' rel='stylesheet' />
 	<script src='./Scripts/Main.js'></script>
 	<script src='./Scripts/Archive.js' defer></script>
 </head>
 <body>
 <nav>
 	<h1 class='Header'>-= Hannah's Hallway =-</h1>
-	<a href='index.html'><div class='Nav_Items'>Home</div></a>
-	<a href='info.html'><div class='Nav_Items'>About Me</div></a>
-	<a href='music.html'><div class='Nav_Items'>Music</div></a>
-	<a href='keyspage.html'><div class='Nav_Items'>Time Machine</div></a>
-	<a href='portfolio.html'><div class='Nav_Items'>Portfolio</div></a>
-	<div class='Nav_Items Active_Page'>Archives</div>
+	<div class='Nav_Items'>
+		<li onclick='window.location = "index.html"'>Home</li>
+		<li onclick='window.location = "info.html"'>About Me</li>
+		<li onclick='window.location = "music.html"'>Music</li>
+		<li onclick='window.location= "keyspage.html"'>Time Machine</li>
+		<li onclick='window.location= "portfolio.html"'>Portfolio</li>
+		<li onclick='window.location = "archive.html"'>Archives</li>
+	</div>
 </nav>
 <div class='Content_Box'>
 	<h1>The Archive</h1>

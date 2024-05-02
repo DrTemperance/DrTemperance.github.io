@@ -1,0 +1,48 @@
+#Board {
+	width  : 400px;
+	margin : auto;
+	border : #C0C0C0 ridge 4px;
+	}
+
+#info-bar {
+	width      : auto;
+	min-height : fit-content;
+	background : #D3D3D3;
+	font-size  : 2rem;
+	text-align : center;
+	}
+
+#shape-container {
+	width         : 400px;
+	height        : 400px;
+	background    : #000;
+	border-top    : #C0C0C0 ridge 4px;
+	border-bottom : #C0C0C0 ridge 4px;
+	}
+
+#button-box {
+	width      : 400px;
+	height     : 40px;
+	background : #A9A9A9;
+	}
+
+#shape {
+	color    : #FFF;
+	width    : 100px;
+	height   : 100px;
+	position : relative;
+	top      : 150px;
+	left     : 150px;
+	border   : #FFF solid 2px;
+	display  : block;
+	}
+
+button {
+	width  : auto;
+	height : auto;
+	margin : 10px auto auto 9px;
+	}
+
+p {
+	margin : 10px;
+	}

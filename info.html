@@ -1,23 +1,26 @@
 <html lang='EN'>
 <head>
-	<meta content='width=device-width, initial-scale=1' name='viewport' />
+	<link rel='stylesheet' type='text/css' href='Style/Info.css' /><meta content='width=device-width, initial-scale=1' name='viewport' />
 	<meta content='About Me' name='title'>
 	<meta charset='UTF-8' />
 	<link href='Media/PurplePotion.webp' rel='icon' />
-	<link href='style.css' rel='stylesheet' />
+	<link href='Style/style.css' rel='stylesheet' type='text/css' />
+	<link href='Style/Info.css' rel='stylesheet' type='text/css' />
 	<title>~ About Me ~</title>
 </head>
 
 <body>
-<nav>
-	<h1 class='Header'>-= Hannah's Hallway =-</h1>
-	<a href='index.html'><li class='Nav_Items'>Home</li></a>
-	<li class='Active_Page Nav_Items'>About Me</li>
-	<a href='music.html'><li class='Nav_Items'>Music</li></a>
-	<a href='keyspage.html'><li class='Nav_Items'>Time Machine</li></a>
-	<a href='portfolio.html'><li class='Nav_Items'>Portfolio</li></a>
-	<a href='archive.html'><li class='Nav_Items'>Archives</li></a>
-</nav>
+	<nav>
+			<h1 class='Header'>-= Hannah's Hallway =-</h1>
+			<div class='Nav_Items'>
+				<li onclick='window.location = "index.html"'>Home</li>
+				<li onclick='window.location = "info.html"'>About Me</li>
+				<li onclick='window.location = "music.html"'>Music</li>
+				<li onclick='window.location= "keyspage.html"'>Time Machine</li>
+				<li onclick='window.location= "portfolio.html"'>Portfolio</li>
+				<li onclick='window.location = "archive.html"'>Archives</li>
+			</div>
+	</nav>
 <div class='Content_Box'>
 	<h1>About Me</h1>
 	<table>
@@ -65,38 +68,3 @@
 </div>
 </body>
 </html>
-
-<style>
-table {
-	margin          : auto;
-	border-collapse : collapse;
-	width           : 90%;
-	height          : fit-content;
-	}
-
-th, td {
-	text-align : left;
-	padding    : 8px;
-	}
-
-th {
-	background-color : #EEE;
-	color            : #000;
-	font-weight      : bolder;
-	border           : outset 3px #000;
-	}
-
-tr {
-	transition : all 0.5s ease-in-out;
-	&:nth-child(even) {
-		background-color : #CCC;
-		}
-	&:nth-child(odd) {
-		background-color : #DDD;
-		}
-	& b {
-		font-size   : larger;
-		font-weight : bold;
-		}
-	}
-</style>

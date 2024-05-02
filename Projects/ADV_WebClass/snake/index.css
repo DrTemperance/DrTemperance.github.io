@@ -1,0 +1,31 @@
+
+body {background-color : #006400;}
+
+#Board {
+	width            : 440px;
+	height           : 440px;
+	border           : 1px solid white;
+	background-color : #000;
+	}
+
+#score, #highScore {color : #FFF;}
+
+.snake, .apple {
+	display     : block;
+	width       : 20px;
+	height      : 20px;
+	position    : absolute;
+	user-select : none;
+	}
+
+.snake {
+	background-color : #008000;
+	z-index          : 2;
+	}
+
+#snake-head {background-color : #006400;}
+
+.apple {
+	background-color : #F00;
+	z-index          : 1;
+	}

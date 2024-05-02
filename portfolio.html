@@ -2,48 +2,48 @@
 <head>
 	<meta content='width=device-width, initial-scale=1' name='viewport' />
 	<link href='Media/PurplePotion.webp' rel='icon' />
-	<link href='style.css' rel='stylesheet' />
+	<link href='Style/style.css' type='text/css' rel='stylesheet' />
 	<title>~ Portfolio ~</title>
 	<meta charset='UTF-8' />
+	<script defer src='Scripts/portfolio.js'></script>
+	<script defer src='Scripts/main.js'></script>
 </head>
 
 <body>
 <nav>
-	<h1 class='Header'>-= Hannah's Hallway =-</h1>
-	<a href='index.html'><li class='Nav_Items'>Home</li></a>
-	<a href='info.html'><li class='Nav_Items'>About Me</li></a>
-	<a href='music.html'><li class='Nav_Items'>Music</li></a>
-	<a href='keyspage.html'><li class='Nav_Items'>Time Machine</li></a>
-		<li class='Active_Page Nav_Items'>Portfolio</li>
-	<a href='archive.html'><li class='Nav_Items'>Archives</li></a>
-</nav>
+			<h1 class='Header'>-= Hannah's Hallway =-</h1>
+			<div class='Nav_Items'>
+				<li onclick='window.location = "index.html"'>Home</li>
+				<li onclick='window.location = "info.html"'>About Me</li>
+				<li onclick='window.location = "music.html"'>Music</li>
+				<li onclick='window.location= "keyspage.html"'>Time Machine</li>
+				<li onclick='window.location= "portfolio.html"'>Portfolio</li>
+				<li onclick='window.location = "archive.html"'>Archives</li>
+			</div>
+		</nav>
 <div class='Content_Box'>
-	<h1>❤ Portfolio ❤</h1>
+	<h1>Portfolio</h1>
 	<dl>
-		<a href='Projects/VillagerClicker'>
-			<li class='Nav_Items' id='Project_Icon'>
+			<li class='Nav_Items' id='Project_Icon' onclick='window.open("./Projects/VillagerClicker")'>
 				<p class='Title'>Villager Clicker</p>
 				<p>Originally "Bouncing Box". I gave it a better setup compared to what it shipped with.</p>
 			</li>
-		</a>
-		<a href='Projects/TimeTravel'>
-			<li class='Nav_Items' id='Project_Icon'>
+			<li class='Nav_Items' id='Project_Icon' onclick='window.open("./Projects/TimeTravel")'>
 				<p class='Title'>ALPHA | Time Game</p>
 				<p>Tillie extends her salutations!</p>
 			</li>
-		</a>
 	</dl>.
 </div>
 <div class='Content_Box'>
-	<h1>Desmos Projects I Made:</h1>
+	<h1>Desmos Projects</h1>
 	<h2>Atom Model</h2>
-	<iframe height='500' src='https://www.desmos.com/calculator/qxsb1dqzka?embed' title='Atom Model' width='80%'></iframe>
+		<iframe class='Desmos' height='450' src='https://www.desmos.com/calculator/qxsb1dqzka?embed' title='Atom Model' width='75%'></iframe>
 	<h2>Tangent Curve</h2>
-	<iframe height='500' src='https://www.desmos.com/calculator/8igtqyznzh?embed' title='Tangent Curve' width='80%'></iframe>
+		<iframe class='Desmos' height='450' src='https://www.desmos.com/calculator/8igtqyznzh?embed' title='Tangent Curve' width='75%'></iframe>
 	<h2>Spinning Cube</h2>
-	<iframe height='500' src='https://www.desmos.com/calculator/dbrfeysiyu?embed' title='Spinning Cube' width='80%'></iframe>
+		<iframe class='Desmos' height='450' src='https://www.desmos.com/calculator/dbrfeysiyu?embed' title='Spinning Cube' width='75%'></iframe>
 	<h2>Circle Points</h2>
-	<iframe height='500' src='https://www.desmos.com/calculator/yqzi3su2cc?embed' title='Circle Points' width='80%'></iframe>
+		<iframe class='Desmos' height='450' src='https://www.desmos.com/calculator/yqzi3su2cc?embed' title='Circle Points' width='75%'></iframe>
 </div>
 </body>
 </html>

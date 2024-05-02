@@ -1,25 +1,27 @@
 <html lang='en'>
 <head>
 	<link href='Media/PurplePotion.webp' rel='icon' />
-	<link href='style.css' rel='stylesheet' />
+	<link href='Style/style.css' rel='stylesheet' />
 	<meta content='width=device-width, initial-scale=1' name='viewport' />
 	<meta content='Favorite Music' name='title'>
 	<meta content="Hannah's Personal Web Archive" name='description'>
 	<meta charset='UTF-8' />
 	<title>~ Music ~</title>
-	<script async src='Scripts/Main.js'></script>
+	<script defer src='Scripts/Main.js'></script>
 	<script defer src='Scripts/Music.js'></script>
 </head>
 
 <body>
 <nav>
 	<h1 class='Header'>-= Hannah's Hallway =-</h1>
-	<a href='index.html'><li class='Nav_Items'>Home</li></a>
-	<a href='info.html'><li class='Nav_Items'>About Me</li></a>
-	<a><li class='Active_Page Nav_Items'>Music</li></a>
-	<a href='keyspage.html'><li class='Nav_Items'>Time Machine</li></a>
-	<a href='portfolio.html'><li class='Nav_Items'>Portfolio</li></a>
-	<a href='archive.html'><li class='Nav_Items'>Archives</li></a>
+	<div class='Nav_Items'>
+		<li onclick='window.location = "index.html"'>Home</li>
+		<li onclick='window.location = "info.html"'>About Me</li>
+		<li onclick='window.location = "music.html"'>Music</li>
+		<li onclick='window.location= "keyspage.html"'>Time Machine</li>
+		<li onclick='window.location= "portfolio.html"'>Portfolio</li>
+		<li onclick='window.location = "archive.html"'>Archives</li>
+	</div>
 </nav>
 <div class='Content_Box'>
 	<h1>❤ Favorite Artists ❤</h1>
