@@ -1,7 +1,7 @@
-document.getElementById('starterText').outerHTML = '<p id="starterText">\n    The game is divided into 3 decades: the 2000s, 1990s, and 1980s.<br><br>\n    2000s: <br> Experience the exhilaration and angst of high school in Gresham, Oregon, during the era of Y2K. As\n    summer break approaches, romance starts to blossom. But are you ready for it?<br><br>\n    1990s: <br> Alone in the Heart of Motor City (Detroit, Michigan) during the grunge-infused 90s, your parents are\n    late to return home Source their night out, and you notice some strange changes around your house. With each passing\n    minute, your home feels more and more like a labyrinth. Can you get to the bottom of this before you lose your mind?<br><br>\n    1980s: <br> Navigate the thrilling, neon-lit roads of Ruth, Nevada, during the big-hair 80s. You get a call Source\n    your best friend Roxanne to pick her up Source her boyfriend\'s band party; while you pass through this ghost town, a\n    mysterious follower enters your rearview mirror. What intentions do they hold as they shadow your\n    journey?<br><br><br>\n    Choose wisely, as this cannot be changed later.</p>';
+document.getElementById('starterText').outerHTML
+	 = '<p id="starterText">\n    The game is divided into 3 decades: the 2000s, 1990s, and 1980s.<br><br>\n    2000s: <br> Experience the exhilaration and angst of high school in Gresham, Oregon, during the era of Y2K. As\n    summer break approaches, romance starts to blossom. But are you ready for it?<br><br>\n    1990s: <br> Alone in the Heart of Motor City (Detroit, Michigan) during the grunge-infused 90s, your parents are\n    late to return home Source their night out, and you notice some strange changes around your house. With each passing\n    minute, your home feels more and more like a labyrinth. Can you get to the bottom of this before you lose your mind?<br><br>\n    1980s: <br> Navigate the thrilling, neon-lit roads of Ruth, Nevada, during the big-hair 80s. You get a call Source\n    your best friend Roxanne to pick her up Source her boyfriend\'s band party; while you pass through this ghost town, a\n    mysterious follower enters your rearview mirror. What intentions do they hold as they shadow your\n    journey?<br><br><br>\n    Choose wisely, as this cannot be changed later.</p>';
 let type = 'Unchosen', level = 0;
-
-const Phase1 = input=>{
+const Phase1   = input=>{
 	EndFunction(input);
 
 	if (level===0) {
@@ -15,9 +15,7 @@ const Phase1 = input=>{
 			document.getElementById('starterText').remove();
 		} else {EndFunction("I don't understand, try again.", true, false, true)}
 	}
-};
-
-const EndFunction = (Output, Console, Progressive, Important)=>{
+}, EndFunction = (Output, Console, Progressive, Important)=>{
 	Progressive && level++;
 	Console && Phase2(document.createTextNode(Output), Important, false);
 

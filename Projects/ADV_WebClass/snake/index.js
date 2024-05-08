@@ -19,7 +19,12 @@ let snake = {
     activeKey;
 
 
-$('body').on('keydown', handleKeyDown);
+$('body').on('keydown', function (event) {
+	if (event.which===KEYS.W) p1PaddleObj.speedY = -10;
+	if (event.which===KEYS.S) p1PaddleObj.speedY = 10;
+	if (event.which===KEYS.UP) p2PaddleObj.speedY = -10;
+	if (event.which===KEYS.DOWN) p2PaddleObj.speedY = 10;
+});
 
 init();
 

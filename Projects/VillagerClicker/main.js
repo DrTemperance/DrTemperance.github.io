@@ -29,7 +29,7 @@ let level = 1, x = Villager.x;
 let clientWidth = BoardElem.clientWidth, clientHeight = BoardElem.clientHeight;
 
 const GameLevels = [
-	{name: 'The Death', health: NaN, size: '0', background: 'Backgrounds/Exterior1.png', head: undefined},
+	{name: 'The Death', size: 0, background: 'Backgrounds/Exterior1.png'},
 	{name: 'The Nitwit', health: 10, phases: 1, size: '300px', background: 'Backgrounds/Nitwit.png', head: 'Heads/Nitwit.webp'},
 	{name: 'The Farmer', health: 20, phases: 2, size: '275px', background: 'Backgrounds/Farm.png', head: 'Heads/Farmer.webp'},
 	{name: 'The Mason', health: 30, phases: 2, size: '250px', background: 'Backgrounds/Mason.png', head: 'Heads/Nitwit.webp'},
@@ -37,7 +37,8 @@ const GameLevels = [
 	{name: 'The Weaponsmith', health: 50, phases: 3, size: '180px', background: 'Backgrounds/blacksmith.webp', head: 'Heads/Weaponsmith.webp'},
 	{name: 'The Cleric', health: 64, phases: 4, size: '150px', background: 'Backgrounds/Cleric.png', head: 'Heads/Cleric.webp'},
 	{name: 'The Wandering Trader', health: 100, phases: 5, size: '100px', background: 'Backgrounds/Trader.png', head: 'Heads/trader.webp'},
-	{name: 'Main Menu', size: '0', background: 'Backgrounds/MainMenu.png', head: undefined}
+	{name: 'You Win', size: 0, background: 'Backgrounds/Win.png'},
+	{name: 'Main Menu', size: 0, background: 'Backgrounds/MainMenu.png'}
 ];
 
 let VillagerHealth = GameLevels[level].health / GameLevels[level].phases,
@@ -224,31 +225,15 @@ const PlayerData = {
 
 // Draw //
 function DrawAll(Move) {
-	DrawVillager();
 	DrawBackground();
-	DrawBossbar();
-	DrawHearts();
+	DrawVillager();
 
-	Move ? MoveVillager() : null;
-}
+	if (level!==0 && level!==8) DrawStats();
 
-function DrawHearts() {
-	for (let D = 10; D>=1; D--) {
-		if (10 - PlayerDamage<D) {
-			if (10 - PlayerDamage==D - 0.5) Heart[`health${D}`].status = 'half', Heart[`health${D}`].src = 'Stats/HalfHeart.png';
-			if (10 - PlayerDamage<D - 0.5) Heart[`health${D}`].status = 'empty', Heart[`health${D}`].src = 'Stats/Empty.png'
-		} else Heart[`health${D}`].status = 'full', Heart[`health${D}`].src = 'Stats/FullHeart.png';
+	if (Move) {
+		Pos.Y = Math.random() * (BoardElem.clientHeight - VillagerHeight);
+		Pos.X = Math.random() * (BoardElem.clientWidth - VillagerWidth);
 	}
-}
-
-function MoveVillager() {
-	Pos.Y = Math.random() * (BoardElem.clientHeight - VillagerHeight);
-	Pos.X = Math.random() * (BoardElem.clientWidth - VillagerWidth);
-}
-
-function DrawBossbar() {
-	Bossbar.value = GameLevels[level].health - Points;
-	Bossbar.max = GameLevels[level].health;
 }
 
 function DrawBackground() {
@@ -257,6 +242,8 @@ function DrawBackground() {
 }
 
 function DrawVillager() {
+	VillagerHealth = GameLevels[level].health / GameLevels[level].phases;
+
 	VillagerWidth = parseInt(GameLevels[level].size);
 	VillagerHeight = VillagerWidth * 1.25;
 	Villager.style.backgroundImage = `url(${GameLevels[level].head})`;
@@ -267,11 +254,21 @@ function DrawVillager() {
 	Villager.style.width = GameLevels[level].size;
 }
 
+function DrawStats() {
+	for (let D = 10; D>=1; D--) {
+		if (10 - PlayerDamage<D) {
+			if (10 - PlayerDamage==D - 0.5) Heart[`health${D}`].status = 'half', Heart[`health${D}`].src = 'Stats/HalfHeart.png';
+			if (10 - PlayerDamage<D - 0.5) Heart[`health${D}`].status = 'empty', Heart[`health${D}`].src = 'Stats/Empty.png'
+		} else Heart[`health${D}`].status = 'full', Heart[`health${D}`].src = 'Stats/FullHeart.png';
+	}
+	Bossbar.value = VillagerHealth - Points;
+	Bossbar.max = VillagerHealth;
+}
 
 // Functions //
 
 function PlayerAttack() {
-	Points++;
+	Points += 0.5;
 
 	new Audio('Audio/Villager_Hurt.mp3').play();
 
@@ -296,7 +293,7 @@ function PlayerAttack() {
 }
 
 function VillagerAttack() {
-	level!==0 && (new Audio('Audio/Player_Hurt.mp3').play(), PlayerDamage += 0.5, DrawHearts());
+	if (level==0 || level==8) return; else new Audio('Audio/Player_Hurt.mp3').play(), PlayerDamage += 0.5, DrawStats();
 
 	if (level!==0 && PlayerDamage>=20) {
 		//TODO if (()=>Hotbar.forEach(item=>item.type==='Totem')) {PlayerDamage *= 0.25}

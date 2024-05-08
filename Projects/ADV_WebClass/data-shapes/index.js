@@ -1,148 +1,122 @@
-$(document).ready(function () {
-	document.querySelector("#cycle-left").addEventListener("mousedown", function () {
-		Index_N = Index_N ? Index_N - 1 : GenerateShapes().length - 1;
-		const shapeData1 = (GenerateShapes())[Index_N];
+$("#cycle-left").on("click", ()=>{
+	currentIndex = currentIndex ? currentIndex - 1 : dataShapes.length - 1;
+	resetDisplay();
+});
+$("#cycle-right").on("click", ()=>{
+	currentIndex = currentIndex===dataShapes.length - 1 ? 0 : currentIndex + 1;
+	resetDisplay();
+});
+$("#execute1").on("click", ()=>{
+	$("#shape").css("background", `url(images/${dataShapes[currentIndex].color}-${dataShapes[currentIndex].shape}.png)`);
+	$("#shape").css("background-size", `${100 / dataShapes[currentIndex].repeat}% ${100 / dataShapes[currentIndex].repeat}%`);
+	animationDetails.displayType = 1
+});
+$("#execute2").on("click", ()=>{
+	var currentShape = dataShapes[currentIndex];
+	$("#shape").css("background", `url(images/${(currentShape.color)}-${(currentShape.shape)}.png)`);
+	$("#shape").css("background-size", `${100 / currentShape.repeat}% ${100 / currentShape.repeat}%`);
+	animationDetails.displayType = 2
+});
+$("#execute3").on("click", ()=>{
+	let currentShape = dataShapes[currentIndex], repeat = currentShape.repeat, repeat1 = repeat;
+	repeat1++;
+	$("#shape").css("background", `url(images/${currentShape.color}-${currentShape.shape}.png)`);
+	$("#shape").css("background-size", `${100 / repeat1}% ${100 / repeat1}%`);
+	animationDetails.displayType = 3
+});
 
-		document.getElementById("Shape").style.background = "none";
-		document.getElementById("Shape").style.display = "block";
-		document.getElementById("Shape").style.backgroundSize = "100% 100%";
-		document.getElementById("Shape").style.left = "150px";
-		document.getElementById("Shape").style.top = "150px";
-		document.getElementById("Shape").style.transform = "rotate(0deg)";
-		document.getElementById("Shape").html(`<p>${shapeData1.color}</p> <p>${shapeData1.shape}</p> <p>${shapeData1.repeat}x${shapeData1.repeat}</p>`);
-
-		document.getElementById("info-bar").innerHTML = `Current index: ${Index_N}`;
-
-		Animation_Details = {x: 148, y: 148, speedX: 2, speedY: 1, angle: 0, showCount: 60, show: true, displayType: 0};
-	});
-	document.querySelector("#cycle-right").addEventListener("mousedown", function () {
-		Index_N = Index_N===GenerateShapes().length - 1 ? 0 : Index_N + 1;
-		const shapeData1 = (GenerateShapes())[Index_N];
-
-		document.getElementById("Shape").style.background = "none";
-		document.getElementById("Shape").style.display = "block";
-		document.getElementById("Shape").style.backgroundSize = "100% 100%";
-		document.getElementById("Shape").style.left = "150px";
-		document.getElementById("Shape").style.top = "150px";
-		document.getElementById("Shape").style.transform = "rotate(0deg)";
-		document.getElementById("Shape").html(`<p>${shapeData1.color}</p> <p>${shapeData1.shape}</p> <p>${shapeData1.repeat}x${shapeData1.repeat}</p>`);
-
-		document.getElementById("info-bar").innerHTML = `Current index: ${Index_N}`;
-
-		Animation_Details = {x: 148, y: 148, speedX: 2, speedY: 1, angle: 0, showCount: 60, show: true, displayType: 0};
-	});
-	document.querySelector("#execute1").addEventListener("mousedown", function () {
-		$("#Shape").css("background", `url(images/${(GenerateShapes())[Index_N].color}-${(GenerateShapes())[Index_N].shape}.png)`);
-		$("#Shape").css("background-size", `${100 / (GenerateShapes())[Index_N].repeat}% ${100 / (GenerateShapes())[Index_N].repeat}%`);
-		Animation_Details.Display_Type = 1
-	});
-	document.querySelector("#execute2").addEventListener("mousedown", function () {
-		let currentShape = (GenerateShapes())[Index_N];
-		document.getElementById("Shape").css("background", `url(images/${(currentShape.color)}-${(currentShape.shape)}.png)`);
-		document.getElementById("Shape").css("background-size", `${100 / currentShape.repeat}% ${100 / currentShape.repeat}%`);
-		Animation_Details.Display_Type = 2
-	});
-	document.querySelector("#execute3").addEventListener("mousedown", function () {
-		let repeat = (GenerateShapes())[Index_N].repeat, repeat1 = repeat;
-		repeat1++;
-		document.getElementById("Shape").css("background", `url(images/${(GenerateShapes())[Index_N].color}-${(GenerateShapes())[Index_N].shape}.png)`);
-		document.getElementById("Shape").css("background-size", `${100 / repeat1}% ${100 / repeat1}%`);
-		Animation_Details.Display_Type = 3
-	});
-
-	setInterval(Animate, 1000 / 120);
-
-	let Animation_Details = {
-		x: 148, y: 148, Speed_X: 2, Speed_Y: 1, Angle: 0, ShowCount: 60, Show: false, Display_Type: 0
-	};
-
-	let Index_N = 0;
-
-	const shapeData = (GenerateShapes())[Index_N];
-
-	document.getElementById("Shape").style.background = "none";
-	document.getElementById("Shape").style.display = "block";
-	document.getElementById("Shape").style.backgroundSize = "100% 100%";
-	document.getElementById("Shape").style.left = "150px";
-	document.getElementById("Shape").style.top = "150px";
-	document.getElementById("Shape").style.transform = "rotate(0deg)";
-	document.getElementById("Shape").html(`<p>${shapeData.color}</p> <p>${shapeData.shape}</p> <p>${shapeData.repeat}x${shapeData.repeat}</p>`);
-
-	document.getElementById("info-bar").innerHTML = `Current index: ${Index_N}`;
-
-	Animation_Details = {x: 148, y: 148, speedX: 2, speedY: 1, angle: 0, showCount: 60, show: true, displayType: 0};
-
-	let Shape = {color: "blue", shape: "circle", repeat: 3};
-
-	GenerateShapes().push(Shape);
-
-	for (let I of GenerateShapes()) {
-		let IndexedShape = I;
-		IndexedShape.goodBehavior = IndexedShape.color==="red" ? "bounce" : IndexedShape.goodBehavior = IndexedShape.color==="blue" ? "blink" : "spin";
+setInterval(()=>{
+	animationDetails.displayType!==0 && $("#shape").html("");
+	if (animationDetails.displayType<2) return;
+	if (animationDetails.displayType===2) {
+		switch (dataShapes[currentIndex].goodBehavior) {
+			case "bounce":
+				animateBounce();
+				break;
+			case "blink":
+				animateBlink();
+				break;
+			case "spin":
+				animationDetails.angle += 4;
+				$("#shape").css("transform", `rotate(${animationDetails.angle}deg)`);
+				break;
+		}
+	} else {
+		switch (dataShapes[currentIndex].goodBehavior) {
+			case "bounce":
+				animateBlink();
+				animationDetails.angle += 4;
+				$("#shape").css("transform", `rotate(${animationDetails.angle}deg)`);
+				break;
+			case "blink":
+				animateBounce();
+				animationDetails.angle += 4;
+				$("#shape").css("transform", `rotate(${animationDetails.angle}deg)`);
+				break;
+			case "spin":
+				animateBounce();
+				animateBlink();
+				break;
+		}
 	}
+}, 1000 / 60);
 
-	function GenerateShapes() {
-		const data = [], colors = ["red", "green", "blue"], shapes = ["square", "triangle", "circle"], repeats = [1, 2, 3];
-		for (let i = 0; i<colors.length; i++) {
-			for (let j = 0; j<shapes.length; j++) {
-				for (let k = 0; k<repeats.length; k++) {
-					if (i!==colors.length - 1 || j!==shapes.length - 1 || k!==repeats.length - 1) {
-						data.push({color: colors[i], shape: shapes[j], repeat: repeats[k]});
-					}
+let animationDetails = {x: 148, y: 148, speedX: 2, speedY: 1, angle: 0, showCount: 60, show: true, displayType: 0};
+
+const dataShapes = generateShapeData();
+let currentIndex = 0;
+
+resetDisplay();
+
+let shape = {color: "blue", shape: "circle", repeat: 3};
+dataShapes.push(shape);
+
+for (let i = 0; i<dataShapes.length; i++) {
+	dataShapes[i].goodBehavior = dataShapes[i].color==="red" ? "bounce" : dataShapes[i].goodBehavior = dataShapes[i].color==="blue" ? "blink" : "spin";
+}
+
+function generateShapeData() {
+	const data = [], colors = ["red", "green", "blue"], shapes = ["square", "triangle", "circle"], repeats = [1, 2, 3];
+	for (let i = 0; i<colors.length; i++) {
+		for (let j = 0; j<shapes.length; j++) {
+			for (let k = 0; k<repeats.length; k++) {
+				if (i!==colors.length - 1 || j!==shapes.length - 1 || k!==repeats.length - 1) {
+					data.push({color: colors[i], shape: shapes[j], repeat: repeats[k]});
 				}
 			}
 		}
-
-		return data;
 	}
+	return data;
+}
 
-	function Animate() {
-		if (Animation_Details.Display_Type!==0) {$("#Shape").html("");}
-		if (Animation_Details.Display_Type<2) {return;}
-		if (Animation_Details.Display_Type===2) {
-			switch ((GenerateShapes())[Index_N].goodBehavior) {
-				case "bounce":
-					animateBounce();
-				case "blink":
-					animateBlink();
-				case "spin":
-					animateSpin();
-			}
-		} else {
-			switch ((GenerateShapes())[Index_N].goodBehavior) {
-				case "blink":
-					animateBounce();
-					animateSpin();
-				case "bounce":
-					animateSpin();
-					animateBlink();
-				case "spin":
-					animateBounce();
-					animateBlink();
-			}
-		}
-	}
+function resetDisplay() {
+	$("#shape").css("background", "none");
+	$("#shape").css("display", "block");
+	$("#shape").css("background-size", "100% 100%");
+	$("#shape").css("left", "150px");
+	$("#shape").css("top", "150px");
+	$("#shape").css("transform", "rotate(0deg)");
+	$("#shape").html(`<p>${dataShapes[currentIndex].color}</p> <p>${dataShapes[currentIndex].shape}</p> <p>${dataShapes[currentIndex].repeat}x${dataShapes[currentIndex].repeat}</p>`);
 
-	function animateBounce() {
-		Animation_Details.x += Animation_Details.Speed_X;
-		Animation_Details.y += Animation_Details.Speed_Y;
-		if (Animation_Details.x + document.getElementById("Shape").width() + 8>=$("#Shape-container").width() || Animation_Details.x<2) {Animation_Details.Speed_X *= -1;}
-		if (Animation_Details.y + document.getElementById("Shape").height() + 4>=$("#Shape-container").height() || Animation_Details.y<2) {Animation_Details.Speed_Y *= -1;}
-		document.getElementById("Shape").css("left", Animation_Details.x);
-		document.getElementById("Shape").css("top", Animation_Details.y);
-	}
+	$("#info-bar").text(`Current index: ${currentIndex}`);
 
-	function animateBlink() {
-		Animation_Details.ShowCount--;
-		if (Animation_Details.ShowCount===0) {
-			Animation_Details.Show = !Animation_Details.Show;
-			if (Animation_Details.Show) $("#Shape").css("display", "block"); else $("#Shape").css("display", "none");
-			Animation_Details.ShowCount = 60;
-		}
-	}
+	animationDetails = {x: 148, y: 148, speedX: 2, speedY: 1, angle: 0, showCount: 60, show: true, displayType: 0};
+}
 
-	function animateSpin() {
-		Animation_Details.Angle += 4;
-		document.getElementById("Shape").css("transform", `rotate(${Animation_Details.Angle}deg)`);
+function animateBounce() {
+	animationDetails.x += animationDetails.speedX;
+	animationDetails.y += animationDetails.speedY;
+	if (animationDetails.x + $("#shape").width() + 8>=$("#shape-container").width() || animationDetails.x<2) animationDetails.speedX *= -1;
+	if (animationDetails.y + $("#shape").height() + 4>=$("#shape-container").height() || animationDetails.y<2) animationDetails.speedY *= -1;
+	$("#shape").css("left", animationDetails.x);
+	$("#shape").css("top", animationDetails.y);
+}
+
+function animateBlink() {
+	animationDetails.showCount--;
+	if (animationDetails.showCount===0) {
+		animationDetails.show = !animationDetails.show;
+		if (animationDetails.show) $("#shape").css("display", "block"); else $("#shape").css("display", "none");
+		animationDetails.showCount = 60;
 	}
-});
+}
