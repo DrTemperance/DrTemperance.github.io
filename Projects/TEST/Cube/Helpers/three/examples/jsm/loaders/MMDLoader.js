@@ -194,9 +194,9 @@ class MMDLoader extends Loader {
 			scope.loadAnimation( vmdUrl, mesh, function ( animation ) {
 
 				onLoad( {
-					mesh: mesh,
-					animation: animation
-				} );
+					        mesh,
+					        animation
+				        } );
 
 			}, onProgress, onError );
 
@@ -497,7 +497,7 @@ function initBones( mesh ) {
 
 			const gbone = geometry.bones[ i ];
 
-			if ( ( gbone.parent !== - 1 ) && ( gbone.parent !== null ) && ( bones[ gbone.parent ] !== undefined ) ) {
+			if ( gbone.parent !== - 1 && gbone.parent !== null && bones[ gbone.parent ] !== undefined ) {
 
 				// subsequent bones in the hierarchy
 
@@ -516,7 +516,7 @@ function initBones( mesh ) {
 	}
 
 	// now the bones are part of the scene graph and children of the skinned mesh.
-	// let's update the corresponding matrices
+	// let's Update the corresponding matrices
 
 	mesh.updateMatrixWorld( true );
 
@@ -788,7 +788,7 @@ class GeometryBuilder {
 					transformationClass: boneData.transformationClass
 				};
 
-				grantEntryMap[ i ] = { parent: null, children: [], param: param, visited: false };
+				grantEntryMap[ i ] = { parent: null, children: [], param, visited: false };
 
 			}
 
@@ -1042,11 +1042,11 @@ class GeometryBuilder {
 		geometry.morphTargetsRelative = false;
 
 		geometry.userData.MMD = {
-			bones: bones,
-			iks: iks,
-			grants: grants,
-			rigidBodies: rigidBodies,
-			constraints: constraints,
+			bones,
+			iks,
+			grants,
+			rigidBodies,
+			constraints,
 			format: data.metadata.format
 		};
 
@@ -1203,7 +1203,7 @@ class MaterialBuilder {
 
 				// gradientMap
 
-				const toonFileName = ( material.toonIndex === - 1 )
+				const toonFileName = material.toonIndex === - 1
 					? 'toon00.bmp'
 					: data.toonTextures[ material.toonIndex ].fileName;
 
@@ -1431,7 +1431,7 @@ class MaterialBuilder {
 
 		if ( loader === null ) {
 
-			loader = ( filePath.slice( - 4 ).toLowerCase() === '.tga' )
+			loader = filePath.slice( - 4 ).toLowerCase() === '.tga'
 				? this._getTGALoader()
 				: this.textureLoader;
 
@@ -1991,7 +1991,7 @@ class CubicBezierInterpolation extends Interpolant {
 		// No interpolation if next key frame is in one frame in 30fps.
 		// This is from MMD animation spec.
 		// '1.5' is for precision loss. times are Float32 in Three.js Animation system.
-		const weight1 = ( ( t1 - t0 ) < 1 / 30 * 1.5 ) ? 0.0 : ( t - t0 ) / ( t1 - t0 );
+		const weight1 = ( t1 - t0 ) < 1 / 30 * 1.5 ? 0.0 : ( t - t0 ) / ( t1 - t0 );
 
 		if ( stride === 4 ) { // Quaternion
 
@@ -2090,18 +2090,18 @@ class CubicBezierInterpolation extends Interpolant {
 			stt3 = 3.0 * s * t * t;
 			ttt = t * t * t;
 
-			const ft = ( sst3 * x1 ) + ( stt3 * x2 ) + ( ttt ) - x;
+			const ft = sst3 * x1 + stt3 * x2 + ttt - x;
 
 			if ( math.abs( ft ) < eps ) break;
 
 			c /= 2.0;
 
-			t += ( ft < 0 ) ? c : - c;
+			t += ft < 0 ? c : - c;
 			s = 1.0 - t;
 
 		}
 
-		return ( sst3 * y1 ) + ( stt3 * y2 ) + ttt;
+		return sst3 * y1 + stt3 * y2 + ttt;
 
 	}
 
@@ -2136,17 +2136,17 @@ class MMDToonMaterial extends ShaderMaterial {
 		this.defines = Object.assign( {}, MMDToonShader.defines );
 		Object.defineProperty( this, 'matcapCombine', {
 
-			get: function () {
+			get() {
 
 				return this._matcapCombine;
 
 			},
 
-			set: function ( value ) {
+			set(value) {
 
 				this._matcapCombine = value;
 
-				switch ( value ) {
+				switch (value) {
 
 					case MultiplyOperation:
 						this.defines.MATCAP_BLENDING_MULTIPLY = true;
@@ -2161,7 +2161,7 @@ class MMDToonMaterial extends ShaderMaterial {
 
 				}
 
-			},
+			}
 
 		} );
 
@@ -2207,17 +2207,17 @@ class MMDToonMaterial extends ShaderMaterial {
 
 			Object.defineProperty( this, propertyName, {
 
-				get: function () {
+				get() {
 
-					return this.uniforms[ propertyName ].value;
-
-				},
-
-				set: function ( value ) {
-
-					this.uniforms[ propertyName ].value = value;
+					return this.uniforms[propertyName].value;
 
 				},
+
+				set(value) {
+
+					this.uniforms[propertyName].value = value;
+
+				}
 
 			} );
 
@@ -2227,18 +2227,18 @@ class MMDToonMaterial extends ShaderMaterial {
 		this._shininess = 30;
 		Object.defineProperty( this, 'shininess', {
 
-			get: function () {
+			get() {
 
 				return this._shininess;
 
 			},
 
-			set: function ( value ) {
+			set(value) {
 
 				this._shininess = value;
-				this.uniforms.shininess.value = Math.max( this._shininess, 1e-4 ); // To prevent pow( 0.0, 0.0 )
+				this.uniforms.shininess.value = Math.max(this._shininess, 1e-4); // To prevent pow( 0.0, 0.0 )
 
-			},
+			}
 
 		} );
 

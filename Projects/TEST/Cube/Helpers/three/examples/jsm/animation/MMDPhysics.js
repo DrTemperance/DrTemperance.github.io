@@ -42,8 +42,8 @@ class MMDPhysics {
 		 * Don't set too small unitStep because
 		 * the smaller unitStep can make the performance worse.
 		 */
-		this.unitStep = ( params.unitStep !== undefined ) ? params.unitStep : 1 / 65;
-		this.maxStepNum = ( params.maxStepNum !== undefined ) ? params.maxStepNum : 3;
+		this.unitStep = params.unitStep !== undefined ? params.unitStep : 1 / 65;
+		this.maxStepNum = params.maxStepNum !== undefined ? params.maxStepNum : 3;
 		this.gravity = new Vector3( 0, - 9.8 * 10, 0 );
 
 		if ( params.gravity !== undefined ) this.gravity.copy( params.gravity );
@@ -101,7 +101,7 @@ class MMDPhysics {
 
 		}
 
-		// calculate physics and update bones
+		// calculate physics and Update bones
 
 		this._updateRigidBodies();
 		this._stepSimulation( delta );
@@ -279,7 +279,7 @@ class MMDPhysics {
 
 		const unitStep = this.unitStep;
 		let stepTime = delta;
-		let maxStepNum = ( ( delta / unitStep ) | 0 ) + 1;
+		let maxStepNum = ( delta / unitStep | 0 ) + 1;
 
 		if ( stepTime < unitStep ) {
 
@@ -348,7 +348,7 @@ class ResourceManager {
 
 	allocThreeVector3() {
 
-		return ( this.threeVector3s.length > 0 )
+		return this.threeVector3s.length > 0
 			? this.threeVector3s.pop()
 			: new Vector3();
 
@@ -362,7 +362,7 @@ class ResourceManager {
 
 	allocThreeMatrix4() {
 
-		return ( this.threeMatrix4s.length > 0 )
+		return this.threeMatrix4s.length > 0
 			? this.threeMatrix4s.pop()
 			: new Matrix4();
 
@@ -376,7 +376,7 @@ class ResourceManager {
 
 	allocThreeQuaternion() {
 
-		return ( this.threeQuaternions.length > 0 )
+		return this.threeQuaternions.length > 0
 			? this.threeQuaternions.pop()
 			: new Quaternion();
 
@@ -390,7 +390,7 @@ class ResourceManager {
 
 	allocThreeEuler() {
 
-		return ( this.threeEulers.length > 0 )
+		return this.threeEulers.length > 0
 			? this.threeEulers.pop()
 			: new Euler();
 
@@ -404,7 +404,7 @@ class ResourceManager {
 
 	allocTransform() {
 
-		return ( this.transforms.length > 0 )
+		return this.transforms.length > 0
 			? this.transforms.pop()
 			: new Ammo.btTransform();
 
@@ -418,7 +418,7 @@ class ResourceManager {
 
 	allocQuaternion() {
 
-		return ( this.quaternions.length > 0 )
+		return this.quaternions.length > 0
 			? this.quaternions.pop()
 			: new Ammo.btQuaternion();
 
@@ -432,7 +432,7 @@ class ResourceManager {
 
 	allocVector3() {
 
-		return ( this.vector3s.length > 0 )
+		return this.vector3s.length > 0
 			? this.vector3s.pop()
 			: new Ammo.btVector3();
 
@@ -740,7 +740,7 @@ class ResourceManager {
 			y = ( m[ 2 ] - m[ 6 ] ) / s;
 			z = ( m[ 3 ] - m[ 1 ] ) / s;
 
-		} else if ( ( m[ 0 ] > m[ 4 ] ) && ( m[ 0 ] > m[ 8 ] ) ) {
+		} else if ( m[ 0 ] > m[ 4 ] && m[ 0 ] > m[ 8 ] ) {
 
 			s = Math.sqrt( 1.0 + m[ 0 ] - m[ 4 ] - m[ 8 ] ) * 2;
 			w = ( m[ 7 ] - m[ 5 ] ) / s;
@@ -890,12 +890,12 @@ class RigidBody {
 		const manager = this.manager;
 		const params = this.params;
 		const bones = this.mesh.skeleton.bones;
-		const bone = ( params.boneIndex === - 1 )
+		const bone = params.boneIndex === - 1
 			? new Bone()
 			: bones[ params.boneIndex ];
 
 		const shape = generateShape( params );
-		const weight = ( params.type === 0 ) ? 0 : params.weight;
+		const weight = params.type === 0 ? 0 : params.weight;
 		const localInertia = manager.allocVector3();
 		localInertia.setValue( 0, 0, 0 );
 

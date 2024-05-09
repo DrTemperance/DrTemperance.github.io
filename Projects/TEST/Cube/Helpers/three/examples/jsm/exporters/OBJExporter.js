@@ -106,7 +106,7 @@ class OBJExporter {
 
 						const j = indices.getX( i + m ) + 1;
 
-						face[ m ] = ( indexVertex + j ) + ( normals || uvs ? '/' + ( uvs ? ( indexVertexUvs + j ) : '' ) + ( normals ? '/' + ( indexNormals + j ) : '' ) : '' );
+						face[ m ] = indexVertex + j + ( normals || uvs ? '/' + ( uvs ? indexVertexUvs + j : '' ) + ( normals ? '/' + ( indexNormals + j ) : '' ) : '' );
 
 					}
 
@@ -123,7 +123,7 @@ class OBJExporter {
 
 						const j = i + m + 1;
 
-						face[ m ] = ( indexVertex + j ) + ( normals || uvs ? '/' + ( uvs ? ( indexVertexUvs + j ) : '' ) + ( normals ? '/' + ( indexNormals + j ) : '' ) : '' );
+						face[ m ] = indexVertex + j + ( normals || uvs ? '/' + ( uvs ? indexVertexUvs + j : '' ) + ( normals ? '/' + ( indexNormals + j ) : '' ) : '' );
 
 					}
 
@@ -134,7 +134,7 @@ class OBJExporter {
 
 			}
 
-			// update index
+			// Update index
 			indexVertex += nbVertex;
 			indexVertexUvs += nbVertexUvs;
 			indexNormals += nbNormals;
@@ -176,7 +176,7 @@ class OBJExporter {
 
 				for ( let j = 1, l = vertices.count; j <= l; j ++ ) {
 
-					output += ( indexVertex + j ) + ' ';
+					output += indexVertex + j + ' ';
 
 				}
 
@@ -194,7 +194,7 @@ class OBJExporter {
 
 			}
 
-			// update index
+			// Update index
 			indexVertex += nbVertex;
 
 		}
@@ -235,7 +235,7 @@ class OBJExporter {
 
 				for ( let j = 1, l = vertices.count; j <= l; j ++ ) {
 
-					output += ( indexVertex + j ) + ' ';
+					output += indexVertex + j + ' ';
 
 				}
 
@@ -243,7 +243,7 @@ class OBJExporter {
 
 			}
 
-			// update index
+			// Update index
 			indexVertex += nbVertex;
 
 		}

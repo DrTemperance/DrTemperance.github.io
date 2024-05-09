@@ -559,7 +559,7 @@ class PropertyBinding {
 
 			const nodeName = parsedPath.nodeName;
 
-			console.error('THREE.PropertyBinding: Trying to update property for track: ' + nodeName +
+			console.error('THREE.PropertyBinding: Trying to Update property for track: ' + nodeName +
 			              '.' + propertyName + ' but it wasn\'t found.', targetObject);
 			return;
 

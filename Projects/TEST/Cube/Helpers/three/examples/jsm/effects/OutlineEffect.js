@@ -176,8 +176,8 @@ class OutlineEffect {
 					UniformsLib[ 'displacementmap' ],
 					uniformsOutline
 				] ),
-				vertexShader: vertexShader,
-				fragmentShader: fragmentShader,
+				                           vertexShader,
+				                           fragmentShader,
 				side: BackSide
 			} );
 
@@ -221,9 +221,9 @@ class OutlineEffect {
 		function isCompatible( object ) {
 
 			const geometry = object.geometry;
-			const hasNormals = ( geometry !== undefined ) && ( geometry.attributes.normal !== undefined );
+			const hasNormals = geometry !== undefined && geometry.attributes.normal !== undefined;
 
-			return ( object.isMesh === true && object.material !== undefined && hasNormals === true );
+			return object.isMesh === true && object.material !== undefined && hasNormals === true;
 
 		}
 
@@ -326,11 +326,11 @@ class OutlineEffect {
 
 				} else {
 
-					material.visible = ( outlineParameters.visible !== undefined ) ? outlineParameters.visible : true;
+					material.visible = outlineParameters.visible !== undefined ? outlineParameters.visible : true;
 
 				}
 
-				material.transparent = ( outlineParameters.alpha !== undefined && outlineParameters.alpha < 1.0 ) ? true : originalMaterial.transparent;
+				material.transparent = outlineParameters.alpha !== undefined && outlineParameters.alpha < 1.0 ? true : originalMaterial.transparent;
 
 				if ( outlineParameters.keepAlive !== undefined ) cache[ originalMaterial.uuid ].keepAlive = outlineParameters.keepAlive;
 
@@ -353,7 +353,7 @@ class OutlineEffect {
 
 			}
 
-			material.version = originalMaterial.version; // update outline material if necessary
+			material.version = originalMaterial.version; // Update outline material if necessary
 
 		}
 

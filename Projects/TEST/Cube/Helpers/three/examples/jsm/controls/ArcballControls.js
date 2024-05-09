@@ -488,7 +488,7 @@ class ArcballControls extends EventDispatcher {
 
 							if ( movement < 0 ) {
 
-								size = 1 / ( Math.pow( this.scaleFactor, - movement * screenNotches ) );
+								size = 1 / Math.pow( this.scaleFactor, - movement * screenNotches );
 
 							} else if ( movement > 0 ) {
 
@@ -541,7 +541,7 @@ class ArcballControls extends EventDispatcher {
 
 							if ( movement < 0 ) {
 
-								size = 1 / ( Math.pow( this.scaleFactor, - movement * screenNotches ) );
+								size = 1 / Math.pow( this.scaleFactor, - movement * screenNotches );
 
 							} else if ( movement > 0 ) {
 
@@ -603,7 +603,7 @@ class ArcballControls extends EventDispatcher {
 			if ( this.enableAnimations ) {
 
 				//perform rotation animation
-				const deltaTime = ( performance.now() - this._timeCurrent );
+				const deltaTime = performance.now() - this._timeCurrent;
 				if ( deltaTime < 120 ) {
 
 					const w = Math.abs( ( this._wPrev + this._wCurr ) / 2 );
@@ -950,7 +950,7 @@ class ArcballControls extends EventDispatcher {
 
 			if ( movement < 0 ) {
 
-				size = 1 / ( Math.pow( this.scaleFactor, - movement * screenNotches ) );
+				size = 1 / Math.pow( this.scaleFactor, - movement * screenNotches );
 
 			} else if ( movement > 0 ) {
 
@@ -1115,10 +1115,10 @@ class ArcballControls extends EventDispatcher {
 
 		const action = {
 
-			operation: operation,
-			mouse: mouse,
-			key: key,
-			state: state
+			operation,
+			mouse,
+			key,
+			state
 
 		};
 
@@ -1284,7 +1284,7 @@ class ArcballControls extends EventDispatcher {
 			this._m4_1.decompose( this.camera.position, this.camera.quaternion, this.camera.scale );
 			this.camera.updateMatrix();
 
-			//update camera up vector
+			//Update camera up vector
 			if ( this._state == STATE.ROTATE || this._state == STATE.ZROTATE || this._state == STATE.ANIMATION_ROTATE ) {
 
 				this.camera.up.copy( this._upState ).applyQuaternion( this.camera.quaternion );
@@ -1420,7 +1420,7 @@ class ArcballControls extends EventDispatcher {
 		if ( camera.type == 'PerspectiveCamera' ) {
 
 			const halfFovV = MathUtils.DEG2RAD * camera.fov * 0.5; //vertical fov/2 in radians
-			const halfFovH = Math.atan( ( camera.aspect ) * Math.tan( halfFovV ) ); //horizontal fov/2 in radians
+			const halfFovH = Math.atan( camera.aspect * Math.tan( halfFovV ) ); //horizontal fov/2 in radians
 			return Math.tan( Math.min( halfFovV, halfFovH ) ) * distance * this.radiusFactor;
 
 		} else if ( camera.type == 'OrthographicCamera' ) {
@@ -1489,7 +1489,7 @@ class ArcballControls extends EventDispatcher {
 
 				const distance = this.camera.position.distanceTo( this._gizmos.position );
 				const halfFovV = MathUtils.DEG2RAD * this.camera.fov * 0.5;
-				const halfFovH = Math.atan( ( this.camera.aspect ) * Math.tan( halfFovV ) );
+				const halfFovH = Math.atan( this.camera.aspect * Math.tan( halfFovV ) );
 
 				maxLength = Math.tan( Math.max( halfFovV, halfFovH ) ) * distance * 2;
 				tick = maxLength / 20;
@@ -1812,7 +1812,7 @@ class ArcballControls extends EventDispatcher {
 			} else {
 
 				const amount = this.easeOutCubic( animTime );
-				const size = ( ( 1 - amount ) + ( this.scaleFactor * amount ) );
+				const size = ( 1 - amount ) + this.scaleFactor * amount;
 
 				this._gizmoMatrixState.decompose( this._gizmos.position, this._gizmos.quaternion, this._gizmos.scale );
 				this.focus( point, size, amount );
@@ -1859,12 +1859,12 @@ class ArcballControls extends EventDispatcher {
 
 			//w = w0 + alpha * t
 			const deltaTime = ( time - this._timeStart ) / 1000;
-			const w = w0 + ( ( - this.dampingFactor ) * deltaTime );
+			const w = w0 + ( - this.dampingFactor ) * deltaTime;
 
 			if ( w > 0 ) {
 
 				//tetha = 0.5 * alpha * t^2 + w0 * t + tetha0
-				this._angleCurrent = 0.5 * ( - this.dampingFactor ) * Math.pow( deltaTime, 2 ) + w0 * deltaTime + 0;
+				this._angleCurrent = 0.5 * - this.dampingFactor * Math.pow( deltaTime, 2 ) + w0 * deltaTime + 0;
 				this.applyTransformMatrix( this.rotate( rotationAxis, this._angleCurrent ) );
 				this.dispatchEvent( _changeEvent );
 				const self = this;
@@ -2127,19 +2127,19 @@ class ArcballControls extends EventDispatcher {
 
 			//move camera
 			let distance = this._v3_1.distanceTo( _scalePointTemp );
-			let amount = distance - ( distance * sizeInverse );
+			let amount = distance - distance * sizeInverse;
 
 			//check min and max distance
 			const newDistance = distance - amount;
 			if ( newDistance < this.minDistance ) {
 
 				sizeInverse = this.minDistance / distance;
-				amount = distance - ( distance * sizeInverse );
+				amount = distance - distance * sizeInverse;
 
 			} else if ( newDistance > this.maxDistance ) {
 
 				sizeInverse = this.maxDistance / distance;
-				amount = distance - ( distance * sizeInverse );
+				amount = distance - distance * sizeInverse;
 
 			}
 
@@ -2154,7 +2154,7 @@ class ArcballControls extends EventDispatcher {
 				const pos = this._v3_2;
 
 				distance = pos.distanceTo( _scalePointTemp );
-				amount = distance - ( distance * sizeInverse );
+				amount = distance - distance * sizeInverse;
 				_offset.copy( _scalePointTemp ).sub( this._v3_2 ).normalize().multiplyScalar( amount );
 
 				this._translationMatrix.makeTranslation( pos.x, pos.y, pos.z );
@@ -2332,7 +2332,7 @@ class ArcballControls extends EventDispatcher {
 			} else {
 
 				//intersection with hyperboloid
-				this._v3_1.setZ( ( r2 * 0.5 ) / ( Math.sqrt( x2 + y2 ) ) );
+				this._v3_1.setZ( ( r2 * 0.5 ) / Math.sqrt( x2 + y2 ) );
 
 			}
 
@@ -2384,7 +2384,7 @@ class ArcballControls extends EventDispatcher {
 			let a = Math.pow( m, 2 ) + 1;
 			let b = 2 * m * q;
 			let c = Math.pow( q, 2 ) - radius2;
-			let delta = Math.pow( b, 2 ) - ( 4 * a * c );
+			let delta = Math.pow( b, 2 ) - 4 * a * c;
 
 			if ( delta >= 0 ) {
 
@@ -2399,7 +2399,7 @@ class ArcballControls extends EventDispatcher {
 					//if Angle between intersection point and X' axis is >= 45°, return that point
 					//otherwise, calculate intersection point with hyperboloid
 
-					const rayLength = Math.sqrt( Math.pow( this._v2_1.x, 2 ) + Math.pow( ( cameraGizmoDistance - this._v2_1.y ), 2 ) );
+					const rayLength = Math.sqrt( Math.pow( this._v2_1.x, 2 ) + Math.pow( cameraGizmoDistance - this._v2_1.y, 2 ) );
 					rayDir.multiplyScalar( rayLength );
 					rayDir.z += cameraGizmoDistance;
 					return rayDir;
@@ -2419,11 +2419,11 @@ class ArcballControls extends EventDispatcher {
 			a = m;
 			b = q;
 			c = - radius2 * 0.5;
-			delta = Math.pow( b, 2 ) - ( 4 * a * c );
+			delta = Math.pow( b, 2 ) - 4 * a * c;
 			this._v2_1.setX( ( - b - Math.sqrt( delta ) ) / ( 2 * a ) );
 			this._v2_1.setY( m * this._v2_1.x + q );
 
-			const rayLength = Math.sqrt( Math.pow( this._v2_1.x, 2 ) + Math.pow( ( cameraGizmoDistance - this._v2_1.y ), 2 ) );
+			const rayLength = Math.sqrt( Math.pow( this._v2_1.x, 2 ) + Math.pow( cameraGizmoDistance - this._v2_1.y, 2 ) );
 
 			rayDir.multiplyScalar( rayLength );
 			rayDir.z += cameraGizmoDistance;
@@ -2519,7 +2519,7 @@ class ArcballControls extends EventDispatcher {
 	 */
 	updateMatrixState() {
 
-		//update camera and gizmos state
+		//Update camera and gizmos state
 		this._cameraMatrixState.copy( this.camera.matrix );
 		this._gizmoMatrixState.copy( this._gizmos.matrix );
 
@@ -3070,7 +3070,7 @@ function onWheel( event ) {
 
 					if ( sgn > 0 ) {
 
-						size = 1 / ( Math.pow( this.scaleFactor, sgn ) );
+						size = 1 / Math.pow( this.scaleFactor, sgn );
 
 					} else if ( sgn < 0 ) {
 
@@ -3142,7 +3142,7 @@ function onWheel( event ) {
 
 							if ( sgn > 0 ) {
 
-								size = 1 / ( Math.pow( this.scaleFactor, sgn ) );
+								size = 1 / Math.pow( this.scaleFactor, sgn );
 
 							} else if ( sgn < 0 ) {
 

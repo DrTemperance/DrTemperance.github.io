@@ -151,7 +151,7 @@ class BoxGeometry extends BufferGeometry {
 
 			groupStart += groupCount;
 
-			// update total number of vertices
+			// Update total number of vertices
 
 			numberOfVertices += vertexCounter;
 

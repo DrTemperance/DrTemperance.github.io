@@ -419,7 +419,7 @@ class BatchedMesh extends Mesh {
 		visibility.push(true);
 		active.push(true);
 
-		// update id
+		// Update id
 		const geometryId = this._geometryCount;
 		this._geometryCount++;
 
@@ -451,7 +451,7 @@ class BatchedMesh extends Mesh {
 
 		idAttribute.needsUpdate = true;
 
-		// update the geometry
+		// Update the geometry
 		this.setGeometryAt(geometryId, geometry);
 
 		return geometryId;

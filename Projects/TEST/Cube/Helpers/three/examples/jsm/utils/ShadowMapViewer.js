@@ -25,7 +25,7 @@ import { UnpackDepthRGBAShader } from '../shaders/UnpackDepthRGBAShader.js';
  *	5) Optionally: Update the shadow map viewer on window resize:
  *		shadowMapViewer.updateForWindowResize();
  *
- *	6) If you set the position or size members directly, you need to call shadowMapViewer.update();
+ *	6) If you set the position or size members directly, you need to call shadowMapViewer.Update();
  */
 
 class ShadowMapViewer {
@@ -34,7 +34,7 @@ class ShadowMapViewer {
 
 		//- Internals
 		const scope = this;
-		const doRenderLabel = ( light.name !== undefined && light.name !== '' );
+		const doRenderLabel = light.name !== undefined && light.name !== '';
 		let userAutoClearSetting;
 
 		//Holds the initial position and dimension of the HUD
@@ -54,7 +54,7 @@ class ShadowMapViewer {
 
 		const uniforms = UniformsUtils.clone( shader.uniforms );
 		const material = new ShaderMaterial( {
-			uniforms: uniforms,
+			                                     uniforms,
 			vertexShader: shader.vertexShader,
 			fragmentShader: shader.fragmentShader
 		} );
@@ -112,12 +112,12 @@ class ShadowMapViewer {
 		this.size = {
 			width: frame.width,
 			height: frame.height,
-			set: function ( width, height ) {
+			set(width, height) {
 
 				this.width = width;
 				this.height = height;
 
-				mesh.scale.set( this.width / frame.width, this.height / frame.height, 1 );
+				mesh.scale.set(this.width / frame.width, this.height / frame.height, 1);
 
 				//Reset the position as it is off when we scale stuff
 				resetPosition();
@@ -129,7 +129,7 @@ class ShadowMapViewer {
 		this.position = {
 			x: frame.x,
 			y: frame.y,
-			set: function ( x, y ) {
+			set(x, y) {
 
 				this.x = x;
 				this.y = y;
@@ -137,9 +137,9 @@ class ShadowMapViewer {
 				const width = scope.size.width;
 				const height = scope.size.height;
 
-				mesh.position.set( - window.innerWidth / 2 + width / 2 + this.x, window.innerHeight / 2 - height / 2 - this.y, 0 );
+				mesh.position.set(-window.innerWidth / 2 + width / 2 + this.x, window.innerHeight / 2 - height / 2 - this.y, 0);
 
-				if ( doRenderLabel ) labelMesh.position.set( mesh.position.x, mesh.position.y - scope.size.height / 2 + labelCanvas.height / 2, 0 );
+				if (doRenderLabel) labelMesh.position.set(mesh.position.x, mesh.position.y - scope.size.height / 2 + labelCanvas.height / 2, 0);
 
 			}
 		};
@@ -188,7 +188,7 @@ class ShadowMapViewer {
 
 		};
 
-		//Force an update to set position/size
+		//Force an Update to set position/size
 		this.update();
 
 	}

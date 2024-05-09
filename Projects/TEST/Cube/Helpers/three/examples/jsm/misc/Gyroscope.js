@@ -20,7 +20,7 @@ class Gyroscope extends Object3D {
 
 		this.matrixAutoUpdate && this.updateMatrix();
 
-		// update matrixWorld
+		// Update matrixWorld
 
 		if ( this.matrixWorldNeedsUpdate || force ) {
 
@@ -47,7 +47,7 @@ class Gyroscope extends Object3D {
 
 		}
 
-		// update children
+		// Update children
 
 		for ( let i = 0, l = this.children.length; i < l; i ++ ) {
 

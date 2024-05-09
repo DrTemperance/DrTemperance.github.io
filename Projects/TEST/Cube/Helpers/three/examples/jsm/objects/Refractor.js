@@ -1,17 +1,4 @@
-import {
-	Color,
-	Matrix4,
-	Mesh,
-	PerspectiveCamera,
-	Plane,
-	Quaternion,
-	ShaderMaterial,
-	UniformsUtils,
-	Vector3,
-	Vector4,
-	WebGLRenderTarget,
-	HalfFloatType
-} from 'three';
+import { Color, HalfFloatType, Matrix4, Mesh, PerspectiveCamera, Plane, Quaternion, ShaderMaterial, UniformsUtils, Vector3, Vector4, WebGLRenderTarget } from 'three';
 
 class Refractor extends Mesh {
 
@@ -26,12 +13,12 @@ class Refractor extends Mesh {
 
 		const scope = this;
 
-		const color = ( options.color !== undefined ) ? new Color( options.color ) : new Color( 0x7F7F7F );
+		const color = options.color !== undefined ? new Color( options.color ) : new Color( 0x7F7F7F );
 		const textureWidth = options.textureWidth || 512;
 		const textureHeight = options.textureHeight || 512;
 		const clipBias = options.clipBias || 0;
 		const shader = options.shader || Refractor.RefractorShader;
-		const multisample = ( options.multisample !== undefined ) ? options.multisample : 4;
+		const multisample = options.multisample !== undefined ? options.multisample : 4;
 
 		//
 
@@ -51,7 +38,7 @@ class Refractor extends Mesh {
 		// material
 
 		this.material = new ShaderMaterial( {
-			name: ( shader.name !== undefined ) ? shader.name : 'unspecified',
+			name: shader.name !== undefined ? shader.name : 'unspecified',
 			uniforms: UniformsUtils.clone( shader.uniforms ),
 			vertexShader: shader.vertexShader,
 			fragmentShader: shader.fragmentShader,
@@ -160,7 +147,7 @@ class Refractor extends Mesh {
 
 		} )();
 
-		// This will update the texture matrix that is used for projective texture mapping in the shader.
+		// This will Update the texture matrix that is used for projective texture mapping in the shader.
 		// see: http://developer.download.nvidia.com/assets/gamedev/docs/projective_texture_mapping.pdf
 
 		function updateTextureMatrix( camera ) {
@@ -231,7 +218,7 @@ class Refractor extends Mesh {
 
 			if ( ! visible( camera ) === true ) return;
 
-			// update
+			// Update
 
 			updateRefractorPlane();
 

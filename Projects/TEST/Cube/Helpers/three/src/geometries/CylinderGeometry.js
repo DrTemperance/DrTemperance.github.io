@@ -136,7 +136,7 @@ class CylinderGeometry extends BufferGeometry {
 					indices.push(a, b, d);
 					indices.push(b, c, d);
 
-					// update group counter
+					// Update group counter
 
 					groupCount += 6;
 

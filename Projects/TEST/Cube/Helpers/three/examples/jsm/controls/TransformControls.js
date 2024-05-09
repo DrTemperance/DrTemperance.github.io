@@ -72,22 +72,22 @@ class TransformControls extends Object3D {
 
 			Object.defineProperty( scope, propName, {
 
-				get: function () {
+				get() {
 
-					return propValue !== undefined ? propValue : defaultValue;
+					return propValue!==undefined ? propValue : defaultValue;
 
 				},
 
-				set: function ( value ) {
+				set(value) {
 
-					if ( propValue !== value ) {
+					if (propValue!==value) {
 
 						propValue = value;
-						_plane[ propName ] = value;
-						_gizmo[ propName ] = value;
+						_plane[propName] = value;
+						_gizmo[propName] = value;
 
-						scope.dispatchEvent( { type: propName + '-changed', value: value } );
-						scope.dispatchEvent( _changeEvent );
+						scope.dispatchEvent({type: propName + '-changed', value});
+						scope.dispatchEvent(_changeEvent);
 
 					}
 
@@ -508,7 +508,7 @@ class TransformControls extends Object3D {
 				this._startNorm.copy( this.pointStart ).normalize();
 				this._endNorm.copy( this.pointEnd ).normalize();
 
-				this.rotationAngle *= ( this._endNorm.cross( this._startNorm ).dot( this.eye ) < 0 ? 1 : - 1 );
+				this.rotationAngle *= this._endNorm.cross( this._startNorm ).dot( this.eye ) < 0 ? 1 : - 1;
 
 			}
 
@@ -541,7 +541,7 @@ class TransformControls extends Object3D {
 
 		if ( pointer.button !== 0 ) return;
 
-		if ( this.dragging && ( this.axis !== null ) ) {
+		if ( this.dragging && this.axis !== null ) {
 
 			_mouseUpEvent.mode = this.mode;
 			this.dispatchEvent( _mouseUpEvent );
@@ -1157,13 +1157,13 @@ class TransformControlsGizmo extends Object3D {
 
 	}
 
-	// updateMatrixWorld will update transformations and appearance of individual handles
+	// updateMatrixWorld will Update transformations and appearance of individual handles
 
 	updateMatrixWorld( force ) {
 
-		const space = ( this.mode === 'scale' ) ? 'local' : this.space; // scale always oriented to local rotation
+		const space = this.mode === 'scale' ? 'local' : this.space; // scale always oriented to local rotation
 
-		const quaternion = ( space === 'local' ) ? this.worldQuaternion : _identityQuaternion;
+		const quaternion = space === 'local' ? this.worldQuaternion : _identityQuaternion;
 
 		// Show only gizmos for current transform mode
 
@@ -1437,7 +1437,7 @@ class TransformControlsGizmo extends Object3D {
 			handle.visible = handle.visible && ( handle.name.indexOf( 'X' ) === - 1 || this.showX );
 			handle.visible = handle.visible && ( handle.name.indexOf( 'Y' ) === - 1 || this.showY );
 			handle.visible = handle.visible && ( handle.name.indexOf( 'Z' ) === - 1 || this.showZ );
-			handle.visible = handle.visible && ( handle.name.indexOf( 'E' ) === - 1 || ( this.showX && this.showY && this.showZ ) );
+			handle.visible = handle.visible && ( handle.name.indexOf( 'E' ) === - 1 || this.showX && this.showY && this.showZ );
 
 			// highlight selected axis
 

@@ -21,7 +21,7 @@ class MaskPass extends Pass {
 		const context = renderer.getContext();
 		const state = renderer.state;
 
-		// don't update color or depth
+		// don't Update color or depth
 
 		state.buffers.color.setMask( false );
 		state.buffers.depth.setMask( false );

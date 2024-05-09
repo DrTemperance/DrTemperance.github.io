@@ -28,12 +28,12 @@ function WebGLUniformsGroups(gl, info, capabilities, state) {
 
 		}
 
-		// ensure to update the binding points/block indices mapping for this program
+		// ensure to Update the binding points/block indices mapping for this program
 
 		const webglProgram = program.program;
 		state.updateUBOMapping(uniformsGroup, webglProgram);
 
-		// update UBO once per frame
+		// Update UBO once per frame
 
 		const frame = info.render.frame;
 

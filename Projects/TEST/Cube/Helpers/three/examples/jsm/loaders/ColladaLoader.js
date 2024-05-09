@@ -46,7 +46,7 @@ class ColladaLoader extends Loader {
 
 		const scope = this;
 
-		const path = ( scope.path === '' ) ? LoaderUtils.extractUrlBase( url ) : scope.path;
+		const path = scope.path === '' ? LoaderUtils.extractUrlBase( url ) : scope.path;
 
 		const loader = new FileLoader( scope.manager );
 		loader.setPath( scope.path );
@@ -162,7 +162,7 @@ class ColladaLoader extends Loader {
 
 		function generateId() {
 
-			return 'three_default_' + ( count ++ );
+			return 'three_default_' + count ++;
 
 		}
 
@@ -185,7 +185,7 @@ class ColladaLoader extends Loader {
 
 		function parseAssetUnit( xml ) {
 
-			if ( ( xml !== undefined ) && ( xml.hasAttribute( 'meter' ) === true ) ) {
+			if ( xml !== undefined && xml.hasAttribute( 'meter' ) === true ) {
 
 				return parseFloat( xml.getAttribute( 'meter' ) );
 
@@ -349,8 +349,8 @@ class ColladaLoader extends Loader {
 
 			// check selection syntax
 
-			const arraySyntax = ( sid.indexOf( '(' ) !== - 1 );
-			const memberSyntax = ( sid.indexOf( '.' ) !== - 1 );
+			const arraySyntax = sid.indexOf( '(' ) !== - 1;
+			const memberSyntax = sid.indexOf( '.' ) !== - 1;
 
 			if ( memberSyntax ) {
 
@@ -494,7 +494,7 @@ class ColladaLoader extends Loader {
 
 			const animation = {
 				name: object3D.uuid,
-				keyframes: keyframes
+				keyframes
 			};
 
 			return animation;
@@ -692,14 +692,14 @@ class ColladaLoader extends Loader {
 
 		function interpolate( key, prev, next, property ) {
 
-			if ( ( next.time - prev.time ) === 0 ) {
+			if ( next.time - prev.time === 0 ) {
 
 				key.value[ property ] = prev.value[ property ];
 				return;
 
 			}
 
-			key.value[ property ] = ( ( key.time - prev.time ) * ( next.value[ property ] - prev.value[ property ] ) / ( next.time - prev.time ) ) + prev.value[ property ];
+			key.value[ property ] = ( key.time - prev.time ) * ( next.value[ property ] - prev.value[ property ] ) / ( next.time - prev.time ) + prev.value[ property ];
 
 		}
 
@@ -739,7 +739,7 @@ class ColladaLoader extends Loader {
 			const tracks = [];
 
 			const name = data.name;
-			const duration = ( data.end - data.start ) || - 1;
+			const duration = data.end - data.start || - 1;
 			const animations = data.animations;
 
 			for ( let i = 0, il = animations.length; i < il; i ++ ) {
@@ -882,7 +882,7 @@ class ColladaLoader extends Loader {
 						const semantic = child.getAttribute( 'semantic' );
 						const id = parseId( child.getAttribute( 'source' ) );
 						const offset = parseInt( child.getAttribute( 'offset' ) );
-						data.inputs[ semantic ] = { id: id, offset: offset };
+						data.inputs[ semantic ] = {id, offset};
 						break;
 
 					case 'vcount':
@@ -1022,7 +1022,7 @@ class ColladaLoader extends Loader {
 				const name = jointSource.array[ i ];
 				const boneInverse = new Matrix4().fromArray( inverseSource.array, i * inverseSource.stride ).transpose();
 
-				build.joints.push( { name: name, boneInverse: boneInverse } );
+				build.joints.push( {name, boneInverse} );
 
 			}
 
@@ -1732,10 +1732,10 @@ class ColladaLoader extends Loader {
 							material.opacity = color[ 3 ] * transparency.float;
 							break;
 						case 'RGB_ZERO':
-							material.opacity = 1 - ( color[ 0 ] * transparency.float );
+							material.opacity = 1 - color[ 0 ] * transparency.float;
 							break;
 						case 'A_ZERO':
-							material.opacity = 1 - ( color[ 3 ] * transparency.float );
+							material.opacity = 1 - color[ 3 ] * transparency.float;
 							break;
 						case 'RGB_ONE':
 							material.opacity = color[ 0 ] * transparency.float;
@@ -1765,7 +1765,7 @@ class ColladaLoader extends Loader {
 					switch ( k ) {
 
 						case 'double_sided':
-							material.side = ( v === 1 ? DoubleSide : FrontSide );
+							material.side = v === 1 ? DoubleSide : FrontSide;
 							break;
 
 						case 'bump':
@@ -1910,8 +1910,8 @@ class ColladaLoader extends Loader {
 					let xmag = data.optics.parameters.xmag;
 					const aspectRatio = data.optics.parameters.aspect_ratio;
 
-					xmag = ( xmag === undefined ) ? ( ymag * aspectRatio ) : xmag;
-					ymag = ( ymag === undefined ) ? ( xmag / aspectRatio ) : ymag;
+					xmag = xmag === undefined ? ymag * aspectRatio : xmag;
+					ymag = ymag === undefined ? xmag / aspectRatio : ymag;
 
 					xmag *= 0.5;
 					ymag *= 0.5;
@@ -2227,8 +2227,8 @@ class ColladaLoader extends Loader {
 						const semantic = child.getAttribute( 'semantic' );
 						const offset = parseInt( child.getAttribute( 'offset' ) );
 						const set = parseInt( child.getAttribute( 'set' ) );
-						const inputname = ( set > 0 ? semantic + set : semantic );
-						primitive.inputs[ inputname ] = { id: id, offset: offset };
+						const inputname = set > 0 ? semantic + set : semantic;
+						primitive.inputs[ inputname ] = {id, offset};
 						primitive.stride = Math.max( primitive.stride, offset + 1 );
 						if ( semantic === 'TEXCOORD' ) primitive.hasUV = true;
 						break;
@@ -2590,7 +2590,7 @@ class ColladaLoader extends Loader {
 
 					} else if ( count > 4 ) {
 
-						for ( let k = 1, kl = ( count - 2 ); k <= kl; k ++ ) {
+						for ( let k = 1, kl = count - 2; k <= kl; k ++ ) {
 
 							const a = index + stride * 0;
 							const b = index + stride * k;
@@ -3066,9 +3066,9 @@ class ColladaLoader extends Loader {
 					if ( object.name === visualElementName ) {
 
 						jointMap[ jointIndex ] = {
-							object: object,
+							object,
 							transforms: buildTransformList( visualElement ),
-							joint: joint,
+							joint,
 							position: joint.zeroPosition
 						};
 
@@ -3084,37 +3084,37 @@ class ColladaLoader extends Loader {
 
 				joints: kinematicsModel && kinematicsModel.joints,
 
-				getJointValue: function ( jointIndex ) {
+				getJointValue(jointIndex) {
 
-					const jointData = jointMap[ jointIndex ];
+					const jointData = jointMap[jointIndex];
 
-					if ( jointData ) {
+					if (jointData) {
 
 						return jointData.position;
 
 					} else {
 
-						console.warn( 'THREE.ColladaLoader: Joint ' + jointIndex + ' doesn\'t exist.' );
+						console.warn('THREE.ColladaLoader: Joint ' + jointIndex + ' doesn\'t exist.');
 
 					}
 
 				},
 
-				setJointValue: function ( jointIndex, value ) {
+				setJointValue(jointIndex, value) {
 
-					const jointData = jointMap[ jointIndex ];
+					const jointData = jointMap[jointIndex];
 
-					if ( jointData ) {
+					if (jointData) {
 
 						const joint = jointData.joint;
 
-						if ( value > joint.limits.max || value < joint.limits.min ) {
+						if (value>joint.limits.max || value<joint.limits.min) {
 
-							console.warn( 'THREE.ColladaLoader: Joint ' + jointIndex + ' value ' + value + ' outside of limits (min: ' + joint.limits.min + ', max: ' + joint.limits.max + ').' );
+							console.warn('THREE.ColladaLoader: Joint ' + jointIndex + ' value ' + value + ' outside of limits (min: ' + joint.limits.min + ', max: ' + joint.limits.max + ').');
 
-						} else if ( joint.static ) {
+						} else if (joint.static) {
 
-							console.warn( 'THREE.ColladaLoader: Joint ' + jointIndex + ' is static.' );
+							console.warn('THREE.ColladaLoader: Joint ' + jointIndex + ' is static.');
 
 						} else {
 
@@ -3124,50 +3124,50 @@ class ColladaLoader extends Loader {
 
 							matrix.identity();
 
-							// each update, we have to apply all transforms in the correct order
+							// each Update, we have to apply all transforms in the correct order
 
-							for ( let i = 0; i < transforms.length; i ++ ) {
+							for (let i = 0; i<transforms.length; i++) {
 
-								const transform = transforms[ i ];
+								const transform = transforms[i];
 
 								// if there is a connection of the transform node with a joint, apply the joint value
 
-								if ( transform.sid && transform.sid.indexOf( jointIndex ) !== - 1 ) {
+								if (transform.sid && transform.sid.indexOf(jointIndex)!== -1) {
 
-									switch ( joint.type ) {
+									switch (joint.type) {
 
 										case 'revolute':
-											matrix.multiply( m0.makeRotationAxis( axis, MathUtils.degToRad( value ) ) );
+											matrix.multiply(m0.makeRotationAxis(axis, MathUtils.degToRad(value)));
 											break;
 
 										case 'prismatic':
-											matrix.multiply( m0.makeTranslation( axis.x * value, axis.y * value, axis.z * value ) );
+											matrix.multiply(m0.makeTranslation(axis.x * value, axis.y * value, axis.z * value));
 											break;
 
 										default:
-											console.warn( 'THREE.ColladaLoader: Unknown joint type: ' + joint.type );
+											console.warn('THREE.ColladaLoader: Unknown joint type: ' + joint.type);
 											break;
 
 									}
 
 								} else {
 
-									switch ( transform.type ) {
+									switch (transform.type) {
 
 										case 'matrix':
-											matrix.multiply( transform.obj );
+											matrix.multiply(transform.obj);
 											break;
 
 										case 'translate':
-											matrix.multiply( m0.makeTranslation( transform.obj.x, transform.obj.y, transform.obj.z ) );
+											matrix.multiply(m0.makeTranslation(transform.obj.x, transform.obj.y, transform.obj.z));
 											break;
 
 										case 'scale':
-											matrix.scale( transform.obj );
+											matrix.scale(transform.obj);
 											break;
 
 										case 'rotate':
-											matrix.multiply( m0.makeRotationAxis( transform.obj, transform.angle ) );
+											matrix.multiply(m0.makeRotationAxis(transform.obj, transform.angle));
 											break;
 
 									}
@@ -3176,16 +3176,16 @@ class ColladaLoader extends Loader {
 
 							}
 
-							object.matrix.copy( matrix );
-							object.matrix.decompose( object.position, object.quaternion, object.scale );
+							object.matrix.copy(matrix);
+							object.matrix.decompose(object.position, object.quaternion, object.scale);
 
-							jointMap[ jointIndex ].position = value;
+							jointMap[jointIndex].position = value;
 
 						}
 
 					} else {
 
-						console.log( 'THREE.ColladaLoader: ' + jointIndex + ' does not exist.' );
+						console.log('THREE.ColladaLoader: ' + jointIndex + ' does not exist.');
 
 					}
 
@@ -3240,8 +3240,8 @@ class ColladaLoader extends Loader {
 							sid: child.getAttribute( 'sid' ),
 							type: child.nodeName,
 							obj: vector,
-							angle: angle
-						} );
+							                 angle
+						                 } );
 						break;
 
 				}
@@ -3562,7 +3562,7 @@ class ColladaLoader extends Loader {
 
 					}
 
-					boneData.push( { bone: object, boneInverse: boneInverse, processed: false } );
+					boneData.push( { bone: object, boneInverse, processed: false } );
 
 				}
 
@@ -3686,7 +3686,7 @@ class ColladaLoader extends Loader {
 
 			} else {
 
-				object = ( type === 'JOINT' ) ? new Bone() : new Group();
+				object = type === 'JOINT' ? new Bone() : new Group();
 
 				for ( let i = 0; i < objects.length; i ++ ) {
 
@@ -3696,7 +3696,7 @@ class ColladaLoader extends Loader {
 
 			}
 
-			object.name = ( type === 'JOINT' ) ? data.sid : data.name;
+			object.name = type === 'JOINT' ? data.sid : data.name;
 			object.matrix.copy( matrix );
 			object.matrix.decompose( object.position, object.quaternion, object.scale );
 
@@ -3790,11 +3790,11 @@ class ColladaLoader extends Loader {
 
 				// regard skinning
 
-				const skinning = ( geometry.data.attributes.skinIndex !== undefined );
+				const skinning = geometry.data.attributes.skinIndex !== undefined;
 
 				// choose between a single or multi materials (material array)
 
-				const material = ( materials.length === 1 ) ? materials[ 0 ] : materials;
+				const material = materials.length === 1 ? materials[ 0 ] : materials;
 
 				// now create a specific 3D object
 
@@ -4104,9 +4104,9 @@ class ColladaLoader extends Loader {
 				return animations;
 
 			},
-			kinematics: kinematics,
-			library: library,
-			scene: scene
+			kinematics,
+			library,
+			scene
 		};
 
 	}

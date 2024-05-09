@@ -202,7 +202,7 @@ function tinf_read_bits(d, num, base) {
     d.bitcount += 8;
   }
 
-  var val = d.tag & (0xffff >>> (16 - num));
+  var val = d.tag & 0xffff >>> (16 - num);
   d.tag >>>= num;
   d.bitcount -= num;
   return val + base;
@@ -612,9 +612,9 @@ function Path() {
 Path.prototype.moveTo = function(x, y) {
     this.commands.push({
         type: 'M',
-        x: x,
-        y: y
-    });
+	                       x,
+	                       y
+                       });
 };
 
 /**
@@ -624,9 +624,9 @@ Path.prototype.moveTo = function(x, y) {
 Path.prototype.lineTo = function(x, y) {
     this.commands.push({
         type: 'L',
-        x: x,
-        y: y
-    });
+	                       x,
+	                       y
+                       });
 };
 
 /**
@@ -658,13 +658,13 @@ Path.prototype.lineTo = function(x, y) {
 Path.prototype.curveTo = Path.prototype.bezierCurveTo = function(x1, y1, x2, y2, x, y) {
     this.commands.push({
         type: 'C',
-        x1: x1,
-        y1: y1,
-        x2: x2,
-        y2: y2,
-        x: x,
-        y: y
-    });
+	                       x1,
+	                       y1,
+	                       x2,
+	                       y2,
+	                       x,
+	                       y
+                       });
 };
 
 /**
@@ -691,11 +691,11 @@ Path.prototype.curveTo = Path.prototype.bezierCurveTo = function(x1, y1, x2, y2,
 Path.prototype.quadTo = Path.prototype.quadraticCurveTo = function(x1, y1, x, y) {
     this.commands.push({
         type: 'Q',
-        x1: x1,
-        y1: y1,
-        x: x,
-        y: y
-    });
+	                       x1,
+	                       y1,
+	                       x,
+	                       y
+                       });
 };
 
 /**
@@ -920,7 +920,7 @@ function argument(predicate, message) {
         fail(message);
     }
 }
-var check = { fail: fail, argument: argument, assert: argument };
+var check = {fail, argument, assert: argument };
 
 // Data types used in the OpenType font file.
 
@@ -1017,7 +1017,7 @@ sizeOf.CHARARRAY = function(v) {
  * @returns {Array}
  */
 encode.USHORT = function(v) {
-    return [(v >> 8) & 0xFF, v & 0xFF];
+    return [v >> 8 & 0xFF, v & 0xFF];
 };
 
 /**
@@ -1037,7 +1037,7 @@ encode.SHORT = function(v) {
         v = -(2 * LIMIT16 - v);
     }
 
-    return [(v >> 8) & 0xFF, v & 0xFF];
+    return [v >> 8 & 0xFF, v & 0xFF];
 };
 
 /**
@@ -1052,7 +1052,7 @@ sizeOf.SHORT = constant(2);
  * @returns {Array}
  */
 encode.UINT24 = function(v) {
-    return [(v >> 16) & 0xFF, (v >> 8) & 0xFF, v & 0xFF];
+    return [v >> 16 & 0xFF, v >> 8 & 0xFF, v & 0xFF];
 };
 
 /**
@@ -1067,7 +1067,7 @@ sizeOf.UINT24 = constant(3);
  * @returns {Array}
  */
 encode.ULONG = function(v) {
-    return [(v >> 24) & 0xFF, (v >> 16) & 0xFF, (v >> 8) & 0xFF, v & 0xFF];
+    return [v >> 24 & 0xFF, v >> 16 & 0xFF, v >> 8 & 0xFF, v & 0xFF];
 };
 
 /**
@@ -1087,7 +1087,7 @@ encode.LONG = function(v) {
         v = -(2 * LIMIT32 - v);
     }
 
-    return [(v >> 24) & 0xFF, (v >> 16) & 0xFF, (v >> 8) & 0xFF, v & 0xFF];
+    return [v >> 24 & 0xFF, v >> 16 & 0xFF, v >> 8 & 0xFF, v & 0xFF];
 };
 
 /**
@@ -1111,7 +1111,7 @@ sizeOf.UFWORD = sizeOf.USHORT;
  * @returns {Array}
  */
 encode.LONGDATETIME = function(v) {
-    return [0, 0, 0, 0, (v >> 24) & 0xFF, (v >> 16) & 0xFF, (v >> 8) & 0xFF, v & 0xFF];
+    return [0, 0, 0, 0, v >> 24 & 0xFF, v >> 16 & 0xFF, v >> 8 & 0xFF, v & 0xFF];
 };
 
 /**
@@ -1190,7 +1190,7 @@ sizeOf.NUMBER = function(v) {
  * @returns {Array}
  */
 encode.NUMBER16 = function(v) {
-    return [28, (v >> 8) & 0xFF, v & 0xFF];
+    return [28, v >> 8 & 0xFF, v & 0xFF];
 };
 
 /**
@@ -1207,7 +1207,7 @@ sizeOf.NUMBER16 = constant(3);
  * @returns {Array}
  */
 encode.NUMBER32 = function(v) {
-    return [29, (v >> 24) & 0xFF, (v >> 16) & 0xFF, (v >> 8) & 0xFF, v & 0xFF];
+    return [29, v >> 24 & 0xFF, v >> 16 & 0xFF, v >> 8 & 0xFF, v & 0xFF];
 };
 
 /**
@@ -1245,7 +1245,7 @@ encode.REAL = function(v) {
         }
     }
 
-    nibbles += (nibbles.length & 1) ? 'f' : 'ff';
+    nibbles += nibbles.length & 1 ? 'f' : 'ff';
     var out = [30];
     for (var i$1 = 0, ii$1 = nibbles.length; i$1 < ii$1; i$1 += 2) {
         out.push(parseInt(nibbles.substr(i$1, 2), 16));
@@ -1309,7 +1309,7 @@ encode.UTF16 = function(v) {
     var b = [];
     for (var i = 0; i < v.length; i += 1) {
         var codepoint = v.charCodeAt(i);
-        b[b.length] = (codepoint >> 8) & 0xFF;
+        b[b.length] = codepoint >> 8 & 0xFF;
         b[b.length] = codepoint & 0xFF;
     }
 
@@ -1516,7 +1516,7 @@ function encodeVarDeltaRunAsZeroes(deltas, pos, result) {
         ++pos;
         ++runLength;
     }
-    result.push(0x80 | (runLength - 1));
+    result.push(0x80 | runLength - 1);
     return pos;
 }
 
@@ -1547,7 +1547,7 @@ function encodeVarDeltaRunAsBytes(deltas, offset, result) {
     }
     result.push(runLength - 1);
     for (var i = offset; i < pos; ++i) {
-        result.push((deltas[i] + 256) & 0xff);
+        result.push(deltas[i] + 256 & 0xff);
     }
     return pos;
 }
@@ -1583,10 +1583,10 @@ function encodeVarDeltaRunAsWords(deltas, offset, result) {
         ++pos;
         ++runLength;
     }
-    result.push(0x40 | (runLength - 1));
+    result.push(0x40 | runLength - 1);
     for (var i = offset; i < pos; ++i) {
         var val = deltas[i];
-        result.push(((val + 0x10000) >> 8) & 0xff, (val + 0x100) & 0xff);
+        result.push((val + 0x10000) >> 8 & 0xff, val + 0x100 & 0xff);
     }
     return pos;
 }
@@ -1646,7 +1646,7 @@ encode.INDEX = function(l) {
     }
 
     var encodedOffsets = [];
-    var offSize = (1 + Math.floor(Math.log(offset) / Math.log(2)) / 8) | 0;
+    var offSize = 1 + Math.floor(Math.log(offset) / Math.log(2)) / 8 | 0;
     var offsetEncoder = [undefined, encode.BYTE, encode.USHORT, encode.UINT24, encode.ULONG][offSize];
     for (var i$1 = 0; i$1 < offsets.length; i$1 += 1) {
         var encodedOffset = offsetEncoder(offsets[i$1]);
@@ -2094,15 +2094,15 @@ LookupList.prototype.constructor = LookupList;
 // Record = same as Table, but inlined (a Table has an offset and its data is further in the stream)
 // Don't use offsets inside Records (probable bug), only in Tables.
 var table = {
-    Table: Table,
+	Table,
     Record: Table,
-    Coverage: Coverage,
-    ScriptList: ScriptList,
-    FeatureList: FeatureList,
-    LookupList: LookupList,
-    ushortList: ushortList,
-    tableList: tableList,
-    recordList: recordList,
+	Coverage,
+	ScriptList,
+	FeatureList,
+	LookupList,
+	ushortList,
+	tableList,
+	recordList
 };
 
 // Parsing utility functions
@@ -2576,7 +2576,7 @@ Parser.prototype.parseCoverage = function() {
         }
         return {
             format: 2,
-            ranges: ranges
+	        ranges
         };
     }
     throw new Error('0x' + startOffset.toString(16) + ': Coverage format must be 1 or 2.');
@@ -2694,8 +2694,8 @@ Parser.prototype.parseLookupList = function(lookupTableParsers) {
         var lookupFlag = this.parseUShort();
         var useMarkFilteringSet = lookupFlag & 0x10;
         return {
-            lookupType: lookupType,
-            lookupFlag: lookupFlag,
+	        lookupType,
+	        lookupFlag,
             subtables: this.parseList(Parser.pointer(lookupTableParsers[lookupType])),
             markFilteringSet: useMarkFilteringSet ? this.parseUShort() : undefined
         };
@@ -2716,18 +2716,18 @@ Parser.prototype.parseFeatureVariationsList = function() {
 };
 
 var parse = {
-    getByte: getByte,
+	getByte,
     getCard8: getByte,
-    getUShort: getUShort,
+	getUShort,
     getCard16: getUShort,
-    getShort: getShort,
-    getULong: getULong,
-    getFixed: getFixed,
-    getTag: getTag,
-    getOffset: getOffset,
-    getBytes: getBytes,
-    bytesToString: bytesToString,
-    Parser: Parser,
+	getShort,
+	getULong,
+	getFixed,
+	getTag,
+	getOffset,
+	getBytes,
+	bytesToString,
+	Parser
 };
 
 // The `cmap` table stores the mappings from characters to glyphs.
@@ -2776,7 +2776,7 @@ function parseCmapTableFormat4(cmap, p, data, start, offset) {
     var idRangeOffsetParser = new parse.Parser(data, start + offset + 16 + segCount * 6);
     var glyphIndexOffset = start + offset + 16 + segCount * 8;
     for (var i = 0; i < segCount - 1; i += 1) {
-        var glyphIndex = (void 0);
+        var glyphIndex = void 0;
         var endCount = endCountParser.parseUShort();
         var startCount = startCountParser.parseUShort();
         var idDelta = idDeltaParser.parseShort();
@@ -2785,7 +2785,7 @@ function parseCmapTableFormat4(cmap, p, data, start, offset) {
             if (idRangeOffset !== 0) {
                 // The idRangeOffset is relative to the current position in the idRangeOffset array.
                 // Take the current offset in the idRangeOffset array.
-                glyphIndexOffset = (idRangeOffsetParser.offset + idRangeOffsetParser.relativeOffset - 2);
+                glyphIndexOffset = idRangeOffsetParser.offset + idRangeOffsetParser.relativeOffset - 2;
 
                 // Add the value of the idRangeOffset, which will move us into the glyphIndex array.
                 glyphIndexOffset += idRangeOffset;
@@ -2794,10 +2794,10 @@ function parseCmapTableFormat4(cmap, p, data, start, offset) {
                 glyphIndexOffset += (c - startCount) * 2;
                 glyphIndex = parse.getUShort(data, glyphIndexOffset);
                 if (glyphIndex !== 0) {
-                    glyphIndex = (glyphIndex + idDelta) & 0xFFFF;
+                    glyphIndex = glyphIndex + idDelta & 0xFFFF;
                 }
             } else {
-                glyphIndex = (c + idDelta) & 0xFFFF;
+                glyphIndex = c + idDelta & 0xFFFF;
             }
 
             cmap.glyphIndexMap[c] = glyphIndex;
@@ -2818,11 +2818,11 @@ function parseCmapTable(data, start) {
     cmap.numTables = parse.getUShort(data, start + 2);
     var offset = -1;
     for (var i = cmap.numTables - 1; i >= 0; i -= 1) {
-        var platformId = parse.getUShort(data, start + 4 + (i * 8));
-        var encodingId = parse.getUShort(data, start + 4 + (i * 8) + 2);
-        if ((platformId === 3 && (encodingId === 0 || encodingId === 1 || encodingId === 10)) ||
-            (platformId === 0 && (encodingId === 0 || encodingId === 1 || encodingId === 2 || encodingId === 3 || encodingId === 4))) {
-            offset = parse.getULong(data, start + 4 + (i * 8) + 4);
+        var platformId = parse.getUShort(data, start + 4 + i * 8);
+        var encodingId = parse.getUShort(data, start + 4 + i * 8 + 2);
+        if (platformId === 3 && (encodingId === 0 || encodingId === 1 || encodingId === 10) ||
+            platformId === 0 && (encodingId === 0 || encodingId === 1 || encodingId === 2 || encodingId === 3 || encodingId === 4)) {
+            offset = parse.getULong(data, start + 4 + i * 8 + 4);
             break;
         }
     }
@@ -2852,8 +2852,8 @@ function addSegment(t, code, glyphIndex) {
         start: code,
         delta: -(code - glyphIndex),
         offset: 0,
-        glyphIndex: glyphIndex
-    });
+	                    glyphIndex
+                    });
 }
 
 function addTerminatorSegment(t) {
@@ -2888,7 +2888,7 @@ function makeCmapTable(glyphs) {
         // CMAP 4 header
         {name: 'platformID', type: 'USHORT', value: 3},
         {name: 'encodingID', type: 'USHORT', value: 1},
-        {name: 'offset', type: 'ULONG', value: isPlan0Only ? 12 : (12 + 8)}
+        {name: 'offset', type: 'ULONG', value: isPlan0Only ? 12 : 12 + 8}
     ];
 
     if (!isPlan0Only)
@@ -2972,7 +2972,7 @@ function makeCmapTable(glyphs) {
 
     // CMAP 4 Subtable
     t.segCountX2 = (segCount - segCountToRemove) * 2;
-    t.searchRange = Math.pow(2, Math.floor(Math.log((segCount - segCountToRemove)) / Math.log(2))) * 2;
+    t.searchRange = Math.pow(2, Math.floor(Math.log(segCount - segCountToRemove) / Math.log(2))) * 2;
     t.entrySelector = Math.log(t.searchRange / 2) / Math.log(2);
     t.rangeShift = t.segCountX2 - t.searchRange;
 
@@ -2996,7 +2996,7 @@ function makeCmapTable(glyphs) {
         var cmap12Length = 16 + // Subtable header
             cmap12Groups.length * 4;
 
-        t.cmap12Offset = 12 + (2 * 2) + 4 + t.cmap4Length;
+        t.cmap12Offset = 12 + 2 * 2 + 4 + t.cmap4Length;
         t.fields = t.fields.concat([
             {name: 'cmap12Format', type: 'USHORT', value: 12},
             {name: 'cmap12Reserved', type: 'USHORT', value: 0},
@@ -3326,7 +3326,7 @@ function line(ctx, x1, y1, x2, y2) {
     ctx.stroke();
 }
 
-var draw = { line: line };
+var draw = {line};
 
 // The Glyph object
 // import glyf from './tables/glyf' Can't be imported here, because it's a circular dependency
@@ -3336,17 +3336,17 @@ function getPathDefinition(glyph, path) {
     return {
         configurable: true,
 
-        get: function() {
-            if (typeof _path === 'function') {
-                _path = _path();
-            }
+	    get() {
+		    if (typeof _path==='function') {
+			    _path = _path();
+		    }
 
-            return _path;
-        },
+		    return _path;
+	    },
 
-        set: function(p) {
-            _path = p;
-        }
+	    set(p) {
+		    _path = p;
+	    }
     };
 }
 /**
@@ -3482,16 +3482,16 @@ Glyph.prototype.getPath = function(x, y, fontSize, options, font) {
     for (var i = 0; i < commands.length; i += 1) {
         var cmd = commands[i];
         if (cmd.type === 'M') {
-            p.moveTo(x + (cmd.x * xScale), y + (-cmd.y * yScale));
+            p.moveTo(x + cmd.x * xScale, y + -cmd.y * yScale);
         } else if (cmd.type === 'L') {
-            p.lineTo(x + (cmd.x * xScale), y + (-cmd.y * yScale));
+            p.lineTo(x + cmd.x * xScale, y + -cmd.y * yScale);
         } else if (cmd.type === 'Q') {
-            p.quadraticCurveTo(x + (cmd.x1 * xScale), y + (-cmd.y1 * yScale),
-                               x + (cmd.x * xScale), y + (-cmd.y * yScale));
+            p.quadraticCurveTo(x + cmd.x1 * xScale, y + -cmd.y1 * yScale,
+                               x + cmd.x * xScale, y + -cmd.y * yScale);
         } else if (cmd.type === 'C') {
-            p.curveTo(x + (cmd.x1 * xScale), y + (-cmd.y1 * yScale),
-                      x + (cmd.x2 * xScale), y + (-cmd.y2 * yScale),
-                      x + (cmd.x * xScale), y + (-cmd.y * yScale));
+            p.curveTo(x + cmd.x1 * xScale, y + -cmd.y1 * yScale,
+                      x + cmd.x2 * xScale, y + -cmd.y2 * yScale,
+                      x + cmd.x * xScale, y + -cmd.y * yScale);
         } else if (cmd.type === 'Z') {
             p.closePath();
         }
@@ -3604,8 +3604,8 @@ Glyph.prototype.drawPoints = function(ctx, x, y, fontSize) {
     function drawCircles(l, x, y, scale) {
         ctx.beginPath();
         for (var j = 0; j < l.length; j += 1) {
-            ctx.moveTo(x + (l[j].x * scale), y + (l[j].y * scale));
-            ctx.arc(x + (l[j].x * scale), y + (l[j].y * scale), 2, 0, Math.PI * 2, false);
+            ctx.moveTo(x + l[j].x * scale, y + l[j].y * scale);
+            ctx.arc(x + l[j].x * scale, y + l[j].y * scale, 2, 0, Math.PI * 2, false);
         }
 
         ctx.closePath();
@@ -3674,14 +3674,14 @@ Glyph.prototype.drawMetrics = function(ctx, x, y, fontSize) {
 
     // Draw the glyph box
     ctx.strokeStyle = 'blue';
-    draw.line(ctx, x + (xMin * scale), -10000, x + (xMin * scale), 10000);
-    draw.line(ctx, x + (xMax * scale), -10000, x + (xMax * scale), 10000);
-    draw.line(ctx, -10000, y + (-yMin * scale), 10000, y + (-yMin * scale));
-    draw.line(ctx, -10000, y + (-yMax * scale), 10000, y + (-yMax * scale));
+    draw.line(ctx, x + xMin * scale, -10000, x + xMin * scale, 10000);
+    draw.line(ctx, x + xMax * scale, -10000, x + xMax * scale, 10000);
+    draw.line(ctx, -10000, y + -yMin * scale, 10000, y + -yMin * scale);
+    draw.line(ctx, -10000, y + -yMax * scale, 10000, y + -yMax * scale);
 
     // Draw the advance width
     ctx.strokeStyle = 'green';
-    draw.line(ctx, x + (advanceWidth * scale), -10000, x + (advanceWidth * scale), 10000);
+    draw.line(ctx, x + advanceWidth * scale, -10000, x + advanceWidth * scale, 10000);
 };
 
 // The GlyphSet object
@@ -3689,14 +3689,14 @@ Glyph.prototype.drawMetrics = function(ctx, x, y, fontSize) {
 // Define a property on the glyph that depends on the path being loaded.
 function defineDependentProperty(glyph, externalName, internalName) {
     Object.defineProperty(glyph, externalName, {
-        get: function() {
-            // Request the path property to make sure the path is loaded.
-            glyph.path; // jshint ignore:line
-            return glyph[internalName];
-        },
-        set: function(newValue) {
-            glyph[internalName] = newValue;
-        },
+	    get() {
+		    // Request the path property to make sure the path is loaded.
+		    glyph.path; // jshint ignore:line
+		    return glyph[internalName];
+	    },
+	    set(newValue) {
+		    glyph[internalName] = newValue;
+	    },
         enumerable: true,
         configurable: true
     });
@@ -3722,7 +3722,7 @@ function GlyphSet(font, glyphs) {
         }
     }
 
-    this.length = (glyphs && glyphs.length) || 0;
+    this.length = glyphs && glyphs.length || 0;
 }
 
 /**
@@ -3782,7 +3782,7 @@ GlyphSet.prototype.push = function(index, loader) {
  * @return {opentype.Glyph}
  */
 function glyphLoader(font, index) {
-    return new Glyph({index: index, font: font});
+    return new Glyph({index, font});
 }
 
 /**
@@ -3800,7 +3800,7 @@ function glyphLoader(font, index) {
  */
 function ttfGlyphLoader(font, index, parseGlyph, data, position, buildPath) {
     return function() {
-        var glyph = new Glyph({index: index, font: font});
+        var glyph = new Glyph({index, font});
 
         glyph.path = function() {
             parseGlyph(glyph, data, position);
@@ -3827,7 +3827,7 @@ function ttfGlyphLoader(font, index, parseGlyph, data, position, buildPath) {
  */
 function cffGlyphLoader(font, index, parseCFFCharstring, charstring) {
     return function() {
-        var glyph = new Glyph({index: index, font: font});
+        var glyph = new Glyph({index, font});
 
         glyph.path = function() {
             var path = parseCFFCharstring(font, glyph, charstring);
@@ -3839,7 +3839,7 @@ function cffGlyphLoader(font, index, parseCFFCharstring, charstring) {
     };
 }
 
-var glyphset = { GlyphSet: GlyphSet, glyphLoader: glyphLoader, ttfGlyphLoader: ttfGlyphLoader, cffGlyphLoader: cffGlyphLoader };
+var glyphset = {GlyphSet, glyphLoader, ttfGlyphLoader, cffGlyphLoader};
 
 // The `CFF` table contains the glyph outlines in PostScript format.
 
@@ -3889,7 +3889,7 @@ function parseCFFIndex(data, start, conversionFn) {
     var endOffset;
     if (count !== 0) {
         var offsetSize = parse.getByte(data, start + 2);
-        objectOffset = start + ((count + 1) * offsetSize) + 2;
+        objectOffset = start + (count + 1) * offsetSize + 2;
         var pos = start + 3;
         for (var i = 0; i < count + 1; i += 1) {
             offsets.push(parse.getOffset(data, pos, offsetSize));
@@ -3911,7 +3911,7 @@ function parseCFFIndex(data, start, conversionFn) {
         objects.push(value);
     }
 
-    return {objects: objects, startOffset: start, endOffset: endOffset};
+    return {objects, startOffset: start, endOffset};
 }
 
 function parseCFFIndexLowMemory(data, start) {
@@ -3921,7 +3921,7 @@ function parseCFFIndexLowMemory(data, start) {
     var endOffset;
     if (count !== 0) {
         var offsetSize = parse.getByte(data, start + 2);
-        objectOffset = start + ((count + 1) * offsetSize) + 2;
+        objectOffset = start + (count + 1) * offsetSize + 2;
         var pos = start + 3;
         for (var i = 0; i < count + 1; i += 1) {
             offsets.push(parse.getOffset(data, pos, offsetSize));
@@ -3934,14 +3934,14 @@ function parseCFFIndexLowMemory(data, start) {
         endOffset = start + 2;
     }
 
-    return {offsets: offsets, startOffset: start, endOffset: endOffset};
+    return {offsets, startOffset: start, endOffset};
 }
 function getCffIndexObject(i, offsets, data, start, conversionFn) {
     var count = parse.getCard16(data, start);
     var objectOffset = 0;
     if (count !== 0) {
         var offsetSize = parse.getByte(data, start + 2);
-        objectOffset = start + ((count + 1) * offsetSize) + 2;
+        objectOffset = start + (count + 1) * offsetSize + 2;
     }
 
     var value = parse.getBytes(data, objectOffset + offsets[i], objectOffset + offsets[i + 1]);
@@ -4025,7 +4025,7 @@ function entriesToObject(entries) {
     for (var i = 0; i < entries.length; i += 1) {
         var key = entries[i][0];
         var values = entries[i][1];
-        var value = (void 0);
+        var value = void 0;
         if (values.length === 1) {
             value = values[0];
         } else {
@@ -4559,7 +4559,7 @@ function parseCFFCharstring(font, glyph, code) {
                 case 19: // hintmask
                 case 20: // cntrmask
                     parseStems();
-                    i += (nStems + 7) >> 3;
+                    i += nStems + 7 >> 3;
                     break;
                 case 21: // rmoveto
                     if (stack.length > 2 && !haveWidth) {
@@ -4648,7 +4648,7 @@ function parseCFFCharstring(font, glyph, code) {
                 case 28: // shortint
                     b1 = code[i];
                     b2 = code[i + 1];
-                    stack.push(((b1 << 24) | (b2 << 16)) >> 16);
+                    stack.push((b1 << 24 | b2 << 16) >> 16);
                     i += 2;
                     break;
                 case 29: // callgsubr
@@ -4724,7 +4724,7 @@ function parseCFFCharstring(font, glyph, code) {
                         b3 = code[i + 2];
                         b4 = code[i + 3];
                         i += 4;
-                        stack.push(((b1 << 24) | (b2 << 16) | (b3 << 8) | b4) / 65536);
+                        stack.push((b1 << 24 | b2 << 16 | b3 << 8 | b4) / 65536);
                     }
             }
         }
@@ -4931,7 +4931,7 @@ function makeDict(meta, attrs, strings) {
                 value = encodeString(value, strings);
             }
 
-            m[entry.op] = {name: entry.name, type: entry.type, value: value};
+            m[entry.op] = {name: entry.name, type: entry.type, value};
         }
     }
 
@@ -4994,8 +4994,8 @@ function glyphToOps(glyph) {
     var x = 0;
     var y = 0;
     for (var i = 0; i < path.commands.length; i += 1) {
-        var dx = (void 0);
-        var dy = (void 0);
+        var dx = void 0;
+        var dy = void 0;
         var cmd = path.commands[i];
         if (cmd.type === 'Q') {
             // CFF only supports bézier curves, so convert the quad to a bézier.
@@ -5292,8 +5292,8 @@ function parseHmtxTableOnLowMemory(font, data, start, numMetrics, numGlyphs) {
         }
 
         font._hmtxTableData[i] = {
-            advanceWidth: advanceWidth,
-            leftSideBearing: leftSideBearing
+	        advanceWidth,
+	        leftSideBearing
         };
     }
 }
@@ -6049,7 +6049,7 @@ function parseNameTable(data, start, ltag) {
         var language = getLanguageCode(platformID, languageID, ltag);
         var encoding = getEncoding(platformID, encodingID, languageID);
         if (encoding !== undefined && language !== undefined) {
-            var text = (void 0);
+            var text = void 0;
             if (encoding === utf16) {
                 text = decode.UTF16(data, stringOffset + offset, byteLength);
             } else {
@@ -6215,10 +6215,10 @@ function makeNameTable(names, ltag) {
     }
 
     nameRecords.sort(function(a, b) {
-        return ((a.platformID - b.platformID) ||
-                (a.encodingID - b.encodingID) ||
-                (a.languageID - b.languageID) ||
-                (a.nameID - b.nameID));
+        return a.platformID - b.platformID ||
+                a.encodingID - b.encodingID ||
+                a.languageID - b.languageID ||
+                a.nameID - b.nameID;
     });
 
     var t = new table.Table('name', [
@@ -6481,7 +6481,7 @@ function makeOS2Table(options) {
     ], options);
 }
 
-var os2 = { parse: parseOS2Table, make: makeOS2Table, unicodeRanges: unicodeRanges, getUnicodeRange: getUnicodeRange };
+var os2 = { parse: parseOS2Table, make: makeOS2Table, unicodeRanges, getUnicodeRange};
 
 // The `post` table stores additional PostScript information, such as glyph names.
 
@@ -6575,7 +6575,7 @@ subtableParsers[2] = function parseLookup2() {
     var substFormat = this.parseUShort();
     check.argument(substFormat === 1, 'GSUB Multiple Substitution Subtable identifier-format must be 1');
     return {
-        substFormat: substFormat,
+	    substFormat,
         coverage: this.parsePointer(Parser.coverage),
         sequences: this.parseListOfLists()
     };
@@ -6586,7 +6586,7 @@ subtableParsers[3] = function parseLookup3() {
     var substFormat = this.parseUShort();
     check.argument(substFormat === 1, 'GSUB Alternate Substitution Subtable identifier-format must be 1');
     return {
-        substFormat: substFormat,
+	    substFormat,
         coverage: this.parsePointer(Parser.coverage),
         alternateSets: this.parseListOfLists()
     };
@@ -6597,7 +6597,7 @@ subtableParsers[4] = function parseLookup4() {
     var substFormat = this.parseUShort();
     check.argument(substFormat === 1, 'GSUB ligature table identifier-format must be 1');
     return {
-        substFormat: substFormat,
+	    substFormat,
         coverage: this.parsePointer(Parser.coverage),
         ligatureSets: this.parseListOfLists(function() {
             return {
@@ -6620,7 +6620,7 @@ subtableParsers[5] = function parseLookup5() {
 
     if (substFormat === 1) {
         return {
-            substFormat: substFormat,
+	        substFormat,
             coverage: this.parsePointer(Parser.coverage),
             ruleSets: this.parseListOfLists(function() {
                 var glyphCount = this.parseUShort();
@@ -6633,7 +6633,7 @@ subtableParsers[5] = function parseLookup5() {
         };
     } else if (substFormat === 2) {
         return {
-            substFormat: substFormat,
+	        substFormat,
             coverage: this.parsePointer(Parser.coverage),
             classDef: this.parsePointer(Parser.classDef),
             classSets: this.parseListOfLists(function() {
@@ -6649,7 +6649,7 @@ subtableParsers[5] = function parseLookup5() {
         var glyphCount = this.parseUShort();
         var substCount = this.parseUShort();
         return {
-            substFormat: substFormat,
+	        substFormat,
             coverages: this.parseList(glyphCount, Parser.pointer(Parser.coverage)),
             lookupRecords: this.parseRecordList(substCount, lookupRecordDesc)
         };
@@ -6721,7 +6721,7 @@ subtableParsers[8] = function parseLookup8() {
     var substFormat = this.parseUShort();
     check.argument(substFormat === 1, 'GSUB Reverse Chaining Contextual Single Substitution Subtable identifier-format must be 1');
     return {
-        substFormat: substFormat,
+	    substFormat,
         coverage: this.parsePointer(Parser.coverage),
         backtrackCoverage: this.parseList(Parser.pointer(Parser.coverage)),
         lookaheadCoverage: this.parseList(Parser.pointer(Parser.coverage)),
@@ -6948,9 +6948,9 @@ function parseColrTable(data, start) {
     });
 
     return {
-        version: version,
-        baseGlyphRecords: baseGlyphRecords,
-        layerRecords: layerRecords,
+	    version,
+	    baseGlyphRecords,
+	    layerRecords
     };
 }
 
@@ -6961,7 +6961,7 @@ function makeColrTable(ref) {
 
     check.argument(version === 0x0000, 'Only COLRv0 supported.');
     var baseGlyphRecordsOffset = 14;
-    var layerRecordsOffset = baseGlyphRecordsOffset + (baseGlyphRecords.length * 6);
+    var layerRecordsOffset = baseGlyphRecordsOffset + baseGlyphRecords.length * 6;
     return new table.Table('COLR', [
         { name: 'version', type: 'USHORT', value: version },
         { name: 'numBaseGlyphRecords', type: 'USHORT', value: baseGlyphRecords.length },
@@ -6992,10 +6992,10 @@ function parseCpalTable(data, start) {
   p.relativeOffset = colorRecordsArrayOffset;
   var colorRecords = p.parseULongList(numColorRecords);
   return {
-    version: version,
-    numPaletteEntries: numPaletteEntries,
-    colorRecords: colorRecords,
-    colorRecordIndices: colorRecordIndices,
+	  version,
+	  numPaletteEntries,
+	  colorRecords,
+	  colorRecordIndices
   };
 }
 
@@ -7014,8 +7014,8 @@ function makeCpalTable(ref) {
     { name: 'numPaletteEntries', type: 'USHORT', value: numPaletteEntries || colorRecords.length },
     { name: 'numPalettes', type: 'USHORT', value: colorRecordIndices.length },
     { name: 'numColorRecords', type: 'USHORT', value: colorRecords.length },
-    { name: 'colorRecordsArrayOffset', type: 'ULONG', value: 12 + 2 * colorRecordIndices.length } ].concat( colorRecordIndices.map(function (palette, i) { return ({ name: 'colorRecordIndices_' + i, type: 'USHORT', value: palette }); }),
-    colorRecords.map(function (color, i) { return ({ name: 'colorRecords_' + i, type: 'ULONG', value: color }); }) ));
+    { name: 'colorRecordsArrayOffset', type: 'ULONG', value: 12 + 2 * colorRecordIndices.length } ].concat( colorRecordIndices.map(function (palette, i) { return { name: 'colorRecordIndices_' + i, type: 'USHORT', value: palette }; }),
+    colorRecords.map(function (color, i) { return { name: 'colorRecords_' + i, type: 'ULONG', value: color }; }) ));
 }
 
 var cpal = { parse: parseCpalTable, make: makeCpalTable };
@@ -7036,7 +7036,7 @@ function computeCheckSum(bytes) {
         sum += (bytes[i] << 24) +
             (bytes[i + 1] << 16) +
             (bytes[i + 2] << 8) +
-            (bytes[i + 3]);
+            bytes[i + 3];
     }
 
     sum %= Math.pow(2, 32);
@@ -7070,7 +7070,7 @@ function makeSfntTable(tables) {
     var recordFields = [];
     var tableFields = [];
 
-    var offset = sfnt.sizeOf() + (makeTableRecord().sizeOf() * sfnt.numTables);
+    var offset = sfnt.sizeOf() + makeTableRecord().sizeOf() * sfnt.numTables;
     while (offset % 4 !== 0) {
         offset += 1;
         tableFields.push({name: 'padding', type: 'BYTE', value: 0});
@@ -7230,10 +7230,10 @@ function fontToSfntTable(font) {
         xAvgCharWidth: Math.round(globals.advanceWidthAvg),
         usFirstCharIndex: firstCharIndex,
         usLastCharIndex: lastCharIndex,
-        ulUnicodeRange1: ulUnicodeRange1,
-        ulUnicodeRange2: ulUnicodeRange2,
-        ulUnicodeRange3: ulUnicodeRange3,
-        ulUnicodeRange4: ulUnicodeRange4,
+	                                          ulUnicodeRange1,
+	                                          ulUnicodeRange2,
+	                                          ulUnicodeRange3,
+	                                          ulUnicodeRange4,
         // See http://typophile.com/node/13081 for more info on vertical metrics.
         // We get metrics for typical characters (such as "x" for xHeight).
         // We provide some fallback characters if characters are unavailable: their
@@ -7284,7 +7284,7 @@ function fontToSfntTable(font) {
 
     var languageTags = [];
     var nameTable = _name.make(names, languageTags);
-    var ltagTable = (languageTags.length > 0 ? ltag.make(languageTags) : undefined);
+    var ltagTable = languageTags.length > 0 ? ltag.make(languageTags) : undefined;
 
     var postTable = post.make();
     var cffTable = cff.make(font.glyphs, {
@@ -7292,12 +7292,12 @@ function fontToSfntTable(font) {
         fullName: englishFullName,
         familyName: englishFamilyName,
         weightName: englishStyleName,
-        postScriptName: postScriptName,
+	    postScriptName,
         unitsPerEm: font.unitsPerEm,
         fontBBox: [0, globals.yMin, globals.ascender, globals.advanceWidthMax]
     });
 
-    var metaTable = (font.metas && Object.keys(font.metas).length > 0) ? meta.make(font.metas) : undefined;
+    var metaTable = font.metas && Object.keys(font.metas).length > 0 ? meta.make(font.metas) : undefined;
 
     // The order does not matter because makeSfntTable() will sort them.
     var tables = [headTable, hheaTable, maxpTable, os2Table, nameTable, cmapTable, postTable, cffTable, hmtxTable];
@@ -7340,7 +7340,7 @@ function fontToSfntTable(font) {
     return sfntTable;
 }
 
-var sfnt = { make: makeSfntTable, fontToTable: fontToSfntTable, computeCheckSum: computeCheckSum };
+var sfnt = { make: makeSfntTable, fontToTable: fontToSfntTable, computeCheckSum};
 
 // The Layout object is the prototype of Substitution objects, and provides
 
@@ -7349,7 +7349,7 @@ function searchTag(arr, tag) {
     var imin = 0;
     var imax = arr.length - 1;
     while (imin <= imax) {
-        var imid = (imin + imax) >>> 1;
+        var imid = imin + imax >>> 1;
         var val = arr[imid].tag;
         if (val === tag) {
             return imid;
@@ -7366,7 +7366,7 @@ function binSearch(arr, value) {
     var imin = 0;
     var imax = arr.length - 1;
     while (imin <= imax) {
-        var imid = (imin + imax) >>> 1;
+        var imid = imin + imax >>> 1;
         var val = arr[imid];
         if (val === value) {
             return imid;
@@ -7385,7 +7385,7 @@ function searchRange(ranges, value) {
     var imin = 0;
     var imax = ranges.length - 1;
     while (imin <= imax) {
-        var imid = (imin + imax) >>> 1;
+        var imid = imin + imax >>> 1;
         range = ranges[imid];
         var start = range.start;
         if (start === value) {
@@ -7412,270 +7412,270 @@ function Layout(font, tableName) {
 
 Layout.prototype = {
 
-    /**
-     * Binary search an object by "tag" property
-     * @instance
-     * @function searchTag
-     * @memberof opentype.Layout
-     * @param  {Array} arr
-     * @param  {string} tag
-     * @return {number}
-     */
-    searchTag: searchTag,
+	/**
+	 * Binary search an object by "tag" property
+	 * @instance
+	 * @function searchTag
+	 * @memberof opentype.Layout
+	 * @param  {Array} arr
+	 * @param  {string} tag
+	 * @return {number}
+	 */
+	searchTag,
 
-    /**
-     * Binary search in a list of numbers
-     * @instance
-     * @function binSearch
-     * @memberof opentype.Layout
-     * @param  {Array} arr
-     * @param  {number} value
-     * @return {number}
-     */
-    binSearch: binSearch,
+	/**
+	 * Binary search in a list of numbers
+	 * @instance
+	 * @function binSearch
+	 * @memberof opentype.Layout
+	 * @param  {Array} arr
+	 * @param  {number} value
+	 * @return {number}
+	 */
+	binSearch,
 
-    /**
-     * Get or create the Layout table (GSUB, GPOS etc).
-     * @param  {boolean} create - Whether to create a new one.
-     * @return {Object} The GSUB or GPOS table.
-     */
-    getTable: function(create) {
-        var layout = this.font.tables[this.tableName];
-        if (!layout && create) {
-            layout = this.font.tables[this.tableName] = this.createDefaultTable();
-        }
-        return layout;
-    },
+	/**
+	 * Get or create the Layout table (GSUB, GPOS etc).
+	 * @param  {boolean} create - Whether to create a new one.
+	 * @return {Object} The GSUB or GPOS table.
+	 */
+	getTable(create) {
+		var layout = this.font.tables[this.tableName];
+		if (!layout && create) {
+			layout = this.font.tables[this.tableName] = this.createDefaultTable();
+		}
+		return layout;
+	},
 
-    /**
-     * Returns all scripts in the substitution table.
-     * @instance
-     * @return {Array}
-     */
-    getScriptNames: function() {
-        var layout = this.getTable();
-        if (!layout) { return []; }
-        return layout.scripts.map(function(script) {
-            return script.tag;
-        });
-    },
+	/**
+	 * Returns all scripts in the substitution table.
+	 * @instance
+	 * @return {Array}
+	 */
+	getScriptNames() {
+		var layout = this.getTable();
+		if (!layout) { return []; }
+		return layout.scripts.map(function (script) {
+			return script.tag;
+		});
+	},
 
-    /**
-     * Returns the best bet for a script name.
-     * Returns 'DFLT' if it exists.
-     * If not, returns 'latn' if it exists.
-     * If neither exist, returns undefined.
-     */
-    getDefaultScriptName: function() {
-        var layout = this.getTable();
-        if (!layout) { return; }
-        var hasLatn = false;
-        for (var i = 0; i < layout.scripts.length; i++) {
-            var name = layout.scripts[i].tag;
-            if (name === 'DFLT') { return name; }
-            if (name === 'latn') { hasLatn = true; }
-        }
-        if (hasLatn) { return 'latn'; }
-    },
+	/**
+	 * Returns the best bet for a script name.
+	 * Returns 'DFLT' if it exists.
+	 * If not, returns 'latn' if it exists.
+	 * If neither exist, returns undefined.
+	 */
+	getDefaultScriptName() {
+		var layout = this.getTable();
+		if (!layout) { return; }
+		var hasLatn = false;
+		for (var i = 0; i<layout.scripts.length; i++) {
+			var name = layout.scripts[i].tag;
+			if (name==='DFLT') { return name; }
+			if (name==='latn') { hasLatn = true; }
+		}
+		if (hasLatn) { return 'latn'; }
+	},
 
-    /**
-     * Returns all LangSysRecords in the given script.
-     * @instance
-     * @param {string} [script='DFLT']
-     * @param {boolean} create - forces the creation of this script table if it doesn't exist.
-     * @return {Object} An object with tag and script properties.
-     */
-    getScriptTable: function(script, create) {
-        var layout = this.getTable(create);
-        if (layout) {
-            script = script || 'DFLT';
-            var scripts = layout.scripts;
-            var pos = searchTag(layout.scripts, script);
-            if (pos >= 0) {
-                return scripts[pos].script;
-            } else if (create) {
-                var scr = {
-                    tag: script,
-                    script: {
-                        defaultLangSys: {reserved: 0, reqFeatureIndex: 0xffff, featureIndexes: []},
-                        langSysRecords: []
-                    }
-                };
-                scripts.splice(-1 - pos, 0, scr);
-                return scr.script;
-            }
-        }
-    },
+	/**
+	 * Returns all LangSysRecords in the given script.
+	 * @instance
+	 * @param {string} [script='DFLT']
+	 * @param {boolean} create - forces the creation of this script table if it doesn't exist.
+	 * @return {Object} An object with tag and script properties.
+	 */
+	getScriptTable(script, create) {
+		var layout = this.getTable(create);
+		if (layout) {
+			script = script || 'DFLT';
+			var scripts = layout.scripts;
+			var pos = searchTag(layout.scripts, script);
+			if (pos>=0) {
+				return scripts[pos].script;
+			} else if (create) {
+				var scr = {
+					tag   : script,
+					script: {
+						defaultLangSys: {reserved: 0, reqFeatureIndex: 0xffff, featureIndexes: []},
+						langSysRecords: []
+					}
+				};
+				scripts.splice(-1 - pos, 0, scr);
+				return scr.script;
+			}
+		}
+	},
 
-    /**
-     * Returns a language system table
-     * @instance
-     * @param {string} [script='DFLT']
-     * @param {string} [language='dlft']
-     * @param {boolean} create - forces the creation of this langSysTable if it doesn't exist.
-     * @return {Object}
-     */
-    getLangSysTable: function(script, language, create) {
-        var scriptTable = this.getScriptTable(script, create);
-        if (scriptTable) {
-            if (!language || language === 'dflt' || language === 'DFLT') {
-                return scriptTable.defaultLangSys;
-            }
-            var pos = searchTag(scriptTable.langSysRecords, language);
-            if (pos >= 0) {
-                return scriptTable.langSysRecords[pos].langSys;
-            } else if (create) {
-                var langSysRecord = {
-                    tag: language,
-                    langSys: {reserved: 0, reqFeatureIndex: 0xffff, featureIndexes: []}
-                };
-                scriptTable.langSysRecords.splice(-1 - pos, 0, langSysRecord);
-                return langSysRecord.langSys;
-            }
-        }
-    },
+	/**
+	 * Returns a language system table
+	 * @instance
+	 * @param {string} [script='DFLT']
+	 * @param {string} [language='dlft']
+	 * @param {boolean} create - forces the creation of this langSysTable if it doesn't exist.
+	 * @return {Object}
+	 */
+	getLangSysTable(script, language, create) {
+		var scriptTable = this.getScriptTable(script, create);
+		if (scriptTable) {
+			if (!language || language==='dflt' || language==='DFLT') {
+				return scriptTable.defaultLangSys;
+			}
+			var pos = searchTag(scriptTable.langSysRecords, language);
+			if (pos>=0) {
+				return scriptTable.langSysRecords[pos].langSys;
+			} else if (create) {
+				var langSysRecord = {
+					tag    : language,
+					langSys: {reserved: 0, reqFeatureIndex: 0xffff, featureIndexes: []}
+				};
+				scriptTable.langSysRecords.splice(-1 - pos, 0, langSysRecord);
+				return langSysRecord.langSys;
+			}
+		}
+	},
 
-    /**
-     * Get a specific feature table.
-     * @instance
-     * @param {string} [script='DFLT']
-     * @param {string} [language='dlft']
-     * @param {string} feature - One of the codes listed at https://www.microsoft.com/typography/OTSPEC/featurelist.htm
-     * @param {boolean} create - forces the creation of the feature table if it doesn't exist.
-     * @return {Object}
-     */
-    getFeatureTable: function(script, language, feature, create) {
-        var langSysTable = this.getLangSysTable(script, language, create);
-        if (langSysTable) {
-            var featureRecord;
-            var featIndexes = langSysTable.featureIndexes;
-            var allFeatures = this.font.tables[this.tableName].features;
-            // The FeatureIndex array of indices is in arbitrary order,
-            // even if allFeatures is sorted alphabetically by feature tag.
-            for (var i = 0; i < featIndexes.length; i++) {
-                featureRecord = allFeatures[featIndexes[i]];
-                if (featureRecord.tag === feature) {
-                    return featureRecord.feature;
-                }
-            }
-            if (create) {
-                var index = allFeatures.length;
-                // Automatic ordering of features would require to shift feature indexes in the script list.
-                check.assert(index === 0 || feature >= allFeatures[index - 1].tag, 'Features must be added in alphabetical order.');
-                featureRecord = {
-                    tag: feature,
-                    feature: { params: 0, lookupListIndexes: [] }
-                };
-                allFeatures.push(featureRecord);
-                featIndexes.push(index);
-                return featureRecord.feature;
-            }
-        }
-    },
+	/**
+	 * Get a specific feature table.
+	 * @instance
+	 * @param {string} [script='DFLT']
+	 * @param {string} [language='dlft']
+	 * @param {string} feature - One of the codes listed at https://www.microsoft.com/typography/OTSPEC/featurelist.htm
+	 * @param {boolean} create - forces the creation of the feature table if it doesn't exist.
+	 * @return {Object}
+	 */
+	getFeatureTable(script, language, feature, create) {
+		var langSysTable = this.getLangSysTable(script, language, create);
+		if (langSysTable) {
+			var featureRecord;
+			var featIndexes = langSysTable.featureIndexes;
+			var allFeatures = this.font.tables[this.tableName].features;
+			// The FeatureIndex array of indices is in arbitrary order,
+			// even if allFeatures is sorted alphabetically by feature tag.
+			for (var i = 0; i<featIndexes.length; i++) {
+				featureRecord = allFeatures[featIndexes[i]];
+				if (featureRecord.tag===feature) {
+					return featureRecord.feature;
+				}
+			}
+			if (create) {
+				var index = allFeatures.length;
+				// Automatic ordering of features would require to shift feature indexes in the script list.
+				check.assert(index===0 || feature>=allFeatures[index - 1].tag, 'Features must be added in alphabetical order.');
+				featureRecord = {
+					tag    : feature,
+					feature: {params: 0, lookupListIndexes: []}
+				};
+				allFeatures.push(featureRecord);
+				featIndexes.push(index);
+				return featureRecord.feature;
+			}
+		}
+	},
 
-    /**
-     * Get the lookup tables of a given type for a script/language/feature.
-     * @instance
-     * @param {string} [script='DFLT']
-     * @param {string} [language='dlft']
-     * @param {string} feature - 4-letter feature code
-     * @param {number} lookupType - 1 to 9
-     * @param {boolean} create - forces the creation of the lookup table if it doesn't exist, with no subtables.
-     * @return {Object[]}
-     */
-    getLookupTables: function(script, language, feature, lookupType, create) {
-        var featureTable = this.getFeatureTable(script, language, feature, create);
-        var tables = [];
-        if (featureTable) {
-            var lookupTable;
-            var lookupListIndexes = featureTable.lookupListIndexes;
-            var allLookups = this.font.tables[this.tableName].lookups;
-            // lookupListIndexes are in no particular order, so use naive search.
-            for (var i = 0; i < lookupListIndexes.length; i++) {
-                lookupTable = allLookups[lookupListIndexes[i]];
-                if (lookupTable.lookupType === lookupType) {
-                    tables.push(lookupTable);
-                }
-            }
-            if (tables.length === 0 && create) {
-                lookupTable = {
-                    lookupType: lookupType,
-                    lookupFlag: 0,
-                    subtables: [],
-                    markFilteringSet: undefined
-                };
-                var index = allLookups.length;
-                allLookups.push(lookupTable);
-                lookupListIndexes.push(index);
-                return [lookupTable];
-            }
-        }
-        return tables;
-    },
+	/**
+	 * Get the lookup tables of a given type for a script/language/feature.
+	 * @instance
+	 * @param {string} [script='DFLT']
+	 * @param {string} [language='dlft']
+	 * @param {string} feature - 4-letter feature code
+	 * @param {number} lookupType - 1 to 9
+	 * @param {boolean} create - forces the creation of the lookup table if it doesn't exist, with no subtables.
+	 * @return {Object[]}
+	 */
+	getLookupTables(script, language, feature, lookupType, create) {
+		var featureTable = this.getFeatureTable(script, language, feature, create);
+		var tables = [];
+		if (featureTable) {
+			var lookupTable;
+			var lookupListIndexes = featureTable.lookupListIndexes;
+			var allLookups = this.font.tables[this.tableName].lookups;
+			// lookupListIndexes are in no particular order, so use naive search.
+			for (var i = 0; i<lookupListIndexes.length; i++) {
+				lookupTable = allLookups[lookupListIndexes[i]];
+				if (lookupTable.lookupType===lookupType) {
+					tables.push(lookupTable);
+				}
+			}
+			if (tables.length===0 && create) {
+				lookupTable = {
+					lookupType,
+					lookupFlag      : 0,
+					subtables       : [],
+					markFilteringSet: undefined
+				};
+				var index = allLookups.length;
+				allLookups.push(lookupTable);
+				lookupListIndexes.push(index);
+				return [lookupTable];
+			}
+		}
+		return tables;
+	},
 
-    /**
-     * Find a glyph in a class definition table
-     * https://docs.microsoft.com/en-us/typography/opentype/spec/chapter2#class-definition-table
-     * @param {object} classDefTable - an OpenType Layout class definition table
-     * @param {number} glyphIndex - the index of the glyph to find
-     * @returns {number} -1 if not found
-     */
-    getGlyphClass: function(classDefTable, glyphIndex) {
-        switch (classDefTable.format) {
-            case 1:
-                if (classDefTable.startGlyph <= glyphIndex && glyphIndex < classDefTable.startGlyph + classDefTable.classes.length) {
-                    return classDefTable.classes[glyphIndex - classDefTable.startGlyph];
-                }
-                return 0;
-            case 2:
-                var range = searchRange(classDefTable.ranges, glyphIndex);
-                return range ? range.classId : 0;
-        }
-    },
+	/**
+	 * Find a glyph in a class definition table
+	 * https://docs.microsoft.com/en-us/typography/opentype/spec/chapter2#class-definition-table
+	 * @param {object} classDefTable - an OpenType Layout class definition table
+	 * @param {number} glyphIndex - the index of the glyph to find
+	 * @returns {number} -1 if not found
+	 */
+	getGlyphClass(classDefTable, glyphIndex) {
+		switch (classDefTable.format) {
+			case 1:
+				if (classDefTable.startGlyph<=glyphIndex && glyphIndex<classDefTable.startGlyph + classDefTable.classes.length) {
+					return classDefTable.classes[glyphIndex - classDefTable.startGlyph];
+				}
+				return 0;
+			case 2:
+				var range = searchRange(classDefTable.ranges, glyphIndex);
+				return range ? range.classId : 0;
+		}
+	},
 
-    /**
-     * Find a glyph in a coverage table
-     * https://docs.microsoft.com/en-us/typography/opentype/spec/chapter2#coverage-table
-     * @param {object} coverageTable - an OpenType Layout coverage table
-     * @param {number} glyphIndex - the index of the glyph to find
-     * @returns {number} -1 if not found
-     */
-    getCoverageIndex: function(coverageTable, glyphIndex) {
-        switch (coverageTable.format) {
-            case 1:
-                var index = binSearch(coverageTable.glyphs, glyphIndex);
-                return index >= 0 ? index : -1;
-            case 2:
-                var range = searchRange(coverageTable.ranges, glyphIndex);
-                return range ? range.index + glyphIndex - range.start : -1;
-        }
-    },
+	/**
+	 * Find a glyph in a coverage table
+	 * https://docs.microsoft.com/en-us/typography/opentype/spec/chapter2#coverage-table
+	 * @param {object} coverageTable - an OpenType Layout coverage table
+	 * @param {number} glyphIndex - the index of the glyph to find
+	 * @returns {number} -1 if not found
+	 */
+	getCoverageIndex(coverageTable, glyphIndex) {
+		switch (coverageTable.format) {
+			case 1:
+				var index = binSearch(coverageTable.glyphs, glyphIndex);
+				return index>=0 ? index : -1;
+			case 2:
+				var range = searchRange(coverageTable.ranges, glyphIndex);
+				return range ? range.index + glyphIndex - range.start : -1;
+		}
+	},
 
-    /**
-     * Returns the list of glyph indexes of a coverage table.
-     * Format 1: the list is stored raw
-     * Format 2: compact list as range records.
-     * @instance
-     * @param  {Object} coverageTable
-     * @return {Array}
-     */
-    expandCoverage: function(coverageTable) {
-        if (coverageTable.format === 1) {
-            return coverageTable.glyphs;
-        } else {
-            var glyphs = [];
-            var ranges = coverageTable.ranges;
-            for (var i = 0; i < ranges.length; i++) {
-                var range = ranges[i];
-                var start = range.start;
-                var end = range.end;
-                for (var j = start; j <= end; j++) {
-                    glyphs.push(j);
-                }
-            }
-            return glyphs;
-        }
-    }
+	/**
+	 * Returns the list of glyph indexes of a coverage table.
+	 * Format 1: the list is stored raw
+	 * Format 2: compact list as range records.
+	 * @instance
+	 * @param  {Object} coverageTable
+	 * @return {Array}
+	 */
+	expandCoverage(coverageTable) {
+		if (coverageTable.format===1) {
+			return coverageTable.glyphs;
+		} else {
+			var glyphs = [];
+			var ranges = coverageTable.ranges;
+			for (var i = 0; i<ranges.length; i++) {
+				var range = ranges[i];
+				var start = range.start;
+				var end = range.end;
+				for (var j = start; j<=end; j++) {
+					glyphs.push(j);
+				}
+			}
+			return glyphs;
+		}
+	}
 
 };
 
@@ -7828,7 +7828,7 @@ Substitution.prototype.getSingle = function(feature, script, language) {
         for (var i = 0; i < subtables.length; i++) {
             var subtable = subtables[i];
             var glyphs = this.expandCoverage(subtable.coverage);
-            var j = (void 0);
+            var j = void 0;
             if (subtable.substFormat === 1) {
                 var delta = subtable.deltaGlyphId;
                 for (j = 0; j < glyphs.length; j++) {
@@ -7861,7 +7861,7 @@ Substitution.prototype.getMultiple = function(feature, script, language) {
         for (var i = 0; i < subtables.length; i++) {
             var subtable = subtables[i];
             var glyphs = this.expandCoverage(subtable.coverage);
-            var j = (void 0);
+            var j = void 0;
 
             for (j = 0; j < glyphs.length; j++) {
                 var glyph = glyphs[j];
@@ -8392,14 +8392,14 @@ function buildPath(glyphs, glyph) {
             // Force the ttfGlyphLoader to parse the glyph.
             componentGlyph.getPath();
             if (componentGlyph.points) {
-                var transformedPoints = (void 0);
+                var transformedPoints = void 0;
                 if (component.matchedPoints === undefined) {
                     // component positioned by offset
                     transformedPoints = transformPoints(componentGlyph.points, component);
                 } else {
                     // component positioned by matched points
-                    if ((component.matchedPoints[0] > glyph.points.length - 1) ||
-                        (component.matchedPoints[1] > componentGlyph.points.length - 1)) {
+                    if (component.matchedPoints[0] > glyph.points.length - 1 ||
+                        component.matchedPoints[1] > componentGlyph.points.length - 1) {
                         throw Error('Matched points out of range in ' + glyph.name);
                     }
                     var firstPt = glyph.points[component.matchedPoints[0]];
@@ -8463,7 +8463,7 @@ function parseGlyfTable(data, start, loca, font, opt) {
         { return parseGlyfTableAll(data, start, loca, font); }
 }
 
-var glyf = { getPath: getPath, parse: parseGlyfTable};
+var glyf = {getPath, parse: parseGlyfTable};
 
 /* A TrueType font hinting interpreter.
 *
@@ -8607,58 +8607,58 @@ var xUnitVector = {
     axis: 'x',
 
     // Gets the projected distance between two points.
-    // o1/o2 ... if true, respective original position is used.
-    distance: function (p1, p2, o1, o2) {
-        return (o1 ? p1.xo : p1.x) - (o2 ? p2.xo : p2.x);
-    },
+	// o1/o2 ... if true, respective original position is used.
+	distance(p1, p2, o1, o2) {
+		return (o1 ? p1.xo : p1.x) - (o2 ? p2.xo : p2.x);
+	},
 
     // Moves point p so the moved position has the same relative
     // position to the moved positions of rp1 and rp2 than the
     // original positions had.
     //
-    // See APPENDIX on INTERPOLATE at the bottom of this file.
-    interpolate: function (p, rp1, rp2, pv) {
-        var do1;
-        var do2;
-        var doa1;
-        var doa2;
-        var dm1;
-        var dm2;
-        var dt;
+	// See APPENDIX on INTERPOLATE at the bottom of this file.
+	interpolate(p, rp1, rp2, pv) {
+		var do1;
+		var do2;
+		var doa1;
+		var doa2;
+		var dm1;
+		var dm2;
+		var dt;
 
-        if (!pv || pv === this) {
-            do1 = p.xo - rp1.xo;
-            do2 = p.xo - rp2.xo;
-            dm1 = rp1.x - rp1.xo;
-            dm2 = rp2.x - rp2.xo;
-            doa1 = Math.abs(do1);
-            doa2 = Math.abs(do2);
-            dt = doa1 + doa2;
+		if (!pv || pv===this) {
+			do1 = p.xo - rp1.xo;
+			do2 = p.xo - rp2.xo;
+			dm1 = rp1.x - rp1.xo;
+			dm2 = rp2.x - rp2.xo;
+			doa1 = Math.abs(do1);
+			doa2 = Math.abs(do2);
+			dt = doa1 + doa2;
 
-            if (dt === 0) {
-                p.x = p.xo + (dm1 + dm2) / 2;
-                return;
-            }
+			if (dt===0) {
+				p.x = p.xo + (dm1 + dm2) / 2;
+				return;
+			}
 
-            p.x = p.xo + (dm1 * doa2 + dm2 * doa1) / dt;
-            return;
-        }
+			p.x = p.xo + (dm1 * doa2 + dm2 * doa1) / dt;
+			return;
+		}
 
-        do1 = pv.distance(p, rp1, true, true);
-        do2 = pv.distance(p, rp2, true, true);
-        dm1 = pv.distance(rp1, rp1, false, true);
-        dm2 = pv.distance(rp2, rp2, false, true);
-        doa1 = Math.abs(do1);
-        doa2 = Math.abs(do2);
-        dt = doa1 + doa2;
+		do1 = pv.distance(p, rp1, true, true);
+		do2 = pv.distance(p, rp2, true, true);
+		dm1 = pv.distance(rp1, rp1, false, true);
+		dm2 = pv.distance(rp2, rp2, false, true);
+		doa1 = Math.abs(do1);
+		doa2 = Math.abs(do2);
+		dt = doa1 + doa2;
 
-        if (dt === 0) {
-            xUnitVector.setRelative(p, p, (dm1 + dm2) / 2, pv, true);
-            return;
-        }
+		if (dt===0) {
+			xUnitVector.setRelative(p, p, (dm1 + dm2) / 2, pv, true);
+			return;
+		}
 
-        xUnitVector.setRelative(p, p, (dm1 * doa2 + dm2 * doa1) / dt, pv, true);
-    },
+		xUnitVector.setRelative(p, p, (dm1 * doa2 + dm2 * doa1) / dt, pv, true);
+	},
 
     // Slope of line normal to this
     normalSlope: Number.NEGATIVE_INFINITY,
@@ -8672,38 +8672,38 @@ var xUnitVector = {
     // rp  ... reference point
     // d   ... distance on projection vector
     // pv  ... projection vector (undefined = this)
-    // org ... if true, uses the original position of rp as reference.
-    setRelative: function (p, rp, d, pv, org) {
-        if (!pv || pv === this) {
-            p.x = (org ? rp.xo : rp.x) + d;
-            return;
-        }
+	// org ... if true, uses the original position of rp as reference.
+	setRelative(p, rp, d, pv, org) {
+		if (!pv || pv===this) {
+			p.x = (org ? rp.xo : rp.x) + d;
+			return;
+		}
 
-        var rpx = org ? rp.xo : rp.x;
-        var rpy = org ? rp.yo : rp.y;
-        var rpdx = rpx + d * pv.x;
-        var rpdy = rpy + d * pv.y;
+		var rpx = org ? rp.xo : rp.x;
+		var rpy = org ? rp.yo : rp.y;
+		var rpdx = rpx + d * pv.x;
+		var rpdy = rpy + d * pv.y;
 
-        p.x = rpdx + (p.y - rpdy) / pv.normalSlope;
-    },
+		p.x = rpdx + (p.y - rpdy) / pv.normalSlope;
+	},
 
     // Slope of vector line.
     slope: 0,
 
-    // Touches the point p.
-    touch: function (p) {
-        p.xTouched = true;
-    },
+	// Touches the point p.
+	touch(p) {
+		p.xTouched = true;
+	},
 
-    // Tests if a point p is touched.
-    touched: function (p) {
-        return p.xTouched;
-    },
+	// Tests if a point p is touched.
+	touched(p) {
+		return p.xTouched;
+	},
 
-    // Untouches the point p.
-    untouch: function (p) {
-        p.xTouched = false;
-    }
+	// Untouches the point p.
+	untouch(p) {
+		p.xTouched = false;
+	}
 };
 
 /*
@@ -8717,58 +8717,58 @@ var yUnitVector = {
     axis: 'y',
 
     // Gets the projected distance between two points.
-    // o1/o2 ... if true, respective original position is used.
-    distance: function (p1, p2, o1, o2) {
-        return (o1 ? p1.yo : p1.y) - (o2 ? p2.yo : p2.y);
-    },
+	// o1/o2 ... if true, respective original position is used.
+	distance(p1, p2, o1, o2) {
+		return (o1 ? p1.yo : p1.y) - (o2 ? p2.yo : p2.y);
+	},
 
     // Moves point p so the moved position has the same relative
     // position to the moved positions of rp1 and rp2 than the
     // original positions had.
     //
-    // See APPENDIX on INTERPOLATE at the bottom of this file.
-    interpolate: function (p, rp1, rp2, pv) {
-        var do1;
-        var do2;
-        var doa1;
-        var doa2;
-        var dm1;
-        var dm2;
-        var dt;
+	// See APPENDIX on INTERPOLATE at the bottom of this file.
+	interpolate(p, rp1, rp2, pv) {
+		var do1;
+		var do2;
+		var doa1;
+		var doa2;
+		var dm1;
+		var dm2;
+		var dt;
 
-        if (!pv || pv === this) {
-            do1 = p.yo - rp1.yo;
-            do2 = p.yo - rp2.yo;
-            dm1 = rp1.y - rp1.yo;
-            dm2 = rp2.y - rp2.yo;
-            doa1 = Math.abs(do1);
-            doa2 = Math.abs(do2);
-            dt = doa1 + doa2;
+		if (!pv || pv===this) {
+			do1 = p.yo - rp1.yo;
+			do2 = p.yo - rp2.yo;
+			dm1 = rp1.y - rp1.yo;
+			dm2 = rp2.y - rp2.yo;
+			doa1 = Math.abs(do1);
+			doa2 = Math.abs(do2);
+			dt = doa1 + doa2;
 
-            if (dt === 0) {
-                p.y = p.yo + (dm1 + dm2) / 2;
-                return;
-            }
+			if (dt===0) {
+				p.y = p.yo + (dm1 + dm2) / 2;
+				return;
+			}
 
-            p.y = p.yo + (dm1 * doa2 + dm2 * doa1) / dt;
-            return;
-        }
+			p.y = p.yo + (dm1 * doa2 + dm2 * doa1) / dt;
+			return;
+		}
 
-        do1 = pv.distance(p, rp1, true, true);
-        do2 = pv.distance(p, rp2, true, true);
-        dm1 = pv.distance(rp1, rp1, false, true);
-        dm2 = pv.distance(rp2, rp2, false, true);
-        doa1 = Math.abs(do1);
-        doa2 = Math.abs(do2);
-        dt = doa1 + doa2;
+		do1 = pv.distance(p, rp1, true, true);
+		do2 = pv.distance(p, rp2, true, true);
+		dm1 = pv.distance(rp1, rp1, false, true);
+		dm2 = pv.distance(rp2, rp2, false, true);
+		doa1 = Math.abs(do1);
+		doa2 = Math.abs(do2);
+		dt = doa1 + doa2;
 
-        if (dt === 0) {
-            yUnitVector.setRelative(p, p, (dm1 + dm2) / 2, pv, true);
-            return;
-        }
+		if (dt===0) {
+			yUnitVector.setRelative(p, p, (dm1 + dm2) / 2, pv, true);
+			return;
+		}
 
-        yUnitVector.setRelative(p, p, (dm1 * doa2 + dm2 * doa1) / dt, pv, true);
-    },
+		yUnitVector.setRelative(p, p, (dm1 * doa2 + dm2 * doa1) / dt, pv, true);
+	},
 
     // Slope of line normal to this.
     normalSlope: 0,
@@ -8782,38 +8782,38 @@ var yUnitVector = {
     // rp  ... reference point
     // d   ... distance on projection vector
     // pv  ... projection vector (undefined = this)
-    // org ... if true, uses the original position of rp as reference.
-    setRelative: function (p, rp, d, pv, org) {
-        if (!pv || pv === this) {
-            p.y = (org ? rp.yo : rp.y) + d;
-            return;
-        }
+	// org ... if true, uses the original position of rp as reference.
+	setRelative(p, rp, d, pv, org) {
+		if (!pv || pv===this) {
+			p.y = (org ? rp.yo : rp.y) + d;
+			return;
+		}
 
-        var rpx = org ? rp.xo : rp.x;
-        var rpy = org ? rp.yo : rp.y;
-        var rpdx = rpx + d * pv.x;
-        var rpdy = rpy + d * pv.y;
+		var rpx = org ? rp.xo : rp.x;
+		var rpy = org ? rp.yo : rp.y;
+		var rpdx = rpx + d * pv.x;
+		var rpdy = rpy + d * pv.y;
 
-        p.y = rpdy + pv.normalSlope * (p.x - rpdx);
-    },
+		p.y = rpdy + pv.normalSlope * (p.x - rpdx);
+	},
 
     // Slope of vector line.
     slope: Number.POSITIVE_INFINITY,
 
-    // Touches the point p.
-    touch: function (p) {
-        p.yTouched = true;
-    },
+	// Touches the point p.
+	touch(p) {
+		p.yTouched = true;
+	},
 
-    // Tests if a point p is touched.
-    touched: function (p) {
-        return p.yTouched;
-    },
+	// Tests if a point p is touched.
+	touched(p) {
+		return p.yTouched;
+	},
 
-    // Untouches the point p.
-    untouch: function (p) {
-        p.yTouched = false;
-    }
+	// Untouches the point p.
+	untouch(p) {
+		p.yTouched = false;
+	}
 };
 
 Object.freeze(xUnitVector);
@@ -8836,10 +8836,8 @@ function UnitVector(x, y) {
 * o1/o2 ... if true, respective original position is used.
 */
 UnitVector.prototype.distance = function(p1, p2, o1, o2) {
-    return (
-        this.x * xUnitVector.distance(p1, p2, o1, o2) +
-        this.y * yUnitVector.distance(p1, p2, o1, o2)
-    );
+    return this.x * xUnitVector.distance(p1, p2, o1, o2) +
+    this.y * yUnitVector.distance(p1, p2, o1, o2);
 };
 
 /*
@@ -10230,7 +10228,7 @@ function NPUSHW(state) {
     if (exports.DEBUG) { console.log(state.step, 'NPUSHW[]', n); }
 
     for (var i = 0; i < n; i++) {
-        var w = (prog[++ip] << 8) | prog[++ip];
+        var w = prog[++ip] << 8 | prog[++ip];
         if (w & 0x8000) { w = -((w ^ 0xffff) + 1); }
         stack.push(w);
     }
@@ -10264,7 +10262,7 @@ function RS(state) {
 
     if (exports.DEBUG) { console.log(state.step, 'RS', l); }
 
-    var v = (store && store[l]) || 0;
+    var v = store && store[l] || 0;
 
     stack.push(v);
 }
@@ -10952,7 +10950,7 @@ function PUSHW(n, state) {
     if (exports.DEBUG) { console.log(state.ip, 'PUSHW[' + n + ']'); }
 
     for (var i = 0; i < n; i++) {
-        var w = (prog[++ip] << 8) | prog[++ip];
+        var w = prog[++ip] << 8 | prog[++ip];
         if (w & 0x8000) { w = -((w ^ 0xffff) + 1); }
         stack.push(w);
     }
@@ -11651,7 +11649,7 @@ function Tokenizer(events) {
  */
 Token.prototype.setState = function(key, value) {
     this.state[key] = value;
-    this.activeState = { key: key, value: this.state[key] };
+    this.activeState = {key, value: this.state[key] };
     return this.activeState;
 };
 
@@ -11668,21 +11666,17 @@ Tokenizer.prototype.inboundIndex = function(index) {
 };
 
 /**
- * Compose and apply a list of operations (replace, update, delete)
- * @param {array} RUDs replace, update and delete operations
+ * Compose and apply a list of operations (replace, Update, delete)
+ * @param {array} RUDs replace, Update and delete operations
  * TODO: Perf. Optimization (lengthBefore === lengthAfter ? dispatch once)
  */
 Tokenizer.prototype.composeRUD = function (RUDs) {
     var this$1 = this;
 
     var silent = true;
-    var state = RUDs.map(function (RUD) { return (
-        this$1[RUD[0]].apply(this$1, RUD.slice(1).concat(silent))
-    ); });
-    var hasFAILObject = function (obj) { return (
-        typeof obj === 'object' &&
-        obj.hasOwnProperty('FAIL')
-    ); };
+    var state = RUDs.map(function (RUD) { return this$1[RUD[0]].apply(this$1, RUD.slice(1).concat(silent)); });
+    var hasFAILObject = function (obj) { return typeof obj === 'object' &&
+    obj.hasOwnProperty('FAIL'); };
     if (state.every(hasFAILObject)) {
         return {
             FAIL: "composeRUD: one or more operations hasn't completed successfully",
@@ -11697,7 +11691,7 @@ Tokenizer.prototype.composeRUD = function (RUDs) {
  * @param {number} startIndex range start index
  * @param {number} offset range offset
  * @param {token} tokens a list of tokens to replace
- * @param {boolean} silent dispatch events and update context ranges
+ * @param {boolean} silent dispatch events and Update context ranges
  */
 Tokenizer.prototype.replaceRange = function (startIndex, offset, tokens, silent) {
     offset = offset !== null ? offset : this.tokens.length;
@@ -11717,7 +11711,7 @@ Tokenizer.prototype.replaceRange = function (startIndex, offset, tokens, silent)
  * Replace a token with another token
  * @param {number} index token index
  * @param {token} token a token to replace
- * @param {boolean} silent dispatch events and update context ranges
+ * @param {boolean} silent dispatch events and Update context ranges
  */
 Tokenizer.prototype.replaceToken = function (index, token, silent) {
     if (!isNaN(index) && this.inboundIndex(index) && token instanceof Token) {
@@ -11733,7 +11727,7 @@ Tokenizer.prototype.replaceToken = function (index, token, silent) {
  * Removes a range of tokens
  * @param {number} startIndex range start index
  * @param {number} offset range offset
- * @param {boolean} silent dispatch events and update context ranges
+ * @param {boolean} silent dispatch events and Update context ranges
  */
 Tokenizer.prototype.removeRange = function(startIndex, offset, silent) {
     offset = !isNaN(offset) ? offset : this.tokens.length;
@@ -11745,7 +11739,7 @@ Tokenizer.prototype.removeRange = function(startIndex, offset, silent) {
 /**
  * Remove a token at a certain index
  * @param {number} index token index
- * @param {boolean} silent dispatch events and update context ranges
+ * @param {boolean} silent dispatch events and Update context ranges
  */
 Tokenizer.prototype.removeToken = function(index, silent) {
     if (!isNaN(index) && this.inboundIndex(index)) {
@@ -11761,7 +11755,7 @@ Tokenizer.prototype.removeToken = function(index, silent) {
  * Insert a list of tokens at a certain index
  * @param {array} tokens a list of tokens to insert
  * @param {number} index insert the list of tokens at index
- * @param {boolean} silent dispatch events and update context ranges
+ * @param {boolean} silent dispatch events and Update context ranges
  */
 Tokenizer.prototype.insertToken = function (tokens, index, silent) {
     var tokenType = tokens.every(
@@ -11782,15 +11776,13 @@ Tokenizer.prototype.insertToken = function (tokens, index, silent) {
  * A state modifier that is called on 'newToken' event
  * @param {string} modifierId state modifier id
  * @param {function} condition a predicate function that returns true or false
- * @param {function} modifier a function to update token state
+ * @param {function} modifier a function to Update token state
  */
 Tokenizer.prototype.registerModifier = function(modifierId, condition, modifier) {
     this.events.newToken.subscribe(function(token, contextParams) {
         var conditionParams = [token, contextParams];
-        var canApplyModifier = (
-            condition === null ||
-            condition.apply(this, conditionParams) === true
-        );
+        var canApplyModifier = condition === null ||
+        condition.apply(this, conditionParams) === true;
         var modifierParams = [token, contextParams];
         if (canApplyModifier) {
             var newStateValue = modifier.apply(this, modifierParams);
@@ -11806,9 +11798,9 @@ Tokenizer.prototype.registerModifier = function(modifierId, condition, modifier)
  */
 Event.prototype.subscribe = function (eventHandler) {
     if (typeof eventHandler === 'function') {
-        return ((this.subscribers.push(eventHandler)) - 1);
+        return this.subscribers.push(eventHandler) - 1;
     } else {
-        return { FAIL: ("invalid '" + (this.eventId) + "' event handler")};
+        return { FAIL: "invalid '" + this.eventId + "' event handler"};
     }
 };
 
@@ -11840,11 +11832,11 @@ ContextParams.prototype.setCurrentIndex = function(index) {
  */
 ContextParams.prototype.get = function (offset) {
     switch (true) {
-        case (offset === 0):
+        case offset === 0:
             return this.current;
-        case (offset < 0 && Math.abs(offset) <= this.backtrack.length):
+        case offset < 0 && Math.abs(offset) <= this.backtrack.length:
             return this.backtrack.slice(offset)[0];
-        case (offset > 0 && offset <= this.lookahead.length):
+        case offset > 0 && offset <= this.lookahead.length:
             return this.lookahead[offset - 1];
         default:
             return null;
@@ -11857,10 +11849,8 @@ ContextParams.prototype.get = function (offset) {
  */
 Tokenizer.prototype.rangeToText = function (range) {
     if (range instanceof ContextRange) {
-        return (
-            this.getRangeTokens(range)
-                .map(function (token) { return token.char; }).join('')
-        );
+        return this.getRangeTokens(range)
+            .map(function (token) { return token.char; }).join('');
     }
 };
 
@@ -11915,12 +11905,12 @@ Tokenizer.prototype.dispatch = function(eventName, args) {
  * @param {string} contextName a unique context name
  * @param {function} contextStartCheck a predicate function that returns true on context start
  * @param {function} contextEndCheck  a predicate function that returns true on context end
- * TODO: call tokenize on registration to update context ranges with the new context.
+ * TODO: call tokenize on registration to Update context ranges with the new context.
  */
 Tokenizer.prototype.registerContextChecker = function(contextName, contextStartCheck, contextEndCheck) {
     if (!!this.getContext(contextName)) { return {
         FAIL:
-        ("context name '" + contextName + "' is already registered.")
+        "context name '" + contextName + "' is already registered."
     }; }
     if (typeof contextStartCheck !== 'function') { return {
         FAIL:
@@ -11959,12 +11949,12 @@ Tokenizer.prototype.getContextRanges = function(contextName) {
     if (!!context) {
         return context.ranges;
     } else {
-        return { FAIL: ("context checker '" + contextName + "' is not registered.") };
+        return { FAIL: "context checker '" + contextName + "' is not registered." };
     }
 };
 
 /**
- * Resets context ranges to run context update
+ * Resets context ranges to run context Update
  */
 Tokenizer.prototype.resetContextsRanges = function () {
     var registeredContexts = this.registeredContexts;
@@ -11998,7 +11988,7 @@ Tokenizer.prototype.setEndOffset = function (offset, contextName) {
     var startIndex = this.getContext(contextName).openRange.startIndex;
     var range = new ContextRange(startIndex, offset, contextName);
     var ranges = this.getContext(contextName).ranges;
-    range.rangeId = contextName + "." + (ranges.length);
+    range.rangeId = contextName + "." + ranges.length;
     ranges.push(range);
     this.getContext(contextName).openRange = null;
     return range;
@@ -12197,11 +12187,9 @@ function lookupCoverageList(coverageList, contextParams) {
  * @param {ContextParams} contextParams context params to lookup
  */
 function chainingSubstitutionFormat3(contextParams, subtable) {
-    var lookupsCount = (
-        subtable.inputCoverage.length +
-        subtable.lookaheadCoverage.length +
-        subtable.backtrackCoverage.length
-    );
+    var lookupsCount = subtable.inputCoverage.length +
+    subtable.lookaheadCoverage.length +
+    subtable.backtrackCoverage.length;
     if (contextParams.context.length < lookupsCount) { return []; }
     // INPUT LOOKUP //
     var inputLookups = lookupCoverageList(
@@ -12230,11 +12218,9 @@ function chainingSubstitutionFormat3(contextParams, subtable) {
     var backtrackLookups = lookupCoverageList(
         subtable.backtrackCoverage, backtrackParams
     );
-    var contextRulesMatch = (
-        inputLookups.length === subtable.inputCoverage.length &&
-        lookaheadLookups.length === subtable.lookaheadCoverage.length &&
-        backtrackLookups.length === subtable.backtrackCoverage.length
-    );
+    var contextRulesMatch = inputLookups.length === subtable.inputCoverage.length &&
+    lookaheadLookups.length === subtable.lookaheadCoverage.length &&
+    backtrackLookups.length === subtable.backtrackCoverage.length;
     var substitutions = [];
     if (contextRulesMatch) {
         for (var i = 0; i < subtable.lookupRecords.length; i++) {
@@ -12301,9 +12287,7 @@ FeatureQuery.prototype.getDefaultScriptFeaturesIndexes = function () {
     var scripts = this.font.tables.gsub.scripts;
     for (var s = 0; s < scripts.length; s++) {
         var script = scripts[s];
-        if (script.tag === 'DFLT') { return (
-            script.script.defaultLangSys.featureIndexes
-        ); }
+        if (script.tag === 'DFLT') { return script.script.defaultLangSys.featureIndexes; }
     }
     return [];
 };
@@ -12411,8 +12395,8 @@ FeatureQuery.prototype.getLookupMethod = function(lookupTable, subtable) {
             ); };
         default:
             throw new Error(
-                "lookupType: " + (lookupTable.lookupType) + " - " +
-                "substFormat: " + (subtable.substFormat) + " " +
+                "lookupType: " + lookupTable.lookupType + " - " +
+                "substFormat: " + subtable.substFormat + " " +
                 "is not yet supported"
             );
     }
@@ -12452,9 +12436,9 @@ FeatureQuery.prototype.lookupFeature = function (query) {
         tag: query.tag, script: query.script
     });
     if (!feature) { return new Error(
-        "font '" + (this.font.names.fullName.en) + "' " +
-        "doesn't support feature '" + (query.tag) + "' " +
-        "for script '" + (query.script) + "'."
+        "font '" + this.font.names.fullName.en + "' " +
+        "doesn't support feature '" + query.tag + "' " +
+        "for script '" + query.script + "'."
     ); }
     var lookups = this.getFeatureLookups(feature);
     var substitutions = [].concat(contextParams.context);
@@ -12465,46 +12449,46 @@ FeatureQuery.prototype.lookupFeature = function (query) {
             var subtable = subtables[s];
             var substType = this.getSubstitutionType(lookupTable, subtable);
             var lookup = this.getLookupMethod(lookupTable, subtable);
-            var substitution = (void 0);
+            var substitution = void 0;
             switch (substType) {
                 case '11':
                     substitution = lookup(contextParams.current);
                     if (substitution) {
                         substitutions.splice(currentIndex, 1, new SubstitutionAction({
-                            id: 11, tag: query.tag, substitution: substitution
-                        }));
+                            id: 11, tag: query.tag, substitution
+                                                                                     }));
                     }
                     break;
                 case '12':
                     substitution = lookup(contextParams.current);
                     if (substitution) {
                         substitutions.splice(currentIndex, 1, new SubstitutionAction({
-                            id: 12, tag: query.tag, substitution: substitution
-                        }));
+                            id: 12, tag: query.tag, substitution
+                                                                                     }));
                     }
                     break;
                 case '63':
                     substitution = lookup(contextParams);
                     if (Array.isArray(substitution) && substitution.length) {
                         substitutions.splice(currentIndex, 1, new SubstitutionAction({
-                            id: 63, tag: query.tag, substitution: substitution
-                        }));
+                            id: 63, tag: query.tag, substitution
+                                                                                     }));
                     }
                     break;
                 case '41':
                     substitution = lookup(contextParams);
                     if (substitution) {
                         substitutions.splice(currentIndex, 1, new SubstitutionAction({
-                            id: 41, tag: query.tag, substitution: substitution
-                        }));
+                            id: 41, tag: query.tag, substitution
+                                                                                     }));
                     }
                     break;
                 case '21':
                     substitution = lookup(contextParams.current);
                     if (substitution) {
                         substitutions.splice(currentIndex, 1, new SubstitutionAction({
-                            id: 21, tag: query.tag, substitution: substitution
-                        }));
+                            id: 21, tag: query.tag, substitution
+                                                                                     }));
                     }
                     break;
             }
@@ -12525,9 +12509,7 @@ FeatureQuery.prototype.supports = function (query) {
     this.getScriptFeatures(query.script);
     var supportedScript = this.features.hasOwnProperty(query.script);
     if (!query.tag) { return supportedScript; }
-    var supportedFeature = (
-        this.features[query.script].some(function (feature) { return feature.tag === query.tag; })
-    );
+    var supportedFeature = this.features[query.script].some(function (feature) { return feature.tag === query.tag; });
     return supportedScript && supportedFeature;
 };
 
@@ -12567,9 +12549,7 @@ FeatureQuery.prototype.getFeature = function getFeature(query) {
         this.getScriptFeatures(query.script);
     }
     var scriptFeatures = this.features[query.script];
-    if (!scriptFeatures) { return (
-        { FAIL: ("No feature for script " + (query.script))}
-    ); }
+    if (!scriptFeatures) { return { FAIL: "No feature for script " + query.script}; }
     if (!scriptFeatures.tags[query.tag]) { return null; }
     return this.features[query.script].tags[query.tag];
 };
@@ -12581,22 +12561,16 @@ FeatureQuery.prototype.getFeature = function getFeature(query) {
 function arabicWordStartCheck(contextParams) {
     var char = contextParams.current;
     var prevChar = contextParams.get(-1);
-    return (
-        // ? arabic first char
-        (prevChar === null && isArabicChar(char)) ||
-        // ? arabic char preceded with a non arabic char
-        (!isArabicChar(prevChar) && isArabicChar(char))
-    );
+    return prevChar === null && isArabicChar(char) ||
+    // ? arabic char preceded with a non arabic char
+    !isArabicChar(prevChar) && isArabicChar(char);
 }
 
 function arabicWordEndCheck(contextParams) {
     var nextChar = contextParams.get(1);
-    return (
-        // ? last arabic char
-        (nextChar === null) ||
-        // ? next char is not arabic
-        (!isArabicChar(nextChar))
-    );
+    return nextChar === null ||
+    // ? next char is not arabic
+    !isArabicChar(nextChar);
 }
 
 var arabicWordCheck = {
@@ -12611,11 +12585,8 @@ var arabicWordCheck = {
 function arabicSentenceStartCheck(contextParams) {
     var char = contextParams.current;
     var prevChar = contextParams.get(-1);
-    return (
-        // ? an arabic char preceded with a non arabic char
-        (isArabicChar(char) || isTashkeelArabicChar(char)) &&
-        !isArabicChar(prevChar)
-    );
+    return (isArabicChar(char) || isTashkeelArabicChar(char)) &&
+    !isArabicChar(prevChar);
 }
 
 function arabicSentenceEndCheck(contextParams) {
@@ -12623,16 +12594,14 @@ function arabicSentenceEndCheck(contextParams) {
     switch (true) {
         case nextChar === null:
             return true;
-        case (!isArabicChar(nextChar) && !isTashkeelArabicChar(nextChar)):
+        case !isArabicChar(nextChar) && !isTashkeelArabicChar(nextChar):
             var nextIsWhitespace = isWhiteSpace(nextChar);
             if (!nextIsWhitespace) { return true; }
             if (nextIsWhitespace) {
                 var arabicCharAhead = false;
-                arabicCharAhead = (
-                    contextParams.lookahead.some(
+                arabicCharAhead = contextParams.lookahead.some(
                         function (c) { return isArabicChar(c) || isTashkeelArabicChar(c); }
-                    )
-                );
+                    );
                 if (!arabicCharAhead) { return true; }
             }
             break;
@@ -12777,14 +12746,14 @@ function arabicPresentationForms(range) {
         if (willConnectNext(charContextParams)) { CONNECT |= 2; }
         var tag;
         switch (CONNECT) {
-            case 1: (tag = 'fina'); break;
-            case 2: (tag = 'init'); break;
-            case 3: (tag = 'medi'); break;
+            case 1: tag = 'fina'; break;
+            case 2: tag = 'init'; break;
+            case 3: tag = 'medi'; break;
         }
         if (tags.indexOf(tag) === -1) { return; }
         var substitutions = this$1.query.lookupFeature({
-            tag: tag, script: script, contextParams: contextParams
-        });
+	                                                       tag, script, contextParams
+                                                       });
         if (substitutions instanceof Error) { return console.info(substitutions.message); }
         substitutions.forEach(function (action, index) {
             if (action instanceof SubstitutionAction) {
@@ -12822,8 +12791,8 @@ function arabicRequiredLigatures(range) {
     contextParams.context.forEach(function (glyphIndex, index) {
         contextParams.setCurrentIndex(index);
         var substitutions = this$1.query.lookupFeature({
-            tag: 'rlig', script: script, contextParams: contextParams
-        });
+            tag: 'rlig', script, contextParams
+                                                       });
         if (substitutions.length) {
             substitutions.forEach(
                 function (action) { return applySubstitution(action, tokens, index); }
@@ -12840,22 +12809,16 @@ function arabicRequiredLigatures(range) {
 function latinWordStartCheck(contextParams) {
     var char = contextParams.current;
     var prevChar = contextParams.get(-1);
-    return (
-        // ? latin first char
-        (prevChar === null && isLatinChar(char)) ||
-        // ? latin char preceded with a non latin char
-        (!isLatinChar(prevChar) && isLatinChar(char))
-    );
+    return prevChar === null && isLatinChar(char) ||
+    // ? latin char preceded with a non latin char
+    !isLatinChar(prevChar) && isLatinChar(char);
 }
 
 function latinWordEndCheck(contextParams) {
     var nextChar = contextParams.get(1);
-    return (
-        // ? last latin char
-        (nextChar === null) ||
-        // ? next char is not latin
-        (!isLatinChar(nextChar))
-    );
+    return nextChar === null ||
+    // ? next char is not latin
+    !isLatinChar(nextChar);
 }
 
 var latinWordCheck = {
@@ -12890,8 +12853,8 @@ function latinLigature(range) {
     contextParams.context.forEach(function (glyphIndex, index) {
         contextParams.setCurrentIndex(index);
         var substitutions = this$1.query.lookupFeature({
-            tag: 'liga', script: script, contextParams: contextParams
-        });
+            tag: 'liga', script, contextParams
+                                                       });
         if (substitutions.length) {
             substitutions.forEach(
                 function (action) { return applySubstitution(action, tokens, index); }
@@ -12929,11 +12892,11 @@ Bidi.prototype.setText = function (text) {
  * arabic word check for applying gsub features
  * arabic sentence check for adjusting arabic layout
  */
-Bidi.prototype.contextChecks = ({
-    latinWordCheck: latinWordCheck,
-    arabicWordCheck: arabicWordCheck,
-    arabicSentenceCheck: arabicSentenceCheck
-});
+Bidi.prototype.contextChecks = {
+	latinWordCheck,
+	arabicWordCheck,
+	arabicSentenceCheck
+};
 
 /**
  * Register arabic word check
@@ -12983,7 +12946,7 @@ Bidi.prototype.registerFeatures = function (script, tags) {
     var this$1 = this;
 
     var supportedTags = tags.filter(
-        function (tag) { return this$1.query.supports({script: script, tag: tag}); }
+        function (tag) { return this$1.query.supports({script, tag}); }
     );
     if (!this.featuresTags.hasOwnProperty(script)) {
         this.featuresTags[script] = supportedTags;
@@ -13237,12 +13200,12 @@ function Font(options) {
     this._hmtxTableData = {};
 
     Object.defineProperty(this, 'hinting', {
-        get: function() {
-            if (this._hinting) { return this._hinting; }
-            if (this.outlinesFormat === 'truetype') {
-                return (this._hinting = new Hinting(this));
-            }
-        }
+	    get() {
+		    if (this._hinting) { return this._hinting; }
+		    if (this.outlinesFormat==='truetype') {
+			    return this._hinting = new Hinting(this);
+		    }
+	    }
     });
 }
 
@@ -13289,7 +13252,7 @@ Font.prototype.charToGlyph = function(c) {
  * @param {any} options features options
  */
 Font.prototype.updateFeatures = function (options) {
-    // TODO: update all features options not only 'latn'.
+    // TODO: Update all features options not only 'latn'.
     return this.defaultRenderOptions.features.map(function (feature) {
         if (feature.script === 'latn') {
             return {
@@ -13837,7 +13800,7 @@ function parseFvarTable(data, start, names) {
         instances.push(parseFvarInstance(data, instanceStart + j * instanceSize, axes, names));
     }
 
-    return {axes: axes, instances: instances};
+    return {axes, instances};
 }
 
 var fvar = { make: makeFvarTable, parse: parseFvarTable };
@@ -13937,10 +13900,10 @@ subtableParsers$1[2] = function parseLookup2() {
     if (posFormat === 1) {
         // Adjustments for Glyph Pairs
         return {
-            posFormat: posFormat,
-            coverage: coverage,
-            valueFormat1: valueFormat1,
-            valueFormat2: valueFormat2,
+	        posFormat,
+	        coverage,
+	        valueFormat1,
+	        valueFormat2,
             pairSets: this.parseList(Parser.pointer(Parser.list(function() {
                 return {        // pairValueRecord
                     secondGlyph: this.parseUShort(),
@@ -13955,15 +13918,15 @@ subtableParsers$1[2] = function parseLookup2() {
         var class1Count = this.parseUShort();
         var class2Count = this.parseUShort();
         return {
-            // Class Pair Adjustment
-            posFormat: posFormat,
-            coverage: coverage,
-            valueFormat1: valueFormat1,
-            valueFormat2: valueFormat2,
-            classDef1: classDef1,
-            classDef2: classDef2,
-            class1Count: class1Count,
-            class2Count: class2Count,
+	        // Class Pair Adjustment
+	        posFormat,
+	        coverage,
+	        valueFormat1,
+	        valueFormat2,
+	        classDef1,
+	        classDef2,
+	        class1Count,
+	        class2Count,
             classRecords: this.parseList(class1Count, Parser.list(class2Count, function() {
                 return {
                     value1: this.parseValueRecord(valueFormat1),
@@ -14166,7 +14129,7 @@ function parseOpenTypeTableEntries(data, numTables) {
         var checksum = parse.getULong(data, p + 4);
         var offset = parse.getULong(data, p + 8);
         var length = parse.getULong(data, p + 12);
-        tableEntries.push({tag: tag, checksum: checksum, offset: offset, length: length, compression: false});
+        tableEntries.push({tag, checksum, offset, length, compression: false});
         p += 16;
     }
 
@@ -14187,14 +14150,15 @@ function parseWOFFTableEntries(data, numTables) {
         var offset = parse.getULong(data, p + 4);
         var compLength = parse.getULong(data, p + 8);
         var origLength = parse.getULong(data, p + 12);
-        var compression = (void 0);
+        var compression = void 0;
         if (compLength < origLength) {
             compression = 'WOFF';
         } else {
             compression = false;
         }
 
-        tableEntries.push({tag: tag, offset: offset, compression: compression,
+        tableEntries.push({
+	                          tag, offset, compression,
             compressedLength: compLength, length: origLength});
         p += 20;
     }
@@ -14226,7 +14190,7 @@ function uncompressTable(data, tableEntry) {
         var view = new DataView(outBuffer.buffer, 0);
         return {data: view, offset: 0};
     } else {
-        return {data: data, offset: tableEntry.offset};
+        return {data, offset: tableEntry.offset};
     }
 }
 
@@ -14240,7 +14204,7 @@ function uncompressTable(data, tableEntry) {
  * @return {opentype.Font}
  */
 function parseBuffer(buffer, opt) {
-    opt = (opt === undefined || opt === null) ?  {} : opt;
+    opt = opt === undefined || opt === null ?  {} : opt;
 
     var indexToLocFormat;
     var ltagTable;
@@ -14295,7 +14259,7 @@ function parseBuffer(buffer, opt) {
 
     for (var i = 0; i < numTables; i += 1) {
         var tableEntry = tableEntries[i];
-        var table = (void 0);
+        var table = void 0;
         switch (tableEntry.tag) {
             case 'cmap':
                 table = uncompressTable(data, tableEntry);
@@ -14461,7 +14425,7 @@ function parseBuffer(buffer, opt) {
  * @param  {Function} callback - The callback.
  */
 function load(url, callback, opt) {
-    opt = (opt === undefined || opt === null) ?  {} : opt;
+    opt = opt === undefined || opt === null ?  {} : opt;
 
     return new Promise(function (resolve, reject) {
         loadFromUrl(url, function(err, arrayBuffer) {
@@ -14493,13 +14457,13 @@ function load(url, callback, opt) {
 
 var opentype = /*#__PURE__*/Object.freeze({
 	__proto__: null,
-	Font: Font,
-	Glyph: Glyph,
-	Path: Path,
-	BoundingBox: BoundingBox,
+	                                          Font,
+	                                          Glyph,
+	                                          Path,
+	                                          BoundingBox,
 	_parse: parse,
 	parse: parseBuffer,
-	load: load,
+	                                          load
 });
 
 export default opentype;

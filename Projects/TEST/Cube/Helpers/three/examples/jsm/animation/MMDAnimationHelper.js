@@ -774,7 +774,7 @@ class MMDAnimationHelper {
 
 		max += this.configuration.afterglow;
 
-		// update the duration
+		// Update the duration
 
 		for ( let i = 0, il = this.meshes.length; i < il; i ++ ) {
 
@@ -1093,7 +1093,7 @@ class AudioManager {
 		if ( this.currentTime < this.delayTime ) return false;
 
 		// 'duration' can be bigger than 'audioDuration + delayTime' because of sync configuration
-		if ( ( this.currentTime - this.delayTime ) > this.audioDuration ) return false;
+		if ( this.currentTime - this.delayTime > this.audioDuration ) return false;
 
 		return true;
 

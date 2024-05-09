@@ -1,101 +1,104 @@
-$(document).ready(()=>{
-	let square1 = {};
-	let square2 = {};
+let incrementX  = 0,
+    incrementY  = 0,
+    incrementX2 = 0,
+    incrementY2 = 0,
+    posX        = 290,
+    posY        = 290,
+    speedX      = 0,
+    speedY      = 0,
+    posX2       = 100,
+    posY2       = 100,
+    speedX2     = 0,
+    speedY2     = 0;
 
-	let interval = setInterval(()=>{
-		posX += speedX;
-		posY += speedY;
-		posX2 += speedX2;
-		posY2 += speedY2;
-		$("#walker").css("left", posX);
-		$("#walker").css("top", posY);
-		$("#walker2").css("left", posX2);
-		$("#walker2").css("top", posY2);
+const FRAME_RATE = 60,
+      square1    = {},
+      square2    = {},
+      keyState   = {};
 
-		if (posX<0) {posX = 390}
-		if (posX>390) {posX = 0}
-		if (posY<0) {posY = 390}
-		if (posY>390) {posY = 0}
-		if (posX2<0) {posX2 = 390}
-		if (posX2>390) {posX2 = 0}
-		if (posY2<0) {posY2 = 390}
-		if (posY2>390) {posY2 = 0}
+const Walker1 = document.querySelector('#walker'),
+      Walker2 = document.querySelector('#walker2'),
+      Board   = document.querySelector('#board');
 
-		$(".tagged").css("background", "red");
-		$(".not-tagged").css("background", "lime");
-		$("#tag-indicator").appendTo(".tagged");
+let WalkerSize  = 50,
+    BoardHeight = 500;
 
-		square1.left = posX;
-		square1.right = posX + width;
-		square1.top = posY;
-		square1.bottom = posY + height;
-		square2.left = posX2;
-		square2.right = posX2 + width;
-		square2.top = posY2;
-		square2.bottom = posY2 + height;
+let Board_Aspect = "1:1";
 
-		if (square1.left<square2.right && square1.right>square2.left && (square1.top<square2.bottom && square1.bottom>square2.top)) {
-			document.querySelector(".not-tagged").classList.toggle("tagging", "not-tagged");
-			document.querySelector(".tagged").classList.toggle("not-tagged", "tagged");
-			document.querySelector(".tagging").classList.toggle("tagged", "tagging");
-			if (square1.left<square2.left) {
-				posX -= 50;
-				posX2 += 50
-			}
-			if (square1.right>square2.right) {
-				posX += 50;
-				posX2 -= 50
-			}
-			if (square1.top<square2.top) {
-				posY -= 50;
-				posY2 += 50
-			} else if (square1.bottom>square2.bottom) {
-				posY += 50;
-				posY2 -= 50
-			}
-		}
-	}, 1000 / 60);
-	document.addEventListener('keydown', ({which})=>{
-		if (which===KEY.LEFT) {speedX = -5}
-		if (which===KEY.UP) {speedY = -5}
-		if (which===KEY.RIGHT) {speedX = 5}
-		if (which===KEY.DOWN) {speedY = 5}
-		if (which===KEY.A) {speedX2 = -5}
-		if (which===KEY.W) {speedY2 = -5}
-		if (which===KEY.D) {speedX2 = 5}
-		if (which===KEY.S) {speedY2 = 5}
-	});
-	document.addEventListener('keyup', ({which})=>{
-		if (which===KEY.LEFT) {speedX += 5}
-		if (which===KEY.UP) {speedY += 5}
-		if (which===KEY.RIGHT) {speedX -= 5}
-		if (which===KEY.DOWN) {speedY -= 5}
-		if (which===KEY.A) {speedX2 += 5}
-		if (which===KEY.W) {speedY2 += 5}
-		if (which===KEY.D) {speedX2 -= 5}
-		if (which===KEY.S) {speedY2 -= 5}
-	});
+const Aspects = {
+	"16:10": 1.6,
+	"16:9" : 16 / 9,
+	"1:1"  : 1,
+	"21:9" : 21 / 9,
+	"32:9" : 32 / 9,
+	"3:2"  : 1.5,
+	"4:2"  : 2,
+	"4:3"  : 4 / 3,
+	"5:3"  : 5 / 3,
+	"5:4"  : 1.25
+};
 
-	if (Math.random()<0.5) {
-		document.querySelector("#walker").classList = ("class", "tagged");
-		document.querySelector("#walker2").classList = ("class", "not-tagged")
-	} else {
-		document.querySelector("#walker2").classList = ("class", "tagged");
-		document.querySelector('#walker').classList = ("class", "not-tagged");
+const offsetsizeee = BoardHeight - WalkerSize;
+
+setInterval(async ()=>{
+
+	Board.style.height = `${BoardHeight}px`;
+	Board.style.width = `${BoardHeight * Aspects[Board_Aspect]}px`;
+
+	Walker1.style.transform = `scale(${WalkerSize / 50})`;
+	Walker2.style.transform = `scale(${WalkerSize / 50})`;
+
+	posX += speedX, posX2 += speedX2;
+	posY += speedY, posY2 += speedY2;
+
+	Walker1.style.left = posX, Walker1.style.top = posY;
+	Walker2.style.left = posX2, Walker2.style.top = posY2;
+
+	posX = (posX + offsetsizeee) % offsetsizeee, posX2 = (posX2 + offsetsizeee) % offsetsizeee;
+	posY = (posY + offsetsizeee) % offsetsizeee, posY2 = (posY2 + offsetsizeee) % offsetsizeee;
+
+	document.querySelector('.not-tagged').style.background = '#0F0';
+	document.querySelector('.tagged').style.background = '#F00';
+	document.querySelector('.tagged').appendChild(document.querySelector('#tag-indicator'));
+
+	Board.appendChild(Walker1), Board.appendChild(Walker2);
+
+	square1.left = posX, square2.left = posX2;
+	square1.right = posX + WalkerSize, square2.right = posX2 + WalkerSize;
+	square1.top = posY, square2.top = posY2;
+	square1.bottom = posY + WalkerSize, square2.bottom = posY2 + WalkerSize;
+
+	if (square1.left<square2.right && square1.right>square2.left && (square1.top<square2.bottom && square1.bottom>square2.top)) {
+		document.querySelector('.not-tagged').className = 'tagging';
+		document.querySelector('.tagged').className = 'not-tagged';
+		document.querySelector('.tagging').className = 'tagged';
+
+		square1.left<square2.left && (posX -= WalkerSize, posX2 += WalkerSize);
+		square1.right>square2.right && (posX += WalkerSize, posX2 -= WalkerSize);
+		square1.top<square2.top && (posY -= WalkerSize, posY2 += WalkerSize);
+		square1.bottom>square2.bottom && (posY += WalkerSize, posY2 -= WalkerSize);
 	}
+}, 1000 / FRAME_RATE);
 
-	function endGame() {
-		clearInterval(interval);
-		$(document).off();
-	}
-});
+document.addEventListener('keydown', ({key})=>!keyState[key] && (keyState[key] = true, updateDirection(key, true)));
+document.addEventListener('keyup', ({key})=>keyState[key] && (keyState[key] = false, updateDirection(key, false)));
 
-const KEY = {LEFT: 37, UP: 38, RIGHT: 39, DOWN: 40, W: 87, A: 65, S: 83, D: 68};
+Math.random()<0.5
+&& (Walker1.classList.toggle("tagged"), Walker2.classList.toggle("not-tagged"))
+|| (Walker2.classList.toggle("tagged"), Walker1.classList.toggle("not-tagged"));
 
-let posX = 290, posY = 290;
-let speedX = 0, speedY = 0;
+async function updateDirection(key, isKeyDown) {
+	let v = isKeyDown ? 5 : -5;
 
-let posX2 = 100, posY2 = 100;
-let speedX2 = 0, speedY2 = 0;
+	key==='ArrowLeft' && (incrementX -= v), key==='a' && (incrementX2 -= v);
+	key==='ArrowRight' && (incrementX += v), key==='d' && (incrementX2 += v);
+	key==='ArrowUp' && (incrementY -= v), key==='w' && (incrementY2 -= v);
+	key==='ArrowDown' && (incrementY += v), key==='s' && (incrementY2 += v);
 
-let height = 50, width = 50;
+	speedX = incrementX, speedY = incrementY;
+	speedX2 = incrementX2, speedY2 = incrementY2;
+}
+
+document.querySelector('#board-aspect').addEventListener('change', ({target})=>Board_Aspect = target.value);
+document.querySelector('#board-size').addEventListener('mousemove', ({target})=>BoardHeight = target.value);
+document.querySelector('#board-size').addEventListener('mouseup', ({target})=>BoardHeight = target.value);

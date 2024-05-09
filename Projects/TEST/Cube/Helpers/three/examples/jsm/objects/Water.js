@@ -1,17 +1,4 @@
-import {
-	Color,
-	FrontSide,
-	Matrix4,
-	Mesh,
-	PerspectiveCamera,
-	Plane,
-	ShaderMaterial,
-	UniformsLib,
-	UniformsUtils,
-	Vector3,
-	Vector4,
-	WebGLRenderTarget
-} from 'three';
+import { Color, FrontSide, Matrix4, Mesh, PerspectiveCamera, Plane, ShaderMaterial, UniformsLib, UniformsUtils, Vector3, Vector4, WebGLRenderTarget } from 'three';
 
 /**
  * Work based on :
@@ -195,9 +182,9 @@ class Water extends Mesh {
 			vertexShader: mirrorShader.vertexShader,
 			fragmentShader: mirrorShader.fragmentShader,
 			lights: true,
-			side: side,
-			fog: fog
-		} );
+			                                     side,
+			                                     fog
+		                                     } );
 
 		material.uniforms[ 'mirrorSampler' ].value = renderTarget.texture;
 		material.uniforms[ 'textureMatrix' ].value = textureMatrix;
@@ -263,7 +250,7 @@ class Water extends Mesh {
 			textureMatrix.multiply( mirrorCamera.projectionMatrix );
 			textureMatrix.multiply( mirrorCamera.matrixWorldInverse );
 
-			// Now update projection matrix with new clip plane, implementing code from: http://www.terathon.com/code/oblique.html
+			// Now Update projection matrix with new clip plane, implementing code from: http://www.terathon.com/code/oblique.html
 			// Paper explaining this technique: http://www.terathon.com/lengyel/Lengyel-Oblique.pdf
 			mirrorPlane.setFromNormalAndCoplanarPoint( normal, mirrorWorldPosition );
 			mirrorPlane.applyMatrix4( mirrorCamera.matrixWorldInverse );

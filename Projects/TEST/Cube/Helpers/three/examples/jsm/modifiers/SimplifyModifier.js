@@ -432,7 +432,7 @@ function collapse( vertices, faces, u, v ) {
 
 	}
 
-	// update remaining triangles to have v instead of u
+	// Update remaining triangles to have v instead of u
 	for ( let i = u.faces.length - 1; i >= 0; i -- ) {
 
 		u.faces[ i ].replaceVertex( u, v );

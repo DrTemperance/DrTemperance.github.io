@@ -95,7 +95,7 @@ class KTX2Loader extends Loader {
 
 			console.warn(
 
-				'THREE.KTX2Loader: Please update to latest "basis_transcoder".'
+				'THREE.KTX2Loader: Please Update to latest "basis_transcoder".'
 				+ ' "msc_basis_transcoder" is no longer supported in three.js r125+.'
 
 			);
@@ -256,7 +256,7 @@ class KTX2Loader extends Loader {
 		loader.setResponseType( 'arraybuffer' );
 		loader.setWithCredentials( this.withCredentials );
 
-		loader.load( url, ( buffer ) => {
+		loader.load( url, buffer=> {
 
 			// Check for an existing task using this buffer. A transferred buffer cannot be transferred
 			// again from this thread.
@@ -269,7 +269,7 @@ class KTX2Loader extends Loader {
 			}
 
 			this._createTexture( buffer )
-				.then( ( texture ) => onLoad ? onLoad( texture ) : null )
+				.then( texture=>onLoad ? onLoad(texture ) : null )
 				.catch( onError );
 
 		}, onProgress, onError );
@@ -327,11 +327,7 @@ class KTX2Loader extends Loader {
 
 		//
 		const taskConfig = config;
-		const texturePending = this.init().then( () => {
-
-			return this.workerPool.postMessage( { type: 'transcode', buffer, taskConfig: taskConfig }, [ buffer ] );
-
-		} ).then( ( e ) => this._createTextureFrom( e.data, container ) );
+		const texturePending = this.init().then( () =>this.workerPool.postMessage({type: 'transcode', buffer, taskConfig}, [buffer])).then( e=> this._createTextureFrom(e.data, container ) );
 
 		// Cache the task result.
 		_taskCache.set( buffer, { promise: texturePending } );
@@ -382,16 +378,16 @@ KTX2Loader.TranscoderFormat = {
 };
 
 KTX2Loader.EngineFormat = {
-	RGBAFormat: RGBAFormat,
-	RGBA_ASTC_4x4_Format: RGBA_ASTC_4x4_Format,
-	RGBA_BPTC_Format: RGBA_BPTC_Format,
-	RGBA_ETC2_EAC_Format: RGBA_ETC2_EAC_Format,
-	RGBA_PVRTC_4BPPV1_Format: RGBA_PVRTC_4BPPV1_Format,
-	RGBA_S3TC_DXT5_Format: RGBA_S3TC_DXT5_Format,
-	RGB_ETC1_Format: RGB_ETC1_Format,
-	RGB_ETC2_Format: RGB_ETC2_Format,
-	RGB_PVRTC_4BPPV1_Format: RGB_PVRTC_4BPPV1_Format,
-	RGB_S3TC_DXT1_Format: RGB_S3TC_DXT1_Format,
+	RGBAFormat,
+	RGBA_ASTC_4x4_Format,
+	RGBA_BPTC_Format,
+	RGBA_ETC2_EAC_Format,
+	RGBA_PVRTC_4BPPV1_Format,
+	RGBA_S3TC_DXT5_Format,
+	RGB_ETC1_Format,
+	RGB_ETC2_Format,
+	RGB_PVRTC_4BPPV1_Format,
+	RGB_S3TC_DXT1_Format
 };
 
 
@@ -444,7 +440,7 @@ KTX2Loader.BasisWorker = function () {
 
 	function init( wasmBinary ) {
 
-		transcoderPending = new Promise( ( resolve ) => {
+		transcoderPending = new Promise( resolve=> {
 
 			BasisModule = { wasmBinary, onRuntimeInitialized: resolve };
 			BASIS( BasisModule ); // eslint-disable-line no-undef
@@ -455,7 +451,7 @@ KTX2Loader.BasisWorker = function () {
 
 			if ( BasisModule.KTX2File === undefined ) {
 
-				console.warn( 'THREE.KTX2Loader: Please update Basis Universal transcoder.' );
+				console.warn( 'THREE.KTX2Loader: Please Update Basis Universal transcoder.' );
 
 			}
 
@@ -688,7 +684,7 @@ KTX2Loader.BasisWorker = function () {
 
 		if ( value <= 2 ) return true;
 
-		return ( value & ( value - 1 ) ) === 0 && value !== 0;
+		return ( value & value - 1 ) === 0 && value !== 0;
 
 	}
 
@@ -793,7 +789,7 @@ async function createRawTexture( container ) {
 
 		if ( ! _zstd ) {
 
-			_zstd = new Promise( async ( resolve ) => {
+			_zstd = new Promise( async resolve=> {
 
 				const zstd = new ZSTDDecoder();
 				await zstd.init();
@@ -866,7 +862,7 @@ async function createRawTexture( container ) {
 
 		mipmaps.push( {
 
-			data: data,
+			              data,
 			width: levelWidth,
 			height: levelHeight,
 			depth: levelDepth,

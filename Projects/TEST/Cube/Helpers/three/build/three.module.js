@@ -8099,7 +8099,7 @@ class Object3D extends EventDispatcher {
 
 		}
 
-		// update children
+		// Update children
 
 		const children = this.children;
 
@@ -8139,7 +8139,7 @@ class Object3D extends EventDispatcher {
 
 		}
 
-		// update children
+		// Update children
 
 		if (updateChildren===true) {
 
@@ -8594,7 +8594,7 @@ class Triangle {
 
 		}
 
-		return _v3$2.x>=0 && _v3$2.y>=0 && (_v3$2.x + _v3$2.y)<=1;
+		return _v3$2.x>=0 && _v3$2.y>=0 && _v3$2.x + _v3$2.y<=1;
 
 	}
 
@@ -10072,7 +10072,7 @@ function _generateTables() {
 		} else if (e< -14) {
 
 			baseTable[i] = 0x0400 >> -e - 14;
-			baseTable[i | 0x100] = 0x0400 >> (-e - 14) | 0x8000;
+			baseTable[i | 0x100] = 0x0400 >> -e - 14 | 0x8000;
 			shiftTable[i] = -e - 1;
 			shiftTable[i | 0x100] = -e - 1;
 
@@ -10081,7 +10081,7 @@ function _generateTables() {
 		} else if (e<=15) {
 
 			baseTable[i] = e + 15 << 10;
-			baseTable[i | 0x100] = (e + 15) << 10 | 0x8000;
+			baseTable[i | 0x100] = e + 15 << 10 | 0x8000;
 			shiftTable[i] = 13;
 			shiftTable[i | 0x100] = 13;
 
@@ -12470,7 +12470,7 @@ class BoxGeometry extends BufferGeometry {
 
 			groupStart += groupCount;
 
-			// update total number of vertices
+			// Update total number of vertices
 
 			numberOfVertices += vertexCounter;
 
@@ -13977,7 +13977,7 @@ function WebGLAttributes(gl, capabilities) {
 
 		if (updateRange.count=== -1 && updateRanges.length===0) {
 
-			// Not using update ranges
+			// Not using Update ranges
 			gl.bufferSubData(bufferType, 0, array);
 
 		}
@@ -24948,11 +24948,11 @@ function WebGLTextures(_gl, extensions, state, properties, capabilities, utils, 
 
 			if (image===null) {
 
-				console.warn('THREE.WebGLRenderer: Texture marked for update but no image data found.');
+				console.warn('THREE.WebGLRenderer: Texture marked for Update but no image data found.');
 
 			} else if (image.complete===false) {
 
-				console.warn('THREE.WebGLRenderer: Texture marked for update but image is incomplete');
+				console.warn('THREE.WebGLRenderer: Texture marked for Update but image is incomplete');
 
 			} else {
 
@@ -27957,7 +27957,7 @@ class WebXRManager extends EventDispatcher {
 
 			}
 
-			// update projection matrix for proper view frustum culling
+			// Update projection matrix for proper view frustum culling
 
 			if (cameras.length===2) {
 
@@ -27971,7 +27971,7 @@ class WebXRManager extends EventDispatcher {
 
 			}
 
-			// update user camera and its children
+			// Update user camera and its children
 
 			updateUserCamera(camera, cameraXR, parent);
 
@@ -28799,12 +28799,12 @@ function WebGLUniformsGroups(gl, info, capabilities, state) {
 
 		}
 
-		// ensure to update the binding points/block indices mapping for this program
+		// ensure to Update the binding points/block indices mapping for this program
 
 		const webglProgram = program.program;
 		state.updateUBOMapping(uniformsGroup, webglProgram);
 
-		// update UBO once per frame
+		// Update UBO once per frame
 
 		const frame = info.render.frame;
 
@@ -30242,11 +30242,11 @@ class WebGLRenderer {
 
 			if (_isContextLost===true) return;
 
-			// update scene graph
+			// Update scene graph
 
 			if (scene.matrixWorldAutoUpdate===true) scene.updateMatrixWorld();
 
-			// update camera matrices and frustum
+			// Update camera matrices and frustum
 
 			if (camera.parent===null && camera.matrixWorldAutoUpdate===true) camera.updateMatrixWorld();
 
@@ -30706,7 +30706,7 @@ class WebGLRenderer {
 
 			let programs = materialProperties.programs;
 
-			// always update environment and fog - changing these trigger an getProgram call, but it's possible that the program doesn't change
+			// always Update environment and fog - changing these trigger an getProgram call, but it's possible that the program doesn't change
 
 			materialProperties.environment = material.isMeshStandardMaterial ? scene.environment : null;
 			materialProperties.fog = scene.fog;
@@ -31056,12 +31056,12 @@ class WebGLRenderer {
 
 					_currentCamera = camera;
 
-					// lighting uniforms depend on the camera so enforce an update
+					// lighting uniforms depend on the camera so enforce an Update
 					// now, in case this material supports lights - or later, when
 					// the next material that does gets activated:
 
 					refreshMaterial = true;		// set to true on material change
-					refreshLights = true;		// remains set until update done
+					refreshLights = true;		// remains set until Update done
 
 				}
 
@@ -31317,7 +31317,7 @@ class WebGLRenderer {
 
 				} else if (renderTargetProperties.__hasExternalTextures) {
 
-					// Color and depth texture must be rebound in order for the swapchain to update.
+					// Color and depth texture must be rebound in order for the swapchain to Update.
 					textures.rebindTextures(renderTarget, properties.get(renderTarget.texture).__webglTexture, properties.get(renderTarget.depthTexture).__webglTexture);
 
 				}
@@ -31452,7 +31452,7 @@ class WebGLRenderer {
 
 					// the following if statement ensures valid read requests (no out-of-bounds pixels, see #8604)
 
-					if (x>=0 && x<=(renderTarget.width - width) && (y>=0 && y<=renderTarget.height - height)) {
+					if (x>=0 && x<=renderTarget.width - width && (y>=0 && y<=renderTarget.height - height)) {
 
 						_gl.readPixels(x, y, width, height, utils.convert(textureFormat), utils.convert(textureType), buffer);
 
@@ -33968,7 +33968,7 @@ class BatchedMesh extends Mesh {
 		visibility.push(true);
 		active.push(true);
 
-		// update id
+		// Update id
 		const geometryId = this._geometryCount;
 		this._geometryCount++;
 
@@ -34000,7 +34000,7 @@ class BatchedMesh extends Mesh {
 
 		idAttribute.needsUpdate = true;
 
-		// update the geometry
+		// Update the geometry
 		this.setGeometryAt(geometryId, geometry);
 
 		return geometryId;
@@ -37571,7 +37571,7 @@ class CylinderGeometry extends BufferGeometry {
 					indices.push(a, b, d);
 					indices.push(b, c, d);
 
-					// update group counter
+					// Update group counter
 
 					groupCount += 6;
 
@@ -38796,7 +38796,7 @@ function findHoleBridge(hole, outerNode) {
 
 			tan = Math.abs(hy - p.y) / (hx - p.x); // tangential
 
-			if (locallyInside(p, hole) && (tan<tanMin || tan===tanMin && (p.x>m.x || (p.x===m.x && sectorContainsSector(m, p))))) {
+			if (locallyInside(p, hole) && (tan<tanMin || tan===tanMin && (p.x>m.x || p.x===m.x && sectorContainsSector(m, p)))) {
 
 				m = p;
 				tanMin = tan;
@@ -39042,7 +39042,7 @@ function middleInside(a, b) {
 	      py = (a.y + b.y) / 2;
 	do {
 
-		if ((p.y>py)!==(p.next.y>py) && p.next.y!==p.y &&
+		if (p.y>py!==p.next.y>py && p.next.y!==p.y &&
 		    px<(p.next.x - p.x) * (py - p.y) / (p.next.y - p.y) + p.x)
 			inside = !inside;
 		p = p.next;
@@ -48155,7 +48155,7 @@ class Audio extends Object3D {
 
 		if (this.isPlaying===true) {
 
-			// update current progress
+			// Update current progress
 
 			this._progress += Math.max(this.context.currentTime - this._startedAt, 0) * this.playbackRate;
 
@@ -48769,7 +48769,7 @@ class PropertyMixer {
 
 			if (buffer[i]!==buffer[i + stride]) {
 
-				// value has changed -> update scene graph
+				// value has changed -> Update scene graph
 
 				binding.setValue(buffer, offset);
 				break;
@@ -49472,7 +49472,7 @@ class PropertyBinding {
 
 			const nodeName = parsedPath.nodeName;
 
-			console.error('THREE.PropertyBinding: Trying to update property for track: ' + nodeName +
+			console.error('THREE.PropertyBinding: Trying to Update property for track: ' + nodeName +
 			              '.' + propertyName + ' but it wasn\'t found.', targetObject);
 			return;
 
@@ -49981,7 +49981,7 @@ class AnimationObjectGroup {
 	unsubscribe_(path) {
 
 		// tells the group to forget about a property path and no longer
-		// update the array previously obtained with 'subscribe_'
+		// Update the array previously obtained with 'subscribe_'
 
 		const indicesByPath = this._bindingsIndicesByPath,
 		      index         = indicesByPath[path];
@@ -50335,7 +50335,7 @@ class AnimationAction {
 
 		if (!this.enabled) {
 
-			// call ._updateWeight() to update ._effectiveWeight
+			// call ._updateWeight() to Update ._effectiveWeight
 
 			this._updateWeight(time);
 			return;
@@ -51312,7 +51312,7 @@ class AnimationMixer extends EventDispatcher {
 
 	}
 
-	// advance the time and update apply the animation
+	// advance the time and Update apply the animation
 	update(deltaTime) {
 
 		deltaTime *= this.timeScale;
@@ -51335,7 +51335,7 @@ class AnimationMixer extends EventDispatcher {
 
 		}
 
-		// update scene graph
+		// Update scene graph
 
 		const bindings  = this._bindings,
 		      nBindings = this._nActiveBindings;
@@ -52591,7 +52591,7 @@ class HemisphereLightHelper extends Object3D {
 
 			for (let i = 0, l = colors.count; i<l; i++) {
 
-				const color = i<(l / 2) ? _color1 : _color2;
+				const color = i<l / 2 ? _color1 : _color2;
 
 				colors.setXYZ(i, color.r, color.g, color.b);
 
@@ -53146,7 +53146,7 @@ class BoxHelper extends LineSegments {
 
 		if (object!==undefined) {
 
-			console.warn('THREE.BoxHelper: .update() has no longer arguments.');
+			console.warn('THREE.BoxHelper: .Update() has no longer arguments.');
 
 		}
 

@@ -1,8 +1,8 @@
+import { HalfFloatType, LinearMipMapLinearFilter, Matrix4, Object3D, Plane, RenderTarget, Vector2, Vector3, Vector4 } from 'three';
 import TextureNode from '../accessors/TextureNode.js';
-import { nodeObject, vec2 } from '../shadernode/ShaderNode.js';
 import { NodeUpdateType } from '../core/constants.js';
 import { viewportTopLeft } from '../display/ViewportNode.js';
-import { Matrix4, Vector2, Vector3, Vector4, Object3D, Plane, RenderTarget, HalfFloatType, LinearMipMapLinearFilter } from 'three';
+import { nodeObject, vec2 } from '../shadernode/ShaderNode.js';
 
 const _reflectorPlane = new Plane();
 const _normal = new Vector3();
@@ -174,7 +174,7 @@ class ReflectorNode extends TextureNode {
 		virtualCamera.updateMatrixWorld();
 		virtualCamera.projectionMatrix.copy( camera.projectionMatrix );
 
-		// Now update projection matrix with new clip plane, implementing code from: http://www.terathon.com/code/oblique.html
+		// Now Update projection matrix with new clip plane, implementing code from: http://www.terathon.com/code/oblique.html
 		// Paper explaining this technique: http://www.terathon.com/lengyel/Lengyel-Oblique.pdf
 		_reflectorPlane.setFromNormalAndCoplanarPoint( _normal, _reflectorWorldPosition );
 		_reflectorPlane.applyMatrix4( virtualCamera.matrixWorldInverse );
@@ -221,7 +221,6 @@ class ReflectorNode extends TextureNode {
 
 }
 
-export const reflector = ( parameters ) => nodeObject( new ReflectorNode( parameters ) );
+export const reflector = parameters=> nodeObject(new ReflectorNode(parameters ) );
 
 export default ReflectorNode;
-

@@ -1309,7 +1309,7 @@ var rhino3dm = (() => {
           case 'i8': HEAP8[(ptr>>0)] = value; break;
           case 'i16': HEAP16[(ptr>>1)] = value; break;
           case 'i32': HEAP32[(ptr>>2)] = value; break;
-          case 'i64': tempI64 = [value>>>0,(tempDouble=value,+Math.abs(tempDouble) >= 1.0 ? (tempDouble > 0.0 ? (Math.min(+(Math.floor((tempDouble)/4294967296.0)), 4294967295.0)|0)>>>0 : ~~+(Math.ceil((tempDouble - +(((~~(tempDouble)))>>>0))/4294967296.0))>>>0) : 0)],HEAP32[(ptr>>2)] = tempI64[0],HEAP32[(ptr+4>>2)] = tempI64[1]; break;
+          case 'i64': tempI64 = [value>>>0,(tempDouble=value,+Math.abs(tempDouble) >= 1.0 ? (tempDouble > 0.0 ? (Math.min(+Math.floor((tempDouble)/4294967296.0), 4294967295.0)|0)>>>0 : ~~+Math.ceil((tempDouble - +(~~(tempDouble)>>>0))/4294967296.0)>>>0) : 0)],HEAP32[(ptr>>2)] = tempI64[0],HEAP32[(ptr+4>>2)] = tempI64[1]; break;
           case 'float': HEAPF32[(ptr>>2)] = value; break;
           case 'double': HEAPF64[(ptr>>3)] = value; break;
           case '*': HEAPU32[(ptr>>2)] = value; break;
@@ -3870,7 +3870,7 @@ var rhino3dm = (() => {
                 data.length===10 &&
                 data[0]===255 && data[1]===255 && data[2]===255 && data[3]===255 &&
                 data[4]==='p'.charCodeAt(0) && data[5]==='o'.charCodeAt(0) && data[6]==='r'.charCodeAt(0) && data[7]==='t'.charCodeAt(0)) {
-              // update the peer's port and it's key in the peer map
+              // Update the peer's port and it's key in the peer map
               var newport = data[8] << 8 | data[9];
               SOCKFS.websocket_sock_ops.removePeer(sock, peer);
               peer.port = newport;
@@ -4517,8 +4517,8 @@ var rhino3dm = (() => {
         HEAP32[(buf + 28 >> 2)] = stat.rdev;
         tempI64 = [stat.size >>> 0,
                    (tempDouble = stat.size, +Math.abs(tempDouble)>=1.0 ? (tempDouble>0.0
-                                                                            ? (Math.min(+(Math.floor((tempDouble) / 4294967296.0)), 4294967295.0) | 0) >>> 0
-                                                                            : ~~+(Math.ceil((tempDouble - +(((~~(tempDouble))) >>> 0)) / 4294967296.0)) >>> 0) : 0)
+                                                                            ? (Math.min(+Math.floor((tempDouble) / 4294967296.0), 4294967295.0) | 0) >>> 0
+                                                                            : ~~+Math.ceil((tempDouble - +(~~(tempDouble) >>> 0)) / 4294967296.0) >>> 0) : 0)
         ], HEAP32[(buf + 40 >> 2)] = tempI64[0], HEAP32[(buf + 44 >> 2)] = tempI64[1];
         HEAP32[(buf + 48 >> 2)] = 4096;
         HEAP32[(buf + 52 >> 2)] = stat.blocks;
@@ -4527,26 +4527,26 @@ var rhino3dm = (() => {
         var ctime = stat.ctime.getTime();
         tempI64 = [Math.floor(atime / 1000) >>> 0,
                    (tempDouble = Math.floor(atime / 1000), +Math.abs(tempDouble)>=1.0 ? (tempDouble>0.0
-                                                                                           ? (Math.min(+(Math.floor((tempDouble) / 4294967296.0)), 4294967295.0) | 0) >>> 0
-                                                                                           : ~~+(Math.ceil((tempDouble - +(((~~(tempDouble))) >>> 0)) / 4294967296.0)) >>> 0) : 0)
+                                                                                           ? (Math.min(+Math.floor((tempDouble) / 4294967296.0), 4294967295.0) | 0) >>> 0
+                                                                                           : ~~+Math.ceil((tempDouble - +(~~(tempDouble) >>> 0)) / 4294967296.0) >>> 0) : 0)
         ], HEAP32[(buf + 56 >> 2)] = tempI64[0], HEAP32[(buf + 60 >> 2)] = tempI64[1];
         HEAPU32[(buf + 64 >> 2)] = (atime % 1000) * 1000;
         tempI64 = [Math.floor(mtime / 1000) >>> 0,
                    (tempDouble = Math.floor(mtime / 1000), +Math.abs(tempDouble)>=1.0 ? (tempDouble>0.0
-                                                                                           ? (Math.min(+(Math.floor((tempDouble) / 4294967296.0)), 4294967295.0) | 0) >>> 0
-                                                                                           : ~~+(Math.ceil((tempDouble - +(((~~(tempDouble))) >>> 0)) / 4294967296.0)) >>> 0) : 0)
+                                                                                           ? (Math.min(+Math.floor((tempDouble) / 4294967296.0), 4294967295.0) | 0) >>> 0
+                                                                                           : ~~+Math.ceil((tempDouble - +(~~(tempDouble) >>> 0)) / 4294967296.0) >>> 0) : 0)
         ], HEAP32[(buf + 72 >> 2)] = tempI64[0], HEAP32[(buf + 76 >> 2)] = tempI64[1];
         HEAPU32[(buf + 80 >> 2)] = (mtime % 1000) * 1000;
         tempI64 = [Math.floor(ctime / 1000) >>> 0,
                    (tempDouble = Math.floor(ctime / 1000), +Math.abs(tempDouble)>=1.0 ? (tempDouble>0.0
-                                                                                           ? (Math.min(+(Math.floor((tempDouble) / 4294967296.0)), 4294967295.0) | 0) >>> 0
-                                                                                           : ~~+(Math.ceil((tempDouble - +(((~~(tempDouble))) >>> 0)) / 4294967296.0)) >>> 0) : 0)
+                                                                                           ? (Math.min(+Math.floor((tempDouble) / 4294967296.0), 4294967295.0) | 0) >>> 0
+                                                                                           : ~~+Math.ceil((tempDouble - +(~~(tempDouble) >>> 0)) / 4294967296.0) >>> 0) : 0)
         ], HEAP32[(buf + 88 >> 2)] = tempI64[0], HEAP32[(buf + 92 >> 2)] = tempI64[1];
         HEAPU32[(buf + 96 >> 2)] = (ctime % 1000) * 1000;
         tempI64 = [stat.ino >>> 0,
                    (tempDouble = stat.ino, +Math.abs(tempDouble)>=1.0 ? (tempDouble>0.0
-                                                                           ? (Math.min(+(Math.floor((tempDouble) / 4294967296.0)), 4294967295.0) | 0) >>> 0
-                                                                           : ~~+(Math.ceil((tempDouble - +(((~~(tempDouble))) >>> 0)) / 4294967296.0)) >>> 0) : 0)
+                                                                           ? (Math.min(+Math.floor((tempDouble) / 4294967296.0), 4294967295.0) | 0) >>> 0
+                                                                           : ~~+Math.ceil((tempDouble - +(~~(tempDouble) >>> 0)) / 4294967296.0) >>> 0) : 0)
         ], HEAP32[(buf + 104 >> 2)] = tempI64[0], HEAP32[(buf + 108 >> 2)] = tempI64[1];
         return 0;
       }, doMsync(addr, stream, len, flags, offset) {
@@ -7433,7 +7433,7 @@ var rhino3dm = (() => {
         HEAP32[(tmPtr+24>>2)] = date.getDay();
         var yday = __yday_from_date(date)|0;
         HEAP32[(tmPtr+28>>2)] = yday;
-        // To match expected behavior, update fields from date
+        // To match expected behavior, Update fields from date
         HEAP32[(tmPtr>>2)] = date.getSeconds();
         HEAP32[(tmPtr+4>>2)] = date.getMinutes();
         HEAP32[(tmPtr+8>>2)] = date.getHours();
@@ -7742,7 +7742,7 @@ var rhino3dm = (() => {
         var offset = convertI32PairToI53Checked(offset_low, offset_high); if (isNaN(offset)) return 61;
         var stream = SYSCALLS.getStreamFromFD(fd);
         FS.llseek(stream, offset, whence);
-        tempI64 = [stream.position>>>0,(tempDouble=stream.position,+Math.abs(tempDouble) >= 1.0 ? (tempDouble > 0.0 ? (Math.min(+(Math.floor((tempDouble)/4294967296.0)), 4294967295.0)|0)>>>0 : ~~+(Math.ceil((tempDouble - +(((~~(tempDouble)))>>>0))/4294967296.0))>>>0) : 0)],HEAP32[(newOffset>>2)] = tempI64[0],HEAP32[(newOffset+4>>2)] = tempI64[1];
+        tempI64 = [stream.position>>>0,(tempDouble=stream.position,+Math.abs(tempDouble) >= 1.0 ? (tempDouble > 0.0 ? (Math.min(+Math.floor((tempDouble)/4294967296.0), 4294967295.0)|0)>>>0 : ~~+Math.ceil((tempDouble - +(~~(tempDouble)>>>0))/4294967296.0)>>>0) : 0)],HEAP32[(newOffset>>2)] = tempI64[0],HEAP32[(newOffset+4>>2)] = tempI64[1];
         if (stream.getdents && offset === 0 && whence === 0) stream.getdents = null; // reset readdir state
         return 0;
       } catch (e) {

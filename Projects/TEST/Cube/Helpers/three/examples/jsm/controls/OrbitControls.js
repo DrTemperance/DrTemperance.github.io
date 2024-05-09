@@ -56,7 +56,7 @@ class OrbitControls extends EventDispatcher {
 		this.maxAzimuthAngle = Infinity; // radians
 
 		// Set to true to enable damping (inertia)
-		// If damping is enabled, you must call controls.update() in your animation loop
+		// If damping is enabled, you must call controls.Update() in your animation loop
 		this.enableDamping = false;
 		this.dampingFactor = 0.05;
 
@@ -77,7 +77,7 @@ class OrbitControls extends EventDispatcher {
 		this.zoomToCursor = false;
 
 		// Set to true to automatically rotate around the target
-		// If auto-rotate is enabled, you must call controls.update() in your animation loop
+		// If auto-rotate is enabled, you must call controls.Update() in your animation loop
 		this.autoRotate = false;
 		this.autoRotateSpeed = 2.0; // 30 seconds per orbit when fps is 60
 
@@ -219,7 +219,7 @@ class OrbitControls extends EventDispatcher {
 
 					} else {
 
-						spherical.theta = ( spherical.theta > ( min + max ) / 2 ) ?
+						spherical.theta = spherical.theta > ( min + max ) / 2 ?
 							Math.max( min, spherical.theta ) :
 							Math.min( max, spherical.theta );
 
@@ -273,8 +273,8 @@ class OrbitControls extends EventDispatcher {
 
 				if ( scope.enableDamping === true ) {
 
-					sphericalDelta.theta *= ( 1 - scope.dampingFactor );
-					sphericalDelta.phi *= ( 1 - scope.dampingFactor );
+					sphericalDelta.theta *= 1 - scope.dampingFactor;
+					sphericalDelta.phi *= 1 - scope.dampingFactor;
 
 					panOffset.multiplyScalar( 1 - scope.dampingFactor );
 
@@ -377,7 +377,7 @@ class OrbitControls extends EventDispatcher {
 				scale = 1;
 				performCursorZoom = false;
 
-				// update condition is:
+				// Update condition is:
 				// min(camera displacement, camera rotation in radians)^2 > EPS
 				// using small-Angle approximation cos(x/2) = 1 - x^2 / 8
 
@@ -478,7 +478,7 @@ class OrbitControls extends EventDispatcher {
 
 			if ( deltaTime !== null ) {
 
-				return ( 2 * Math.PI / 60 * scope.autoRotateSpeed ) * deltaTime;
+				return 2 * Math.PI / 60 * scope.autoRotateSpeed * deltaTime;
 
 			} else {
 
@@ -648,7 +648,7 @@ class OrbitControls extends EventDispatcher {
 		}
 
 		//
-		// event callbacks - update the object state
+		// event callbacks - Update the object state
 		//
 
 		function handleMouseDownRotate( event ) {
@@ -1057,7 +1057,7 @@ class OrbitControls extends EventDispatcher {
 					const position = pointerPositions[ pointerId ];
 
 					// minimal placeholder event - allows state correction on pointer-up
-					onTouchStart( { pointerId: pointerId, pageX: position.x, pageY: position.y } );
+					onTouchStart( {pointerId, pageX: position.x, pageY: position.y } );
 
 					break;
 
@@ -1466,7 +1466,7 @@ class OrbitControls extends EventDispatcher {
 
 		function getSecondPointerPosition( event ) {
 
-			const pointerId = ( event.pointerId === pointers[ 0 ] ) ? pointers[ 1 ] : pointers[ 0 ];
+			const pointerId = event.pointerId === pointers[ 0 ] ? pointers[ 1 ] : pointers[ 0 ];
 
 			return pointerPositions[ pointerId ];
 
@@ -1484,7 +1484,7 @@ class OrbitControls extends EventDispatcher {
 
 		document.addEventListener( 'keydown', interceptControlDown, { passive: true, capture: true } );
 
-		// force an update at start
+		// force an Update at start
 
 		this.update();
 

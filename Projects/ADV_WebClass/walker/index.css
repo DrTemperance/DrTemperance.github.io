@@ -1,32 +1,67 @@
-
-body {background-color : #006400;}
+body {background-color : #060;}
 
 #Board {
-	width            : 440px;
-	height           : 440px;
-	border           : 1px solid #FFF;
-	background-color : #000;
-	position         : relative;
+	backdrop-filter : blur(20px);
+	background      : #00000033;
+	border          : 6px inset #777;
+	bottom          : 0;
+	filter          : drop-shadow(0 0 6px #333);
+	height          : 500;
+	left            : 0;
+	margin          : 20% auto;
+	overflow        : hidden;
+	position        : fixed;
+	right           : 0;
+	top             : 0;
+	transition      : all 0.4s;
+	width           : 500;
+	z-index         : 1000;
+
+	div {
+		> p {margin : 8px auto;}
+		border-radius : 30%;
+		filter        : drop-shadow(0 0 6px #333);
+		height        : 50px;
+		position      : absolute;
+		text-align    : center;
+		transform     : scale(100%);
+		transition    : all 0.4s;
+		width         : 50px;
+		}
 	}
 
-#walker {
-	background-color : #008080;
-	width            : 50px;
-	height           : 50px;
-	position         : absolute;
-	border-radius    : 25%;
-	text-align       : center;
+#walker {border : 2px outset #0CC;}
+
+#walker2 {border : 2px outset #C0C;}
+
+#tag-indicator {
+	backdrop-filter : blur(10px);
+	background      : #303030C0;
+	border-radius   : 3px;
+	color           : #FFF;
+	filter          : drop-shadow(0 0 2px #333);
+	margin          : 0;
+	padding         : 3px;
+	text-align      : center;
+	transition      : all 0.2s;
 	}
 
-#walker2 {
-	background-color : #F0F;
-	width            : 50px;
-	height           : 50px;
-	position         : absolute;
-	border-radius    : 25%;
-	text-align       : center;
+#pre-container {display : none;}
+
+#controls {
+	position        : fixed;
+	top: 600px;
+	bottom          : 0;
+	left            : 0;
+	right           : 0;
+	z-index         : 1000;
+	transition      : all 0.4s;
+	align-items     : center;
+	display         : flex;
+	flex-direction  : row;
+	justify-content : center;
+	margin          : 10px auto;
+	select {}
+	button {}
+
 	}
-
-.tagged {background : #F00;}
-
-#tag-indicator {color : #FFF;}

@@ -264,7 +264,7 @@ class GLTFLoader extends Loader {
 	setDDSLoader() {
 
 		throw new Error(
-			 'THREE.GLTFLoader: "MSFT_texture_dds" no longer supported. Please update to "KHR_texture_basisu".'
+			 'THREE.GLTFLoader: "MSFT_texture_dds" no longer supported. Please Update to "KHR_texture_basisu".'
 		);
 
 	}
@@ -452,25 +452,25 @@ function GLTFRegistry() {
 
 	return {
 
-		get: function (key) {
+		get(key) {
 
 			return objects[key];
 
 		},
 
-		add: function (key, object) {
+		add(key, object) {
 
 			objects[key] = object;
 
 		},
 
-		remove: function (key) {
+		remove(key) {
 
 			delete objects[key];
 
 		},
 
-		removeAll: function () {
+		removeAll() {
 
 			objects = {};
 
@@ -555,7 +555,7 @@ class GLTFLightsExtension {
 		if (dependency) return dependency;
 
 		const json = parser.json;
-		const extensions = (json.extensions && json.extensions[this.name]) || {};
+		const extensions = json.extensions && json.extensions[this.name] || {};
 		const lightDefs = extensions.lights || [];
 		const lightDef = lightDefs[lightIndex];
 		let lightNode;
@@ -607,7 +607,7 @@ class GLTFLightsExtension {
 
 		if (lightDef.intensity!==undefined) lightNode.intensity = lightDef.intensity;
 
-		lightNode.name = parser.createUniqueName(lightDef.name || ('light_' + lightIndex));
+		lightNode.name = parser.createUniqueName(lightDef.name || 'light_' + lightIndex);
 
 		dependency = Promise.resolve(lightNode);
 
@@ -631,7 +631,7 @@ class GLTFLightsExtension {
 		const parser = this.parser;
 		const json = parser.json;
 		const nodeDef = json.nodes[nodeIndex];
-		const lightDef = (nodeDef.extensions && nodeDef.extensions[this.name]) || {};
+		const lightDef = nodeDef.extensions && nodeDef.extensions[this.name] || {};
 		const lightIndex = lightDef.light;
 
 		if (lightIndex===undefined) return null;
@@ -2537,7 +2537,7 @@ class GLTFParser {
 
 		}
 
-		if (typeof createImageBitmap==='undefined' || isSafari || (isFirefox && firefoxVersion<98)) {
+		if (typeof createImageBitmap==='undefined' || isSafari || isFirefox && firefoxVersion<98) {
 
 			this.textureLoader = new TextureLoader(this.options.manager);
 
@@ -2612,7 +2612,7 @@ class GLTFParser {
 				animations: dependencies[1],
 				cameras   : dependencies[2],
 				asset     : json.asset,
-				parser    : parser,
+				parser,
 				userData  : {}
 			};
 
@@ -2739,7 +2739,7 @@ class GLTFParser {
 
 		updateMappings(object, ref);
 
-		ref.name += '_instance_' + (cache.uses[index]++);
+		ref.name += '_instance_' + cache.uses[index]++;
 
 		return ref;
 
@@ -3194,7 +3194,7 @@ class GLTFParser {
 
 		if (this.sourceCache[sourceIndex]!==undefined) {
 
-			return this.sourceCache[sourceIndex].then((texture) => texture.clone());
+			return this.sourceCache[sourceIndex].then(texture=> texture.clone());
 
 		}
 
@@ -3593,7 +3593,7 @@ class GLTFParser {
 
 		if (sanitizedName in this.nodeNamesUsed) {
 
-			return sanitizedName + '_' + (++this.nodeNamesUsed[sanitizedName]);
+			return sanitizedName + '_' + ++this.nodeNamesUsed[sanitizedName];
 
 		} else {
 
@@ -3663,7 +3663,7 @@ class GLTFParser {
 				}
 
 				// Cache this geometry
-				cache[cacheKey] = { primitive: primitive, promise: geometryPromise };
+				cache[cacheKey] = {primitive, promise: geometryPromise };
 
 				pending.push(geometryPromise);
 
@@ -3776,7 +3776,7 @@ class GLTFParser {
 
 				}
 
-				mesh.name = parser.createUniqueName(meshDef.name || ('mesh_' + meshIndex));
+				mesh.name = parser.createUniqueName(meshDef.name || 'mesh_' + meshIndex);
 
 				assignExtrasToUserData(mesh, meshDef);
 
@@ -4303,7 +4303,7 @@ class GLTFParser {
 
 			// Removes dangling associations, associations that reference a node that
 			// didn't make it into the scene.
-			const reduceAssociations = (node) => {
+			const reduceAssociations = node=> {
 
 				const reducedAssociations = new Map();
 
@@ -4317,7 +4317,7 @@ class GLTFParser {
 
 				}
 
-				node.traverse((node) => {
+				node.traverse(node=> {
 
 					const mappings = parser.associations.get(node);
 
@@ -4465,7 +4465,7 @@ class GLTFParser {
 			// representing inTangent, splineVertex, and outTangent. As a result, track.getValueSize()
 			// must be divided by three to get the interpolant's sampleSize argument.
 
-			const interpolantType = (this instanceof QuaternionKeyframeTrack) ? GLTFCubicSplineQuaternionInterpolant : GLTFCubicSplineInterpolant;
+			const interpolantType = this instanceof QuaternionKeyframeTrack ? GLTFCubicSplineQuaternionInterpolant : GLTFCubicSplineInterpolant;
 
 			return new interpolantType(this.times, this.values, this.getValueSize() / 3, result);
 

@@ -3,214 +3,211 @@
  */
 var Easing = Object.freeze({
     Linear: Object.freeze({
-        None: function (amount) {
-            return amount;
-        },
-        In: function (amount) {
-            return this.None(amount);
-        },
-        Out: function (amount) {
-            return this.None(amount);
-        },
-        InOut: function (amount) {
-            return this.None(amount);
-        },
+	                          None(amount) {
+		                          return amount;
+	                          },
+	                          In(amount) {
+		                          return this.None(amount);
+	                          },
+	                          Out(amount) {
+		                          return this.None(amount);
+	                          },
+	                          InOut(amount) {
+		                          return this.None(amount);
+	                          }
     }),
     Quadratic: Object.freeze({
-        In: function (amount) {
-            return amount * amount;
-        },
-        Out: function (amount) {
-            return amount * (2 - amount);
-        },
-        InOut: function (amount) {
-            if ((amount *= 2) < 1) {
-                return 0.5 * amount * amount;
-            }
-            return -0.5 * (--amount * (amount - 2) - 1);
-        },
+	                             In(amount) {
+		                             return amount * amount;
+	                             },
+	                             Out(amount) {
+		                             return amount * (2 - amount);
+	                             },
+	                             InOut(amount) {
+		                             if ((amount *= 2)<1) {
+			                             return 0.5 * amount * amount;
+		                             }
+		                             return -0.5 * (--amount * (amount - 2) - 1);
+	                             }
     }),
     Cubic: Object.freeze({
-        In: function (amount) {
-            return amount * amount * amount;
-        },
-        Out: function (amount) {
-            return --amount * amount * amount + 1;
-        },
-        InOut: function (amount) {
-            if ((amount *= 2) < 1) {
-                return 0.5 * amount * amount * amount;
-            }
-            return 0.5 * ((amount -= 2) * amount * amount + 2);
-        },
+	                         In(amount) {
+		                         return amount * amount * amount;
+	                         },
+	                         Out(amount) {
+		                         return --amount * amount * amount + 1;
+	                         },
+	                         InOut(amount) {
+		                         if ((amount *= 2)<1) {
+			                         return 0.5 * amount * amount * amount;
+		                         }
+		                         return 0.5 * ((amount -= 2) * amount * amount + 2);
+	                         }
     }),
     Quartic: Object.freeze({
-        In: function (amount) {
-            return amount * amount * amount * amount;
-        },
-        Out: function (amount) {
-            return 1 - --amount * amount * amount * amount;
-        },
-        InOut: function (amount) {
-            if ((amount *= 2) < 1) {
-                return 0.5 * amount * amount * amount * amount;
-            }
-            return -0.5 * ((amount -= 2) * amount * amount * amount - 2);
-        },
+	                           In(amount) {
+		                           return amount * amount * amount * amount;
+	                           },
+	                           Out(amount) {
+		                           return 1 - --amount * amount * amount * amount;
+	                           },
+	                           InOut(amount) {
+		                           if ((amount *= 2)<1) {
+			                           return 0.5 * amount * amount * amount * amount;
+		                           }
+		                           return -0.5 * ((amount -= 2) * amount * amount * amount - 2);
+	                           }
     }),
     Quintic: Object.freeze({
-        In: function (amount) {
-            return amount * amount * amount * amount * amount;
-        },
-        Out: function (amount) {
-            return --amount * amount * amount * amount * amount + 1;
-        },
-        InOut: function (amount) {
-            if ((amount *= 2) < 1) {
-                return 0.5 * amount * amount * amount * amount * amount;
-            }
-            return 0.5 * ((amount -= 2) * amount * amount * amount * amount + 2);
-        },
+	                           In(amount) {
+		                           return amount * amount * amount * amount * amount;
+	                           },
+	                           Out(amount) {
+		                           return --amount * amount * amount * amount * amount + 1;
+	                           },
+	                           InOut(amount) {
+		                           if ((amount *= 2)<1) {
+			                           return 0.5 * amount * amount * amount * amount * amount;
+		                           }
+		                           return 0.5 * ((amount -= 2) * amount * amount * amount * amount + 2);
+	                           }
     }),
     Sinusoidal: Object.freeze({
-        In: function (amount) {
-            return 1 - Math.sin(((1.0 - amount) * Math.PI) / 2);
-        },
-        Out: function (amount) {
-            return Math.sin((amount * Math.PI) / 2);
-        },
-        InOut: function (amount) {
-            return 0.5 * (1 - Math.sin(Math.PI * (0.5 - amount)));
-        },
+	                              In(amount) {
+		                              return 1 - Math.sin(((1.0 - amount) * Math.PI) / 2);
+	                              },
+	                              Out(amount) {
+		                              return Math.sin((amount * Math.PI) / 2);
+	                              },
+	                              InOut(amount) {
+		                              return 0.5 * (1 - Math.sin(Math.PI * (0.5 - amount)));
+	                              }
     }),
     Exponential: Object.freeze({
-        In: function (amount) {
-            return amount === 0 ? 0 : Math.pow(1024, amount - 1);
-        },
-        Out: function (amount) {
-            return amount === 1 ? 1 : 1 - Math.pow(2, -10 * amount);
-        },
-        InOut: function (amount) {
-            if (amount === 0) {
-                return 0;
-            }
-            if (amount === 1) {
-                return 1;
-            }
-            if ((amount *= 2) < 1) {
-                return 0.5 * Math.pow(1024, amount - 1);
-            }
-            return 0.5 * (-Math.pow(2, -10 * (amount - 1)) + 2);
-        },
+	                               In(amount) {
+		                               return amount===0 ? 0 : Math.pow(1024, amount - 1);
+	                               },
+	                               Out(amount) {
+		                               return amount===1 ? 1 : 1 - Math.pow(2, -10 * amount);
+	                               },
+	                               InOut(amount) {
+		                               if (amount===0) {
+			                               return 0;
+		                               }
+		                               if (amount===1) {
+			                               return 1;
+		                               }
+		                               if ((amount *= 2)<1) {
+			                               return 0.5 * Math.pow(1024, amount - 1);
+		                               }
+		                               return 0.5 * (-Math.pow(2, -10 * (amount - 1)) + 2);
+	                               }
     }),
     Circular: Object.freeze({
-        In: function (amount) {
-            return 1 - Math.sqrt(1 - amount * amount);
-        },
-        Out: function (amount) {
-            return Math.sqrt(1 - --amount * amount);
-        },
-        InOut: function (amount) {
-            if ((amount *= 2) < 1) {
-                return -0.5 * (Math.sqrt(1 - amount * amount) - 1);
-            }
-            return 0.5 * (Math.sqrt(1 - (amount -= 2) * amount) + 1);
-        },
+	                            In(amount) {
+		                            return 1 - Math.sqrt(1 - amount * amount);
+	                            },
+	                            Out(amount) {
+		                            return Math.sqrt(1 - --amount * amount);
+	                            },
+	                            InOut(amount) {
+		                            if ((amount *= 2)<1) {
+			                            return -0.5 * (Math.sqrt(1 - amount * amount) - 1);
+		                            }
+		                            return 0.5 * (Math.sqrt(1 - (amount -= 2) * amount) + 1);
+	                            }
     }),
     Elastic: Object.freeze({
-        In: function (amount) {
-            if (amount === 0) {
-                return 0;
-            }
-            if (amount === 1) {
-                return 1;
-            }
-            return -Math.pow(2, 10 * (amount - 1)) * Math.sin((amount - 1.1) * 5 * Math.PI);
-        },
-        Out: function (amount) {
-            if (amount === 0) {
-                return 0;
-            }
-            if (amount === 1) {
-                return 1;
-            }
-            return Math.pow(2, -10 * amount) * Math.sin((amount - 0.1) * 5 * Math.PI) + 1;
-        },
-        InOut: function (amount) {
-            if (amount === 0) {
-                return 0;
-            }
-            if (amount === 1) {
-                return 1;
-            }
-            amount *= 2;
-            if (amount < 1) {
-                return -0.5 * Math.pow(2, 10 * (amount - 1)) * Math.sin((amount - 1.1) * 5 * Math.PI);
-            }
-            return 0.5 * Math.pow(2, -10 * (amount - 1)) * Math.sin((amount - 1.1) * 5 * Math.PI) + 1;
-        },
+	                           In(amount) {
+		                           if (amount===0) {
+			                           return 0;
+		                           }
+		                           if (amount===1) {
+			                           return 1;
+		                           }
+		                           return -Math.pow(2, 10 * (amount - 1)) * Math.sin((amount - 1.1) * 5 * Math.PI);
+	                           },
+	                           Out(amount) {
+		                           if (amount===0) {
+			                           return 0;
+		                           }
+		                           if (amount===1) {
+			                           return 1;
+		                           }
+		                           return Math.pow(2, -10 * amount) * Math.sin((amount - 0.1) * 5 * Math.PI) + 1;
+	                           },
+	                           InOut(amount) {
+		                           if (amount===0) {
+			                           return 0;
+		                           }
+		                           if (amount===1) {
+			                           return 1;
+		                           }
+		                           amount *= 2;
+		                           if (amount<1) {
+			                           return -0.5 * Math.pow(2, 10 * (amount - 1)) * Math.sin((amount - 1.1) * 5 * Math.PI);
+		                           }
+		                           return 0.5 * Math.pow(2, -10 * (amount - 1)) * Math.sin((amount - 1.1) * 5 * Math.PI) + 1;
+	                           }
     }),
     Back: Object.freeze({
-        In: function (amount) {
-            var s = 1.70158;
-            return amount === 1 ? 1 : amount * amount * ((s + 1) * amount - s);
-        },
-        Out: function (amount) {
-            var s = 1.70158;
-            return amount === 0 ? 0 : --amount * amount * ((s + 1) * amount + s) + 1;
-        },
-        InOut: function (amount) {
-            var s = 1.70158 * 1.525;
-            if ((amount *= 2) < 1) {
-                return 0.5 * (amount * amount * ((s + 1) * amount - s));
-            }
-            return 0.5 * ((amount -= 2) * amount * ((s + 1) * amount + s) + 2);
-        },
+	                        In(amount) {
+		                        var s = 1.70158;
+		                        return amount===1 ? 1 : amount * amount * ((s + 1) * amount - s);
+	                        },
+	                        Out(amount) {
+		                        var s = 1.70158;
+		                        return amount===0 ? 0 : --amount * amount * ((s + 1) * amount + s) + 1;
+	                        },
+	                        InOut(amount) {
+		                        var s = 1.70158 * 1.525;
+		                        if ((amount *= 2)<1) {
+			                        return 0.5 * (amount * amount * ((s + 1) * amount - s));
+		                        }
+		                        return 0.5 * ((amount -= 2) * amount * ((s + 1) * amount + s) + 2);
+	                        }
     }),
     Bounce: Object.freeze({
-        In: function (amount) {
-            return 1 - Easing.Bounce.Out(1 - amount);
-        },
-        Out: function (amount) {
-            if (amount < 1 / 2.75) {
-                return 7.5625 * amount * amount;
-            }
-            else if (amount < 2 / 2.75) {
-                return 7.5625 * (amount -= 1.5 / 2.75) * amount + 0.75;
-            }
-            else if (amount < 2.5 / 2.75) {
-                return 7.5625 * (amount -= 2.25 / 2.75) * amount + 0.9375;
-            }
-            else {
-                return 7.5625 * (amount -= 2.625 / 2.75) * amount + 0.984375;
-            }
-        },
-        InOut: function (amount) {
-            if (amount < 0.5) {
-                return Easing.Bounce.In(amount * 2) * 0.5;
-            }
-            return Easing.Bounce.Out(amount * 2 - 1) * 0.5 + 0.5;
-        },
+	                          In(amount) {
+		                          return 1 - Easing.Bounce.Out(1 - amount);
+	                          },
+	                          Out(amount) {
+		                          if (amount<1 / 2.75) {
+			                          return 7.5625 * amount * amount;
+		                          } else if (amount<2 / 2.75) {
+			                          return 7.5625 * (amount -= 1.5 / 2.75) * amount + 0.75;
+		                          } else if (amount<2.5 / 2.75) {
+			                          return 7.5625 * (amount -= 2.25 / 2.75) * amount + 0.9375;
+		                          } else {
+			                          return 7.5625 * (amount -= 2.625 / 2.75) * amount + 0.984375;
+		                          }
+	                          },
+	                          InOut(amount) {
+		                          if (amount<0.5) {
+			                          return Easing.Bounce.In(amount * 2) * 0.5;
+		                          }
+		                          return Easing.Bounce.Out(amount * 2 - 1) * 0.5 + 0.5;
+	                          }
     }),
-    generatePow: function (power) {
-        if (power === void 0) { power = 4; }
-        power = power < Number.EPSILON ? Number.EPSILON : power;
-        power = power > 10000 ? 10000 : power;
-        return {
-            In: function (amount) {
-                return Math.pow(amount, power);
-            },
-            Out: function (amount) {
-                return 1 - Math.pow((1 - amount), power);
-            },
-            InOut: function (amount) {
-                if (amount < 0.5) {
-                    return Math.pow((amount * 2), power) / 2;
-                }
-                return (1 - Math.pow((2 - amount * 2), power)) / 2 + 0.5;
-            },
-        };
-    },
+	                           generatePow(power) {
+		                           if (power=== void 0) { power = 4; }
+		                           power = power<Number.EPSILON ? Number.EPSILON : power;
+		                           power = power>10000 ? 10000 : power;
+		                           return {
+			                           In(amount) {
+				                           return Math.pow(amount, power);
+			                           },
+			                           Out(amount) {
+				                           return 1 - Math.pow(1 - amount, power);
+			                           },
+			                           InOut(amount) {
+				                           if (amount<0.5) {
+					                           return Math.pow(amount * 2, power) / 2;
+				                           }
+				                           return (1 - Math.pow(2 - amount * 2, power)) / 2 + 0.5;
+			                           }
+		                           };
+	                           }
 });
 
 var now = function () { return performance.now(); };
@@ -251,8 +248,8 @@ var Group = /** @class */ (function () {
             return false;
         }
         // Tweens are updated in "batches". If you add a new tween during an
-        // update, then the new tween will be updated in the next batch.
-        // If you remove a tween during an update, it may or may not be updated.
+        // Update, then the new tween will be updated in the next batch.
+        // If you remove a tween during an Update, it may or may not be updated.
         // However, if the removed tween was added during the current batch,
         // then it will not be updated.
         while (tweenIds.length > 0) {
@@ -275,58 +272,57 @@ var Group = /** @class */ (function () {
  *
  */
 var Interpolation = {
-    Linear: function (v, k) {
-        var m = v.length - 1;
-        var f = m * k;
-        var i = Math.floor(f);
-        var fn = Interpolation.Utils.Linear;
-        if (k < 0) {
-            return fn(v[0], v[1], f);
-        }
-        if (k > 1) {
-            return fn(v[m], v[m - 1], m - f);
-        }
-        return fn(v[i], v[i + 1 > m ? m : i + 1], f - i);
-    },
-    Bezier: function (v, k) {
-        var b = 0;
-        var n = v.length - 1;
-        var pw = Math.pow;
-        var bn = Interpolation.Utils.Bernstein;
-        for (var i = 0; i <= n; i++) {
-            b += pw(1 - k, n - i) * pw(k, i) * v[i] * bn(n, i);
-        }
-        return b;
-    },
-    CatmullRom: function (v, k) {
-        var m = v.length - 1;
-        var f = m * k;
-        var i = Math.floor(f);
-        var fn = Interpolation.Utils.CatmullRom;
-        if (v[0] === v[m]) {
-            if (k < 0) {
-                i = Math.floor((f = m * (1 + k)));
-            }
-            return fn(v[(i - 1 + m) % m], v[i], v[(i + 1) % m], v[(i + 2) % m], f - i);
-        }
-        else {
-            if (k < 0) {
-                return v[0] - (fn(v[0], v[0], v[1], v[1], -f) - v[0]);
-            }
-            if (k > 1) {
-                return v[m] - (fn(v[m], v[m], v[m - 1], v[m - 1], f - m) - v[m]);
-            }
-            return fn(v[i ? i - 1 : 0], v[i], v[m < i + 1 ? m : i + 1], v[m < i + 2 ? m : i + 2], f - i);
-        }
-    },
+	Linear(v, k) {
+		var m = v.length - 1;
+		var f = m * k;
+		var i = Math.floor(f);
+		var fn = Interpolation.Utils.Linear;
+		if (k<0) {
+			return fn(v[0], v[1], f);
+		}
+		if (k>1) {
+			return fn(v[m], v[m - 1], m - f);
+		}
+		return fn(v[i], v[i + 1>m ? m : i + 1], f - i);
+	},
+	Bezier(v, k) {
+		var b = 0;
+		var n = v.length - 1;
+		var pw = Math.pow;
+		var bn = Interpolation.Utils.Bernstein;
+		for (var i = 0; i<=n; i++) {
+			b += pw(1 - k, n - i) * pw(k, i) * v[i] * bn(n, i);
+		}
+		return b;
+	},
+	CatmullRom(v, k) {
+		var m = v.length - 1;
+		var f = m * k;
+		var i = Math.floor(f);
+		var fn = Interpolation.Utils.CatmullRom;
+		if (v[0]===v[m]) {
+			if (k<0) {
+				i = Math.floor(f = m * (1 + k));
+			}
+			return fn(v[(i - 1 + m) % m], v[i], v[(i + 1) % m], v[(i + 2) % m], f - i);
+		} else {
+			if (k<0) {
+				return v[0] - (fn(v[0], v[0], v[1], v[1], -f) - v[0]);
+			}
+			if (k>1) {
+				return v[m] - (fn(v[m], v[m], v[m - 1], v[m - 1], f - m) - v[m]);
+			}
+			return fn(v[i ? i - 1 : 0], v[i], v[m<i + 1 ? m : i + 1], v[m<i + 2 ? m : i + 2], f - i);
+		}
+	},
     Utils: {
-        Linear: function (p0, p1, t) {
-            return (p1 - p0) * t + p0;
-        },
-        Bernstein: function (n, i) {
-            var fc = Interpolation.Utils.Factorial;
-            return fc(n) / fc(i) / fc(n - i);
-        },
+	    Linear(p0, p1, t) {
+		    return (p1 - p0) * t + p0;
+	    },
+	    Bernstein(n, i) {
+		    var fc = Interpolation.Utils.Factorial;
+		    return fc(n) / fc(i) / fc(n - i);
+	    },
         Factorial: (function () {
             var a = [1];
             return function (n) {
@@ -341,13 +337,13 @@ var Interpolation = {
                 return s;
             };
         })(),
-        CatmullRom: function (p0, p1, p2, p3, t) {
-            var v0 = (p2 - p0) * 0.5;
-            var v1 = (p3 - p1) * 0.5;
-            var t2 = t * t;
-            var t3 = t * t2;
-            return (2 * p1 - 2 * p2 + v0 + v1) * t3 + (-3 * p1 + 3 * p2 - 2 * v0 - v1) * t2 + v0 * t + p1;
-        },
+	    CatmullRom(p0, p1, p2, p3, t) {
+		    var v0 = (p2 - p0) * 0.5;
+		    var v1 = (p3 - p1) * 0.5;
+		    var t2 = t * t;
+		    var t3 = t * t2;
+		    return (2 * p1 - 2 * p2 + v0 + v1) * t3 + (-3 * p1 + 3 * p2 - 2 * v0 - v1) * t2 + v0 * t + p1;
+	    }
     },
 };
 
@@ -668,8 +664,8 @@ var Tween = /** @class */ (function () {
         return this;
     };
     /**
-     * @returns true if the tween is still playing after the update, false
-     * otherwise (calling update on a paused tween still returns true because
+     * @returns true if the tween is still playing after the Update, false
+     * otherwise (calling Update on a paused tween still returns true because
      * it is still playing, just paused).
      */
     Tween.prototype.update = function (time, autoStart) {
@@ -749,7 +745,7 @@ var Tween = /** @class */ (function () {
                 }
                 for (var i = 0, numChainedTweens = this._chainedTweens.length; i < numChainedTweens; i++) {
                     // Make the chained tweens start exactly at the time they should,
-                    // even if the `update()` method was called way past the duration of the tween
+                    // even if the `Update()` method was called way past the duration of the tween
                     this._chainedTweens[i].start(this._startTime + this._duration, false);
                 }
                 this._isPlaying = false;
@@ -760,7 +756,7 @@ var Tween = /** @class */ (function () {
     };
     Tween.prototype._updateProperties = function (_object, _valuesStart, _valuesEnd, value) {
         for (var property in _valuesEnd) {
-            // Don't update properties that do not exist in the source object
+            // Don't Update properties that do not exist in the source object
             if (_valuesStart[property] === undefined) {
                 continue;
             }
@@ -840,19 +836,19 @@ var add = TWEEN.add.bind(TWEEN);
 var remove = TWEEN.remove.bind(TWEEN);
 var update = TWEEN.update.bind(TWEEN);
 var exports = {
-    Easing: Easing,
-    Group: Group,
-    Interpolation: Interpolation,
-    now: now,
-    Sequence: Sequence,
-    nextId: nextId,
-    Tween: Tween,
-    VERSION: VERSION,
-    getAll: getAll,
-    removeAll: removeAll,
-    add: add,
-    remove: remove,
-    update: update,
+	Easing,
+	Group,
+	Interpolation,
+	now,
+	Sequence,
+	nextId,
+	Tween,
+	VERSION,
+	getAll,
+	removeAll,
+	add,
+	remove,
+	update
 };
 
 export { Easing, Group, Interpolation, Sequence, Tween, VERSION, add, exports as default, getAll, nextId, now, remove, removeAll, update };

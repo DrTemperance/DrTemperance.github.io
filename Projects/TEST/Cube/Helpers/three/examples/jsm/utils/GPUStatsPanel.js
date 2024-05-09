@@ -76,7 +76,7 @@ export class GPUStatsPanel extends Stats.Panel {
 				const ms = ns * 1e-6;
 				if ( available ) {
 
-					// update the display if it is valid
+					// Update the display if it is valid
 					if ( ! disjoint ) {
 
 						this.update( ms, this.maxTime );

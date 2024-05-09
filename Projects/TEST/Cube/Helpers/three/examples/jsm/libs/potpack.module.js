@@ -78,7 +78,7 @@ function potpack(boxes) {
 				if (i < spaces.length) spaces[i] = last;
 			
 			} else if (box.h === space.h) {
-				// space matches the box height; update it accordingly
+				// space matches the box height; Update it accordingly
 				// |-------|---------------|
 				// |  box  | updated space |
 				// |_______|_______________|
@@ -86,7 +86,7 @@ function potpack(boxes) {
 				space.w -= box.w;
 			
 			} else if (box.w === space.w) {
-				// space matches the box width; update it accordingly
+				// space matches the box width; Update it accordingly
 				// |---------------|
 				// |      box      |
 				// |_______________|
@@ -118,7 +118,7 @@ function potpack(boxes) {
 	return {
 		w: width, // container width
 		h: height, // container height
-		fill: (area / (width * height)) || 0 // space utilization
+		fill: area / (width * height) || 0 // space utilization
 	};
 }
 

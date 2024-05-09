@@ -172,7 +172,7 @@ class PropertyMixer {
 
 			if (buffer[i]!==buffer[i + stride]) {
 
-				// value has changed -> update scene graph
+				// value has changed -> Update scene graph
 
 				binding.setValue(buffer, offset);
 				break;

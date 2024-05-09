@@ -7,7 +7,7 @@ import { potpack } from '../libs/potpack.module.js';
  * To use, simply construct a `ProgressiveLightMap` object,
  * `plmap.addObjectsToLightMap(object)` an array of semi-static
  * objects and lights to the class once, and then call
- * `plmap.update(camera)` every frame to begin accumulating
+ * `plmap.Update(camera)` every frame to begin accumulating
  * lighting samples.
  *
  * This should begin accumulating lightmaps which apply to
@@ -41,7 +41,7 @@ class ProgressiveLightMap {
 		// Inject some spicy new logic into a standard phong material
 		this.uvMat = new THREE.MeshPhongMaterial();
 		this.uvMat.uniforms = {};
-		this.uvMat.onBeforeCompile = ( shader ) => {
+		this.uvMat.onBeforeCompile = shader=> {
 
 			// Vertex Shader: Set Vertex Positions to the Unwrapped UV Positions
 			shader.vertexShader =
@@ -117,10 +117,10 @@ class ProgressiveLightMap {
 
 			// Prepare UV boxes for potpack
 			// TODO: Size these by object surface area
-			this.uv_boxes.push( { w: 1 + ( padding * 2 ),
-								  h: 1 + ( padding * 2 ), index: ob } );
+			this.uv_boxes.push( { w: 1 + padding * 2,
+								  h: 1 + padding * 2, index: ob } );
 
-			this.lightMapContainers.push( { basicMat: object.material, object: object } );
+			this.lightMapContainers.push( { basicMat: object.material, object} );
 
 			this.compiled = false;
 
@@ -128,7 +128,7 @@ class ProgressiveLightMap {
 
 		// Pack the objects' lightmap UVs into the same global space
 		const dimensions = potpack( this.uv_boxes );
-		this.uv_boxes.forEach( ( box ) => {
+		this.uv_boxes.forEach( box=> {
 
 			const uv1 = objects[ box.index ].geometry.getAttribute( 'uv' ).clone();
 			for ( let i = 0; i < uv1.array.length; i += uv1.itemSize ) {
@@ -271,7 +271,7 @@ class ProgressiveLightMap {
 		blurMaterial.uniforms = { previousShadowMap: { value: null },
 								  pixelOffset: { value: 1.0 / res },
 								  polygonOffset: true, polygonOffsetFactor: - 1, polygonOffsetUnits: 3.0 };
-		blurMaterial.onBeforeCompile = ( shader ) => {
+		blurMaterial.onBeforeCompile = shader=> {
 
 			// Vertex Shader: Set Vertex Positions to the Unwrapped UV Positions
 			shader.vertexShader =

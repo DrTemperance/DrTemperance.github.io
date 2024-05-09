@@ -429,7 +429,7 @@ class ConvexHull {
 			const vertex = this.vertices[ i ];
 			const point = vertex.point;
 
-			// update the min coordinates
+			// Update the min coordinates
 
 			for ( let j = 0; j < 3; j ++ ) {
 
@@ -442,7 +442,7 @@ class ConvexHull {
 
 			}
 
-			// update the max coordinates
+			// Update the max coordinates
 
 			for ( let j = 0; j < 3; j ++ ) {
 

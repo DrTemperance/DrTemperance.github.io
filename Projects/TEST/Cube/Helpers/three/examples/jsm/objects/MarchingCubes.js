@@ -845,7 +845,7 @@ class MarchingCubes extends Mesh {
 
 			this.geometry.setDrawRange( 0, this.count );
 
-			// update geometry data
+			// Update geometry data
 
 			geometry.getAttribute( 'position' ).needsUpdate = true;
 			geometry.getAttribute( 'normal' ).needsUpdate = true;

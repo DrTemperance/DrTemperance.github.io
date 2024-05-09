@@ -508,11 +508,11 @@ function WebGLTextures(_gl, extensions, state, properties, capabilities, utils, 
 
 			if (image===null) {
 
-				console.warn('THREE.WebGLRenderer: Texture marked for update but no image data found.');
+				console.warn('THREE.WebGLRenderer: Texture marked for Update but no image data found.');
 
 			} else if (image.complete===false) {
 
-				console.warn('THREE.WebGLRenderer: Texture marked for update but image is incomplete');
+				console.warn('THREE.WebGLRenderer: Texture marked for Update but image is incomplete');
 
 			} else {
 

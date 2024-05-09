@@ -55,7 +55,7 @@ class HTMLTexture extends CanvasTexture {
 		this.minFilter = LinearFilter;
 		this.magFilter = LinearFilter;
 
-		// Create an observer on the DOM, and run html2canvas update in the next loop
+		// Create an observer on the DOM, and run html2canvas Update in the next loop
 		const observer = new MutationObserver( () => {
 
 			if ( ! this.scheduleUpdate ) {
@@ -160,14 +160,14 @@ function html2canvas( element ) {
 
 		return {
 
-			add: function ( clip ) {
+			add(clip) {
 
-				clips.push( clip );
+				clips.push(clip);
 				doClip();
 
 			},
 
-			remove: function () {
+			remove() {
 
 				clips.pop();
 				doClip();
@@ -320,9 +320,9 @@ function html2canvas( element ) {
 
 				if ( prevBorder !== null ) {
 
-					match = ( style[ border + 'Width' ] === style[ prevBorder + 'Width' ] ) &&
-					( style[ border + 'Color' ] === style[ prevBorder + 'Color' ] ) &&
-					( style[ border + 'Style' ] === style[ prevBorder + 'Style' ] );
+					match = style[ border + 'Width' ] === style[ prevBorder + 'Width' ] &&
+					style[ border + 'Color' ] === style[ prevBorder + 'Color' ] &&
+					style[ border + 'Style' ] === style[ prevBorder + 'Style' ];
 
 				}
 
@@ -365,7 +365,7 @@ function html2canvas( element ) {
 
 				color.set( accentColor );
 
-				const luminance = Math.sqrt( 0.299 * ( color.r ** 2 ) + 0.587 * ( color.g ** 2 ) + 0.114 * ( color.b ** 2 ) );
+				const luminance = Math.sqrt( 0.299 * color.r ** 2 + 0.587 * color.g ** 2 + 0.114 * color.b ** 2 );
 				const accentTextColor = luminance < 0.5 ? 'white' : '#111111';
 
 				if ( element.type === 'radio' ) {
@@ -415,7 +415,7 @@ function html2canvas( element ) {
 							fontWeight: 'bold'
 						};
 
-						drawText( properties, x + ( width / 2 ), y, '✔' );
+						drawText( properties, x + width / 2, y, '✔' );
 
 						context.textAlign = currentTextAlign;
 
@@ -428,14 +428,14 @@ function html2canvas( element ) {
 					const [ min, max, value ] = [ 'min', 'max', 'value' ].map( property => parseFloat( element[ property ] ) );
 					const position = ( ( value - min ) / ( max - min ) ) * ( width - height );
 
-					buildRectPath( x, y + ( height / 4 ), width, height / 2, height / 4 );
+					buildRectPath( x, y + height / 4, width, height / 2, height / 4 );
 					context.fillStyle = accentTextColor;
 					context.strokeStyle = accentColor;
 					context.lineWidth = 1;
 					context.fill();
 					context.stroke();
 
-					buildRectPath( x, y + ( height / 4 ), position + ( height / 2 ), height / 2, height / 4 );
+					buildRectPath( x, y + height / 4, position + height / 2, height / 2, height / 4 );
 					context.fillStyle = accentColor;
 					context.fill();
 
@@ -447,7 +447,7 @@ function html2canvas( element ) {
 
 				if ( element.type === 'color' || element.type === 'text' || element.type === 'number' ) {
 
-					clipper.add( { x: x, y: y, width: width, height: height } );
+					clipper.add( {x, y, width, height} );
 
 					drawText( style, x + parseInt( style.paddingLeft ), y + parseInt( style.paddingTop ), element.value );
 
@@ -467,7 +467,7 @@ function html2canvas( element ) {
 
 		const isClipping = style.overflow === 'auto' || style.overflow === 'hidden';
 
-		if ( isClipping ) clipper.add( { x: x, y: y, width: width, height: height } );
+		if ( isClipping ) clipper.add( {x, y, width, height} );
 
 		for ( let i = 0; i < element.childNodes.length; i ++ ) {
 
@@ -511,8 +511,8 @@ function html2canvas( element ) {
 function htmlevent( element, event, x, y ) {
 
 	const mouseEventInit = {
-		clientX: ( x * element.offsetWidth ) + element.offsetLeft,
-		clientY: ( y * element.offsetHeight ) + element.offsetTop,
+		clientX: x * element.offsetWidth + element.offsetLeft,
+		clientY: y * element.offsetHeight + element.offsetTop,
 		view: element.ownerDocument.defaultView
 	};
 

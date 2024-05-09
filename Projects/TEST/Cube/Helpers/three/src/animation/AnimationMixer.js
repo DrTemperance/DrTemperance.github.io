@@ -612,7 +612,7 @@ class AnimationMixer extends EventDispatcher {
 
 	}
 
-	// advance the time and update apply the animation
+	// advance the time and Update apply the animation
 	update(deltaTime) {
 
 		deltaTime *= this.timeScale;
@@ -635,7 +635,7 @@ class AnimationMixer extends EventDispatcher {
 
 		}
 
-		// update scene graph
+		// Update scene graph
 
 		const bindings  = this._bindings,
 		      nBindings = this._nActiveBindings;

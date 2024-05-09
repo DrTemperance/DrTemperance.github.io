@@ -324,7 +324,7 @@ class AnimationAction {
 
 		if (!this.enabled) {
 
-			// call ._updateWeight() to update ._effectiveWeight
+			// call ._updateWeight() to Update ._effectiveWeight
 
 			this._updateWeight(time);
 			return;

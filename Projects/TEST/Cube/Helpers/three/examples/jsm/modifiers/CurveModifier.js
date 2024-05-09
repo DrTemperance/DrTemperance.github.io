@@ -51,13 +51,13 @@ export function updateSplineTexture( texture, splineCurve, offset = 0 ) {
 		const rowIndex = i % TEXTURE_WIDTH;
 
 		let pt = points[ i ];
-		setTextureValue( texture, rowIndex, pt.x, pt.y, pt.z, 0 + rowOffset + ( TEXTURE_HEIGHT * offset ) );
+		setTextureValue( texture, rowIndex, pt.x, pt.y, pt.z, 0 + rowOffset + TEXTURE_HEIGHT * offset );
 		pt = frenetFrames.tangents[ i ];
-		setTextureValue( texture, rowIndex, pt.x, pt.y, pt.z, 1 + rowOffset + ( TEXTURE_HEIGHT * offset ) );
+		setTextureValue( texture, rowIndex, pt.x, pt.y, pt.z, 1 + rowOffset + TEXTURE_HEIGHT * offset );
 		pt = frenetFrames.normals[ i ];
-		setTextureValue( texture, rowIndex, pt.x, pt.y, pt.z, 2 + rowOffset + ( TEXTURE_HEIGHT * offset ) );
+		setTextureValue( texture, rowIndex, pt.x, pt.y, pt.z, 2 + rowOffset + TEXTURE_HEIGHT * offset );
 		pt = frenetFrames.binormals[ i ];
-		setTextureValue( texture, rowIndex, pt.x, pt.y, pt.z, 3 + rowOffset + ( TEXTURE_HEIGHT * offset ) );
+		setTextureValue( texture, rowIndex, pt.x, pt.y, pt.z, 3 + rowOffset + TEXTURE_HEIGHT * offset );
 
 	}
 
@@ -102,7 +102,7 @@ export function modifyShader( material, uniforms, numberOfCurves = 1 ) {
 	if ( material.__ok ) return;
 	material.__ok = true;
 
-	material.onBeforeCompile = ( shader ) => {
+	material.onBeforeCompile = shader=> {
 
 		if ( shader.__modified ) return;
 		shader.__modified = true;
@@ -288,9 +288,9 @@ export class InstancedFlow extends Flow {
 
 	/**
 	 * The extra information about which curve and curve position is stored in the translation components of the matrix for the instanced objects
-	 * This writes that information to the matrix and marks it as needing update.
+	 * This writes that information to the matrix and marks it as needing Update.
 	 *
-	 * @param {number} index of the instanced element to update
+	 * @param {number} index of the instanced element to Update
 	 */
 	writeChanges( index ) {
 
@@ -307,7 +307,7 @@ export class InstancedFlow extends Flow {
 	/**
 	 * Move an individual element along the curve by a specific amount
 	 *
-	 * @param {number} index Which element to update
+	 * @param {number} index Which element to Update
 	 * @param {number} offset Move by how much
 	 */
 	moveIndividualAlongCurve( index, offset ) {
@@ -320,7 +320,7 @@ export class InstancedFlow extends Flow {
 	/**
 	 * Select which curve to use for an element
 	 *
-	 * @param {number} index the index of the instanced element to update
+	 * @param {number} index the index of the instanced element to Update
 	 * @param {number} curveNo the index of the curve it should use
 	 */
 	setCurve( index, curveNo ) {

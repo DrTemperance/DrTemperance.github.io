@@ -87,13 +87,13 @@ class RenderList {
 
 			renderItem = {
 				id: object.id,
-				object: object,
-				geometry: geometry,
-				material: material,
-				groupOrder: groupOrder,
+				object,
+				geometry,
+				material,
+				groupOrder,
 				renderOrder: object.renderOrder,
-				z: z,
-				group: group
+				z,
+				group
 			};
 
 			this.renderItems[ this.renderItemsIndex ] = renderItem;
@@ -156,7 +156,7 @@ class RenderList {
 
 	finish() {
 
-		// update lights
+		// Update lights
 
 		this.lightsNode.fromLights( this.lightsArray );
 

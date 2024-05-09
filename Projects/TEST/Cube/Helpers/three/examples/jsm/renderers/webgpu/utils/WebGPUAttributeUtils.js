@@ -51,12 +51,12 @@ class WebGPUAttributeUtils {
 
 			}
 
-			const size = array.byteLength + ( ( 4 - ( array.byteLength % 4 ) ) % 4 ); // ensure 4 byte alignment, see #20441
+			const size = array.byteLength + ( 4 - ( array.byteLength % 4 ) ) % 4; // ensure 4 byte alignment, see #20441
 
 			buffer = device.createBuffer( {
 				label: bufferAttribute.name,
-				size: size,
-				usage: usage,
+				                              size,
+				                              usage,
 				mappedAtCreation: true
 			} );
 
@@ -84,7 +84,7 @@ class WebGPUAttributeUtils {
 
 		if ( updateRanges.length === 0 ) {
 
-			// Not using update ranges
+			// Not using Update ranges
 
 			device.queue.writeBuffer(
 				buffer,
@@ -154,7 +154,7 @@ class WebGPUAttributeUtils {
 			}
 
 			const format = this._getVertexFormat( geometryAttribute );
-			const offset = ( geometryAttribute.isInterleavedBufferAttribute === true ) ? geometryAttribute.offset * bytesPerElement : 0;
+			const offset = geometryAttribute.isInterleavedBufferAttribute === true ? geometryAttribute.offset * bytesPerElement : 0;
 
 			vertexBufferLayout.attributes.push( {
 				shaderLocation: slot,

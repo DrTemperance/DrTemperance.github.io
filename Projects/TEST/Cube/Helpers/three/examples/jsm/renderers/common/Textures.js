@@ -1,6 +1,19 @@
+import {
+	CubeReflectionMapping,
+	CubeRefractionMapping,
+	DepthFormat,
+	DepthStencilFormat,
+	DepthTexture,
+	EquirectangularReflectionMapping,
+	EquirectangularRefractionMapping,
+	LinearFilter,
+	NearestFilter,
+	UnsignedByteType,
+	UnsignedInt248Type,
+	UnsignedIntType,
+	Vector3
+} from 'three';
 import DataMap from './DataMap.js';
-
-import { Vector3, DepthTexture, DepthStencilFormat, DepthFormat, UnsignedIntType, UnsignedInt248Type, LinearFilter, NearestFilter, EquirectangularReflectionMapping, EquirectangularRefractionMapping, CubeReflectionMapping, CubeRefractionMapping, UnsignedByteType } from 'three';
 
 const _size = new Vector3();
 
@@ -145,7 +158,7 @@ class Textures extends DataMap {
 
 		if ( isRenderTarget && textureData.initialized === true ) {
 
-			// it's an update
+			// it's an Update
 
 			backend.destroySampler( texture );
 			backend.destroyTexture( texture );
@@ -200,11 +213,11 @@ class Textures extends DataMap {
 
 				if ( image === undefined ) {
 
-					console.warn( 'THREE.Renderer: Texture marked for update but image is undefined.' );
+					console.warn( 'THREE.Renderer: Texture marked for Update but image is undefined.' );
 
 				} else if ( image.complete === false ) {
 
-					console.warn( 'THREE.Renderer: Texture marked for update but image is incomplete.' );
+					console.warn( 'THREE.Renderer: Texture marked for Update but image is incomplete.' );
 
 				} else {
 
@@ -242,7 +255,7 @@ class Textures extends DataMap {
 
 			} else {
 
-				// async update
+				// async Update
 
 				backend.createDefaultTexture( texture );
 
@@ -294,7 +307,7 @@ class Textures extends DataMap {
 
 			target.width = image.width;
 			target.height = image.height;
-			target.depth = texture.isCubeTexture ? 6 : ( image.depth || 1 );
+			target.depth = texture.isCubeTexture ? 6 : image.depth || 1;
 
 		} else {
 
@@ -328,7 +341,7 @@ class Textures extends DataMap {
 
 		if ( this.isEnvironmentTexture( texture ) ) return true;
 
-		return ( texture.isCompressedTexture === true ) || ( ( texture.minFilter !== NearestFilter ) && ( texture.minFilter !== LinearFilter ) );
+		return texture.isCompressedTexture === true || texture.minFilter !== NearestFilter && texture.minFilter !== LinearFilter;
 
 	}
 
@@ -336,7 +349,7 @@ class Textures extends DataMap {
 
 		const mapping = texture.mapping;
 
-		return ( mapping === EquirectangularReflectionMapping || mapping === EquirectangularRefractionMapping ) || ( mapping === CubeReflectionMapping || mapping === CubeRefractionMapping );
+		return mapping === EquirectangularReflectionMapping || mapping === EquirectangularRefractionMapping || ( mapping === CubeReflectionMapping || mapping === CubeRefractionMapping );
 
 	}
 

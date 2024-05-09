@@ -1,15 +1,15 @@
 import { ArrayCamera } from '../../cameras/ArrayCamera.js';
-import { EventDispatcher } from '../../core/EventDispatcher.js';
 import { PerspectiveCamera } from '../../cameras/PerspectiveCamera.js';
+import { DepthFormat, DepthStencilFormat, RGBAFormat, UnsignedByteType, UnsignedInt248Type, UnsignedIntType } from '../../constants.js';
+import { EventDispatcher } from '../../core/EventDispatcher.js';
+import { RAD2DEG } from '../../math/MathUtils.js';
 import { Vector2 } from '../../math/Vector2.js';
 import { Vector3 } from '../../math/Vector3.js';
 import { Vector4 } from '../../math/Vector4.js';
-import { RAD2DEG } from '../../math/MathUtils.js';
+import { DepthTexture } from '../../textures/DepthTexture.js';
 import { WebGLAnimation } from '../webgl/WebGLAnimation.js';
 import { WebGLRenderTarget } from '../WebGLRenderTarget.js';
 import { WebXRController } from './WebXRController.js';
-import { DepthTexture } from '../../textures/DepthTexture.js';
-import { DepthFormat, DepthStencilFormat, RGBAFormat, UnsignedByteType, UnsignedIntType, UnsignedInt248Type } from '../../constants.js';
 import { WebXRDepthSensing } from './WebXRDepthSensing.js';
 
 class WebXRManager extends EventDispatcher {
@@ -572,7 +572,7 @@ class WebXRManager extends EventDispatcher {
 
 			}
 
-			// update projection matrix for proper view frustum culling
+			// Update projection matrix for proper view frustum culling
 
 			if (cameras.length===2) {
 
@@ -586,7 +586,7 @@ class WebXRManager extends EventDispatcher {
 
 			}
 
-			// update user camera and its children
+			// Update user camera and its children
 
 			updateUserCamera(camera, cameraXR, parent);
 

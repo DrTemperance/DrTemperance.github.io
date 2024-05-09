@@ -93,7 +93,7 @@ function WebGLAttributes(gl, capabilities) {
 
 		if (updateRange.count=== -1 && updateRanges.length===0) {
 
-			// Not using update ranges
+			// Not using Update ranges
 			gl.bufferSubData(bufferType, 0, array);
 
 		}

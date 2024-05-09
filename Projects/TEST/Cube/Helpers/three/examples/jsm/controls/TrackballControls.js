@@ -122,8 +122,8 @@ class TrackballControls extends EventDispatcher {
 			return function getMouseOnCircle( pageX, pageY ) {
 
 				vector.set(
-					( ( pageX - scope.screen.width * 0.5 - scope.screen.left ) / ( scope.screen.width * 0.5 ) ),
-					( ( scope.screen.height + 2 * ( scope.screen.top - pageY ) ) / scope.screen.width ) // screen.width intentional
+					( pageX - scope.screen.width * 0.5 - scope.screen.left ) / ( scope.screen.width * 0.5 ),
+					( scope.screen.height + 2 * ( scope.screen.top - pageY ) ) / scope.screen.width // screen.width intentional
 				);
 
 				return vector;
@@ -132,7 +132,7 @@ class TrackballControls extends EventDispatcher {
 
 		}() );
 
-		this.rotateCamera = ( function () {
+		this.rotateCamera = function () {
 
 			const axis = new Vector3(),
 				quaternion = new Quaternion(),
@@ -184,7 +184,7 @@ class TrackballControls extends EventDispatcher {
 
 			};
 
-		}() );
+		}();
 
 
 		this.zoomCamera = function () {
@@ -258,7 +258,7 @@ class TrackballControls extends EventDispatcher {
 
 		};
 
-		this.panCamera = ( function () {
+		this.panCamera = function () {
 
 			const mouseChange = new Vector2(),
 				objectUp = new Vector3(),
@@ -302,7 +302,7 @@ class TrackballControls extends EventDispatcher {
 
 			};
 
-		}() );
+		}();
 
 		this.checkDistances = function () {
 
@@ -499,7 +499,7 @@ class TrackballControls extends EventDispatcher {
 
 			if ( _keyState !== STATE.NONE ) {
 
-				return;
+
 
 			} else if ( event.code === scope.keys[ STATE.ROTATE ] && ! scope.noRotate ) {
 
@@ -549,7 +549,7 @@ class TrackballControls extends EventDispatcher {
 
 			}
 
-			const state = ( _keyState !== STATE.NONE ) ? _keyState : _state;
+			const state = _keyState !== STATE.NONE ? _keyState : _state;
 
 			if ( state === STATE.ROTATE && ! scope.noRotate ) {
 
@@ -574,7 +574,7 @@ class TrackballControls extends EventDispatcher {
 
 		function onMouseMove( event ) {
 
-			const state = ( _keyState !== STATE.NONE ) ? _keyState : _state;
+			const state = _keyState !== STATE.NONE ? _keyState : _state;
 
 			if ( state === STATE.ROTATE && ! scope.noRotate ) {
 
@@ -777,7 +777,7 @@ class TrackballControls extends EventDispatcher {
 
 		function getSecondPointerPosition( event ) {
 
-			const pointer = ( event.pointerId === _pointers[ 0 ].pointerId ) ? _pointers[ 1 ] : _pointers[ 0 ];
+			const pointer = event.pointerId === _pointers[ 0 ].pointerId ? _pointers[ 1 ] : _pointers[ 0 ];
 
 			return _pointerPositions[ pointer.pointerId ];
 
@@ -811,7 +811,7 @@ class TrackballControls extends EventDispatcher {
 
 		this.handleResize();
 
-		// force an update at start
+		// force an Update at start
 		this.update();
 
 	}

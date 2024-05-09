@@ -3,12 +3,13 @@ import WebGPU from '../../capabilities/WebGPU.js';
 import Renderer from '../common/Renderer.js';
 import WebGLBackend from '../webgl/WebGLBackend.js';
 import WebGPUBackend from './WebGPUBackend.js';
+
 /*
 const debugHandler = {
 
 	get: function ( target, name ) {
 
-		// Add |update
+		// Add |Update
 		if ( /^(create|destroy)/.test( name ) ) console.log( 'WebGPUBackend.' + name );
 
 		return target[ name ];

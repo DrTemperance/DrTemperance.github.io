@@ -1,37 +1,39 @@
 import {
-	REVISION,
 	BackSide,
-	FrontSide,
+	DisplayP3ColorSpace,
 	DoubleSide,
-	RGBAFormat,
-	HalfFloatType,
 	FloatType,
-	UnsignedByteType,
-	NoToneMapping,
-	LinearMipmapLinearFilter,
-	SRGBColorSpace,
-	LinearSRGBColorSpace,
-	sRGBEncoding,
+	FrontSide,
+	HalfFloatType,
+	LinearDisplayP3ColorSpace,
 	LinearEncoding,
+	LinearMipmapLinearFilter,
+	LinearSRGBColorSpace,
+	NoToneMapping,
+	RedIntegerFormat,
+	REVISION,
+	RGBAFormat,
 	RGBAIntegerFormat,
 	RGIntegerFormat,
-	RedIntegerFormat,
-	UnsignedIntType,
-	UnsignedShortType,
+	SRGBColorSpace,
+	sRGBEncoding,
+	UnsignedByteType,
 	UnsignedInt248Type,
+	UnsignedIntType,
 	UnsignedShort4444Type,
 	UnsignedShort5551Type,
-	WebGLCoordinateSystem,
-	DisplayP3ColorSpace,
-	LinearDisplayP3ColorSpace
+	UnsignedShortType,
+	WebGLCoordinateSystem
 } from '../constants.js';
 import { Color } from '../math/Color.js';
+import { ColorManagement } from '../math/ColorManagement.js';
 import { Frustum } from '../math/Frustum.js';
+import { floorPowerOfTwo } from '../math/MathUtils.js';
 import { Matrix4 } from '../math/Matrix4.js';
 import { Vector2 } from '../math/Vector2.js';
 import { Vector3 } from '../math/Vector3.js';
 import { Vector4 } from '../math/Vector4.js';
-import { floorPowerOfTwo } from '../math/MathUtils.js';
+import { createCanvasElement } from '../utils.js';
 import { WebGLAnimation } from './webgl/WebGLAnimation.js';
 import { WebGLAttributes } from './webgl/WebGLAttributes.js';
 import { WebGLBackground } from './webgl/WebGLBackground.js';
@@ -45,23 +47,21 @@ import { WebGLExtensions } from './webgl/WebGLExtensions.js';
 import { WebGLGeometries } from './webgl/WebGLGeometries.js';
 import { WebGLIndexedBufferRenderer } from './webgl/WebGLIndexedBufferRenderer.js';
 import { WebGLInfo } from './webgl/WebGLInfo.js';
+import { WebGLMaterials } from './webgl/WebGLMaterials.js';
 import { WebGLMorphtargets } from './webgl/WebGLMorphtargets.js';
 import { WebGLObjects } from './webgl/WebGLObjects.js';
 import { WebGLPrograms } from './webgl/WebGLPrograms.js';
 import { WebGLProperties } from './webgl/WebGLProperties.js';
 import { WebGLRenderLists } from './webgl/WebGLRenderLists.js';
 import { WebGLRenderStates } from './webgl/WebGLRenderStates.js';
-import { WebGLRenderTarget } from './WebGLRenderTarget.js';
 import { WebGLShadowMap } from './webgl/WebGLShadowMap.js';
 import { WebGLState } from './webgl/WebGLState.js';
 import { WebGLTextures } from './webgl/WebGLTextures.js';
 import { WebGLUniforms } from './webgl/WebGLUniforms.js';
-import { WebGLUtils } from './webgl/WebGLUtils.js';
-import { WebXRManager } from './webxr/WebXRManager.js';
-import { WebGLMaterials } from './webgl/WebGLMaterials.js';
 import { WebGLUniformsGroups } from './webgl/WebGLUniformsGroups.js';
-import { createCanvasElement } from '../utils.js';
-import { ColorManagement } from '../math/ColorManagement.js';
+import { WebGLUtils } from './webgl/WebGLUtils.js';
+import { WebGLRenderTarget } from './WebGLRenderTarget.js';
+import { WebXRManager } from './webxr/WebXRManager.js';
 
 class WebGLRenderer {
 
@@ -1146,11 +1146,11 @@ class WebGLRenderer {
 
 			if (_isContextLost===true) return;
 
-			// update scene graph
+			// Update scene graph
 
 			if (scene.matrixWorldAutoUpdate===true) scene.updateMatrixWorld();
 
-			// update camera matrices and frustum
+			// Update camera matrices and frustum
 
 			if (camera.parent===null && camera.matrixWorldAutoUpdate===true) camera.updateMatrixWorld();
 
@@ -1610,7 +1610,7 @@ class WebGLRenderer {
 
 			let programs = materialProperties.programs;
 
-			// always update environment and fog - changing these trigger an getProgram call, but it's possible that the program doesn't change
+			// always Update environment and fog - changing these trigger an getProgram call, but it's possible that the program doesn't change
 
 			materialProperties.environment = material.isMeshStandardMaterial ? scene.environment : null;
 			materialProperties.fog = scene.fog;
@@ -1960,12 +1960,12 @@ class WebGLRenderer {
 
 					_currentCamera = camera;
 
-					// lighting uniforms depend on the camera so enforce an update
+					// lighting uniforms depend on the camera so enforce an Update
 					// now, in case this material supports lights - or later, when
 					// the next material that does gets activated:
 
 					refreshMaterial = true;		// set to true on material change
-					refreshLights = true;		// remains set until update done
+					refreshLights = true;		// remains set until Update done
 
 				}
 
@@ -2221,7 +2221,7 @@ class WebGLRenderer {
 
 				} else if (renderTargetProperties.__hasExternalTextures) {
 
-					// Color and depth texture must be rebound in order for the swapchain to update.
+					// Color and depth texture must be rebound in order for the swapchain to Update.
 					textures.rebindTextures(renderTarget, properties.get(renderTarget.texture).__webglTexture, properties.get(renderTarget.depthTexture).__webglTexture);
 
 				}
@@ -2356,7 +2356,7 @@ class WebGLRenderer {
 
 					// the following if statement ensures valid read requests (no out-of-bounds pixels, see #8604)
 
-					if (x>=0 && x<=(renderTarget.width - width) && (y>=0 && y<=renderTarget.height - height)) {
+					if (x>=0 && x<=renderTarget.width - width && (y>=0 && y<=renderTarget.height - height)) {
 
 						_gl.readPixels(x, y, width, height, utils.convert(textureFormat), utils.convert(textureType), buffer);
 

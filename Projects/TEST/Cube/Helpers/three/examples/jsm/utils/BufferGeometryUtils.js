@@ -837,7 +837,7 @@ function toTrianglesDrawMode( geometry, drawMode ) {
 
 		}
 
-		if ( ( newIndices.length / 3 ) !== numberOfTriangles ) {
+		if ( newIndices.length / 3 !== numberOfTriangles ) {
 
 			console.error( 'THREE.BufferGeometryUtils.toTrianglesDrawMode(): Unable to generate correct amount of triangles.' );
 
@@ -987,7 +987,7 @@ function computeMorphedAttributes( object ) {
 				group = groups[ i ];
 
 				start = Math.max( group.start, drawRange.start );
-				end = Math.min( ( group.start + group.count ), ( drawRange.start + drawRange.count ) );
+				end = Math.min( group.start + group.count, drawRange.start + drawRange.count );
 
 				for ( j = start, jl = end; j < jl; j += 3 ) {
 
@@ -1020,7 +1020,7 @@ function computeMorphedAttributes( object ) {
 		} else {
 
 			start = Math.max( 0, drawRange.start );
-			end = Math.min( index.count, ( drawRange.start + drawRange.count ) );
+			end = Math.min( index.count, drawRange.start + drawRange.count );
 
 			for ( i = start, il = end; i < il; i += 3 ) {
 
@@ -1061,7 +1061,7 @@ function computeMorphedAttributes( object ) {
 				group = groups[ i ];
 
 				start = Math.max( group.start, drawRange.start );
-				end = Math.min( ( group.start + group.count ), ( drawRange.start + drawRange.count ) );
+				end = Math.min( group.start + group.count, drawRange.start + drawRange.count );
 
 				for ( j = start, jl = end; j < jl; j += 3 ) {
 
@@ -1094,7 +1094,7 @@ function computeMorphedAttributes( object ) {
 		} else {
 
 			start = Math.max( 0, drawRange.start );
-			end = Math.min( positionAttribute.count, ( drawRange.start + drawRange.count ) );
+			end = Math.min( positionAttribute.count, drawRange.start + drawRange.count );
 
 			for ( i = start, il = end; i < il; i += 3 ) {
 
@@ -1131,10 +1131,10 @@ function computeMorphedAttributes( object ) {
 
 	return {
 
-		positionAttribute: positionAttribute,
-		normalAttribute: normalAttribute,
-		morphedPositionAttribute: morphedPositionAttribute,
-		morphedNormalAttribute: morphedNormalAttribute
+		positionAttribute,
+		normalAttribute,
+		morphedPositionAttribute,
+		morphedNormalAttribute
 
 	};
 
@@ -1202,7 +1202,7 @@ function mergeGroups( geometry ) {
 	geometry.dispose(); // Required to force buffer recreation
 	geometry.setIndex( newIndices );
 
-	// update groups indices
+	// Update groups indices
 
 	let start = 0;
 

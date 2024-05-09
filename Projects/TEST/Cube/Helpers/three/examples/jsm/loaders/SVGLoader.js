@@ -152,7 +152,7 @@ class SVGLoader extends Loader {
 
 				paths.push( path );
 
-				path.userData = { node: node, style: style };
+				path.userData = {node, style};
 
 			}
 
@@ -728,7 +728,7 @@ class SVGLoader extends Loader {
 
 			}
 
-			const dq = ( rxs * y1ps + rys * x1ps );
+			const dq = rxs * y1ps + rys * x1ps;
 			const pq = ( rxs * rys - dq ) / dq;
 			let q = Math.sqrt( Math.max( 0, pq ) );
 			if ( large_arc_flag === sweep_flag ) q = - q;
@@ -752,7 +752,7 @@ class SVGLoader extends Loader {
 			const dot = ux * vx + uy * vy;
 			const len = Math.sqrt( ux * ux + uy * uy ) * Math.sqrt( vx * vx + vy * vy );
 			let ang = Math.acos( Math.max( - 1, Math.min( 1, dot / len ) ) ); // floating point precision, slightly over values appear
-			if ( ( ux * vy - uy * vx ) < 0 ) ang = - ang;
+			if ( ux * vy - uy * vx < 0 ) ang = - ang;
 			return ang;
 
 		}
@@ -1387,7 +1387,7 @@ class SVGLoader extends Loader {
 
 		function getNodeTransform( node ) {
 
-			if ( ! ( node.hasAttribute( 'transform' ) || ( node.nodeName === 'use' && ( node.hasAttribute( 'x' ) || node.hasAttribute( 'y' ) ) ) ) ) {
+			if ( ! ( node.hasAttribute( 'transform' ) || node.nodeName === 'use' && ( node.hasAttribute( 'x' ) || node.hasAttribute( 'y' ) ) ) ) {
 
 				return null;
 
@@ -1895,7 +1895,7 @@ class SVGLoader extends Loader {
 			strokeMiterLimit: 4
 		} );
 
-		const data = { paths: paths, xml: xml.documentElement };
+		const data = {paths, xml: xml.documentElement };
 
 		// console.log( paths );
 		return data;
@@ -1940,13 +1940,13 @@ class SVGLoader extends Loader {
 			const t1 = nom1 / denom;
 			const t2 = nom2 / denom;
 
-			if ( ( ( denom === 0 ) && ( nom1 !== 0 ) ) || ( t1 <= 0 ) || ( t1 >= 1 ) || ( t2 < 0 ) || ( t2 > 1 ) ) {
+			if ( ( denom === 0 ) && ( nom1 !== 0 ) || t1 <= 0 || t1 >= 1 || t2 < 0 || t2 > 1 ) {
 
 				//1. lines are parallel or edges don't intersect
 
 				return null;
 
-			} else if ( ( nom1 === 0 ) && ( denom === 0 ) ) {
+			} else if ( nom1 === 0 && denom === 0 ) {
 
 				//2. lines are colinear
 
@@ -1957,14 +1957,14 @@ class SVGLoader extends Loader {
 					//find position of this endpoints relatively to edge1
 					if ( classifyResult.loc == IntersectionLocationType.ORIGIN ) {
 
-						const point = ( i === 0 ? b0 : b1 );
+						const point = i === 0 ? b0 : b1;
 						return { x: point.x, y: point.y, t: classifyResult.t };
 
 					} else if ( classifyResult.loc == IntersectionLocationType.BETWEEN ) {
 
-						const x = + ( ( x1 + classifyResult.t * ( x2 - x1 ) ).toPrecision( 10 ) );
-						const y = + ( ( y1 + classifyResult.t * ( y2 - y1 ) ).toPrecision( 10 ) );
-						return { x: x, y: y, t: classifyResult.t, };
+						const x = + ( x1 + classifyResult.t * ( x2 - x1 ) ).toPrecision( 10 );
+						const y = + ( y1 + classifyResult.t * ( y2 - y1 ) ).toPrecision( 10 );
+						return {x, y, t: classifyResult.t, };
 
 					}
 
@@ -1982,16 +1982,16 @@ class SVGLoader extends Loader {
 
 					if ( classifyResult.loc == IntersectionLocationType.ORIGIN ) {
 
-						const point = ( i === 0 ? b0 : b1 );
+						const point = i === 0 ? b0 : b1;
 						return { x: point.x, y: point.y, t: classifyResult.t };
 
 					}
 
 				}
 
-				const x = + ( ( x1 + t1 * ( x2 - x1 ) ).toPrecision( 10 ) );
-				const y = + ( ( y1 + t1 * ( y2 - y1 ) ).toPrecision( 10 ) );
-				return { x: x, y: y, t: t1 };
+				const x = + ( x1 + t1 * ( x2 - x1 ) ).toPrecision( 10 );
+				const y = + ( y1 + t1 * ( y2 - y1 ) ).toPrecision( 10 );
+				return {x, y, t: t1 };
 
 			}
 
@@ -2005,7 +2005,7 @@ class SVGLoader extends Loader {
 			const by = p.y - edgeStart.y;
 			const sa = ax * by - bx * ay;
 
-			if ( ( p.x === edgeStart.x ) && ( p.y === edgeStart.y ) ) {
+			if ( p.x === edgeStart.x && p.y === edgeStart.y ) {
 
 				classifyResult.loc = IntersectionLocationType.ORIGIN;
 				classifyResult.t = 0;
@@ -2013,7 +2013,7 @@ class SVGLoader extends Loader {
 
 			}
 
-			if ( ( p.x === edgeEnd.x ) && ( p.y === edgeEnd.y ) ) {
+			if ( p.x === edgeEnd.x && p.y === edgeEnd.y ) {
 
 				classifyResult.loc = IntersectionLocationType.DESTINATION;
 				classifyResult.t = 1;
@@ -2036,14 +2036,14 @@ class SVGLoader extends Loader {
 
 			}
 
-			if ( ( ( ax * bx ) < 0 ) || ( ( ay * by ) < 0 ) ) {
+			if ( ( ax * bx ) < 0 || ( ay * by ) < 0 ) {
 
 				classifyResult.loc = IntersectionLocationType.BEHIND;
 				return;
 
 			}
 
-			if ( ( Math.sqrt( ax * ax + ay * ay ) ) < ( Math.sqrt( bx * bx + by * by ) ) ) {
+			if ( Math.sqrt( ax * ax + ay * ay ) < Math.sqrt( bx * bx + by * by ) ) {
 
 				classifyResult.loc = IntersectionLocationType.BEYOND;
 				return;
@@ -2115,21 +2115,13 @@ class SVGLoader extends Loader {
 
 					const intersections = getIntersections( scanline, path.points );
 
-					intersections.forEach( p => {
-
-						allIntersections.push( { identifier: path.identifier, isCW: path.isCW, point: p } );
-
-					} );
+					intersections.forEach( p =>allIntersections.push({identifier: path.identifier, isCW: path.isCW, point: p}));
 
 				}
 
 			} );
 
-			allIntersections.sort( ( i1, i2 ) => {
-
-				return i1.point.x - i2.point.x;
-
-			} );
+			allIntersections.sort( ( i1, i2 ) =>i1.point.x - i2.point.x);
 
 			return allIntersections;
 
@@ -2150,11 +2142,7 @@ class SVGLoader extends Loader {
 
 			const scanlineIntersections = getScanlineIntersections( scanline, simplePath.boundingBox, allPaths );
 
-			scanlineIntersections.sort( ( i1, i2 ) => {
-
-				return i1.point.x - i2.point.x;
-
-			} );
+			scanlineIntersections.sort( ( i1, i2 ) =>i1.point.x - i2.point.x);
 
 			const baseIntersections = [];
 			const otherIntersections = [];
@@ -2202,7 +2190,7 @@ class SVGLoader extends Loader {
 				const isHole = stack.length % 2 === 0 ? true : false;
 				const isHoleFor = stack[ stack.length - 2 ];
 
-				return { identifier: simplePath.identifier, isHole: isHole, for: isHoleFor };
+				return { identifier: simplePath.identifier, isHole, for: isHoleFor };
 
 			} else if ( _fillRule === 'nonzero' ) {
 
@@ -2229,7 +2217,7 @@ class SVGLoader extends Loader {
 
 				}
 
-				return { identifier: simplePath.identifier, isHole: isHole, for: isHoleFor };
+				return { identifier: simplePath.identifier, isHole, for: isHoleFor };
 
 			} else {
 
@@ -2302,7 +2290,7 @@ class SVGLoader extends Loader {
 
 			}
 
-			return { curves: p.curves, points: points, isCW: ShapeUtils.isClockWise( points ), identifier: - 1, boundingBox: new Box2( new Vector2( minX, minY ), new Vector2( maxX, maxY ) ) };
+			return { curves: p.curves, points, isCW: ShapeUtils.isClockWise(points ), identifier: - 1, boundingBox: new Box2(new Vector2(minX, minY ), new Vector2(maxX, maxY ) ) };
 
 		} );
 
@@ -2315,7 +2303,7 @@ class SVGLoader extends Loader {
 		}
 
 		// check if path is solid or a hole
-		const isAHole = simplePaths.map( p => isHoleTo( p, simplePaths, scanlineMinX, scanlineMaxX, ( shapePath.userData ? shapePath.userData.style.fillRule : undefined ) ) );
+		const isAHole = simplePaths.map( p => isHoleTo( p, simplePaths, scanlineMinX, scanlineMaxX, shapePath.userData ? shapePath.userData.style.fillRule : undefined ) );
 
 
 		const shapesToReturn = [];
@@ -2402,7 +2390,7 @@ class SVGLoader extends Loader {
 
 	static pointsToStrokeWithBuffers( points, style, arcDivisions, minDistance, vertices, normals, uvs, vertexOffset ) {
 
-		// This function can be called to update existing arrays or buffers.
+		// This function can be called to Update existing arrays or buffers.
 		// Accepts same parameters as pointsToStroke, plus the buffers and optional offset.
 		// Param vertexOffset: Offset vertices to start writing in the buffers (3 elements/vertex for vertices and normals, and 2 elements/vertex for uvs)
 		// Returns number of written vertices / normals / uvs pairs
@@ -3068,7 +3056,7 @@ class SVGLoader extends Loader {
 						} else {
 
 							tempV2_3.toArray( vertices, 1 * 3 );
-							// using tempV2_4 to update 3rd vertex if the uv.y of 3rd vertex is 1
+							// using tempV2_4 to Update 3rd vertex if the uv.y of 3rd vertex is 1
 							uvs[ 3 * 2 + 1 ] === 1 ? tempV2_4.toArray( vertices, 3 * 3 ) : tempV2_3.toArray( vertices, 3 * 3 );
 							tempV2_4.toArray( vertices, 0 * 3 );
 

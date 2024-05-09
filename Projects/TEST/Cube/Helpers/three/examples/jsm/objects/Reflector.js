@@ -1,16 +1,4 @@
-import {
-	Color,
-	Matrix4,
-	Mesh,
-	PerspectiveCamera,
-	Plane,
-	ShaderMaterial,
-	UniformsUtils,
-	Vector3,
-	Vector4,
-	WebGLRenderTarget,
-	HalfFloatType
-} from 'three';
+import { Color, HalfFloatType, Matrix4, Mesh, PerspectiveCamera, Plane, ShaderMaterial, UniformsUtils, Vector3, Vector4, WebGLRenderTarget } from 'three';
 
 class Reflector extends Mesh {
 
@@ -25,12 +13,12 @@ class Reflector extends Mesh {
 
 		const scope = this;
 
-		const color = ( options.color !== undefined ) ? new Color( options.color ) : new Color( 0x7F7F7F );
+		const color = options.color !== undefined ? new Color( options.color ) : new Color( 0x7F7F7F );
 		const textureWidth = options.textureWidth || 512;
 		const textureHeight = options.textureHeight || 512;
 		const clipBias = options.clipBias || 0;
 		const shader = options.shader || Reflector.ReflectorShader;
-		const multisample = ( options.multisample !== undefined ) ? options.multisample : 4;
+		const multisample = options.multisample !== undefined ? options.multisample : 4;
 
 		//
 
@@ -52,7 +40,7 @@ class Reflector extends Mesh {
 		const renderTarget = new WebGLRenderTarget( textureWidth, textureHeight, { samples: multisample, type: HalfFloatType } );
 
 		const material = new ShaderMaterial( {
-			name: ( shader.name !== undefined ) ? shader.name : 'unspecified',
+			name: shader.name !== undefined ? shader.name : 'unspecified',
 			uniforms: UniformsUtils.clone( shader.uniforms ),
 			fragmentShader: shader.fragmentShader,
 			vertexShader: shader.vertexShader
@@ -115,7 +103,7 @@ class Reflector extends Mesh {
 			textureMatrix.multiply( virtualCamera.matrixWorldInverse );
 			textureMatrix.multiply( scope.matrixWorld );
 
-			// Now update projection matrix with new clip plane, implementing code from: http://www.terathon.com/code/oblique.html
+			// Now Update projection matrix with new clip plane, implementing code from: http://www.terathon.com/code/oblique.html
 			// Paper explaining this technique: http://www.terathon.com/lengyel/Lengyel-Oblique.pdf
 			reflectorPlane.setFromNormalAndCoplanarPoint( normal, reflectorWorldPosition );
 			reflectorPlane.applyMatrix4( virtualCamera.matrixWorldInverse );

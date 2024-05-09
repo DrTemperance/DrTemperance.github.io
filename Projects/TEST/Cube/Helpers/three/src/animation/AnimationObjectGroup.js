@@ -353,7 +353,7 @@ class AnimationObjectGroup {
 	unsubscribe_(path) {
 
 		// tells the group to forget about a property path and no longer
-		// update the array previously obtained with 'subscribe_'
+		// Update the array previously obtained with 'subscribe_'
 
 		const indicesByPath = this._bindingsIndicesByPath,
 		      index         = indicesByPath[path];
