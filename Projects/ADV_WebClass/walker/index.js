@@ -1,104 +1,122 @@
-let incrementX  = 0,
-    incrementY  = 0,
-    incrementX2 = 0,
-    incrementY2 = 0,
-    posX        = 290,
-    posY        = 290,
-    speedX      = 0,
-    speedY      = 0,
-    posX2       = 100,
-    posY2       = 100,
-    speedX2     = 0,
-    speedY2     = 0;
+let Inc_X = 0, Inc_Y = 0, Inc_X2 = 0, Inc_Y2 = 0, Pos_X = 290, Pos_Y = 290, Pos_X2 = 100, Pos_Y2 = 100, Delt_X = 0, Delt_Y = 0, Delt_X2 = 0, Delt_Y2 = 0, timer;
 
-const FRAME_RATE = 60,
-      square1    = {},
-      square2    = {},
-      keyState   = {};
+const Sq_1 = {}, Sq_2 = {}, kState = {};
 
-const Walker1 = document.querySelector('#walker'),
-      Walker2 = document.querySelector('#walker2'),
-      Board   = document.querySelector('#board');
+const Walker1 = document.querySelector('#walker'), Walker2 = document.querySelector('#walker2'), Board = document.querySelector('#board');
 
-let WalkerSize  = 50,
-    BoardHeight = 500;
+let WalkerSize = 50, Board_Height = 500;
 
 let Board_Aspect = "1:1";
 
 const Aspects = {
-	"16:10": 1.6,
-	"16:9" : 16 / 9,
-	"1:1"  : 1,
-	"21:9" : 21 / 9,
-	"32:9" : 32 / 9,
-	"3:2"  : 1.5,
-	"4:2"  : 2,
-	"4:3"  : 4 / 3,
-	"5:3"  : 5 / 3,
-	"5:4"  : 1.25
+	"16:10": 1.6, "16:9": 16 / 9, "1:1": 1, "21:9": 21 / 9, "32:9": 32 / 9, "3:2": 1.5, "4:2": 2, "4:3": 4 / 3, "5:3": 5 / 3, "5:4": 1.25
 };
 
-const offsetsizeee = BoardHeight - WalkerSize;
+// EventListeners //
 
+document.addEventListener('keydown', ({key})=>!kState[key] && (kState[key] = true, Direction_Update(key, true)));
+document.addEventListener('keyup', ({key})=>kState[key] && (kState[key] = false, Direction_Update(key, false)));
+window.addEventListener('resize', ()=>{
+	{
+		document.querySelector('#board-size').max = (window.innerWidth - 50) / Aspects[Board_Aspect];
+		document.querySelector('#board-size').value = Math.min(document.querySelector('#board-size').value, window.innerWidth - 50);
+		Board_Height = document.querySelector('#board-size').value;
+	}
+	SetBoard();
+	{
+		Debounce_(Aspect_Check, 250);
+		Debounce_(repositionWalkers, 250);
+	}
+});
+document.querySelector('#board-aspect').addEventListener('change', ({target})=>Board_Aspect = target.value);
+document.querySelector('#board-size').addEventListener('mousemove', ({target})=>Board_Height = target.value);
+document.querySelector('#board-size').addEventListener('mouseup', ({target})=>Board_Height = target.value);
+document.querySelector('#reset-walkers').addEventListener('click', repositionWalkers());
+
+// Functions //
 setInterval(async ()=>{
-
-	Board.style.height = `${BoardHeight}px`;
-	Board.style.width = `${BoardHeight * Aspects[Board_Aspect]}px`;
+	SetBoard();
+	Board.appendChild(Walker1), Board.appendChild(Walker2);
 
 	Walker1.style.transform = `scale(${WalkerSize / 50})`;
 	Walker2.style.transform = `scale(${WalkerSize / 50})`;
 
-	posX += speedX, posX2 += speedX2;
-	posY += speedY, posY2 += speedY2;
+	Pos_X += Delt_X, Pos_X2 += Delt_X2;
+	Pos_Y += Delt_Y, Pos_Y2 += Delt_Y2;
 
-	Walker1.style.left = posX, Walker1.style.top = posY;
-	Walker2.style.left = posX2, Walker2.style.top = posY2;
+	Walker1.style.left = Pos_X, Walker1.style.top = Pos_Y;
+	Walker2.style.left = Pos_X2, Walker2.style.top = Pos_Y2;
 
-	posX = (posX + offsetsizeee) % offsetsizeee, posX2 = (posX2 + offsetsizeee) % offsetsizeee;
-	posY = (posY + offsetsizeee) % offsetsizeee, posY2 = (posY2 + offsetsizeee) % offsetsizeee;
+	Pos_X = (Pos_X + (Board_Height - WalkerSize)) % (Board_Height - WalkerSize);
+	Pos_Y = (Pos_Y + (Board_Height - WalkerSize)) % (Board_Height - WalkerSize);
+
+	Pos_X2 = (Pos_X2 + (Board_Height - WalkerSize)) % (Board_Height - WalkerSize);
+	Pos_Y2 = (Pos_Y2 + (Board_Height - WalkerSize)) % (Board_Height - WalkerSize);
 
 	document.querySelector('.not-tagged').style.background = '#0F0';
 	document.querySelector('.tagged').style.background = '#F00';
 	document.querySelector('.tagged').appendChild(document.querySelector('#tag-indicator'));
 
-	Board.appendChild(Walker1), Board.appendChild(Walker2);
 
-	square1.left = posX, square2.left = posX2;
-	square1.right = posX + WalkerSize, square2.right = posX2 + WalkerSize;
-	square1.top = posY, square2.top = posY2;
-	square1.bottom = posY + WalkerSize, square2.bottom = posY2 + WalkerSize;
+	Sq_1.left = Pos_X, Sq_2.left = Pos_X2;
+	Sq_1.right = Pos_X + WalkerSize, Sq_2.right = Pos_X2 + WalkerSize;
+	Sq_1.top = Pos_Y, Sq_2.top = Pos_Y2;
+	Sq_1.bottom = Pos_Y + WalkerSize, Sq_2.bottom = Pos_Y2 + WalkerSize;
 
-	if (square1.left<square2.right && square1.right>square2.left && (square1.top<square2.bottom && square1.bottom>square2.top)) {
+	if (Sq_1.left<Sq_2.right && Sq_1.right>Sq_2.left && (Sq_1.top<Sq_2.bottom && Sq_1.bottom>Sq_2.top)) {
+		new Audio('Audio/Tag.mp3').play();
 		document.querySelector('.not-tagged').className = 'tagging';
 		document.querySelector('.tagged').className = 'not-tagged';
 		document.querySelector('.tagging').className = 'tagged';
 
-		square1.left<square2.left && (posX -= WalkerSize, posX2 += WalkerSize);
-		square1.right>square2.right && (posX += WalkerSize, posX2 -= WalkerSize);
-		square1.top<square2.top && (posY -= WalkerSize, posY2 += WalkerSize);
-		square1.bottom>square2.bottom && (posY += WalkerSize, posY2 -= WalkerSize);
+		Sq_1.left<Sq_2.left && (Pos_X -= WalkerSize, Pos_X2 += WalkerSize);
+		Sq_1.right>Sq_2.right && (Pos_X += WalkerSize, Pos_X2 -= WalkerSize);
+		Sq_1.top<Sq_2.top && (Pos_Y -= WalkerSize, Pos_Y2 += WalkerSize);
+		Sq_1.bottom>Sq_2.bottom && (Pos_Y += WalkerSize, Pos_Y2 -= WalkerSize);
 	}
-}, 1000 / FRAME_RATE);
+}, 1000 / 60);
 
-document.addEventListener('keydown', ({key})=>!keyState[key] && (keyState[key] = true, updateDirection(key, true)));
-document.addEventListener('keyup', ({key})=>keyState[key] && (keyState[key] = false, updateDirection(key, false)));
+function repositionWalkers() {
+	const padding = Board_Height / 8;
 
-Math.random()<0.5
-&& (Walker1.classList.toggle("tagged"), Walker2.classList.toggle("not-tagged"))
-|| (Walker2.classList.toggle("tagged"), Walker1.classList.toggle("not-tagged"));
+	Pos_X = padding;
+	Pos_Y = padding;
 
-async function updateDirection(key, isKeyDown) {
-	let v = isKeyDown ? 5 : -5;
+	Pos_X2 = Board_Height * Aspects[Board_Aspect] - (WalkerSize + padding);
+	Pos_Y2 = Board_Height - WalkerSize - padding;
 
-	key==='ArrowLeft' && (incrementX -= v), key==='a' && (incrementX2 -= v);
-	key==='ArrowRight' && (incrementX += v), key==='d' && (incrementX2 += v);
-	key==='ArrowUp' && (incrementY -= v), key==='w' && (incrementY2 -= v);
-	key==='ArrowDown' && (incrementY += v), key==='s' && (incrementY2 += v);
+	Walker1.style.left = `${Pos_X}px`;
+	Walker1.style.top = `${Pos_Y}px`;
 
-	speedX = incrementX, speedY = incrementY;
-	speedX2 = incrementX2, speedY2 = incrementY2;
+	Walker2.style.left = `${Pos_X2}px`;
+	Walker2.style.top = `${Pos_Y2}px`;
 }
 
-document.querySelector('#board-aspect').addEventListener('change', ({target})=>Board_Aspect = target.value);
-document.querySelector('#board-size').addEventListener('mousemove', ({target})=>BoardHeight = target.value);
-document.querySelector('#board-size').addEventListener('mouseup', ({target})=>BoardHeight = target.value);
+async function Direction_Update(key, isKeyDown) {
+	let v = isKeyDown ? 5 : -5;
+
+	key==='ArrowLeft' && (Inc_X -= v), key==='a' && (Inc_X2 -= v);
+	key==='ArrowRight' && (Inc_X += v), key==='d' && (Inc_X2 += v);
+	key==='ArrowUp' && (Inc_Y -= v), key==='w' && (Inc_Y2 -= v);
+	key==='ArrowDown' && (Inc_Y += v), key==='s' && (Inc_Y2 += v);
+
+	Delt_X = Inc_X, Delt_Y = Inc_Y;
+	Delt_X2 = Inc_X2, Delt_Y2 = Inc_Y2;
+}
+
+async function Aspect_Check() {for (let [key, r] of Object.entries(Aspects)) document.querySelector(`option[value="${key}"]`).disabled = Board_Height * r>=window.innerWidth;}
+
+function Debounce_(func, delay) {return ()=>{clearTimeout(timer), timer = setTimeout(()=>func.apply(this, arguments), delay)}}
+
+// Init //
+
+Math.random()<0.5 && (Walker1.classList.toggle("tagged"), Walker2.classList.toggle("not-tagged")) || (Walker2.classList.toggle("tagged"), Walker1.classList.toggle("not-tagged"));
+
+Aspect_Check();
+repositionWalkers();
+SetBoard();
+
+function SetBoard() {
+	Board.style.height = `${Board_Height}px`;
+	Board.style.width = `${Board_Height * Aspects[Board_Aspect]}px`;
+}
