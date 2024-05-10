@@ -1,122 +1,105 @@
-$("#cycle-left").on("click", ()=>{
-	currentIndex = currentIndex ? currentIndex - 1 : dataShapes.length - 1;
-	resetDisplay();
-});
-$("#cycle-right").on("click", ()=>{
-	currentIndex = currentIndex===dataShapes.length - 1 ? 0 : currentIndex + 1;
-	resetDisplay();
-});
-$("#execute1").on("click", ()=>{
-	$("#shape").css("background", `url(images/${dataShapes[currentIndex].color}-${dataShapes[currentIndex].shape}.png)`);
-	$("#shape").css("background-size", `${100 / dataShapes[currentIndex].repeat}% ${100 / dataShapes[currentIndex].repeat}%`);
-	animationDetails.displayType = 1
-});
-$("#execute2").on("click", ()=>{
-	var currentShape = dataShapes[currentIndex];
-	$("#shape").css("background", `url(images/${(currentShape.color)}-${(currentShape.shape)}.png)`);
-	$("#shape").css("background-size", `${100 / currentShape.repeat}% ${100 / currentShape.repeat}%`);
-	animationDetails.displayType = 2
-});
-$("#execute3").on("click", ()=>{
-	let currentShape = dataShapes[currentIndex], repeat = currentShape.repeat, repeat1 = repeat;
-	repeat1++;
-	$("#shape").css("background", `url(images/${currentShape.color}-${currentShape.shape}.png)`);
-	$("#shape").css("background-size", `${100 / repeat1}% ${100 / repeat1}%`);
-	animationDetails.displayType = 3
+document.querySelector('#cycle-left').addEventListener('click', ()=>{
+	I = I ? I - 1 : D_Shapes.length - 1;
+	Reset();
 });
 
+document.querySelector('#cycle-right').addEventListener('click', ()=>{
+	I = I===D_Shapes.length - 1 ? 0 : I + 1;
+	Reset();
+});
+
+['#execute1', '#execute2', '#execute3'].forEach((button, index)=>
+	                                                 document.querySelector(button).addEventListener('click', ()=>{
+		                                                 let currentShape = D_Shapes[I], repeat = index===2 ? currentShape.repeat + 1 : currentShape.repeat;
+		                                                 document.querySelector('#shape').style.background = `url(images/${currentShape.color}-${currentShape.shape}.png)`;
+		                                                 document.querySelector('#shape').style.backgroundSize = `${100 / repeat}% ${100 / repeat}%`;
+		                                                 AnimDetails.displayType = index + 1;
+	                                                 }));
+
 setInterval(()=>{
-	animationDetails.displayType!==0 && $("#shape").html("");
-	if (animationDetails.displayType<2) return;
-	if (animationDetails.displayType===2) {
-		switch (dataShapes[currentIndex].goodBehavior) {
+	if (AnimDetails.displayType!==0) document.querySelector('#shape').innerHTML = "";
+	if (AnimDetails.displayType<2) return;
+	if (AnimDetails.displayType==2) {
+		switch (D_Shapes[I].goodBehavior) {
 			case "bounce":
-				animateBounce();
+				Bounce();
 				break;
 			case "blink":
-				animateBlink();
+				Blink();
 				break;
 			case "spin":
-				animationDetails.angle += 4;
-				$("#shape").css("transform", `rotate(${animationDetails.angle}deg)`);
+				AnimDetails.angle += 4;
+				document.querySelector('#shape').style.transform = `rotate(${AnimDetails.angle}deg)`;
 				break;
 		}
 	} else {
-		switch (dataShapes[currentIndex].goodBehavior) {
+		switch (D_Shapes[I].goodBehavior) {
 			case "bounce":
-				animateBlink();
-				animationDetails.angle += 4;
-				$("#shape").css("transform", `rotate(${animationDetails.angle}deg)`);
+				Blink();
+				AnimDetails.angle += 4;
+				document.querySelector('#shape').style.transform = `rotate(${AnimDetails.angle}deg)`;
 				break;
 			case "blink":
-				animateBounce();
-				animationDetails.angle += 4;
-				$("#shape").css("transform", `rotate(${animationDetails.angle}deg)`);
+				Bounce();
+				AnimDetails.angle += 4;
+				document.querySelector('#shape').style.transform = `rotate(${AnimDetails.angle}deg)`;
 				break;
 			case "spin":
-				animateBounce();
-				animateBlink();
+				Bounce();
+				Blink();
 				break;
 		}
 	}
 }, 1000 / 60);
+let AnimDetails = {x: 148, y: 148, speedX: 2, speedY: 1, angle: 0, showCount: 60, show: true, displayType: 0}, I = 0;
 
-let animationDetails = {x: 148, y: 148, speedX: 2, speedY: 1, angle: 0, showCount: 60, show: true, displayType: 0};
+const D_Shapes = Gen_Shapes();
 
-const dataShapes = generateShapeData();
-let currentIndex = 0;
+Reset();
 
-resetDisplay();
+D_Shapes.push({color: "blue", shape: "circle", repeat: 3});
 
-let shape = {color: "blue", shape: "circle", repeat: 3};
-dataShapes.push(shape);
+for (let i = 0; i<D_Shapes.length; i++) D_Shapes[i].goodBehavior = D_Shapes[i].color==="red" ? "bounce" : D_Shapes[i].goodBehavior = D_Shapes[i].color==="blue" ? "blink" : "spin";
 
-for (let i = 0; i<dataShapes.length; i++) {
-	dataShapes[i].goodBehavior = dataShapes[i].color==="red" ? "bounce" : dataShapes[i].goodBehavior = dataShapes[i].color==="blue" ? "blink" : "spin";
-}
-
-function generateShapeData() {
-	const data = [], colors = ["red", "green", "blue"], shapes = ["square", "triangle", "circle"], repeats = [1, 2, 3];
+function Gen_Shapes() {
+	const data = [], colors = ["red", "green", "blue"], shapes = ["square", "triangle", "circle"];
 	for (let i = 0; i<colors.length; i++) {
 		for (let j = 0; j<shapes.length; j++) {
-			for (let k = 0; k<repeats.length; k++) {
-				if (i!==colors.length - 1 || j!==shapes.length - 1 || k!==repeats.length - 1) {
-					data.push({color: colors[i], shape: shapes[j], repeat: repeats[k]});
-				}
-			}
+			for (let k = 0; k<[1, 2, 3].length; k++) if (i!==colors.length - 1 || j!==shapes.length - 1 || k!==[1, 2, 3].length - 1) data.push({color: colors[i], shape: shapes[j], repeat: [1, 2, 3][k]});
 		}
 	}
 	return data;
 }
 
-function resetDisplay() {
-	$("#shape").css("background", "none");
-	$("#shape").css("display", "block");
-	$("#shape").css("background-size", "100% 100%");
-	$("#shape").css("left", "150px");
-	$("#shape").css("top", "150px");
-	$("#shape").css("transform", "rotate(0deg)");
-	$("#shape").html(`<p>${dataShapes[currentIndex].color}</p> <p>${dataShapes[currentIndex].shape}</p> <p>${dataShapes[currentIndex].repeat}x${dataShapes[currentIndex].repeat}</p>`);
+async function Reset() {
+	const Shape = await document.querySelector('#shape');
+	Shape.style.background = 'none';
+	Shape.style.display = 'block';
+	Shape.style.backgroundSize = '100% 100%';
+	Shape.style.left = '150px';
+	Shape.style.top = '150px';
+	Shape.style.transform = 'rotate(0deg)';
+	Shape.innerHTML = `<p>${D_Shapes[I].color}</p> <p>${D_Shapes[I].shape}</p> <p>${D_Shapes[I].repeat}x${D_Shapes[I].repeat}</p>`;
 
-	$("#info-bar").text(`Current index: ${currentIndex}`);
+	$("#info-bar").text(`Current index: ${I}`);
 
-	animationDetails = {x: 148, y: 148, speedX: 2, speedY: 1, angle: 0, showCount: 60, show: true, displayType: 0};
+	AnimDetails = {x: 148, y: 148, speedX: 2, speedY: 1, angle: 0, showCount: 60, show: true, displayType: 0};
 }
 
-function animateBounce() {
-	animationDetails.x += animationDetails.speedX;
-	animationDetails.y += animationDetails.speedY;
-	if (animationDetails.x + $("#shape").width() + 8>=$("#shape-container").width() || animationDetails.x<2) animationDetails.speedX *= -1;
-	if (animationDetails.y + $("#shape").height() + 4>=$("#shape-container").height() || animationDetails.y<2) animationDetails.speedY *= -1;
-	$("#shape").css("left", animationDetails.x);
-	$("#shape").css("top", animationDetails.y);
+async function Bounce() {
+	AnimDetails.x += AnimDetails.speedX;
+	AnimDetails.y += AnimDetails.speedY;
+	if (AnimDetails.x + document.querySelector('#shape').offsetWidth + 8>=document.querySelector('#shape-container').clientWidth || AnimDetails.x<2) AnimDetails.speedX *= -1;
+	if (AnimDetails.y + document.querySelector('#shape').offsetHeight + 4>=document.querySelector('#shape-container').clientHeight || AnimDetails.y<2) AnimDetails.speedY *= -1;
+	document.querySelector('#shape').style.left = `${AnimDetails.x}px`;
+	document.querySelector('#shape').style.top = `${AnimDetails.y}px`;
 }
 
-function animateBlink() {
-	animationDetails.showCount--;
-	if (animationDetails.showCount===0) {
-		animationDetails.show = !animationDetails.show;
-		if (animationDetails.show) $("#shape").css("display", "block"); else $("#shape").css("display", "none");
-		animationDetails.showCount = 60;
+async function Blink() {
+	AnimDetails.showCount--;
+	if (AnimDetails.showCount==0) {
+		AnimDetails.show = !AnimDetails.show;
+		document.querySelector('#shape').style.display = AnimDetails.show ? 'block' : 'none';
+		AnimDetails.showCount = 60;
 	}
 }

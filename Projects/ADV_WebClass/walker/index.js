@@ -17,16 +17,14 @@ const Aspects = {
 document.addEventListener('keydown', ({key})=>!kState[key] && (kState[key] = true, Direction_Update(key, true)));
 document.addEventListener('keyup', ({key})=>kState[key] && (kState[key] = false, Direction_Update(key, false)));
 window.addEventListener('resize', ()=>{
-	{
-		document.querySelector('#board-size').max = (window.innerWidth - 50) / Aspects[Board_Aspect];
-		document.querySelector('#board-size').value = Math.min(document.querySelector('#board-size').value, window.innerWidth - 50);
-		Board_Height = document.querySelector('#board-size').value;
-	}
+	document.querySelector('#board-size').max = (window.innerWidth - 50) / Aspects[Board_Aspect];
+	document.querySelector('#board-size').value = Math.min(document.querySelector('#board-size').value, window.innerWidth - 50);
+	Board_Height = document.querySelector('#board-size').value;
+
 	SetBoard();
-	{
-		Debounce_(Aspect_Check, 250);
-		Debounce_(repositionWalkers, 250);
-	}
+
+	Debounce_(Aspect_Check, 250);
+	Debounce_(repositionWalkers, 250);
 });
 document.querySelector('#board-aspect').addEventListener('change', ({target})=>Board_Aspect = target.value);
 document.querySelector('#board-size').addEventListener('mousemove', ({target})=>Board_Height = target.value);

@@ -1,7 +1,7 @@
 #Board {
 	width  : 400px;
 	margin : auto;
-	border : #C0C0C0 ridge 4px;
+	border : #CCC ridge 4px;
 	}
 
 #info-bar {
@@ -16,8 +16,8 @@
 	width         : 400px;
 	height        : 400px;
 	background    : #000;
-	border-top    : #C0C0C0 ridge 4px;
-	border-bottom : #C0C0C0 ridge 4px;
+	border-top    : #CCC ridge 4px;
+	border-bottom : #CCC ridge 4px;
 	}
 
 #button-box {
@@ -43,6 +43,4 @@ button {
 	margin : 10px auto auto 9px;
 	}
 
-p {
-	margin : 10px;
-	}
+p {margin : 10px;}
