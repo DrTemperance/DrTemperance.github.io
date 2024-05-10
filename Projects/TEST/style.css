@@ -1,0 +1,42 @@
+* {font-family : 'Gill Sans', 'Gill Sans MT', 'Calibri', 'Trebuchet MS', sans-serif;}
+
+.tg {
+	border-collapse : collapse;
+	border-spacing  : 0;
+	}
+
+.tg td {
+	border     : 1px solid black;
+	font-size  : 14px;
+	overflow   : hidden;
+	padding    : 10px 5px;
+	word-break : normal;
+	}
+
+.tg th {border : 1px solid black;
+	font-size    : 14px;
+	font-weight  : bolder;
+	overflow     : hidden;
+	padding      : 10px 5px;
+	word-break   : normal;
+	}
+
+.tg .tg-45ot {
+	font-family    : inherit;
+	font-size      : 16px;
+	font-weight    : bold;
+	text-align     : left;
+	vertical-align : top;
+	}
+
+.tg .tg-c6q4 {
+	font-family    : inherit;
+	text-align     : left;
+	vertical-align : top;
+	}
+
+.tg .tg-2tik {
+	font-family    : inherit;
+	text-align     : left;
+	vertical-align : middle;
+	}

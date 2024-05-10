@@ -1,0 +1,28 @@
+table {
+	margin          : auto;
+	border-collapse : collapse;
+	width           : 90%;
+	height          : fit-content;
+	}
+
+th, td {
+	text-align : left;
+	padding    : 8px;
+	}
+
+th {
+	background-color : #EEE;
+	color            : #000;
+	font-weight      : bolder;
+	border           : outset 3px #000;
+	}
+
+tr {
+	transition : all 0.5s ease-in-out;
+	&:nth-child(even) {background-color : #CCC;}
+	&:nth-child(odd) {background-color : #DDD;}
+	& b {
+		font-size   : larger;
+		font-weight : bold;
+		}
+	}
