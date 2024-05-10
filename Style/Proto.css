@@ -2,9 +2,7 @@ body {
 	background-image : url('https://siliconic.files.wordpress.com/2011/04/img2.jpg');
 	padding          : 15px;
 
-	thead {
-		background-color : #8A2BE266;
-		}
+	thead {background-color : #8A2BE266;}
 	table > :not(thead) {
 		> :nth-child(even) {background-color : #FF7F5022;}
 		> :nth-child(odd) {background-color : #0000FF22;}
@@ -18,7 +16,5 @@ td {
 	padding    : 5px;
 	margin     : 0 auto;
 	text-align : center;
-	p {
-		filter : drop-shadow(1px 1px 2px #000000AA);
-		}
+	p {filter : drop-shadow(1px 1px 2px #000000AA);}
 	}
