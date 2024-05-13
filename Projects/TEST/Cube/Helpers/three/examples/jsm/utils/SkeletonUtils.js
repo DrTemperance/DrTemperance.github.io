@@ -57,7 +57,7 @@ function retarget( target, source, options = {} ) {
 
 		target.matrixWorld.identity();
 
-		// reset children matrix
+		// reset Children matrix
 
 		for ( let i = 0; i < target.children.length; ++ i ) {
 
@@ -230,7 +230,7 @@ function retargetClip( target, source, clip, options = {} ) {
 			if ( boneTo ) {
 
 				bone = bones[ j ];
-				boneData = boneDatas[ j ] = boneDatas[ j ] || { bone: bone };
+				boneData = boneDatas[ j ] = boneDatas[ j ] || {bone};
 
 				if ( options.hip === name ) {
 

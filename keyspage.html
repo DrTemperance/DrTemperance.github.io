@@ -30,7 +30,7 @@
 		<input id='In3' placeholder="2007 - ''May Jailer - ______''" />
 		<input id='In4' placeholder='~~~~ - Tangental Binary' />
 		<input id='In5' placeholder='~~~~ - UNOPERATIONAL' />
-		<button onclick='SubmitAnswers()'>Submit</button>
+		<button onclick='Submit_Answers()'>Submit</button>
 	</form>
 </div>
 </body>
@@ -39,14 +39,12 @@
 	  const Answers = ['the tripper', 'dior', 'sirens', 'tulips', 'rufus'];
 	  let EmptyKeys = 0;
 
-	  function SubmitAnswers() {
-
-		  for (let j = 1; j<=5; j++) {document.getElementById(`x${j}`).value==='' && EmptyKeys++}
-		  if (!EmptyKeys && Answers.map(e=>document.getElementById(`x${Answers.indexOf(e) + 1}`).value.toLowerCase())
-		                           .join()===Answers.join()) {
+	  function Submit_Answers() {
+		  for (let j = 1; j<=5; j++) document.getElementById(`x${j}`).value==='' && EmptyKeys++;
+		  if (!EmptyKeys && Answers.map(e=>document.getElementById(`x${Answers.indexOf(e) + 1}`).value.toLowerCase()).join()===Answers.join()) {
 			  alert(`the time machine being worked on, but here's the second best thing...`);
 			  window.open(`https://archive.org`, `_blank`)
-		  } else alert('nope!')
+		  } else alert('nope! <3')
 	  }
 </script>
 </html>

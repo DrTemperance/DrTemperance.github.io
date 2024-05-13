@@ -5063,8 +5063,8 @@ class Box3 {
 
 	expandByObject(object, precise = false) {
 
-		// Computes the world-axis-aligned bounding box of an object (including its children),
-		// accounting for both the object's, and children's, world transforms
+		// Computes the world-axis-aligned bounding box of an object (including its Children),
+		// accounting for both the object's, and Children's, world transforms
 
 		object.updateWorldMatrix(false, false);
 
@@ -8097,7 +8097,7 @@ class Object3D extends EventDispatcher {
 
 		}
 
-		// Update children
+		// Update Children
 
 		const children = this.children;
 
@@ -8137,7 +8137,7 @@ class Object3D extends EventDispatcher {
 
 		}
 
-		// Update children
+		// Update Children
 
 		if (updateChildren===true) {
 
@@ -27969,7 +27969,7 @@ class WebXRManager extends EventDispatcher {
 
 			}
 
-			// Update user camera and its children
+			// Update user camera and its Children
 
 			updateUserCamera(camera, cameraXR, parent);
 

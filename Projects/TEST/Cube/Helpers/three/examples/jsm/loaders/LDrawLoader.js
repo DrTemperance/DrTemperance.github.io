@@ -144,13 +144,13 @@ class LDrawConditionalLineMaterial extends ShaderMaterial {
 		Object.defineProperties( this, {
 
 			opacity: {
-				get: function () {
+				get() {
 
 					return this.uniforms.opacity.value;
 
 				},
 
-				set: function ( value ) {
+				set(value) {
 
 					this.uniforms.opacity.value = value;
 
@@ -158,7 +158,7 @@ class LDrawConditionalLineMaterial extends ShaderMaterial {
 			},
 
 			color: {
-				get: function () {
+				get() {
 
 					return this.uniforms.diffuse.value;
 
@@ -371,8 +371,8 @@ function smoothNormals( faces, lineSegments, checkSubSegments = false ) {
 			}
 
 			const info = {
-				index: index,
-				tri: tri
+				index,
+				tri
 			};
 			halfEdgeList[ hash ] = info;
 
@@ -654,38 +654,26 @@ class LDrawParsedCache {
 
 		// vertices are transformed and normals computed before being converted to geometry
 		// so these pieces must be cloned.
-		result.faces = original.faces.map( face => {
+		result.faces = original.faces.map( face =>({
+			colorCode : face.colorCode,
+			material  : face.material,
+			vertices  : face.vertices.map(v=>v.clone()),
+			normals   : face.normals.map(()=>null),
+			faceNormal: null
+		}));
 
-			return {
-				colorCode: face.colorCode,
-				material: face.material,
-				vertices: face.vertices.map( v => v.clone() ),
-				normals: face.normals.map( () => null ),
-				faceNormal: null
-			};
+		result.conditionalSegments = original.conditionalSegments.map( face =>({
+			colorCode    : face.colorCode,
+			material     : face.material,
+			vertices     : face.vertices.map(v=>v.clone()),
+			controlPoints: face.controlPoints.map(v=>v.clone())
+		}));
 
-		} );
-
-		result.conditionalSegments = original.conditionalSegments.map( face => {
-
-			return {
-				colorCode: face.colorCode,
-				material: face.material,
-				vertices: face.vertices.map( v => v.clone() ),
-				controlPoints: face.controlPoints.map( v => v.clone() )
-			};
-
-		} );
-
-		result.lineSegments = original.lineSegments.map( face => {
-
-			return {
-				colorCode: face.colorCode,
-				material: face.material,
-				vertices: face.vertices.map( v => v.clone() )
-			};
-
-		} );
+		result.lineSegments = original.lineSegments.map( face =>({
+			colorCode: face.colorCode,
+			material : face.material,
+			vertices : face.vertices.map(v=>v.clone())
+		}));
 
 		// none if this is subsequently modified
 		result.type = original.type;
@@ -769,7 +757,7 @@ class LDrawParsedCache {
 
 			} catch ( _ ) {
 
-				continue;
+
 
 			}
 
@@ -790,11 +778,7 @@ class LDrawParsedCache {
 		const subobjects = [];
 		const materials = {};
 
-		const getLocalMaterial = colorCode => {
-
-			return materials[ colorCode ] || null;
-
-		};
+		const getLocalMaterial = colorCode =>materials[colorCode] || null;
 
 		let type = 'Model';
 		let category = null;
@@ -1066,13 +1050,13 @@ class LDrawParsedCache {
 					}
 
 					subobjects.push( {
-						material: material,
-						colorCode: colorCode,
-						matrix: matrix,
-						fileName: fileName,
+						                 material,
+						                 colorCode,
+						                 matrix,
+						                 fileName,
 						inverted: bfcInverted,
-						startingBuildingStep: startingBuildingStep
-					} );
+						                 startingBuildingStep
+					                 } );
 
 					startingBuildingStep = false;
 					bfcInverted = false;
@@ -1088,8 +1072,8 @@ class LDrawParsedCache {
 					v1 = lp.getVector();
 
 					segment = {
-						material: material,
-						colorCode: colorCode,
+						material,
+						colorCode,
 						vertices: [ v0, v1 ],
 					};
 
@@ -1108,8 +1092,8 @@ class LDrawParsedCache {
 					c1 = lp.getVector();
 
 					segment = {
-						material: material,
-						colorCode: colorCode,
+						material,
+						colorCode,
 						vertices: [ v0, v1 ],
 						controlPoints: [ c0, c1 ],
 					};
@@ -1141,8 +1125,8 @@ class LDrawParsedCache {
 					}
 
 					faces.push( {
-						material: material,
-						colorCode: colorCode,
+						            material,
+						            colorCode,
 						faceNormal: null,
 						vertices: [ v0, v1, v2 ],
 						normals: [ null, null, null ],
@@ -1152,8 +1136,8 @@ class LDrawParsedCache {
 					if ( doubleSided === true ) {
 
 						faces.push( {
-							material: material,
-							colorCode: colorCode,
+							            material,
+							            colorCode,
 							faceNormal: null,
 							vertices: [ v2, v1, v0 ],
 							normals: [ null, null, null ],
@@ -1191,8 +1175,8 @@ class LDrawParsedCache {
 					// specifically place the triangle diagonal in the v0 and v1 slots so we can
 					// account for the doubling of vertices later when smoothing normals.
 					faces.push( {
-						material: material,
-						colorCode: colorCode,
+						            material,
+						            colorCode,
 						faceNormal: null,
 						vertices: [ v0, v1, v2, v3 ],
 						normals: [ null, null, null, null ],
@@ -1202,8 +1186,8 @@ class LDrawParsedCache {
 					if ( doubleSided === true ) {
 
 						faces.push( {
-							material: material,
-							colorCode: colorCode,
+							            material,
+							            colorCode,
 							faceNormal: null,
 							vertices: [ v3, v2, v1, v0 ],
 							normals: [ null, null, null, null ],
@@ -1404,7 +1388,7 @@ class LDrawPartsGeometryCache {
 
 				}
 
-				// add the subobject group if it has children in case it has both children and primitives
+				// add the subobject group if it has Children in case it has both Children and primitives
 				if ( subobjectInfo.group.children.length ) {
 
 					group.add( subobjectInfo.group );
@@ -1956,21 +1940,18 @@ class LDrawLoader extends Loader {
 		fileLoader.setPath( this.path );
 		fileLoader.setRequestHeader( this.requestHeader );
 		fileLoader.setWithCredentials( this.withCredentials );
-		fileLoader.load( url, text => {
+		fileLoader.load( url, text =>
+			 this.partsCache
+			     .parseModel(text, this.materialLibrary)
+			     .then(group=>{
 
-			this.partsCache
-				.parseModel( text, this.materialLibrary )
-				.then( group => {
+				     this.applyMaterialsToMesh(group, MAIN_COLOUR_CODE, this.materialLibrary, true);
+				     this.computeBuildingSteps(group);
+				     group.userData.fileName = url;
+				     onLoad(group);
 
-					this.applyMaterialsToMesh( group, MAIN_COLOUR_CODE, this.materialLibrary, true );
-					this.computeBuildingSteps( group );
-					group.userData.fileName = url;
-					onLoad( group );
-
-				} )
-				.catch( onError );
-
-		}, onProgress, onError );
+			     })
+			     .catch(onError), onProgress, onError );
 
 	}
 

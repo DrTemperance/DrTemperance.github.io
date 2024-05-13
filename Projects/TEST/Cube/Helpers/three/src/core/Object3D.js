@@ -591,7 +591,7 @@ class Object3D extends EventDispatcher {
 
 		}
 
-		// Update children
+		// Update Children
 
 		const children = this.children;
 
@@ -631,7 +631,7 @@ class Object3D extends EventDispatcher {
 
 		}
 
-		// Update children
+		// Update Children
 
 		if (updateChildren===true) {
 

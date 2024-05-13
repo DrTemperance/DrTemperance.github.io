@@ -1309,7 +1309,7 @@ var rhino3dm = (() => {
           case 'i8': HEAP8[(ptr>>0)] = value; break;
           case 'i16': HEAP16[(ptr>>1)] = value; break;
           case 'i32': HEAP32[(ptr>>2)] = value; break;
-          case 'i64': tempI64 = [value>>>0,(tempDouble=value,+Math.abs(tempDouble) >= 1.0 ? (tempDouble > 0.0 ? (Math.min(+Math.floor((tempDouble)/4294967296.0), 4294967295.0)|0)>>>0 : ~~+Math.ceil((tempDouble - +(~~(tempDouble)>>>0))/4294967296.0)>>>0) : 0)],HEAP32[(ptr>>2)] = tempI64[0],HEAP32[(ptr+4>>2)] = tempI64[1]; break;
+          case 'i64': tempI64 = [value>>>0,(tempDouble=value,+Math.abs(tempDouble) >= 1.0 ? (tempDouble > 0.0 ? (Math.min(+Math.floor(tempDouble/4294967296.0), 4294967295.0)|0)>>>0 : ~~+Math.ceil((tempDouble - +(~~tempDouble>>>0))/4294967296.0)>>>0) : 0)],HEAP32[(ptr>>2)] = tempI64[0],HEAP32[(ptr+4>>2)] = tempI64[1]; break;
           case 'float': HEAPF32[(ptr>>2)] = value; break;
           case 'double': HEAPF64[(ptr>>3)] = value; break;
           case '*': HEAPU32[(ptr>>2)] = value; break;
@@ -2068,7 +2068,7 @@ var rhino3dm = (() => {
       }
 
 
-    var ERRNO_MESSAGES = {0:"Success",1:"Arg list too long",2:"Permission denied",3:"Address already in use",4:"Address not available",5:"Address family not supported by protocol family",6:"No more processes",7:"Socket already connected",8:"Bad file number",9:"Trying to read unreadable message",10:"Mount device busy",11:"Operation canceled",12:"No children",13:"Connection aborted",14:"Connection refused",15:"Connection reset by peer",16:"File locking deadlock error",17:"Destination address required",18:"Math arg out of domain of func",19:"Quota exceeded",20:"File exists",21:"Bad address",22:"File too large",23:"Host is unreachable",24:"Identifier removed",25:"Illegal byte sequence",26:"Connection already in progress",27:"Interrupted system call",28:"Invalid argument",29:"I/O error",30:"Socket is already connected",31:"Is a directory",32:"Too many symbolic links",33:"Too many open files",34:"Too many links",35:"Message too long",36:"Multihop attempted",37:"File or path name too long",38:"Network interface is not configured",39:"Connection reset by network",40:"Network is unreachable",41:"Too many open files in system",42:"No buffer space available",43:"No such device",44:"No such file or directory",45:"Exec format error",46:"No record locks available",47:"The link has been severed",48:"Not enough core",49:"No message of desired type",50:"Protocol not available",51:"No space left on device",52:"Function not implemented",53:"Socket is not connected",54:"Not a directory",55:"Directory not empty",56:"State not recoverable",57:"Socket operation on non-socket",59:"Not a typewriter",60:"No such device or address",61:"Value too large for defined data type",62:"Previous owner died",63:"Not super-user",64:"Broken pipe",65:"Protocol error",66:"Unknown protocol",67:"Protocol wrong type for socket",68:"Math result not representable",69:"Read only file system",70:"Illegal seek",71:"No such process",72:"Stale file handle",73:"Connection timed out",74:"Text file busy",75:"Cross-device link",100:"Device not a stream",101:"Bad font file fmt",102:"Invalid slot",103:"Invalid request code",104:"No anode",105:"Block device required",106:"Channel number out of range",107:"Level 3 halted",108:"Level 3 reset",109:"Link number out of range",110:"Protocol driver not attached",111:"No CSI structure available",112:"Level 2 halted",113:"Invalid exchange",114:"Invalid request descriptor",115:"Exchange full",116:"No data (for no delay io)",117:"Timer expired",118:"Out of streams resources",119:"Machine is not on the network",120:"Package not installed",121:"The object is remote",122:"Advertise error",123:"Srmount error",124:"Communication error on send",125:"Cross mount point (not really error)",126:"Given log. name not unique",127:"f.d. invalid for this operation",128:"Remote address changed",129:"Can   access a needed shared lib",130:"Accessing a corrupted shared lib",131:".lib section in a.out corrupted",132:"Attempting to link in too many libs",133:"Attempting to exec a shared library",135:"Streams pipe error",136:"Too many users",137:"Socket type not supported",138:"Not supported",139:"Protocol family not supported",140:"Can't send after socket shutdown",141:"Too many references",142:"Host is down",148:"No medium (in tape drive)",156:"Level 2 not synchronized"};
+    var ERRNO_MESSAGES = {0:"Success",1:"Arg list too long",2:"Permission denied",3:"Address already in use",4:"Address not available",5:"Address family not supported by protocol family",6:"No more processes",7:"Socket already connected",8:"Bad file number",9:"Trying to read unreadable message",10:"Mount device busy",11:"Operation canceled",12:"No Children",13:"Connection aborted",14:"Connection refused",15:"Connection reset by peer",16:"File locking deadlock error",17:"Destination address required",18:"Math arg out of domain of func",19:"Quota exceeded",20:"File exists",21:"Bad address",22:"File too large",23:"Host is unreachable",24:"Identifier removed",25:"Illegal byte sequence",26:"Connection already in progress",27:"Interrupted system call",28:"Invalid argument",29:"I/O error",30:"Socket is already connected",31:"Is a directory",32:"Too many symbolic links",33:"Too many open files",34:"Too many links",35:"Message too long",36:"Multihop attempted",37:"File or path name too long",38:"Network interface is not configured",39:"Connection reset by network",40:"Network is unreachable",41:"Too many open files in system",42:"No buffer space available",43:"No such device",44:"No such file or directory",45:"Exec format error",46:"No record locks available",47:"The link has been severed",48:"Not enough core",49:"No message of desired type",50:"Protocol not available",51:"No space left on device",52:"Function not implemented",53:"Socket is not connected",54:"Not a directory",55:"Directory not empty",56:"State not recoverable",57:"Socket operation on non-socket",59:"Not a typewriter",60:"No such device or address",61:"Value too large for defined data type",62:"Previous owner died",63:"Not super-user",64:"Broken pipe",65:"Protocol error",66:"Unknown protocol",67:"Protocol wrong type for socket",68:"Math result not representable",69:"Read only file system",70:"Illegal seek",71:"No such process",72:"Stale file handle",73:"Connection timed out",74:"Text file busy",75:"Cross-device link",100:"Device not a stream",101:"Bad font file fmt",102:"Invalid slot",103:"Invalid request code",104:"No anode",105:"Block device required",106:"Channel number out of range",107:"Level 3 halted",108:"Level 3 reset",109:"Link number out of range",110:"Protocol driver not attached",111:"No CSI structure available",112:"Level 2 halted",113:"Invalid exchange",114:"Invalid request descriptor",115:"Exchange full",116:"No data (for no delay io)",117:"Timer expired",118:"Out of streams resources",119:"Machine is not on the network",120:"Package not installed",121:"The object is remote",122:"Advertise error",123:"Srmount error",124:"Communication error on send",125:"Cross mount point (not really error)",126:"Given log. name not unique",127:"f.d. invalid for this operation",128:"Remote address changed",129:"Can   access a needed shared lib",130:"Accessing a corrupted shared lib",131:".lib section in a.out corrupted",132:"Attempting to link in too many libs",133:"Attempting to exec a shared library",135:"Streams pipe error",136:"Too many users",137:"Socket type not supported",138:"Not supported",139:"Protocol family not supported",140:"Can't send after socket shutdown",141:"Too many references",142:"Host is down",148:"No medium (in tape drive)",156:"Level 2 not synchronized"};
 
     var ERRNO_CODES = {};
 
@@ -2445,7 +2445,7 @@ var rhino3dm = (() => {
             // set as a mountpoint
             node.mounted = mount;
 
-            // add the new mount to the current mount's children
+            // add the new mount to the current mount's Children
             if (node.mount) {
               node.mount.mounts.push(mount);
             }
@@ -4517,8 +4517,8 @@ var rhino3dm = (() => {
         HEAP32[(buf + 28 >> 2)] = stat.rdev;
         tempI64 = [stat.size >>> 0,
                    (tempDouble = stat.size, +Math.abs(tempDouble)>=1.0 ? (tempDouble>0.0
-                                                                            ? (Math.min(+Math.floor((tempDouble) / 4294967296.0), 4294967295.0) | 0) >>> 0
-                                                                            : ~~+Math.ceil((tempDouble - +(~~(tempDouble) >>> 0)) / 4294967296.0) >>> 0) : 0)
+                                                                            ? (Math.min(+Math.floor(tempDouble / 4294967296.0), 4294967295.0) | 0) >>> 0
+                                                                            : ~~+Math.ceil((tempDouble - +(~~tempDouble >>> 0)) / 4294967296.0) >>> 0) : 0)
         ], HEAP32[(buf + 40 >> 2)] = tempI64[0], HEAP32[(buf + 44 >> 2)] = tempI64[1];
         HEAP32[(buf + 48 >> 2)] = 4096;
         HEAP32[(buf + 52 >> 2)] = stat.blocks;
@@ -4527,26 +4527,26 @@ var rhino3dm = (() => {
         var ctime = stat.ctime.getTime();
         tempI64 = [Math.floor(atime / 1000) >>> 0,
                    (tempDouble = Math.floor(atime / 1000), +Math.abs(tempDouble)>=1.0 ? (tempDouble>0.0
-                                                                                           ? (Math.min(+Math.floor((tempDouble) / 4294967296.0), 4294967295.0) | 0) >>> 0
-                                                                                           : ~~+Math.ceil((tempDouble - +(~~(tempDouble) >>> 0)) / 4294967296.0) >>> 0) : 0)
+                                                                                           ? (Math.min(+Math.floor(tempDouble / 4294967296.0), 4294967295.0) | 0) >>> 0
+                                                                                           : ~~+Math.ceil((tempDouble - +(~~tempDouble >>> 0)) / 4294967296.0) >>> 0) : 0)
         ], HEAP32[(buf + 56 >> 2)] = tempI64[0], HEAP32[(buf + 60 >> 2)] = tempI64[1];
         HEAPU32[(buf + 64 >> 2)] = (atime % 1000) * 1000;
         tempI64 = [Math.floor(mtime / 1000) >>> 0,
                    (tempDouble = Math.floor(mtime / 1000), +Math.abs(tempDouble)>=1.0 ? (tempDouble>0.0
-                                                                                           ? (Math.min(+Math.floor((tempDouble) / 4294967296.0), 4294967295.0) | 0) >>> 0
-                                                                                           : ~~+Math.ceil((tempDouble - +(~~(tempDouble) >>> 0)) / 4294967296.0) >>> 0) : 0)
+                                                                                           ? (Math.min(+Math.floor(tempDouble / 4294967296.0), 4294967295.0) | 0) >>> 0
+                                                                                           : ~~+Math.ceil((tempDouble - +(~~tempDouble >>> 0)) / 4294967296.0) >>> 0) : 0)
         ], HEAP32[(buf + 72 >> 2)] = tempI64[0], HEAP32[(buf + 76 >> 2)] = tempI64[1];
         HEAPU32[(buf + 80 >> 2)] = (mtime % 1000) * 1000;
         tempI64 = [Math.floor(ctime / 1000) >>> 0,
                    (tempDouble = Math.floor(ctime / 1000), +Math.abs(tempDouble)>=1.0 ? (tempDouble>0.0
-                                                                                           ? (Math.min(+Math.floor((tempDouble) / 4294967296.0), 4294967295.0) | 0) >>> 0
-                                                                                           : ~~+Math.ceil((tempDouble - +(~~(tempDouble) >>> 0)) / 4294967296.0) >>> 0) : 0)
+                                                                                           ? (Math.min(+Math.floor(tempDouble / 4294967296.0), 4294967295.0) | 0) >>> 0
+                                                                                           : ~~+Math.ceil((tempDouble - +(~~tempDouble >>> 0)) / 4294967296.0) >>> 0) : 0)
         ], HEAP32[(buf + 88 >> 2)] = tempI64[0], HEAP32[(buf + 92 >> 2)] = tempI64[1];
         HEAPU32[(buf + 96 >> 2)] = (ctime % 1000) * 1000;
         tempI64 = [stat.ino >>> 0,
                    (tempDouble = stat.ino, +Math.abs(tempDouble)>=1.0 ? (tempDouble>0.0
-                                                                           ? (Math.min(+Math.floor((tempDouble) / 4294967296.0), 4294967295.0) | 0) >>> 0
-                                                                           : ~~+Math.ceil((tempDouble - +(~~(tempDouble) >>> 0)) / 4294967296.0) >>> 0) : 0)
+                                                                           ? (Math.min(+Math.floor(tempDouble / 4294967296.0), 4294967295.0) | 0) >>> 0
+                                                                           : ~~+Math.ceil((tempDouble - +(~~tempDouble >>> 0)) / 4294967296.0) >>> 0) : 0)
         ], HEAP32[(buf + 104 >> 2)] = tempI64[0], HEAP32[(buf + 108 >> 2)] = tempI64[1];
         return 0;
       }, doMsync(addr, stream, len, flags, offset) {
@@ -7742,7 +7742,7 @@ var rhino3dm = (() => {
         var offset = convertI32PairToI53Checked(offset_low, offset_high); if (isNaN(offset)) return 61;
         var stream = SYSCALLS.getStreamFromFD(fd);
         FS.llseek(stream, offset, whence);
-        tempI64 = [stream.position>>>0,(tempDouble=stream.position,+Math.abs(tempDouble) >= 1.0 ? (tempDouble > 0.0 ? (Math.min(+Math.floor((tempDouble)/4294967296.0), 4294967295.0)|0)>>>0 : ~~+Math.ceil((tempDouble - +(~~(tempDouble)>>>0))/4294967296.0)>>>0) : 0)],HEAP32[(newOffset>>2)] = tempI64[0],HEAP32[(newOffset+4>>2)] = tempI64[1];
+        tempI64 = [stream.position>>>0,(tempDouble=stream.position,+Math.abs(tempDouble) >= 1.0 ? (tempDouble > 0.0 ? (Math.min(+Math.floor(tempDouble/4294967296.0), 4294967295.0)|0)>>>0 : ~~+Math.ceil((tempDouble - +(~~tempDouble>>>0))/4294967296.0)>>>0) : 0)],HEAP32[(newOffset>>2)] = tempI64[0],HEAP32[(newOffset+4>>2)] = tempI64[1];
         if (stream.getdents && offset === 0 && whence === 0) stream.getdents = null; // reset readdir state
         return 0;
       } catch (e) {

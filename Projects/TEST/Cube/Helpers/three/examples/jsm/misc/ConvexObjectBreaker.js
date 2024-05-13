@@ -66,7 +66,7 @@ class ConvexObjectBreaker {
 	prepareBreakableObject( object, mass, velocity, angularVelocity, breakable ) {
 
 		// object is a Object3d (normally a Mesh), must have a buffer geometry, and it must be convex.
-		// Its material property is propagated to its children (sub-pieces)
+		// Its material property is propagated to its Children (sub-pieces)
 		// mass must be > 0
 
 		const userData = object.userData;
@@ -126,7 +126,7 @@ class ConvexObjectBreaker {
 
 				} else {
 
-					angle = ( ( 0.5 * ( numIterations & 1 ) ) + 0.2 * ( 2 - Math.random() ) ) * Math.PI;
+					angle = ( 0.5 * ( numIterations & 1 ) + 0.2 * ( 2 - Math.random() ) ) * Math.PI;
 
 					// Rotate tempPlane2 at object position around normal axis and the Angle
 					scope.tempVector3_2.copy( pointOfImpact ).sub( subObject.position ).applyAxisAngle( normal, angle ).add( subObject.position );
@@ -334,7 +334,7 @@ class ConvexObjectBreaker {
 
 				}
 
-				if ( ( mark0 === 1 && mark1 === 2 ) || ( mark0 === 2 && mark1 === 1 ) ) {
+				if ( mark0 === 1 && mark1 === 2 || mark0 === 2 && mark1 === 1 ) {
 
 					// Intersection of segment with the plane
 

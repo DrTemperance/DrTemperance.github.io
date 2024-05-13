@@ -156,7 +156,7 @@ class Node extends EventDispatcher {
 
 		if ( nodeData.dependenciesCount === 1 ) {
 
-			// node flow children
+			// node flow Children
 
 			const nodeProperties = builder.getNodeProperties( this );
 
@@ -379,7 +379,7 @@ class Node extends EventDispatcher {
 	toJSON( meta ) {
 
 		const { uuid, type } = this;
-		const isRoot = ( meta === undefined || typeof meta === 'string' );
+		const isRoot = meta === undefined || typeof meta === 'string';
 
 		if ( isRoot ) {
 

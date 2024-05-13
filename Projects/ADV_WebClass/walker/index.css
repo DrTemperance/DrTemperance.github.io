@@ -13,12 +13,14 @@ body {background-color : #060;}
 	position        : fixed;
 	right           : 0;
 	top             : 0;
-	transition      : all 0.4s;
 	width           : 500;
 	z-index         : 1000;
+	transition      : width 300ms cubic-bezier(0.305, 1.200, 0.820, 1.075);
 
 	div {
-		> p {margin : 8px auto;}
+		> p {
+			margin : 8px auto;
+			}
 		border-radius : 30%;
 		filter        : drop-shadow(0 0 6px #333);
 		height        : 50px;
@@ -30,9 +32,13 @@ body {background-color : #060;}
 		}
 	}
 
-#walker {border : 2px outset #0CC;}
+#walker {
+	border : 2px outset #0CC;
+	}
 
-#walker2 {border : 2px outset #C0C;}
+#walker2 {
+	border : 2px outset #C0C;
+	}
 
 #tag-indicator {
 	backdrop-filter : blur(10px);
@@ -50,7 +56,7 @@ body {background-color : #060;}
 
 #controls {
 	position        : fixed;
-	top: 600px;
+	top             : 600px;
 	bottom          : 0;
 	left            : 0;
 	right           : 0;
@@ -61,7 +67,11 @@ body {background-color : #060;}
 	flex-direction  : row;
 	justify-content : center;
 	margin          : 10px auto;
-	select {}
-	button {}
+	select {
+		margin : 0 10px;
+		}
+	button {
+		margin : 0 10px;
+		}
 
 	}

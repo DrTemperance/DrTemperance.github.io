@@ -2,6 +2,8 @@ table {
 	margin          : auto;
 	border-collapse : collapse;
 	width           : 90%;
+	height          : -webkit-fit-content;
+	height          : -moz-fit-content;
 	height          : fit-content;
 	}
 
@@ -18,7 +20,9 @@ th {
 	}
 
 tr {
-	transition : all 0.5s ease-in-out;
+	-webkit-transition : all 0.5s ease-in-out;
+	-o-transition      : all 0.5s ease-in-out;
+	transition         : all 0.5s ease-in-out;
 	&:nth-child(even) {background-color : #CCC;}
 	&:nth-child(odd) {background-color : #DDD;}
 	& b {

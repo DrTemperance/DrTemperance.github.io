@@ -586,7 +586,7 @@ class WebXRManager extends EventDispatcher {
 
 			}
 
-			// Update user camera and its children
+			// Update user camera and its Children
 
 			updateUserCamera(camera, cameraXR, parent);
 

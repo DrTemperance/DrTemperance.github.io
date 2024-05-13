@@ -308,7 +308,7 @@ class VTKLoader extends Loader {
 				geometry = geometry.toNonIndexed();
 				const numTriangles = geometry.attributes.position.count / 3;
 
-				if ( colors.length === ( numTriangles * 3 ) ) {
+				if ( colors.length === numTriangles * 3 ) {
 
 					const newColors = [];
 
@@ -361,7 +361,8 @@ class VTKLoader extends Loader {
 
 				}
 
-				return { start: start,
+				return {
+					start,
 					end: index,
 					next: index + 1,
 					parsedString: s.join( '' ) };
@@ -601,7 +602,7 @@ class VTKLoader extends Loader {
 
 				}
 
-				// do children
+				// do Children
 				if ( xml.hasChildNodes() ) {
 
 					for ( let i = 0; i < xml.childNodes.length; i ++ ) {
@@ -671,7 +672,7 @@ class VTKLoader extends Loader {
 
 				for ( i = 0, j = 0; i < l; i += 4, j += 3 ) {
 
-					const tmp = ( revLookup[ b64.charCodeAt( i ) ] << 18 ) | ( revLookup[ b64.charCodeAt( i + 1 ) ] << 12 ) | ( revLookup[ b64.charCodeAt( i + 2 ) ] << 6 ) | revLookup[ b64.charCodeAt( i + 3 ) ];
+					const tmp = revLookup[ b64.charCodeAt( i ) ] << 18 | revLookup[ b64.charCodeAt( i + 1 ) ] << 12 | revLookup[ b64.charCodeAt( i + 2 ) ] << 6 | revLookup[ b64.charCodeAt( i + 3 ) ];
 					arr[ L ++ ] = ( tmp & 0xFF0000 ) >> 16;
 					arr[ L ++ ] = ( tmp & 0xFF00 ) >> 8;
 					arr[ L ++ ] = tmp & 0xFF;
@@ -680,13 +681,13 @@ class VTKLoader extends Loader {
 
 				if ( placeHolders === 2 ) {
 
-					const tmp = ( revLookup[ b64.charCodeAt( i ) ] << 2 ) | ( revLookup[ b64.charCodeAt( i + 1 ) ] >> 4 );
+					const tmp = revLookup[ b64.charCodeAt( i ) ] << 2 | revLookup[ b64.charCodeAt( i + 1 ) ] >> 4;
 					arr[ L ++ ] = tmp & 0xFF;
 
 				} else if ( placeHolders === 1 ) {
 
-					const tmp = ( revLookup[ b64.charCodeAt( i ) ] << 10 ) | ( revLookup[ b64.charCodeAt( i + 1 ) ] << 4 ) | ( revLookup[ b64.charCodeAt( i + 2 ) ] >> 2 );
-					arr[ L ++ ] = ( tmp >> 8 ) & 0xFF;
+					const tmp = revLookup[ b64.charCodeAt( i ) ] << 10 | revLookup[ b64.charCodeAt( i + 1 ) ] << 4 | revLookup[ b64.charCodeAt( i + 2 ) ] >> 2;
+					arr[ L ++ ] = tmp >> 8 & 0xFF;
 					arr[ L ++ ] = tmp & 0xFF;
 
 				}
@@ -747,12 +748,12 @@ class VTKLoader extends Loader {
 					let blocks = byteData[ 0 ];
 					for ( let i = 1; i < numBytes - 1; i ++ ) {
 
-						blocks = blocks | ( byteData[ i ] << ( i * dataPointSize ) );
+						blocks = blocks | byteData[ i ] << ( i * dataPointSize );
 
 					}
 
 					let headerSize = ( blocks + 3 ) * numBytes;
-					const padding = ( ( headerSize % 3 ) > 0 ) ? 3 - ( headerSize % 3 ) : 0;
+					const padding = ( headerSize % 3 ) > 0 ? 3 - headerSize % 3 : 0;
 					headerSize = headerSize + padding;
 
 					const dataOffsets = [];
@@ -769,7 +770,7 @@ class VTKLoader extends Loader {
 
 						for ( let j = 1; j < numBytes - 1; j ++ ) {
 
-							currentBlockSize = currentBlockSize | ( byteData[ i * numBytes + cSizeStart + j ] << ( j * dataPointSize ) );
+							currentBlockSize = currentBlockSize | byteData[ i * numBytes + cSizeStart + j ] << ( j * dataPointSize );
 
 						}
 
@@ -926,7 +927,7 @@ class VTKLoader extends Loader {
 						while ( dataArrayIndex < numberOfDataArrays ) {
 
 							// Parse the DataArray
-							if ( ( '#text' in arr[ dataArrayIndex ] ) && ( arr[ dataArrayIndex ][ '#text' ].length > 0 ) ) {
+							if ( '#text' in arr[ dataArrayIndex ] && arr[ dataArrayIndex ][ '#text' ].length > 0 ) {
 
 								arr[ dataArrayIndex ].text = parseDataArray( arr[ dataArrayIndex ], compressed );
 

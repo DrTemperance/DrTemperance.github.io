@@ -1,18 +1,26 @@
 <html lang='EN'>
 <head>
 	<link href='Heads/Nitwit.webp' id='favicon' rel='icon' />
-	<link href='style.css' rel='stylesheet' type='text/css' />
+	<link href='style.css' rel='stylesheet' type='Text/css' />
 	<title>ERR!</title>
 	<meta charset='UTF-8' />
 	<meta content='width=device-width, initial-scale=1.0' name='viewport' />
-	<script defer src='main.js' type='text/javascript'></script>
+	<script defer src='main.js' type='Text/javascript'></script>
 </head>
 
 <body draggable='false'>
+	<img alt='Villager Clicker' id='Title_Card' draggable='false' src='Stats/MainMenuTitle.png'>
+	<div id='MainMenu'>
+		<div class='MenuButtons'></div>
+		<div class='MenuButtons'></div>
+		<div class='MenuButtons'></div>
+		<div class='MenuButtons left'></div>
+		<div class='MenuButtons right'></div>
+	</div>
 	<div class='GUI Level'>Main Menu - Villager Clicker</div>
 	<progress id='Bossbar'></progress>
-	<div class='Board' onmousedown='VillagerAttack()'></div>
-	<span id='Villager' onmousedown='PlayerAttack()'></span>
+	<div class='Board' onmousedown='Villager_Attack()'></div>
+	<span id='Villager' onmousedown='Player_Attack()'></span>
 	<div draggable='false' id='Stats'>
 		<div id='Heart_Bar'>
 			<img class='Heart' id='health1' src='Stats/FullHeart.png' />
@@ -26,17 +34,17 @@
 			<img class='Heart' id='health9' src='Stats/FullHeart.png' />
 			<img class='Heart' id='health10' src='Stats/FullHeart.png' />
 		</div>
-		<div class='Bar'><img class='Item' id='item0' onclick='HotbarClick(this)'></div>
+		<div class='Bar'><img class='Item' id='item0' onclick='Hotbar_Click(this)'></div>
 		<div id='Hotbar' onclick='new Audio("Audio/Click.mp3").play()'>
-			<div class='Bar'><img class='item' draggable='false' id='item1' onclick='HotbarClick(this)'></div>
-			<div class='Bar'><img class='item' draggable='false' id='item2' onclick='HotbarClick(this)'></div>
-			<div class='Bar'><img class='item' draggable='false' id='item3' onclick='HotbarClick(this)'></div>
-			<div class='Bar'><img class='item' draggable='false' id='item4' onclick='HotbarClick(this)'></div>
-			<div class='Bar'><img class='item' draggable='false' id='item5' onclick='HotbarClick(this)'></div>
-			<div class='Bar'><img class='item' draggable='false' id='item6' onclick='HotbarClick(this)'></div>
-			<div class='Bar'><img class='item' draggable='false' id='item7' onclick='HotbarClick(this)'></div>
-			<div class='Bar'><img class='item' draggable='false' id='item8' onclick='HotbarClick(this)'></div>
-			<div class='Bar'><img class='item' draggable='false' id='item9' onclick='HotbarClick(this)'></div>
+			<div class='Bar'><img class='item' draggable='false' id='item1' onclick='Hotbar_Click(this)' src=''></div>
+			<div class='Bar'><img class='item' draggable='false' id='item2' onclick='Hotbar_Click(this)' src=''></div>
+			<div class='Bar'><img class='item' draggable='false' id='item3' onclick='Hotbar_Click(this)' src=''></div>
+			<div class='Bar'><img class='item' draggable='false' id='item4' onclick='Hotbar_Click(this)' src=''></div>
+			<div class='Bar'><img class='item' draggable='false' id='item5' onclick='Hotbar_Click(this)' src=''></div>
+			<div class='Bar'><img class='item' draggable='false' id='item6' onclick='Hotbar_Click(this)' src=''></div>
+			<div class='Bar'><img class='item' draggable='false' id='item7' onclick='Hotbar_Click(this)' src=''></div>
+			<div class='Bar'><img class='item' draggable='false' id='item8' onclick='Hotbar_Click(this)' src=''></div>
+			<div class='Bar'><img class='item' draggable='false' id='item9' onclick='Hotbar_Click(this)' src=''></div>
 		</div>
 	</div>
 

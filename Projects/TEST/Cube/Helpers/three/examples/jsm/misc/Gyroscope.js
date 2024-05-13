@@ -47,7 +47,7 @@ class Gyroscope extends Object3D {
 
 		}
 
-		// Update children
+		// Update Children
 
 		for ( let i = 0, l = this.children.length; i < l; i ++ ) {
 

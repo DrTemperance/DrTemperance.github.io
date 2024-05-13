@@ -2,8 +2,24 @@
 	font-family     : 'SF Pro Display', 'SF Pro Text', 'Trebuchet MS', Helvetica, 'Helvetica Neue', sans-serif;
 	list-style-type : none;
 	vertical-align  : middle;
-	&:not(body, a) {transition : all 0.25s;}
-	&:not(.Content_Box) {min-width : fit-content;}
+	&:not(body, a) {-webkit-transition : all 0.25s;-o-transition : all 0.25s;transition : all 0.25s;}
+	&:not(.Content_Box) {min-width : -webkit-fit-content;min-width : -moz-fit-content;min-width : fit-content;}
+	&::-webkit-input-placeholder {
+		color   : #888;
+		opacity : 0.75;
+		}
+	&::-moz-placeholder {
+		color   : #888;
+		opacity : 0.75;
+		}
+	&:-ms-input-placeholder {
+		color   : #888;
+		opacity : 0.75;
+		}
+	&::-ms-input-placeholder {
+		color   : #888;
+		opacity : 0.75;
+		}
 	&::placeholder {
 		color   : #888;
 		opacity : 0.75;
@@ -12,7 +28,7 @@
 	&::-webkit-scrollbar-thumb {background : #214;}
 	}
 
-img {filter : drop-shadow(0 3px 6px rgba(0, 0, 0, 0.16));}
+img {-webkit-filter : drop-shadow(0 3px 6px rgba(0, 0, 0, 0.16));filter : drop-shadow(0 3px 6px rgba(0, 0, 0, 0.16));}
 
 body {
 	background-image : url(../Media/back.webp);
@@ -22,11 +38,17 @@ body {
 	}
 
 div {
-	align-items     : center;
-	height          : fit-content;
-	justify-content : center;
-	margin          : 10px auto;
-	padding         : 10px 25px;
+	-webkit-box-align : center;
+	-ms-flex-align    : center;
+	align-items       : center;
+	height            : -webkit-fit-content;
+	height            : -moz-fit-content;
+	height            : fit-content;
+	-webkit-box-pack  : center;
+	-ms-flex-pack     : center;
+	justify-content   : center;
+	margin            : 10px auto;
+	padding           : 10px 25px;
 	}
 
 nav {
@@ -40,13 +62,15 @@ nav {
 	position        : fixed;
 	top             : 0;
 	width           : 200px;
+	-webkit-filter  : drop-shadow(0 3px 6px rgba(0, 0, 0, 0.16));
 	filter          : drop-shadow(0 3px 6px rgba(0, 0, 0, 0.16));
 
 	.Header {
-		font-size : 1.5rem;
-		margin    : 0.75rem auto;
-		padding   : 10px 10px;
-		filter    : drop-shadow(0 0 2px rgba(0, 0, 0, 0.12));
+		font-size      : 1.5rem;
+		margin         : 0.75rem auto;
+		padding        : 10px 10px;
+		-webkit-filter : drop-shadow(0 0 2px rgba(0, 0, 0, 0.12));
+		filter         : drop-shadow(0 0 2px rgba(0, 0, 0, 0.12));
 		}
 
 	.Nav_Items {
@@ -54,13 +78,15 @@ nav {
 		padding : 16px 12px;
 
 		li {
-			backdrop-filter : blur(2px);
-			background      : rgba(255, 255, 255, 50%);
-			font-size       : 1.5rem;
-			margin          : 10px auto;
-			padding         : 16px;
-			width           : 75%;
-			box-shadow      : 3px 3px 6px 0 rgb(204, 219, 232) inset, -3px -3px 6px 1px rgba(255, 255, 255, 0.5) inset; border-radius : 100px;
+			-webkit-backdrop-filter : blur(2px);
+			backdrop-filter         : blur(2px);
+			background              : rgba(255, 255, 255, 50%);
+			font-size               : 1.5rem;
+			margin                  : 10px auto;
+			padding                 : 16px;
+			width                   : 75%;
+			-webkit-box-shadow      : 3px 3px 6px 0 rgb(204, 219, 232) inset, -3px -3px 6px 1px rgba(255, 255, 255, 0.5) inset;
+			box-shadow              : 3px 3px 6px 0 rgb(204, 219, 232) inset, -3px -3px 6px 1px rgba(255, 255, 255, 0.5) inset; border-radius : 100px;
 
 			&:hover:not(.Active_Page) {background : rgba(255, 255, 255, 20%);}
 			&:not(.Active_Page) {cursor : pointer;}
@@ -77,8 +103,9 @@ input, button {
 p {font-size : 1.2rem;}
 
 a {
-	color           : #000;
-	text-decoration : 0;
+	color                   : #000;
+	-webkit-text-decoration : 0;
+	text-decoration         : 0;
 	}
 
 dl a {
@@ -94,17 +121,25 @@ h1 {
 	padding        : 2.5%;
 	text-shadow    : 1px 1px #555;
 	text-transform : lowercase;
+	width          : -webkit-fit-content;
+	width          : -moz-fit-content;
 	width          : fit-content;
 	}
 
 ul {
-	align-items      : center;
-	background-color : #626;
-	border-radius    : 10px;
-	justify-content  : center;
-	list-style       : none;
-	min-width        : fit-content;
-	width            : 100%;
+	-webkit-box-align : center;
+	-ms-flex-align    : center;
+	align-items       : center;
+	background-color  : #626;
+	border-radius     : 10px;
+	-webkit-box-pack  : center;
+	-ms-flex-pack     : center;
+	justify-content   : center;
+	list-style        : none;
+	min-width         : -webkit-fit-content;
+	min-width         : -moz-fit-content;
+	min-width         : fit-content;
+	width             : 100%;
 	}
 
 .Big_Box {
@@ -117,13 +152,19 @@ ul {
 	}
 
 .Interests {
-	background     : rgba(255, 255, 255, 0.5);
-	border         : 3px outset rgba(170, 170, 170, 0.5);
-	display        : flex;
-	flex-direction : column;
-	margin         : 1.5%;
-	padding        : 2.5%;
-	filter         : drop-shadow(0 3px 6px rgba(0, 0, 0, 0.16));
+	background            : rgba(255, 255, 255, 0.5);
+	border                : 3px outset rgba(170, 170, 170, 0.5);
+	display               : -webkit-box;
+	display               : -ms-flexbox;
+	display               : flex;
+	-webkit-box-orient    : vertical;
+	-webkit-box-direction : normal;
+	-ms-flex-direction    : column;
+	flex-direction        : column;
+	margin                : 1.5%;
+	padding               : 2.5%;
+	-webkit-filter        : drop-shadow(0 3px 6px rgba(0, 0, 0, 0.16));
+	filter                : drop-shadow(0 3px 6px rgba(0, 0, 0, 0.16));
 	}
 
 .Bolder {font-weight : bolder;}
@@ -142,6 +183,8 @@ ul {
 	margin-left  : auto;
 	margin-right : auto;
 	max-width    : 75vw;
+	min-width    : -webkit-max-content;
+	min-width    : -moz-max-content;
 	min-width    : max-content;
 	padding      : 0.75%;
 	text-align   : center;
@@ -162,14 +205,21 @@ ul {
 	}
 
 .Content_Box {
-	background-color : #226;
-	border           : 6px ridge #224;
-	display          : flex;
-	flex-direction   : column;
-	height           : fit-content;
-	margin           : 0 auto 18px calc(50vw - 500px);
-	padding          : 25px;
-	width            : 1200px;
+	background-color      : #226;
+	border                : 6px ridge #224;
+	display               : -webkit-box;
+	display               : -ms-flexbox;
+	display               : flex;
+	-webkit-box-orient    : vertical;
+	-webkit-box-direction : normal;
+	-ms-flex-direction    : column;
+	flex-direction        : column;
+	height                : -webkit-fit-content;
+	height                : -moz-fit-content;
+	height                : fit-content;
+	margin                : 0 auto 18px calc(50vw - 500px);
+	padding               : 25px;
+	width                 : 1200px;
 
 	& * {margin : initial auto;}
 	}
@@ -188,18 +238,23 @@ ul {
 	}
 
 #Project_Icon {
-	background-color           : #620D40;
-	border                     : 3px solid #202;
-	height                     : 250px;
-	text-align                 : left;
-	width                      : 215px;
-	border-radius              : 2px;
-	cursor                     : pointer;
-	padding                    : 5px 10px;
-	transition                 : all 450ms cubic-bezier(0.685, -0.025, 0.355, 1.650);
-	transition-timing-function : cubic-bezier(0.685, -0.025, 0.355, 1.650);
+	background-color                   : #620D40;
+	border                             : 3px solid #202;
+	height                             : 250px;
+	text-align                         : left;
+	width                              : 215px;
+	border-radius                      : 2px;
+	cursor                             : pointer;
+	padding                            : 5px 10px;
+	-webkit-transition                 : all 450ms cubic-bezier(0.685, -0.025, 0.355, 1.650);
+	-o-transition                      : all 450ms cubic-bezier(0.685, -0.025, 0.355, 1.650);
+	transition                         : all 450ms cubic-bezier(0.685, -0.025, 0.355, 1.650);
+	-webkit-transition-timing-function : cubic-bezier(0.685, -0.025, 0.355, 1.650);
+	-o-transition-timing-function      : cubic-bezier(0.685, -0.025, 0.355, 1.650);
+	transition-timing-function         : cubic-bezier(0.685, -0.025, 0.355, 1.650);
 	&:hover {
-		filter : drop-shadow(2px 2px 0.4em #000);
+		-webkit-filter : drop-shadow(2px 2px 0.4em #000);
+		filter         : drop-shadow(2px 2px 0.4em #000);
 		}
 
 	.Title {
@@ -218,35 +273,47 @@ ul {
 		line-height : 0;
 
 		cursor      : pointer;
-		&:hover {filter : invert();}
+		&:hover {-webkit-filter : invert();filter : invert();}
 		&:active {scale : 0.9;}
 		}
 	}
 
 div.Content_Box {
-	display        : table;
-	flex-direction : column;
+	display               : table;
+	-webkit-box-orient    : vertical;
+	-webkit-box-direction : normal;
+	-ms-flex-direction    : column;
+	flex-direction        : column;
 	}
 
 #Music {
-	background     : #DDD;
-	border         : 1px solid #000;
-	border-radius  : 15px;
-	display        : flex;
-	flex-direction : column;
-	height         : 200px;
-	margin         : 10px auto;
-	overflow       : hidden;
-	padding        : 8px;
-	transition     : all 0.5s;
-	width          : 450px;
+	background            : #DDD;
+	border                : 1px solid #000;
+	border-radius         : 15px;
+	display               : -webkit-box;
+	display               : -ms-flexbox;
+	display               : flex;
+	-webkit-box-orient    : vertical;
+	-webkit-box-direction : normal;
+	-ms-flex-direction    : column;
+	flex-direction        : column;
+	height                : 200px;
+	margin                : 10px auto;
+	overflow              : hidden;
+	padding               : 8px;
+	-webkit-transition    : all 0.5s;
+	-o-transition         : all 0.5s;
+	transition            : all 0.5s;
+	width                 : 450px;
 	&:hover {
-		filter : invert();
-		height : 500px;
-		width  : 700px;
+		-webkit-filter : invert();
+		filter         : invert();
+		height         : 500px;
+		width          : 700px;
 		& img {
-			filter : invert();
-			margin : initial 0;
+			-webkit-filter : invert();
+			filter         : invert();
+			margin         : initial 0;
 			}
 		}
 	}
@@ -280,7 +347,9 @@ table#Archive {
 	}
 
 .Eventful {
-	position   : absolute;
-	z-index    : 100;
-	transition : 0.2s ease-in-out;
+	position           : absolute;
+	z-index            : 100;
+	-webkit-transition : 0.2s ease-in-out;
+	-o-transition      : 0.2s ease-in-out;
+	transition         : 0.2s ease-in-out;
 	}

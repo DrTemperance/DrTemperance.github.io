@@ -59,7 +59,7 @@ class BVHLoader extends Loader {
 			and outputs a skeleton structure including motion data
 
 			returns thee root node:
-			{ name: '', channels: [], children: [] }
+			{ name: '', channels: [], Children: [] }
 		*/
 		function readBvh( lines ) {
 
@@ -200,7 +200,7 @@ class BVHLoader extends Loader {
 		 - firstline: line containing the node type and name e.g. 'JOINT hip'
 		 - list: collects a flat list of nodes
 
-		 returns: a BVH node including children
+		 returns: a BVH node including Children
 		*/
 		function readNode( lines, firstline, list ) {
 
@@ -277,7 +277,7 @@ class BVHLoader extends Loader {
 
 			}
 
-			// read children
+			// read Children
 
 			while ( true ) {
 

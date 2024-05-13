@@ -8,13 +8,12 @@ document.querySelector('#cycle-right').addEventListener('click', ()=>{
 	Reset();
 });
 
-['#execute1', '#execute2', '#execute3'].forEach((button, index)=>
-	                                                 document.querySelector(button).addEventListener('click', ()=>{
-		                                                 let currentShape = D_Shapes[I], repeat = index===2 ? currentShape.repeat + 1 : currentShape.repeat;
-		                                                 document.querySelector('#shape').style.background = `url(images/${currentShape.color}-${currentShape.shape}.png)`;
-		                                                 document.querySelector('#shape').style.backgroundSize = `${100 / repeat}% ${100 / repeat}%`;
-		                                                 AnimDetails.displayType = index + 1;
-	                                                 }));
+['#execute1', '#execute2', '#execute3'].forEach((button, index)=>document.querySelector(button).addEventListener('click', ()=>{
+	let currentShape = D_Shapes[I], repeat = index===2 ? currentShape.repeat + 1 : currentShape.repeat;
+	document.querySelector('#shape').style.background = `url(images/${currentShape.color}-${currentShape.shape}.png)`;
+	document.querySelector('#shape').style.backgroundSize = `${100 / repeat}% ${100 / repeat}%`;
+	AnimDetails.displayType = index + 1;
+}));
 
 setInterval(()=>{
 	if (AnimDetails.displayType!==0) document.querySelector('#shape').innerHTML = "";
@@ -81,7 +80,7 @@ async function Reset() {
 	Shape.style.transform = 'rotate(0deg)';
 	Shape.innerHTML = `<p>${D_Shapes[I].color}</p> <p>${D_Shapes[I].shape}</p> <p>${D_Shapes[I].repeat}x${D_Shapes[I].repeat}</p>`;
 
-	$("#info-bar").text(`Current index: ${I}`);
+	document.querySelector("#info-bar").textContent = `Current index: ${I}`;
 
 	AnimDetails = {x: 148, y: 148, speedX: 2, speedY: 1, angle: 0, showCount: 60, show: true, displayType: 0};
 }

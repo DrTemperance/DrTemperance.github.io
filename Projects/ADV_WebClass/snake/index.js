@@ -28,7 +28,7 @@ function Update() {
 
 	if (apple.row===snake.head.row ? apple.column===snake.head.column : !1) {
 		Score++;
-		document.querySelector('#Score').textContent(`Score: ${Score}`);
+		document.querySelector('#Score').textContent = `Score: ${Score}`;
 
 		apple.element.remove();
 		Apple_Construct();
@@ -46,7 +46,6 @@ function Update() {
 }
 
 function Snake_Move() {
-
 	for (let i = snake.body.length - 1; i>0; i--) {
 		let snakeSquare = snake.body[i];
 
@@ -68,7 +67,11 @@ function Snake_Move() {
 }
 
 function Snake_Collide() {
-	for (let j = snake.body.length - 1; j>0; j--) if (snake.head.row===snake.body[j].row && snake.head.column===snake.body[j].column) return !0;
+	for (let j = snake.body.length - 1; j>0; j--) {
+		if (snake.head.row===snake.body[j].row && snake.head.column===snake.body[j].column) {
+			return !0;
+		}
+	}
 	return !1;
 }
 
@@ -76,8 +79,8 @@ function Game_End() {
 	clearInterval(updateInterval);
 
 	document.querySelector('#Board').innerHTML = '';
-	document.querySelector('#HighScore').textContent(`High Score: ${CalcHS()}`);
-	document.querySelector('#Score').textContent("Score: 0");
+	document.querySelector('#HighScore').textContent = `High Score: ${CalcHS()}`;
+	document.querySelector('#Score').textContent = "Score: 0";
 	Score = 0;
 
 	setTimeout(init, 500);
@@ -100,9 +103,9 @@ function Snake_Construct(row, column) {
 	snake.tail = snakeSquare;
 }
 
-function MoveEl(square) {
-	square.element.style.left = `${square.column * SQUARE_SIZE + 20}px`;
-	square.element.style.top = `${square.row * SQUARE_SIZE + 20}px`;
+function MoveEl({column, element, row}) {
+	element.style.left = `${column * SQUARE_SIZE + 20}px`;
+	element.style.top = `${row * SQUARE_SIZE + 20}px`;
 }
 
 function Apple_Construct() {

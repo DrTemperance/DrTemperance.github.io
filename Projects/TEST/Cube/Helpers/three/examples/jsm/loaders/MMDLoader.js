@@ -515,7 +515,7 @@ function initBones( mesh ) {
 
 	}
 
-	// now the bones are part of the scene graph and children of the skinned mesh.
+	// now the bones are part of the scene graph and Children of the skinned mesh.
 	// let's Update the corresponding matrices
 
 	mesh.updateMatrixWorld( true );
@@ -806,9 +806,9 @@ class GeometryBuilder {
 
 			}
 
-			// Sort grant parameters from parents to children because
+			// Sort grant parameters from parents to Children because
 			// grant uses parent's transform that parent's grant is already applied
-			// so grant should be applied in order from parents to children
+			// so grant should be applied in order from parents to Children
 
 			function traverse( entry ) {
 
@@ -1991,7 +1991,7 @@ class CubicBezierInterpolation extends Interpolant {
 		// No interpolation if next key frame is in one frame in 30fps.
 		// This is from MMD animation spec.
 		// '1.5' is for precision loss. times are Float32 in Three.js Animation system.
-		const weight1 = ( t1 - t0 ) < 1 / 30 * 1.5 ? 0.0 : ( t - t0 ) / ( t1 - t0 );
+		const weight1 = t1 - t0 < 1 / 30 * 1.5 ? 0.0 : ( t - t0 ) / ( t1 - t0 );
 
 		if ( stride === 4 ) { // Quaternion
 

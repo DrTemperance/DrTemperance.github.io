@@ -968,7 +968,7 @@ function getQuaternion() {
 }
 
 // Save rotation whose grant and IK are already applied
-// used by grant children
+// used by grant Children
 const _grantResultMap = new Map();
 
 function updateOne( mesh, boneIndex, ikSolver, grantSolver ) {
@@ -1114,7 +1114,7 @@ const _q = new Quaternion();
  * Solver for Grant (Fuyo in Japanese. I just google translated because
  * Fuyo may be MMD specific term and may not be common word in 3D CG terms.)
  * Grant propagates a bone's transform to other bones transforms even if
- * they are not children.
+ * they are not Children.
  * @param {THREE.SkinnedMesh} mesh
  * @param {Array<Object>} grants
  */
