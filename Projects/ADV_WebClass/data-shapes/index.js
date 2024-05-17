@@ -9,9 +9,9 @@ document.querySelector('#cycle-right').addEventListener('click', ()=>{
 });
 
 ['#execute1', '#execute2', '#execute3'].forEach((button, index)=>document.querySelector(button).addEventListener('click', ()=>{
-	let currentShape = D_Shapes[I], repeat = index===2 ? currentShape.repeat + 1 : currentShape.repeat;
-	document.querySelector('#shape').style.background = `url(images/${currentShape.color}-${currentShape.shape}.png)`;
-	document.querySelector('#shape').style.backgroundSize = `${100 / repeat}% ${100 / repeat}%`;
+	let CurrentShape = D_Shapes[I], Repeat = index===2 ? CurrentShape.repeat + 1 : CurrentShape.repeat;
+	document.querySelector('#shape').style.background = `url(images/${CurrentShape.color}-${CurrentShape.shape}.png)`;
+	document.querySelector('#shape').style.backgroundSize = `${100 / Repeat}% ${100 / Repeat}%`;
 	AnimDetails.displayType = index + 1;
 }));
 
@@ -58,23 +58,23 @@ Reset();
 
 D_Shapes.push({color: "blue", shape: "circle", repeat: 3});
 
-for (let i = 0; i<D_Shapes.length; i++) D_Shapes[i].goodBehavior = D_Shapes[i].color==="red" ? "bounce" : D_Shapes[i].goodBehavior = D_Shapes[i].color==="blue" ? "blink" : "spin";
+for (const Item of D_Shapes) Item.goodBehavior = Item.color==="red" ? "bounce" : Item.goodBehavior = Item.color==="blue" ? "blink" : "spin";
 
 function Gen_Shapes() {
-	const data = [], colors = ["red", "green", "blue"], shapes = ["square", "triangle", "circle"];
-	for (let i = 0; i<colors.length; i++) {
-		for (let j = 0; j<shapes.length; j++) {
-			for (let k = 0; k<[1, 2, 3].length; k++) if (i!==colors.length - 1 || j!==shapes.length - 1 || k!==[1, 2, 3].length - 1) data.push({color: colors[i], shape: shapes[j], repeat: [1, 2, 3][k]});
+	const Data = [], Colors = ["red", "green", "blue"], Shapes = ["square", "triangle", "circle"];
+	for (let i = 0; i<Colors.length; i++) {
+		for (let j = 0; j<Shapes.length; j++) {
+			for (let k = 0; k<[1, 2, 3].length; k++) if (i!==Colors.length - 1 || j!==Shapes.length - 1 || k!==[1, 2, 3].length - 1) Data.push({color: Colors[i], shape: Shapes[j], repeat: [1, 2, 3][k]});
 		}
 	}
-	return data;
+	return Data;
 }
 
 async function Reset() {
 	const Shape = await document.querySelector('#shape');
 	Shape.style.background = 'none';
-	Shape.style.display = 'block';
 	Shape.style.backgroundSize = '100% 100%';
+	Shape.style.display = 'block';
 	Shape.style.left = '150px';
 	Shape.style.top = '150px';
 	Shape.style.transform = 'rotate(0deg)';

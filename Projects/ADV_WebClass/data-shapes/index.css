@@ -1,46 +1,46 @@
 #Board {
-	width  : 400px;
-	margin : auto;
 	border : #CCC ridge 4px;
+	margin : auto;
+	width  : 400px;
 	}
 
 #info-bar {
-	width      : auto;
-	min-height : fit-content;
 	background : #D3D3D3;
 	font-size  : 2rem;
+	min-height : fit-content;
 	text-align : center;
+	width      : auto;
 	}
 
 #shape-container {
-	width         : 400px;
-	height        : 400px;
 	background    : #000;
-	border-top    : #CCC ridge 4px;
 	border-bottom : #CCC ridge 4px;
+	border-top    : #CCC ridge 4px;
+	height        : 400px;
+	width         : 400px;
 	}
 
 #button-box {
-	width      : 400px;
-	height     : 40px;
 	background : #A9A9A9;
+	height     : 40px;
+	width      : 400px;
 	}
 
 #shape {
+	border   : #FFF solid 2px;
 	color    : #FFF;
-	width    : 100px;
+	display  : block;
 	height   : 100px;
+	left     : 150px;
 	position : relative;
 	top      : 150px;
-	left     : 150px;
-	border   : #FFF solid 2px;
-	display  : block;
+	width    : 100px;
 	}
 
 button {
-	width  : auto;
 	height : auto;
 	margin : 10px auto auto 9px;
+	width  : auto;
 	}
 
 p {margin : 10px;}

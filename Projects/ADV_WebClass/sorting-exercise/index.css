@@ -1,52 +1,60 @@
-#fullContainer {width : 100%;}
+#FullContainer {width : 100%;}
 
-#buttonContainer {
+#ButtonContainer {
 	margin : auto;
 	width  : 40%;
 	}
 
-#goButton {
+#GoButton {
+	background : #D3D3D3;
+	border     : 2px #A9A9A9 double;
+	cursor     : pointer;
+	font-size  : 30px;
 	margin     : auto;
 	width      : 100%;
-	border     : 2px #A9A9A9 double;
-	background : #D3D3D3;
-	font-size  : 30px;
-	cursor     : pointer;
 	}
 
-#sortContainer {
+#SortContainer {
 	display : table;
 	margin  : 0 auto;
 	width   : 100%;
 	}
 
-.subContainer {
-	display    : inline-block;
-	width      : 45%;
+.SubContainer {
 	border     : 4px #228B22 groove;
+	display    : inline-block;
 	margin-top : 1.25%;
+	width      : 45%;
 	}
 
-#bubbleArea {margin-left : 2.5%;}
+#BubbleArea {margin-left : 2.5%;}
 
-#quickArea {margin-left : 3.75%;}
+#QuickArea {margin-left : 3.75%;}
 
-.subContainer > h2 {
-	margin-left : 5%;
-	height      : 32px;
-	margin-top  : 0;
+.SubContainer > h2 {
+	align-items     : center;
+	display         : flex;
+	height          : 32px;
+	justify-content : center;
+	margin-left     : 5%;
+	margin-top      : 0;
+	text-align      : center;
 	}
 
-.sortElement {
+
+.SortElement {
 	background : repeat-x center;
-	position   : absolute;
+	height     : 100%;
 	left       : 0;
 	margin     : 0;
 	padding    : 0;
+	position   : absolute;
+	top        : 0;
+	width      : 100%;
 	}
 
-.subContainer > div {position : relative;}
+.SubContainer > div {position : relative;}
 
-.bubbleElement {background : url('img/bubble.png');}
+.BubbleElement {background : url('img/bubble.png');}
 
-.quickElement {background : url('img/quick.png');}
+.QuickElement {background : url('img/quick.png');}

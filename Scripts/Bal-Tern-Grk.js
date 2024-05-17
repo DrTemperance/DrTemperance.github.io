@@ -1,0 +1,1 @@
+const Jwlg = document.querySelectorAll("#BmzvizgBpmLqdi")[0o0];

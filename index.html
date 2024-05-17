@@ -9,24 +9,27 @@
 	<link href='Style/style.css' rel='stylesheet' type='Text/css'>
 	<script>
 		setInterval(()=>{
-			const targetDate = new Date(`August 11, 2023, 7:24:00`).getTime() - Date.now();
-			document.getElementById('Timer').textContent = `${Math.trunc(targetDate / 86400000)} days,
-				${Math.trunc((targetDate % 86400000) / 3600000)} hours,
-				${Math.trunc((targetDate % 3600000) / 60000)} minutes,
-				${Math.floor((targetDate % 60000) / 1000)} seconds`;
+			const TargetDate = new Date(`August 11, 2023, 7:24:00`).getTime() - Date.now();
+			document.getElementById('Timer').textContent = `${Math.trunc(TargetDate / 86400000)} days,
+				${Math.trunc((TargetDate % 86400000) / 3600000)} hours,
+				${Math.trunc((TargetDate % 3600000) / 60000)} minutes,
+				${Math.floor((TargetDate % 60000) / 1000)} seconds`;
 		}, 100);
 	</script>
+	<script defer src='Scripts/trail.js' type='Text/javascript'></script>
+	<script defer src='Scripts/Bal-Tern-Grk.js' type='text/javascript'></script>
 </head>
 
 <body>
+<canvas id='trail' height='1027' style='display: block;'></canvas>
 <nav>
 	<h1 class='Header'>-= Hannah's Hallway =-</h1>
 	<div class='Nav_Items'>
 		<li onclick='window.location = "index.html"'>Home</li>
 		<li onclick='window.location = "info.html"'>About Me</li>
 		<li onclick='window.location = "music.html"'>Music</li>
-		<li onclick='window.location= "keyspage.html"'>Time Machine</li>
-		<li onclick='window.location= "portfolio.html"'>Portfolio</li>
+		<li onclick='window.location = "keyspage.html"'>Time Machine</li>
+		<li onclick='window.location = "portfolio.html"'>Portfolio</li>
 		<li onclick='window.location = "archive.html"'>Archives</li>
 	</div>
 </nav>
@@ -40,6 +43,10 @@
 <div class='Content_Box'>
 	<h1>Chemistry</h1>
 	<iframe height='650px' loading='lazy' src='https://www.fishersci.com/search/chemical/substructure/marvinjs/' title='FisherSci Chemical Structure Builder' width='100%'></iframe>
+</div>
+<div class='Content_Box'>
+	<h1>Secret Language</h1>
+	<div id='BmzvizgBpmLqdi'></div>
 </div>
 <div class='Content_Box'>
 	<p id='Footer'>All digital artistic creations created by me, with substantial assistance from <em onclick='window.open("https://awsome-creeper9.github.io/")'>Awsome_Creeper9</em></p>

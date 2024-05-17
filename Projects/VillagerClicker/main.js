@@ -1,4 +1,5 @@
 // Elements //
+
 const BoardElem  = document.querySelector('.Board'),
       Bossbar    = document.querySelector('#Bossbar'),
       Favicon    = document.querySelector('#favicon'),
@@ -327,3 +328,9 @@ function Initiate() {
 
 // Begin //
 Display_Main_Menu();
+
+
+// While //
+
+// cursor state switch
+if (CursorState==='Crosshair') {} else {}
