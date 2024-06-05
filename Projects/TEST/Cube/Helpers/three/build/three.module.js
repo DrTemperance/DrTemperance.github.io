@@ -1537,9 +1537,9 @@ class Matrix3 {
 
 		const te = this.elements;
 
-		const a                       = te[0], b = te[1], c = te[2],
-		      d                       = te[3], e = te[4], f = te[5],
-		      g = te[6], h = te[7], i = te[8];
+		const a = te[0], b = te[1], c = te[2],
+		      d                       = te[3], e            = te[4], f = te[5],
+		      g                       = te[6], h = te[7], i = te[8];
 
 		return a * e * i - a * f * h - b * d * i + b * f * g + c * d * h - c * e * g;
 
@@ -1549,8 +1549,8 @@ class Matrix3 {
 
 		const te                            = this.elements,
 
-		      n11                           = te[0], n21              = te[1], n31 = te[2],
-		      n12 = te[3], n22 = te[4], n32 = te[5],
+		      n11 = te[0], n21 = te[1], n31 = te[2],
+		      n12                           = te[3], n22 = te[4], n32 = te[5],
 		      n13                           = te[6], n23 = te[7], n33 = te[8],
 
 		      t11                           = n33 * n22 - n32 * n23,
@@ -2848,9 +2848,9 @@ class Vector4 {
 
 		      te                            = m.elements,
 
-		      m11 = te[0], m12 = te[4], m13 = te[8],
-		      m21                           = te[1], m22 = te[5], m23 = te[9],
-		      m31                           = te[2], m32 = te[6], m33 = te[10];
+		      m11                           = te[0], m12 = te[4], m13 = te[8],
+		      m21                           = te[1], m22              = te[5], m23 = te[9],
+		      m31 = te[2], m32 = te[6], m33 = te[10];
 
 		if (Math.abs(m12 - m21)<epsilon &&
 		    Math.abs(m13 - m31)<epsilon &&
@@ -3799,7 +3799,7 @@ class Quaternion {
 
 		      m11 = te[0], m12 = te[4], m13 = te[8],
 		      m21                           = te[1], m22              = te[5], m23 = te[9],
-		      m31                           = te[2], m32 = te[6], m33 = te[10],
+		      m31                           = te[2], m32              = te[6], m33 = te[10],
 
 		      trace                         = m11 + m22 + m33;
 
@@ -6622,37 +6622,37 @@ class Matrix4 {
 		//( based on http://www.euclideanspace.com/maths/algebra/matrix/functions/inverse/fourD/index.htm )
 
 		return n41 * (
-				+n14 * n23 * n32
-				- n13 * n24 * n32
-				- n14 * n22 * n33
-				+ n12 * n24 * n33
-				+ n13 * n22 * n34
-				- n12 * n23 * n34
-		) +
-		n42 * (
-				+n11 * n23 * n34
-				- n11 * n24 * n33
-				+ n14 * n21 * n33
-				- n13 * n21 * n34
-				+ n13 * n24 * n31
-				- n14 * n23 * n31
-		) +
-		n43 * (
-				+n11 * n24 * n32
-				- n11 * n22 * n34
-				- n14 * n21 * n32
-				+ n12 * n21 * n34
-				+ n14 * n22 * n31
-				- n12 * n24 * n31
-		) +
-		n44 * (
-		-n13 * n22 * n31
-		- n11 * n23 * n32
-		+ n11 * n22 * n33
-		+ n13 * n21 * n32
-		- n12 * n21 * n33
-		+ n12 * n23 * n31
-		);
+			            +n14 * n23 * n32
+			            - n13 * n24 * n32
+			            - n14 * n22 * n33
+			            + n12 * n24 * n33
+			            + n13 * n22 * n34
+			            - n12 * n23 * n34
+		           ) +
+		       n42 * (
+			        +n11 * n23 * n34
+			        - n11 * n24 * n33
+			        + n14 * n21 * n33
+			        - n13 * n21 * n34
+			        + n13 * n24 * n31
+			        - n14 * n23 * n31
+		       ) +
+		       n43 * (
+			        +n11 * n24 * n32
+			        - n11 * n22 * n34
+			        - n14 * n21 * n32
+			        + n12 * n21 * n34
+			        + n14 * n22 * n31
+			        - n12 * n24 * n31
+		       ) +
+		       n44 * (
+		       -n13 * n22 * n31
+		       - n11 * n23 * n32
+		       + n11 * n22 * n33
+		       + n13 * n21 * n32
+		       - n12 * n21 * n33
+		       + n12 * n23 * n31
+		       );
 
 	}
 
@@ -6713,7 +6713,7 @@ class Matrix4 {
 		const te                                            = this.elements,
 
 		      n11                                           = te[0], n21                              = te[1], n31 = te[2], n41 = te[3],
-		      n12                                           = te[4], n22                              = te[5], n32 = te[6], n42    = te[7],
+		      n12                                           = te[4], n22                              = te[5], n32 = te[6], n42 = te[7],
 		      n13                                           = te[8], n23 = te[9], n33 = te[10], n43 = te[11],
 		      n14 = te[12], n24 = te[13], n34 = te[14], n44 = te[15],
 
@@ -12250,7 +12250,7 @@ function checkIntersection(object, material, raycaster, ray, pA, pB, pC, point) 
 
 	return {
 		distance,
-		point   : _intersectionPointWorld.clone(),
+		point: _intersectionPointWorld.clone(),
 		object
 	};
 
@@ -15602,9 +15602,9 @@ function WebGLBindingStates(gl, extensions, attributes, capabilities) {
 			newAttributes,
 			enabledAttributes,
 			attributeDivisors,
-			object           : vao,
-			attributes       : {},
-			index            : null
+			object    : vao,
+			attributes: {},
+			index     : null
 
 		};
 
@@ -18281,9 +18281,9 @@ function WebGLMorphtargets(gl, capabilities, textures) {
 				}
 
 				entry = {
-					count  : morphTargetsCount,
+					count: morphTargetsCount,
 					texture,
-					size   : new Vector2(width, height)
+					size : new Vector2(width, height)
 				};
 
 				morphTextures.set(geometry, entry);
@@ -19983,8 +19983,8 @@ function fetchAttributeLocations(gl, program) {
 		// console.log( 'THREE.WebGLProgram: ACTIVE VERTEX ATTRIBUTE:', name, i );
 
 		attributes[name] = {
-			type        : info.type,
-			location    : gl.getAttribLocation(program, name),
+			type    : info.type,
+			location: gl.getAttribLocation(program, name),
 			locationSize
 		};
 
@@ -21190,7 +21190,7 @@ function WebGLPrograms(renderer, cubemaps, cubeuvmaps, extensions, capabilities,
 
 			vertexShader,
 			fragmentShader,
-			defines       : material.defines,
+			defines: material.defines,
 
 			customVertexShaderID,
 			customFragmentShaderID,
@@ -21208,17 +21208,17 @@ function WebGLPrograms(renderer, cubemaps, cubeuvmaps, extensions, capabilities,
 			outputColorSpace      : currentRenderTarget===null ? renderer.outputColorSpace : (currentRenderTarget.isXRRenderTarget===true ? currentRenderTarget.texture.colorSpace : LinearSRGBColorSpace),
 			alphaToCoverage       : !!material.alphaToCoverage,
 
-			map               : HAS_MAP,
-			matcap            : HAS_MATCAP,
-			envMap            : HAS_ENVMAP,
-			envMapMode        : HAS_ENVMAP && envMap.mapping,
+			map            : HAS_MAP,
+			matcap         : HAS_MATCAP,
+			envMap         : HAS_ENVMAP,
+			envMapMode     : HAS_ENVMAP && envMap.mapping,
 			envMapCubeUVHeight,
-			aoMap             : HAS_AOMAP,
-			lightMap          : HAS_LIGHTMAP,
-			bumpMap           : HAS_BUMPMAP,
-			normalMap         : HAS_NORMALMAP,
-			displacementMap   : SUPPORTS_VERTEX_TEXTURES && HAS_DISPLACEMENTMAP,
-			emissiveMap       : HAS_EMISSIVEMAP,
+			aoMap          : HAS_AOMAP,
+			lightMap       : HAS_LIGHTMAP,
+			bumpMap        : HAS_BUMPMAP,
+			normalMap      : HAS_NORMALMAP,
+			displacementMap: SUPPORTS_VERTEX_TEXTURES && HAS_DISPLACEMENTMAP,
+			emissiveMap    : HAS_EMISSIVEMAP,
 
 			normalMapObjectSpace : HAS_NORMALMAP && material.normalMapType===ObjectSpaceNormalMap,
 			normalMapTangentSpace: HAS_NORMALMAP && material.normalMapType===TangentSpaceNormalMap,
@@ -21308,14 +21308,14 @@ function WebGLPrograms(renderer, cubemaps, cubeuvmaps, extensions, capabilities,
 
 			flatShading: material.flatShading===true,
 
-			sizeAttenuation       : material.sizeAttenuation===true,
+			sizeAttenuation: material.sizeAttenuation===true,
 			logarithmicDepthBuffer,
 
 			skinning: object.isSkinnedMesh===true,
 
-			morphTargets      : geometry.morphAttributes.position!==undefined,
-			morphNormals      : geometry.morphAttributes.normal!==undefined,
-			morphColors       : geometry.morphAttributes.color!==undefined,
+			morphTargets: geometry.morphAttributes.position!==undefined,
+			morphNormals: geometry.morphAttributes.normal!==undefined,
+			morphColors : geometry.morphAttributes.color!==undefined,
 			morphTargetsCount,
 			morphTextureStride,
 
@@ -27667,10 +27667,10 @@ class WebXRManager extends EventDispatcher {
 				if (session.renderState.layers===undefined || renderer.capabilities.isWebGL2===false) {
 
 					const layerInit = {
-						antialias             : session.renderState.layers===undefined ? attributes.antialias : true,
-						alpha                 : true,
-						depth                 : attributes.depth,
-						stencil               : attributes.stencil,
+						antialias: session.renderState.layers===undefined ? attributes.antialias : true,
+						alpha    : true,
+						depth    : attributes.depth,
+						stencil  : attributes.stencil,
 						framebufferScaleFactor
 					};
 
@@ -32512,10 +32512,10 @@ class Sprite extends Object3D {
 		intersects.push({
 
 			                distance,
-			                point   : _intersectPoint.clone(),
-			                uv      : Triangle.getInterpolation(_intersectPoint, _vA, _vB, _vC, _uvA, _uvB, _uvC, new Vector2()),
-			                face    : null,
-			                object  : this
+			                point : _intersectPoint.clone(),
+			                uv    : Triangle.getInterpolation(_intersectPoint, _vA, _vB, _vC, _uvA, _uvB, _uvC, new Vector2()),
+			                face  : null,
+			                object: this
 
 		                });
 
@@ -36685,7 +36685,7 @@ class SplineCurve extends Curve {
 }
 
 var Curves = /*#__PURE__*/Object.freeze({
-	                                        __proto__            : null,
+	                                        __proto__: null,
 	                                        ArcCurve,
 	                                        CatmullRomCurve3,
 	                                        CubicBezierCurve,
@@ -36869,8 +36869,8 @@ class CurvePath extends Curve {
 			const curve = curves[i];
 			const resolution = curve.isEllipseCurve ? divisions * 2
 			                                        : curve.isLineCurve || curve.isLineCurve3 ? 1
-			                                                                                    : curve.isSplineCurve ? divisions * curve.points.length
-			                                                                                                          : divisions;
+			                                                                                  : curve.isSplineCurve ? divisions * curve.points.length
+			                                                                                                        : divisions;
 
 			const pts = curve.getPoints(resolution);
 
@@ -41202,7 +41202,7 @@ function isUniqueEdge(start, end, edges) {
 }
 
 var Geometries = /*#__PURE__*/Object.freeze({
-	                                            __proto__           : null,
+	                                            __proto__: null,
 	                                            BoxGeometry,
 	                                            CapsuleGeometry,
 	                                            CircleGeometry,
@@ -42709,7 +42709,7 @@ class CubicInterpolant extends Interpolant {
 		      values                    = this.sampleValues,
 		      stride                    = this.valueSize,
 
-		      o1                        = i1 * stride, o0      = o1 - stride,
+		      o1                        = i1 * stride, o0 = o1 - stride,
 		      oP                        = this._offsetPrev, oN = this._offsetNext,
 		      wP = this._weightPrev, wN = this._weightNext,
 

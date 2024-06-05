@@ -1,301 +1,233 @@
 'use strict';
-
-const REVISION = '161';
-
-const MOUSE = {LEFT: 0, MIDDLE: 1, RIGHT: 2, ROTATE: 0, DOLLY: 1, PAN: 2};
-const TOUCH = {ROTATE: 0, PAN: 1, DOLLY_PAN: 2, DOLLY_ROTATE: 3};
-const CullFaceNone = 0;
-const CullFaceBack = 1;
-const CullFaceFront = 2;
-const CullFaceFrontBack = 3;
-const BasicShadowMap = 0;
-const PCFShadowMap = 1;
-const PCFSoftShadowMap = 2;
-const VSMShadowMap = 3;
-const FrontSide = 0;
-const BackSide = 1;
-const DoubleSide = 2;
-const NoBlending = 0;
-const NormalBlending = 1;
-const AdditiveBlending = 2;
-const SubtractiveBlending = 3;
-const MultiplyBlending = 4;
-const CustomBlending = 5;
-const AddEquation = 100;
-const SubtractEquation = 101;
-const ReverseSubtractEquation = 102;
-const MinEquation = 103;
-const MaxEquation = 104;
-const ZeroFactor = 200;
-const OneFactor = 201;
-const SrcColorFactor = 202;
-const OneMinusSrcColorFactor = 203;
-const SrcAlphaFactor = 204;
-const OneMinusSrcAlphaFactor = 205;
-const DstAlphaFactor = 206;
-const OneMinusDstAlphaFactor = 207;
-const DstColorFactor = 208;
-const OneMinusDstColorFactor = 209;
-const SrcAlphaSaturateFactor = 210;
-const ConstantColorFactor = 211;
-const OneMinusConstantColorFactor = 212;
-const ConstantAlphaFactor = 213;
-const OneMinusConstantAlphaFactor = 214;
-const NeverDepth = 0;
-const AlwaysDepth = 1;
-const LessDepth = 2;
-const LessEqualDepth = 3;
-const EqualDepth = 4;
-const GreaterEqualDepth = 5;
-const GreaterDepth = 6;
-const NotEqualDepth = 7;
-const MultiplyOperation = 0;
-const MixOperation = 1;
-const AddOperation = 2;
-const NoToneMapping = 0;
-const LinearToneMapping = 1;
-const ReinhardToneMapping = 2;
-const CineonToneMapping = 3;
-const ACESFilmicToneMapping = 4;
-const CustomToneMapping = 5;
-const AgXToneMapping = 6;
-const AttachedBindMode = 'attached';
-const DetachedBindMode = 'detached';
-
-const UVMapping = 300;
-const CubeReflectionMapping = 301;
-const CubeRefractionMapping = 302;
-const EquirectangularReflectionMapping = 303;
-const EquirectangularRefractionMapping = 304;
-const CubeUVReflectionMapping = 306;
-const RepeatWrapping = 1000;
-const ClampToEdgeWrapping = 1001;
-const MirroredRepeatWrapping = 1002;
-const NearestFilter = 1003;
-const NearestMipmapNearestFilter = 1004;
-const NearestMipMapNearestFilter = 1004;
-const NearestMipmapLinearFilter = 1005;
-const NearestMipMapLinearFilter = 1005;
-const LinearFilter = 1006;
-const LinearMipmapNearestFilter = 1007;
-const LinearMipMapNearestFilter = 1007;
-const LinearMipmapLinearFilter = 1008;
-const LinearMipMapLinearFilter = 1008;
-const UnsignedByteType = 1009;
-const ByteType = 1010;
-const ShortType = 1011;
-const UnsignedShortType = 1012;
-const IntType = 1013;
-const UnsignedIntType = 1014;
-const FloatType = 1015;
-const HalfFloatType = 1016;
-const UnsignedShort4444Type = 1017;
-const UnsignedShort5551Type = 1018;
-const UnsignedInt248Type = 1020;
-const AlphaFormat = 1021;
-const RGBAFormat = 1023;
-const LuminanceFormat = 1024;
-const LuminanceAlphaFormat = 1025;
-const DepthFormat = 1026;
-const DepthStencilFormat = 1027;
-const RedFormat = 1028;
-const RedIntegerFormat = 1029;
-const RGFormat = 1030;
-const RGIntegerFormat = 1031;
-const RGBAIntegerFormat = 1033;
-
-const RGB_S3TC_DXT1_Format = 33776;
-const RGBA_S3TC_DXT1_Format = 33777;
-const RGBA_S3TC_DXT3_Format = 33778;
-const RGBA_S3TC_DXT5_Format = 33779;
-const RGB_PVRTC_4BPPV1_Format = 35840;
-const RGB_PVRTC_2BPPV1_Format = 35841;
-const RGBA_PVRTC_4BPPV1_Format = 35842;
-const RGBA_PVRTC_2BPPV1_Format = 35843;
-const RGB_ETC1_Format = 36196;
-const RGB_ETC2_Format = 37492;
-const RGBA_ETC2_EAC_Format = 37496;
-const RGBA_ASTC_4x4_Format = 37808;
-const RGBA_ASTC_5x4_Format = 37809;
-const RGBA_ASTC_5x5_Format = 37810;
-const RGBA_ASTC_6x5_Format = 37811;
-const RGBA_ASTC_6x6_Format = 37812;
-const RGBA_ASTC_8x5_Format = 37813;
-const RGBA_ASTC_8x6_Format = 37814;
-const RGBA_ASTC_8x8_Format = 37815;
-const RGBA_ASTC_10x5_Format = 37816;
-const RGBA_ASTC_10x6_Format = 37817;
-const RGBA_ASTC_10x8_Format = 37818;
-const RGBA_ASTC_10x10_Format = 37819;
-const RGBA_ASTC_12x10_Format = 37820;
-const RGBA_ASTC_12x12_Format = 37821;
-const RGBA_BPTC_Format = 36492;
-const RGB_BPTC_SIGNED_Format = 36494;
-const RGB_BPTC_UNSIGNED_Format = 36495;
-const RED_RGTC1_Format = 36283;
-const SIGNED_RED_RGTC1_Format = 36284;
-const RED_GREEN_RGTC2_Format = 36285;
-const SIGNED_RED_GREEN_RGTC2_Format = 36286;
-const LoopOnce = 2200;
-const LoopRepeat = 2201;
-const LoopPingPong = 2202;
-const InterpolateDiscrete = 2300;
-const InterpolateLinear = 2301;
-const InterpolateSmooth = 2302;
-const ZeroCurvatureEnding = 2400;
-const ZeroSlopeEnding = 2401;
-const WrapAroundEnding = 2402;
-const NormalAnimationBlendMode = 2500;
-const AdditiveAnimationBlendMode = 2501;
-const TrianglesDrawMode = 0;
-const TriangleStripDrawMode = 1;
-const TriangleFanDrawMode = 2;
-/** @deprecated Use LinearSRGBColorSpace or NoColorSpace in three.js r152+. */
-const LinearEncoding = 3000;
-/** @deprecated Use SRGBColorSpace in three.js r152+. */
-const sRGBEncoding = 3001;
-const BasicDepthPacking = 3200;
-const RGBADepthPacking = 3201;
-const TangentSpaceNormalMap = 0;
-const ObjectSpaceNormalMap = 1;
-
-// Color space string identifiers, matching CSS Color Module Level 4 and WebGPU names where available.
-const NoColorSpace = '';
-const SRGBColorSpace = 'srgb';
-const LinearSRGBColorSpace = 'srgb-linear';
-const DisplayP3ColorSpace = 'display-p3';
-const LinearDisplayP3ColorSpace = 'display-p3-linear';
-
-const LinearTransfer = 'linear';
-const SRGBTransfer = 'srgb';
-
-const Rec709Primaries = 'rec709';
-const P3Primaries = 'p3';
-
-const ZeroStencilOp = 0;
-const KeepStencilOp = 7680;
-const ReplaceStencilOp = 7681;
-const IncrementStencilOp = 7682;
-const DecrementStencilOp = 7683;
-const IncrementWrapStencilOp = 34055;
-const DecrementWrapStencilOp = 34056;
-const InvertStencilOp = 5386;
-
-const NeverStencilFunc = 512;
-const LessStencilFunc = 513;
-const EqualStencilFunc = 514;
-const LessEqualStencilFunc = 515;
-const GreaterStencilFunc = 516;
-const NotEqualStencilFunc = 517;
-const GreaterEqualStencilFunc = 518;
-const AlwaysStencilFunc = 519;
-
-const NeverCompare = 512;
-const LessCompare = 513;
-const EqualCompare = 514;
-const LessEqualCompare = 515;
-const GreaterCompare = 516;
-const NotEqualCompare = 517;
-const GreaterEqualCompare = 518;
-const AlwaysCompare = 519;
-
-const StaticDrawUsage = 35044;
-const DynamicDrawUsage = 35048;
-const StreamDrawUsage = 35040;
-const StaticReadUsage = 35045;
-const DynamicReadUsage = 35049;
-const StreamReadUsage = 35041;
-const StaticCopyUsage = 35046;
-const DynamicCopyUsage = 35050;
-const StreamCopyUsage = 35042;
-
-const GLSL1 = '100';
-const GLSL3 = '300 es';
-
-const _SRGBAFormat = 1035; // fallback for WebGL 1
-
-const WebGLCoordinateSystem = 2000;
-const WebGPUCoordinateSystem = 2001;
+const REVISION                         = '161',
+      MOUSE                            = {LEFT: 0, MIDDLE: 1, RIGHT: 2, ROTATE: 0, DOLLY: 1, PAN: 2},
+      TOUCH                            = {ROTATE: 0, PAN: 1, DOLLY_PAN: 2, DOLLY_ROTATE: 3},
+      CullFaceNone                     = 0,
+      CullFaceBack                     = 1,
+      CullFaceFront                    = 2,
+      CullFaceFrontBack                = 3,
+      BasicShadowMap                   = 0,
+      PCFShadowMap                     = 1,
+      PCFSoftShadowMap                 = 2,
+      VSMShadowMap                     = 3,
+      FrontSide                        = 0,
+      BackSide                         = 1,
+      DoubleSide                       = 2,
+      NoBlending                       = 0,
+      NormalBlending                   = 1,
+      AdditiveBlending                 = 2,
+      SubtractiveBlending              = 3,
+      MultiplyBlending                 = 4,
+      CustomBlending                   = 5,
+      AddEquation                      = 100,
+      SubtractEquation                 = 101,
+      ReverseSubtractEquation          = 102,
+      MinEquation                      = 103,
+      MaxEquation                      = 104,
+      ZeroFactor                       = 200,
+      OneFactor                        = 201,
+      SrcColorFactor                   = 202,
+      OneMinusSrcColorFactor           = 203,
+      SrcAlphaFactor                   = 204,
+      OneMinusSrcAlphaFactor           = 205,
+      DstAlphaFactor                   = 206,
+      OneMinusDstAlphaFactor           = 207,
+      DstColorFactor                   = 208,
+      OneMinusDstColorFactor           = 209,
+      SrcAlphaSaturateFactor           = 210,
+      ConstantColorFactor              = 211,
+      OneMinusConstantColorFactor      = 212,
+      ConstantAlphaFactor              = 213,
+      OneMinusConstantAlphaFactor      = 214,
+      NeverDepth                       = 0,
+      AlwaysDepth                      = 1,
+      LessDepth                        = 2,
+      LessEqualDepth                   = 3,
+      EqualDepth                       = 4,
+      GreaterEqualDepth                = 5,
+      GreaterDepth                     = 6,
+      NotEqualDepth                    = 7,
+      MultiplyOperation                = 0,
+      MixOperation                     = 1,
+      AddOperation                     = 2,
+      NoToneMapping                    = 0,
+      LinearToneMapping                = 1,
+      ReinhardToneMapping              = 2,
+      CineonToneMapping                = 3,
+      ACESFilmicToneMapping            = 4,
+      CustomToneMapping                = 5,
+      AgXToneMapping                   = 6,
+      AttachedBindMode                 = 'attached',
+      DetachedBindMode                 = 'detached',
+      UVMapping                        = 300,
+      CubeReflectionMapping            = 301,
+      CubeRefractionMapping            = 302,
+      EquirectangularReflectionMapping = 303,
+      EquirectangularRefractionMapping = 304,
+      CubeUVReflectionMapping          = 306,
+      RepeatWrapping                   = 1000,
+      ClampToEdgeWrapping              = 1001,
+      MirroredRepeatWrapping           = 1002,
+      NearestFilter                    = 1003,
+      NearestMipmapNearestFilter       = 1004,
+      NearestMipMapNearestFilter       = 1004,
+      NearestMipmapLinearFilter        = 1005,
+      NearestMipMapLinearFilter        = 1005,
+      LinearFilter                     = 1006,
+      LinearMipmapNearestFilter        = 1007,
+      LinearMipMapNearestFilter        = 1007,
+      LinearMipmapLinearFilter         = 1008,
+      LinearMipMapLinearFilter         = 1008,
+      UnsignedByteType                 = 1009,
+      ByteType                         = 1010,
+      ShortType                        = 1011,
+      UnsignedShortType                = 1012,
+      IntType                          = 1013,
+      UnsignedIntType                  = 1014,
+      FloatType                        = 1015,
+      HalfFloatType                    = 1016,
+      UnsignedShort4444Type            = 1017,
+      UnsignedShort5551Type            = 1018,
+      UnsignedInt248Type               = 1020,
+      AlphaFormat                      = 1021,
+      RGBAFormat                       = 1023,
+      LuminanceFormat                  = 1024,
+      LuminanceAlphaFormat             = 1025,
+      DepthFormat                      = 1026,
+      DepthStencilFormat               = 1027,
+      RedFormat                        = 1028,
+      RedIntegerFormat                 = 1029,
+      RGFormat                         = 1030,
+      RGIntegerFormat                  = 1031,
+      RGBAIntegerFormat                = 1033,
+      RGB_S3TC_DXT1_Format             = 33776,
+      RGBA_S3TC_DXT1_Format            = 33777,
+      RGBA_S3TC_DXT3_Format            = 33778,
+      RGBA_S3TC_DXT5_Format            = 33779,
+      RGB_PVRTC_4BPPV1_Format          = 35840,
+      RGB_PVRTC_2BPPV1_Format          = 35841,
+      RGBA_PVRTC_4BPPV1_Format         = 35842,
+      RGBA_PVRTC_2BPPV1_Format         = 35843,
+      RGB_ETC1_Format                  = 36196,
+      RGB_ETC2_Format                  = 37492,
+      RGBA_ETC2_EAC_Format             = 37496,
+      RGBA_ASTC_4x4_Format             = 37808,
+      RGBA_ASTC_5x4_Format             = 37809,
+      RGBA_ASTC_5x5_Format             = 37810,
+      RGBA_ASTC_6x5_Format             = 37811,
+      RGBA_ASTC_6x6_Format             = 37812,
+      RGBA_ASTC_8x5_Format             = 37813,
+      RGBA_ASTC_8x6_Format             = 37814,
+      RGBA_ASTC_8x8_Format             = 37815,
+      RGBA_ASTC_10x5_Format            = 37816,
+      RGBA_ASTC_10x6_Format            = 37817,
+      RGBA_ASTC_10x8_Format            = 37818,
+      RGBA_ASTC_10x10_Format           = 37819,
+      RGBA_ASTC_12x10_Format           = 37820,
+      RGBA_ASTC_12x12_Format           = 37821,
+      RGBA_BPTC_Format                 = 36492,
+      RGB_BPTC_SIGNED_Format           = 36494,
+      RGB_BPTC_UNSIGNED_Format         = 36495,
+      RED_RGTC1_Format                 = 36283,
+      SIGNED_RED_RGTC1_Format          = 36284,
+      RED_GREEN_RGTC2_Format           = 36285,
+      SIGNED_RED_GREEN_RGTC2_Format    = 36286,
+      LoopOnce                         = 2200,
+      LoopRepeat                       = 2201,
+      LoopPingPong                     = 2202,
+      InterpolateDiscrete              = 2300,
+      InterpolateLinear                = 2301,
+      InterpolateSmooth                = 2302,
+      ZeroCurvatureEnding              = 2400,
+      ZeroSlopeEnding                  = 2401,
+      WrapAroundEnding                 = 2402,
+      NormalAnimationBlendMode         = 2500,
+      AdditiveAnimationBlendMode       = 2501,
+      TrianglesDrawMode                = 0,
+      TriangleStripDrawMode            = 1,
+      TriangleFanDrawMode              = 2,
+      /** @deprecated Use LinearSRGBColorSpace or NoColorSpace in three.js r152+. */
+      LinearEncoding                   = 3000,
+      /** @deprecated Use SRGBColorSpace in three.js r152+. */
+      sRGBEncoding                     = 3001,
+      BasicDepthPacking                = 3200,
+      RGBADepthPacking                 = 3201,
+      TangentSpaceNormalMap            = 0,
+      ObjectSpaceNormalMap             = 1,
+      NoColorSpace                     = '',
+      SRGBColorSpace                   = 'srgb',
+      LinearSRGBColorSpace             = 'srgb-linear',
+      DisplayP3ColorSpace              = 'display-p3',
+      LinearDisplayP3ColorSpace        = 'display-p3-linear',
+      LinearTransfer                   = 'linear',
+      SRGBTransfer                     = 'srgb',
+      Rec709Primaries                  = 'rec709',
+      P3Primaries                      = 'p3',
+      ZeroStencilOp                    = 0,
+      KeepStencilOp                    = 7680,
+      ReplaceStencilOp                 = 7681,
+      IncrementStencilOp               = 7682,
+      DecrementStencilOp               = 7683,
+      IncrementWrapStencilOp           = 34055,
+      DecrementWrapStencilOp           = 34056,
+      InvertStencilOp                  = 5386,
+      NeverStencilFunc                 = 512,
+      LessStencilFunc                  = 513,
+      EqualStencilFunc                 = 514,
+      LessEqualStencilFunc             = 515,
+      GreaterStencilFunc               = 516,
+      NotEqualStencilFunc              = 517,
+      GreaterEqualStencilFunc          = 518,
+      AlwaysStencilFunc                = 519,
+      NeverCompare                     = 512,
+      LessCompare                      = 513,
+      EqualCompare                     = 514,
+      LessEqualCompare                 = 515,
+      GreaterCompare                   = 516,
+      NotEqualCompare                  = 517,
+      GreaterEqualCompare              = 518,
+      AlwaysCompare                    = 519,
+      StaticDrawUsage                  = 35044,
+      DynamicDrawUsage                 = 35048,
+      StreamDrawUsage                  = 35040,
+      StaticReadUsage                  = 35045,
+      DynamicReadUsage                 = 35049,
+      StreamReadUsage                  = 35041,
+      StaticCopyUsage                  = 35046,
+      DynamicCopyUsage                 = 35050,
+      StreamCopyUsage                  = 35042,
+      GLSL1                            = '100',
+      GLSL3                            = '300 es',
+      _SRGBAFormat                     = 1035,
+      WebGLCoordinateSystem            = 2000,
+      WebGPUCoordinateSystem           = 2001;
 
 class EventDispatcher {
 
 	addEventListener(type, listener) {
-
 		if (this._listeners===undefined) this._listeners = {};
-
-		const listeners = this._listeners;
-
-		if (listeners[type]===undefined) {
-
-			listeners[type] = [];
-
-		}
-
-		if (listeners[type].indexOf(listener)=== -1) {
-
-			listeners[type].push(listener);
-
-		}
-
+		if ((this._listeners)[type]===undefined) (this._listeners)[type] = [];
+		if ((this._listeners)[type].indexOf(listener)=== -1) (this._listeners)[type].push(listener);
 	}
 
 	hasEventListener(type, listener) {
-
 		if (this._listeners===undefined) return false;
-
-		const listeners = this._listeners;
-
-		return listeners[type]!==undefined && listeners[type].indexOf(listener)!== -1;
-
+		return (this._listeners)[type]!==undefined && (this._listeners)[type].indexOf(listener)!== -1;
 	}
 
 	removeEventListener(type, listener) {
-
 		if (this._listeners===undefined) return;
-
-		const listeners = this._listeners;
-		const listenerArray = listeners[type];
-
-		if (listenerArray!==undefined) {
-
-			const index = listenerArray.indexOf(listener);
-
-			if (index!== -1) {
-
-				listenerArray.splice(index, 1);
-
-			}
-
-		}
-
+		if ((this._listeners)[type]!==undefined && (this._listeners)[type].indexOf(listener)!== -1) (this._listeners)[type].splice((this._listeners)[type].indexOf(listener), 1);
 	}
 
 	dispatchEvent(event) {
-
 		if (this._listeners===undefined) return;
-
-		const listeners = this._listeners;
-		const listenerArray = listeners[event.type];
-
-		if (listenerArray!==undefined) {
-
+		if ((this._listeners)[event.type]!==undefined) {
 			event.target = this;
-
-			// Make a copy, in case listeners are removed while iterating.
-			const array = listenerArray.slice(0);
-
-			for (let i = 0, l = array.length; i<l; i++) {
-
-				array[i].call(this, event);
-
-			}
-
+			for (let i = 0, l = (this._listeners)[event.type].slice(0).length; i<l; i++) ((this._listeners)[event.type].slice(0))[i].call(this, event);
 			event.target = null;
-
 		}
-
 	}
-
 }
 
 const _lut = [
@@ -558,130 +490,61 @@ const _lut = [
 ];
 
 let _seed = 1234567;
+const DEG2RAD = Math.PI / 180, RAD2DEG = 180 / Math.PI;
 
-
-const DEG2RAD = Math.PI / 180;
-const RAD2DEG = 180 / Math.PI;
-
-// http://stackoverflow.com/questions/105034/how-to-create-a-guid-uuid-in-javascript/21963136#21963136
 function generateUUID() {
-
-	const d0 = Math.random() * 0xffffffff | 0;
-	const d1 = Math.random() * 0xffffffff | 0;
-	const d2 = Math.random() * 0xffffffff | 0;
-	const d3 = Math.random() * 0xffffffff | 0;
-	const uuid = _lut[d0 & 0xff] + _lut[d0 >> 8 & 0xff] + _lut[d0 >> 16 & 0xff] + _lut[d0 >> 24 & 0xff] + '-' +
-	             _lut[d1 & 0xff] + _lut[d1 >> 8 & 0xff] + '-' + _lut[d1 >> 16 & 0x0f | 0x40] + _lut[d1 >> 24 & 0xff] + '-' +
-	             _lut[d2 & 0x3f | 0x80] + _lut[d2 >> 8 & 0xff] + '-' + _lut[d2 >> 16 & 0xff] + _lut[d2 >> 24 & 0xff] +
-	             _lut[d3 & 0xff] + _lut[d3 >> 8 & 0xff] + _lut[d3 >> 16 & 0xff] + _lut[d3 >> 24 & 0xff];
-
-	// .toLowerCase() here flattens concatenated strings to save heap memory space.
+	const d0   = Math.random() * 0xffffffff | 0,
+	      d1   = Math.random() * 0xffffffff | 0,
+	      d2   = Math.random() * 0xffffffff | 0,
+	      d3   = Math.random() * 0xffffffff | 0,
+	      uuid = `${_lut[d0 & 0xff] + _lut[d0 >> 8 & 0xff] + _lut[d0 >> 16 & 0xff] + _lut[d0 >> 24 & 0xff]}-${_lut[d1 & 0xff]}${_lut[d1 >> 8 & 0xff]}-${_lut[d1 >> 16 & 0x0f | 0x40]}${_lut[d1 >> 24 & 0xff]}-${_lut[d2 & 0x3f | 0x80]}${_lut[d2 >> 8 & 0xff]}-${_lut[d2 >> 16 & 0xff]}${_lut[d2 >> 24 & 0xff]}${_lut[d3 & 0xff]}${_lut[d3 >> 8 & 0xff]}${_lut[d3 >> 16 & 0xff]}${_lut[d3 >> 24 & 0xff]}`;
 	return uuid.toLowerCase();
-
 }
 
-function clamp(value, min, max) {
+function clamp(value, min, max) {return Math.max(min, Math.min(max, value));}
 
-	return Math.max(min, Math.min(max, value));
+function euclideanModulo(n, m) {return (n % m + m) % m;}
 
-}
+function mapLinear(x, a1, a2, b1, b2) {return b1 + (x - a1) * (b2 - b1) / (a2 - a1);}
 
-// compute euclidean modulo of m % n
-// https://en.wikipedia.org/wiki/Modulo_operation
-function euclideanModulo(n, m) {
-
-	return (n % m + m) % m;
-
-}
-
-// Linear mapping from range <a1, a2> to range <b1, b2>
-function mapLinear(x, a1, a2, b1, b2) {
-
-	return b1 + (x - a1) * (b2 - b1) / (a2 - a1);
-
-}
-
-// https://www.gamedev.net/tutorials/programming/general-and-gameplay-programming/inverse-lerp-a-super-useful-yet-often-overlooked-function-r5230/
 function inverseLerp(x, y, value) {
-
-	if (x!==y) {
-
-		return (value - x) / (y - x);
-
-	} else {
-
-		return 0;
-
-	}
-
+	if (x===y) return 0; else {return (value - x) / (y - x);}
 }
 
-// https://en.wikipedia.org/wiki/Linear_interpolation
-function lerp(x, y, t) {
+function lerp(x, y, t) {return (1 - t) * x + t * y;}
 
-	return (1 - t) * x + t * y;
+function damp(x, y, lambda, dt) {return lerp(x, y, 1 - Math.exp(-lambda * dt));}
 
-}
+function pingpong(x, length = 1) {return length - Math.abs(euclideanModulo(x, length * 2) - length);}
 
-// http://www.rorydriscoll.com/2016/03/07/frame-rate-independent-damping-using-lerp/
-function damp(x, y, lambda, dt) {
-
-	return lerp(x, y, 1 - Math.exp(-lambda * dt));
-
-}
-
-// https://www.desmos.com/calculator/vcsjnyz7x4
-function pingpong(x, length = 1) {
-
-	return length - Math.abs(euclideanModulo(x, length * 2) - length);
-
-}
-
-// http://en.wikipedia.org/wiki/Smoothstep
 function smoothstep(x, min, max) {
+	if ((x - min) / (max - min)<=min) return 0;
+	if ((x - min) / (max - min)>=max) return 1;
 
-	if (x<=min) return 0;
-	if (x>=max) return 1;
-
-	x = (x - min) / (max - min);
-
-	return x * x * (3 - 2 * x);
-
+	return (x - min) / (max - min) * ((x - min) / (max - min)) * (3 - 2 * ((x - min) / (max - min)));
 }
 
 function smootherstep(x, min, max) {
+	if ((x - min) / (max - min)<=min) return 0;
+	if ((x - min) / (max - min)>=max) return 1;
 
-	if (x<=min) return 0;
-	if (x>=max) return 1;
-
-	x = (x - min) / (max - min);
-
-	return x * x * x * (x * (x * 6 - 15) + 10);
-
+	return (x - min) / (max - min) * ((x - min) / (max - min)) * ((x - min) / (max - min)) * ((x - min) / (max - min) * ((x - min) / (max - min) * 6 - 15) + 10);
 }
 
-// Random integer from <low, high> interval
-function randInt(low, high) {
+function randInt(low, high) {return low + Math.floor(Math.random() * (high - low + 1));}
 
-	return low + Math.floor(Math.random() * (high - low + 1));
-
-}
-
-// Random float from <low, high> interval
 function randFloat(low, high) {
 
 	return low + Math.random() * (high - low);
 
 }
 
-// Random float from <-range/2, range/2> interval
 function randFloatSpread(range) {
 
 	return range * (0.5 - Math.random());
 
 }
 
-// Deterministic pseudo-random float in the interval [ 0, 1 ]
 function seededRandom(s) {
 
 	if (s!==undefined) _seed = s;
@@ -1535,9 +1398,9 @@ class Matrix3 {
 
 		const te = this.elements;
 
-		const a                       = te[0], b = te[1], c = te[2],
-		      d = te[3], e = te[4], f = te[5],
-		      g                       = te[6], h            = te[7], i = te[8];
+		const a                       = te[0], b            = te[1], c = te[2],
+		      d                       = te[3], e = te[4], f = te[5],
+		      g = te[6], h = te[7], i = te[8];
 
 		return a * e * i - a * f * h - b * d * i + b * f * g + c * d * h - c * e * g;
 
@@ -1548,8 +1411,8 @@ class Matrix3 {
 		const te                            = this.elements,
 
 		      n11                           = te[0], n21              = te[1], n31 = te[2],
-		      n12                           = te[3], n22              = te[4], n32 = te[5],
-		      n13 = te[6], n23 = te[7], n33 = te[8],
+		      n12 = te[3], n22 = te[4], n32 = te[5],
+		      n13                           = te[6], n23 = te[7], n33 = te[8],
 
 		      t11                           = n33 * n22 - n32 * n23,
 		      t12                           = n32 * n13 - n33 * n12,
@@ -2846,9 +2709,9 @@ class Vector4 {
 
 		      te                            = m.elements,
 
-		      m11 = te[0], m12 = te[4], m13 = te[8],
+		      m11                           = te[0], m12 = te[4], m13 = te[8],
 		      m21                           = te[1], m22 = te[5], m23 = te[9],
-		      m31                           = te[2], m32 = te[6], m33 = te[10];
+		      m31 = te[2], m32 = te[6], m33 = te[10];
 
 		if (Math.abs(m12 - m21)<epsilon &&
 		    Math.abs(m13 - m31)<epsilon &&
@@ -3797,7 +3660,7 @@ class Quaternion {
 
 		      m11                           = te[0], m12              = te[4], m13 = te[8],
 		      m21 = te[1], m22 = te[5], m23 = te[9],
-		      m31                           = te[2], m32              = te[6], m33 = te[10],
+		      m31                           = te[2], m32 = te[6], m33 = te[10],
 
 		      trace                         = m11 + m22 + m33;
 
@@ -6620,37 +6483,37 @@ class Matrix4 {
 		//( based on http://www.euclideanspace.com/maths/algebra/matrix/functions/inverse/fourD/index.htm )
 
 		return n41 * (
-				+n14 * n23 * n32
-				- n13 * n24 * n32
-				- n14 * n22 * n33
-				+ n12 * n24 * n33
-				+ n13 * n22 * n34
-				- n12 * n23 * n34
-		) +
-		n42 * (
-				+n11 * n23 * n34
-				- n11 * n24 * n33
-				+ n14 * n21 * n33
-				- n13 * n21 * n34
-				+ n13 * n24 * n31
-				- n14 * n23 * n31
-		) +
-		n43 * (
-				+n11 * n24 * n32
-				- n11 * n22 * n34
-				- n14 * n21 * n32
-				+ n12 * n21 * n34
-				+ n14 * n22 * n31
-				- n12 * n24 * n31
-		) +
-		n44 * (
-		-n13 * n22 * n31
-		- n11 * n23 * n32
-		+ n11 * n22 * n33
-		+ n13 * n21 * n32
-		- n12 * n21 * n33
-		+ n12 * n23 * n31
-		);
+			            +n14 * n23 * n32
+			            - n13 * n24 * n32
+			            - n14 * n22 * n33
+			            + n12 * n24 * n33
+			            + n13 * n22 * n34
+			            - n12 * n23 * n34
+		           ) +
+		       n42 * (
+			        +n11 * n23 * n34
+			        - n11 * n24 * n33
+			        + n14 * n21 * n33
+			        - n13 * n21 * n34
+			        + n13 * n24 * n31
+			        - n14 * n23 * n31
+		       ) +
+		       n43 * (
+			        +n11 * n24 * n32
+			        - n11 * n22 * n34
+			        - n14 * n21 * n32
+			        + n12 * n21 * n34
+			        + n14 * n22 * n31
+			        - n12 * n24 * n31
+		       ) +
+		       n44 * (
+		       -n13 * n22 * n31
+		       - n11 * n23 * n32
+		       + n11 * n22 * n33
+		       + n13 * n21 * n32
+		       - n12 * n21 * n33
+		       + n12 * n23 * n31
+		       );
 
 	}
 
@@ -6710,9 +6573,9 @@ class Matrix4 {
 		// based on http://www.euclideanspace.com/maths/algebra/matrix/functions/inverse/fourD/index.htm
 		const te                                            = this.elements,
 
-		      n11                                           = te[0], n21                              = te[1], n31 = te[2], n41 = te[3],
-		      n12                                           = te[4], n22 = te[5], n32                 = te[6], n42 = te[7],
-		      n13                                           = te[8], n23                              = te[9], n33                 = te[10], n43   = te[11],
+		      n11                                           = te[0], n21 = te[1], n31 = te[2], n41    = te[3],
+		      n12                                           = te[4], n22                              = te[5], n32 = te[6], n42 = te[7],
+		      n13                                           = te[8], n23 = te[9], n33 = te[10], n43   = te[11],
 		      n14 = te[12], n24 = te[13], n34 = te[14], n44 = te[15],
 
 		      t11                                           = n23 * n34 * n42 - n24 * n33 * n42 + n24 * n32 * n43 - n22 * n34 * n43 - n23 * n32 * n44 + n22 * n33 * n44,
@@ -12248,7 +12111,7 @@ function checkIntersection(object, material, raycaster, ray, pA, pB, pC, point) 
 
 	return {
 		distance,
-		point   : _intersectionPointWorld.clone(),
+		point: _intersectionPointWorld.clone(),
 		object
 	};
 
@@ -15600,9 +15463,9 @@ function WebGLBindingStates(gl, extensions, attributes, capabilities) {
 			newAttributes,
 			enabledAttributes,
 			attributeDivisors,
-			object           : vao,
-			attributes       : {},
-			index            : null
+			object    : vao,
+			attributes: {},
+			index     : null
 
 		};
 
@@ -18279,9 +18142,9 @@ function WebGLMorphtargets(gl, capabilities, textures) {
 				}
 
 				entry = {
-					count  : morphTargetsCount,
+					count: morphTargetsCount,
 					texture,
-					size   : new Vector2(width, height)
+					size : new Vector2(width, height)
 				};
 
 				morphTextures.set(geometry, entry);
@@ -19981,8 +19844,8 @@ function fetchAttributeLocations(gl, program) {
 		// console.log( 'THREE.WebGLProgram: ACTIVE VERTEX ATTRIBUTE:', name, i );
 
 		attributes[name] = {
-			type        : info.type,
-			location    : gl.getAttribLocation(program, name),
+			type    : info.type,
+			location: gl.getAttribLocation(program, name),
 			locationSize
 		};
 
@@ -21188,7 +21051,7 @@ function WebGLPrograms(renderer, cubemaps, cubeuvmaps, extensions, capabilities,
 
 			vertexShader,
 			fragmentShader,
-			defines       : material.defines,
+			defines: material.defines,
 
 			customVertexShaderID,
 			customFragmentShaderID,
@@ -21206,17 +21069,17 @@ function WebGLPrograms(renderer, cubemaps, cubeuvmaps, extensions, capabilities,
 			outputColorSpace      : currentRenderTarget===null ? renderer.outputColorSpace : (currentRenderTarget.isXRRenderTarget===true ? currentRenderTarget.texture.colorSpace : LinearSRGBColorSpace),
 			alphaToCoverage       : !!material.alphaToCoverage,
 
-			map               : HAS_MAP,
-			matcap            : HAS_MATCAP,
-			envMap            : HAS_ENVMAP,
-			envMapMode        : HAS_ENVMAP && envMap.mapping,
+			map            : HAS_MAP,
+			matcap         : HAS_MATCAP,
+			envMap         : HAS_ENVMAP,
+			envMapMode     : HAS_ENVMAP && envMap.mapping,
 			envMapCubeUVHeight,
-			aoMap             : HAS_AOMAP,
-			lightMap          : HAS_LIGHTMAP,
-			bumpMap           : HAS_BUMPMAP,
-			normalMap         : HAS_NORMALMAP,
-			displacementMap   : SUPPORTS_VERTEX_TEXTURES && HAS_DISPLACEMENTMAP,
-			emissiveMap       : HAS_EMISSIVEMAP,
+			aoMap          : HAS_AOMAP,
+			lightMap       : HAS_LIGHTMAP,
+			bumpMap        : HAS_BUMPMAP,
+			normalMap      : HAS_NORMALMAP,
+			displacementMap: SUPPORTS_VERTEX_TEXTURES && HAS_DISPLACEMENTMAP,
+			emissiveMap    : HAS_EMISSIVEMAP,
 
 			normalMapObjectSpace : HAS_NORMALMAP && material.normalMapType===ObjectSpaceNormalMap,
 			normalMapTangentSpace: HAS_NORMALMAP && material.normalMapType===TangentSpaceNormalMap,
@@ -21306,14 +21169,14 @@ function WebGLPrograms(renderer, cubemaps, cubeuvmaps, extensions, capabilities,
 
 			flatShading: material.flatShading===true,
 
-			sizeAttenuation       : material.sizeAttenuation===true,
+			sizeAttenuation: material.sizeAttenuation===true,
 			logarithmicDepthBuffer,
 
 			skinning: object.isSkinnedMesh===true,
 
-			morphTargets      : geometry.morphAttributes.position!==undefined,
-			morphNormals      : geometry.morphAttributes.normal!==undefined,
-			morphColors       : geometry.morphAttributes.color!==undefined,
+			morphTargets: geometry.morphAttributes.position!==undefined,
+			morphNormals: geometry.morphAttributes.normal!==undefined,
+			morphColors : geometry.morphAttributes.color!==undefined,
 			morphTargetsCount,
 			morphTextureStride,
 
@@ -27665,10 +27528,10 @@ class WebXRManager extends EventDispatcher {
 				if (session.renderState.layers===undefined || renderer.capabilities.isWebGL2===false) {
 
 					const layerInit = {
-						antialias             : session.renderState.layers===undefined ? attributes.antialias : true,
-						alpha                 : true,
-						depth                 : attributes.depth,
-						stencil               : attributes.stencil,
+						antialias: session.renderState.layers===undefined ? attributes.antialias : true,
+						alpha    : true,
+						depth    : attributes.depth,
+						stencil  : attributes.stencil,
 						framebufferScaleFactor
 					};
 
@@ -32510,10 +32373,10 @@ class Sprite extends Object3D {
 		intersects.push({
 
 			                distance,
-			                point   : _intersectPoint.clone(),
-			                uv      : Triangle.getInterpolation(_intersectPoint, _vA, _vB, _vC, _uvA, _uvB, _uvC, new Vector2()),
-			                face    : null,
-			                object  : this
+			                point : _intersectPoint.clone(),
+			                uv    : Triangle.getInterpolation(_intersectPoint, _vA, _vB, _vC, _uvA, _uvB, _uvC, new Vector2()),
+			                face  : null,
+			                object: this
 
 		                });
 
@@ -36683,7 +36546,7 @@ class SplineCurve extends Curve {
 }
 
 var Curves = /*#__PURE__*/Object.freeze({
-	                                        __proto__            : null,
+	                                        __proto__: null,
 	                                        ArcCurve,
 	                                        CatmullRomCurve3,
 	                                        CubicBezierCurve,
@@ -36867,8 +36730,8 @@ class CurvePath extends Curve {
 			const curve = curves[i];
 			const resolution = curve.isEllipseCurve ? divisions * 2
 			                                        : curve.isLineCurve || curve.isLineCurve3 ? 1
-			                                                                                    : curve.isSplineCurve ? divisions * curve.points.length
-			                                                                                                          : divisions;
+			                                                                                  : curve.isSplineCurve ? divisions * curve.points.length
+			                                                                                                        : divisions;
 
 			const pts = curve.getPoints(resolution);
 
@@ -41200,7 +41063,7 @@ function isUniqueEdge(start, end, edges) {
 }
 
 var Geometries = /*#__PURE__*/Object.freeze({
-	                                            __proto__           : null,
+	                                            __proto__: null,
 	                                            BoxGeometry,
 	                                            CapsuleGeometry,
 	                                            CircleGeometry,
@@ -42708,8 +42571,8 @@ class CubicInterpolant extends Interpolant {
 		      stride                    = this.valueSize,
 
 		      o1                        = i1 * stride, o0 = o1 - stride,
-		      oP                        = this._offsetPrev, oN = this._offsetNext,
-		      wP = this._weightPrev, wN = this._weightNext,
+		      oP = this._offsetPrev, oN = this._offsetNext,
+		      wP                        = this._weightPrev, wN = this._weightNext,
 
 		      p                         = (t - t0) / (t1 - t0),
 		      pp                        = p * p,
