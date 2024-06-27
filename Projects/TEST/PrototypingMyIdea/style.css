@@ -1,0 +1,3 @@
+body { margin : 0; font-family : 'Press Start 2P', cursive; background : #000; color : #FFF; display : flex; justify-content : center; align-items : center; height : 100vh; }
+
+#gameWindow { width : 90vw; height : 85vh; background : #242424; padding : 10px; border : 5px outset #656570; box-shadow : 0 0 20px rgba(0, 0, 0, 0.5); overflow : hidden; }

@@ -1,12 +1,12 @@
 <html lang='EN'>
 <head>
-	<title>-~= Hannah's Hallway =~-</title>
-	<meta content='width=device-width, initial-scale=1' name='viewport'>
+	<link href='./Media/PurplePotion.webp' rel='icon' type='image/webp'>
+	<link href='./Style/style.css' rel='stylesheet' type='Text/css'>
+	<meta charset='UTF-8'>
 	<meta content="Hannah's Hallway" name='title'>
 	<meta content="Hannah's Personal Web Archive" name='description'>
-	<meta charset='UTF-8'>
-	<link href='Media/PurplePotion.webp' rel='icon' type='image/webp'>
-	<link href='Style/style.css' rel='stylesheet' type='Text/css'>
+	<meta content='width=device-width, initial-scale=1' name='viewport'>
+	<title>-~= Hannah's Hallway =~-</title>
 	<script>
 		setInterval(()=>{
 			const TargetDate = new Date(`August 11, 2023, 7:24:00`).getTime() - Date.now();
@@ -16,8 +16,8 @@
 				${Math.floor((TargetDate % 60000) / 1000)} seconds`;
 		}, 100);
 	</script>
-	<script defer src='Scripts/trail.js' type='Text/javascript'></script>
-	<script defer src='Scripts/Bal-Tern-Grk.js' type='text/javascript'></script>
+	<script defer src='./Scripts/Bal-Tern-Grk.js' type='text/javascript'></script>
+	<script defer src='./Scripts/trail.js' type='Text/javascript'></script>
 </head>
 
 <body>
@@ -31,12 +31,13 @@
 		<li onclick='window.location = "keyspage.html"'>Time Machine</li>
 		<li onclick='window.location = "portfolio.html"'>Portfolio</li>
 		<li onclick='window.location = "archive.html"'>Archives</li>
+		<li onclick='window.location = "./Photography/index.html"'>Photo Gallery</li>
 	</div>
 </nav>
 <div class='Content_Box'>
 	<h1>Home</h1>
 	<h2>Hi, I'm Hannah. I love science and am a self proclaimed internet archivist.</h2>
-	<img alt='Temperance Brennan' class='Tempie' height='300' src='Media/Temperence.webp' width='470'>
+	<img alt='Temperance Brennan' class='Tempie' height='300' src='./Media/Temperence.webp' width='470'>
 	<p class='Img_Sub'>Junior Year, Coming Autumn 2023</p>
 	<div class='Time' id='Timer'><p id='Countdown'></p></div>
 </div>

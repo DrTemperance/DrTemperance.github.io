@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang='EN'>
+		<head>
+			<script src='./assets/js/main.js' defer></script>
+			<link href='./assets/css/custom.css' media='screen' rel='stylesheet' title='Custom Settings' type='text/css'>
+      <link href='./assets/css/main.css' rel='stylesheet' type='text/css'>
+      <link href='./assets/css/normalize.css' rel='stylesheet' type='text/css'>
+			<script src='//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js'></script>
+      <meta charset='utf-8'>
+      <meta content='width=device-width, initial-scale=1' name='viewport'>
+      <script src='./assets/js/libs/modernizr.custom.23122.js'></script>
+      <title>Hannah's Photography Dump</title>
+    </head>
+		<body class='has-header' data-pagination-style='scroll'>
+		<header class='is-fixed'>
+			<div class='background'></div>
+      <div class='meta-left'>
+        <p class='title' id='galleryTitle'>Hannah's Photography Dump</p>
+        <p class='author' id='galleryAuthor'>by Benzene</p>
+      </div>
+      <div class='meta-right'>
+        <p class='extra' id='galleryExtra'>Just my photo dump</p>
+      </div>
+      <div id='buttonFullscreen' title='Fullscreen Mode'>
+        <div class='icon'>
+            <svg id='svgIconFullscreen' viewBox='0 0 18 16' x='0px' y='0px'>
+            <g>
+              <path class='custom-colorable' d='M5.3871,9.95599C5.19136,9.76858,4.99176,9.85763,4.79376,10.0472l-2.86173,2.74138v-1.55466 c0-0.25257-0.21387-0.45733-0.47767-0.45733H0.47767C0.21387,10.7766,0,10.98136,0,11.23393v3.37367v0.93511 C0,15.79524,0.21387,16,0.47767,16h0.97668h3.5238c0.26377,0,0.47764-0.20476,0.47764-0.45729v-0.93511 c0-0.25254-0.21387-0.45733-0.47764-0.45733H3.34554l2.86694-2.7451c0.198-0.18957,0.30914-0.44923,0.11342-0.63664L5.3871,9.95599 z' />
+              <path class='custom-colorable' d='M17.52233,10.7766h-0.97672c-0.26377,0-0.47764,0.20476-0.47764,0.45733v1.55466l-2.86172-2.74138 c-0.198-0.18957-0.39764-0.27862-0.59335-0.09121l-0.93879,0.81254c-0.19575,0.18741-0.08458,0.44707,0.11342,0.63664 l2.8669,2.7451h-1.63258c-0.26377,0-0.47764,0.20479-0.47764,0.45733v0.93511c0,0.25254,0.21387,0.45729,0.47764,0.45729h3.52376 h0.97672C17.7861,16,18,15.79524,18,15.54271v-0.93511v-3.37367C18,10.98136,17.7861,10.7766,17.52233,10.7766z' /><path class='custom-colorable' d='M3.34554,1.84973h1.63262c0.26377,0,0.47764-0.20479,0.47764-0.45733V0.45733C5.45579,0.20476,5.24193,0,4.97815,0h-3.5238 H0.47767C0.21387,0,0,0.20476,0,0.45733v0.93508v3.3737C0,5.01864,0.21387,5.2234,0.47767,5.2234h0.97668 c0.26381,0,0.47767-0.20476,0.47767-0.45729V3.21142L4.79376,5.9528c0.198,0.18957,0.3976,0.27862,0.59335,0.09121l0.93879-0.81254 C6.52161,5.04409,6.41048,4.7844,6.21247,4.59483L3.34554,1.84973z' />
+              <path class='custom-colorable' d='M17.52233,0h-0.97672h-3.52376c-0.26377,0-0.47764,0.20476-0.47764,0.45733v0.93508 c0,0.25254,0.21387,0.45733,0.47764,0.45733h1.63258l-2.8669,2.7451c-0.19801,0.18957-0.30917,0.44926-0.11342,0.63663 l0.93879,0.81254c0.19571,0.18741,0.39535,0.09836,0.59335-0.09121l2.86172-2.74138V4.7661 c0,0.25254,0.21387,0.45729,0.47764,0.45729h0.97672C17.7861,5.2234,18,5.01864,18,4.7661v-3.3737V0.45733 C18,0.20476,17.7861,0,17.52233,0z' />
+            </g>
+            </svg>
+        </div>
+      </div>
+    </header>
+            <div id='thumbnailContainer'>
+	            <div class='thumbnails thumbnail-size-lg'></div>
+            </div>
+        <div class='show-corners' id='loupeContainer'>
+            <div class='background'></div>
+            <div class='image-container'></div>
+            <div class='side-navigation'>
+                <div class='hotspot' id='hotspotPrevLoupe'>
+                    <div class='button' id='buttonPrevSideLoupe'>
+                        <svg height='50px' id='svgIconPrevSideLoupe' viewBox='0 0 50 50' width='50px' x='0px' y='0px'>
+                            <path class='icon custom-colorable' d='M0,0l0,50h50V0L0,0z M18.49,25.05l9.707-9.264c0.418-0.399,1.093-0.403,1.506-0.008l1.498,1.43 c0.414,0.395,0.41,1.039-0.009,1.438l-6.765,6.456l6.613,6.31c0.411,0.392,0.414,1.024,0.008,1.412l-1.471,1.404 c-0.406,0.387-1.069,0.384-1.479-0.008l-6.612-6.311L18.49,25.05z' fill='#231F20' />
+                        </svg>
+                    </div>
+                </div>
+                <div class='hotspot' id='hotspotNextLoupe'>
+                    <div class='button' id='buttonNextSideLoupe'>
+                        <svg height='50px' id='svgIconNextSideLoupe' viewBox='0 0 50 50' width='50px' x='0px' y='0px'>
+                            <path class='icon custom-colorable' d='M0,0v50h50V0H0z M28.513,27.909l-6.612,6.311c-0.411,0.392-1.073,0.395-1.479,0.008l-1.471-1.404 c-0.406-0.388-0.402-1.02,0.008-1.412l6.613-6.31l-6.765-6.456c-0.419-0.399-0.422-1.043-0.009-1.438l1.498-1.43 c0.414-0.395,1.088-0.391,1.506,0.008l9.707,9.264L28.513,27.909z' fill='#231F20' />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            <div class='info-container'>
+                <div id='loupeMeta'></div>
+                <ul class='lateral-nav'>
+                    <li id='buttonPrev'>
+                        <svg id='svgIconPrevLoupe' style='enable-background:new 0 0 45 45;' viewBox='0 0 45 45' x='0px' y='0px'>
+                            <style type='text/css'> .st0 {clip-rule : evenodd;fill : #231F20;fill-rule : evenodd;}</style>
+                            <path class='icon custom-colorable' d='M25.20105,14.76864l-8.2004,7.773l2.5314,2.3992l5.5858,5.2952c0.3469,0.3289,0.9064,0.3318,1.2497,0.0065 l1.2431-1.1783c0.3429-0.3252,0.3398-0.8555-0.0071-1.1846l-5.5864-5.2948l5.7149-5.4171c0.3535-0.3349,0.3568-0.875,0.0074-1.2063 l-1.2657-1.1995C26.12435,14.43064,25.55435,14.43354,25.20105,14.76864z' />
+                        </svg>
+                    </li>
+                    <li class='count'><span id='countCurrent'></span> of <span id='countTotal'></span></li>
+                    <li id='buttonNext'>
+                        <svg id='svgIconNextLoupe' style='enable-background:new 0 0 45 45;' viewBox='0 0 45 45' x='0px' y='0px'>
+                            <style type='text/css'> .st0 {clip-rule : evenodd;fill : #231F20;fill-rule : evenodd;}</style>
+                            <path class='icon custom-colorable' d='M19.79895,14.76864l8.2004,7.773l-2.5314,2.3992l-5.5858,5.2952c-0.3469,0.3289-0.9064,0.3318-1.2497,0.0065 l-1.2431-1.1783c-0.3429-0.3252-0.3398-0.8555,0.0071-1.1846l5.5864-5.2948l-5.7149-5.4171 c-0.3535-0.3349-0.3568-0.875-0.0074-1.2063l1.2657-1.1995C18.87565,14.43064,19.44565,14.43354,19.79895,14.76864z' />
+                        </svg>
+                    </li>
+                </ul>
+            </div>
+            <div id='loupeCloseButton'>
+                <svg id='svgIconLoupeClose' style='enable-background:new 0 0 45 45;' viewBox='0 0 45 45' x='0px' y='0px'>
+                    <path class='shape-x custom-colorable' d='M14.77881,17.30074l5.212,5.2222l-5.0831,5.0924c-0.3476,0.3484-0.5746,0.7624-0.2308,1.1067l1.5682,1.4763 c0.3436,0.3443,0.8045,0.2596,1.1521-0.0886l5.0825-5.093l5.2119,5.222c0.3536,0.3547,0.9244,0.3578,1.2741,0.0073l1.2677-1.27 c0.3497-0.3507,0.3465-0.9224-0.0071-1.2768l-5.2119-5.2221l5.0828-5.0925c0.3475-0.3485,0.5429-0.8259,0.1994-1.1702 l-1.6474-1.4921c-0.3438-0.3443-0.6936-0.1803-1.0411,0.1679l-5.0828,5.0929l-5.212-5.222 c-0.3537-0.3546-0.9241-0.3577-1.2742-0.007l-1.2672,1.2698C14.42171,16.37464,14.42491,16.94624,14.77881,17.30074z' />
+                </svg>
+            </div>
+        </div>
+    </body>
+</html>
+
+<script type='text/javascript'>
+            var LR = LR || {};
+            LR.images = [
+	            {id: "27407", exportFilename: "trishaaaaa", title: "Trishaaaaa", caption: ""},
+	            {id: "27408", exportFilename: "sceneQueen", title: "", caption: ""},
+	            {id: "27409", exportFilename: "IMG_3842", title: "", caption: ""},
+	            {id: "27410", exportFilename: "IMG_3846", title: "", caption: ""},
+	            {id: "27411", exportFilename: "IMG_4012", title: "", caption: ""},
+	            {id: "27412", exportFilename: "FullSizeRender", title: "", caption: ""},
+	            {id: "27413", exportFilename: "IMG_4713", title: "", caption: ""},
+	            {id: "27414", exportFilename: "IMG_4714", title: "", caption: ""},
+	            {id: "27415", exportFilename: "IMG_4717", title: "", caption: ""},
+	            {id: "27416", exportFilename: "IMG_4757", title: "", caption: ""},
+	            {id: "27417", exportFilename: "IMG_4798", title: "", caption: ""},
+	            {id: "27418", exportFilename: "IMG_4797", title: "", caption: ""},
+	            {id: "27419", exportFilename: "IMG_4840", title: "", caption: ""},
+	            {id: "27420", exportFilename: "IMG_4865", title: "", caption: ""},
+	            {id: "27421", exportFilename: "IMG_4883", title: "", caption: ""},
+	            {id: "27422", exportFilename: "IMG_4965", title: "", caption: ""},
+	            {id: "27423", exportFilename: "IMG_4966", title: "", caption: ""},
+	            {id: "27424", exportFilename: "IMG_6690", title: "", caption: ""},
+	            {id: "27425", exportFilename: "IMG_6702", title: "", caption: ""},
+	            {id: "27426", exportFilename: "IMG_6704", title: "", caption: ""},
+	            {id: "27427", exportFilename: "IMG_6718", title: "", caption: ""},
+	            {id: "27428", exportFilename: "IMG_6720", title: "", caption: ""},
+	            {id: "27430", exportFilename: "image000001", title: "", caption: ""},
+	            {id: "27429", exportFilename: "image000003", title: "", caption: ""},
+	            {id: "27432", exportFilename: "image000006", title: "", caption: ""},
+	            {id: "27431", exportFilename: "image000007", title: "", caption: ""},
+	            {id: "27433", exportFilename: "IMG_5249", title: "", caption: ""},
+	            {id: "27434", exportFilename: "IMG_5271", title: "", caption: ""},
+	            {id: "27435", exportFilename: "IMG_5272", title: "", caption: ""},
+	            {id: "27436", exportFilename: "IMG_5273", title: "", caption: ""},
+	            {id: "27437", exportFilename: "IMG_5274", title: "", caption: ""},
+	            {id: "27438", exportFilename: "IMG_5930", title: "", caption: ""},
+	            {id: "27439", exportFilename: "IMG_5931", title: "", caption: ""},
+	            {id: "27440", exportFilename: "aspirie", title: "", caption: ""},
+	            {id: "27441", exportFilename: "IMG_4387", title: "", caption: ""}
+            ]
+        </script>
+        <script>window.jQuery || document.write('<script src="./assets/js/libs/jquery-1.10.2.min.js"><\/script>')</script>

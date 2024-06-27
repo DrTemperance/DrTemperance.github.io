@@ -28,12 +28,12 @@ const EndFunction = (Output, Console, Progressive, Important)=>{
 	Phase2(document.createTextNode(`${Config.Custom.prompt} ${Output}`), false, false)
 };
 
-async function Phase2(Output, Bold, Italicized) {
+async function Phase2(output, bold, italicized) {
 	const OutputElement = document.createElement('p');
-	OutputElement.classList.add('OutputLine'), OutputElement.textContent = Output;
+	OutputElement.classList.add('OutputLine'), OutputElement.textContent = output;
 
-	Bold && (OutputElement.style.fontWeight = 'bold');
-	Italicized && (OutputElement.style.fontStyle = 'italic');
+	bold && (OutputElement.style.fontWeight = 'bold');
+	italicized && (OutputElement.style.fontStyle = 'italic');
 
 	document.getElementById('ConsoleOutput').insertAdjacentElement('afterend', document.createElement('li').appendChild(OutputElement))
 }
