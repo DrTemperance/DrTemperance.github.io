@@ -1,78 +1,80 @@
 <html lang='EN'>
 <head>
-	<link href='Heads/Nitwit.webp' id='favicon' rel='icon' />
-	<link href='style.css' rel='stylesheet' type='Text/css' />
+	<link href='./Heads/Nitwit.webp' id='favicon' rel='icon' />
+	<link href='./style.css' rel='stylesheet' type='Text/css' />
 	<title>ERR!</title>
 	<meta charset='UTF-8' />
 	<meta content='width=device-width, initial-scale=1.0' name='viewport' />
-	<script defer src='main.js' type='Text/javascript'></script>
+	<script defer src='./main.js' type='Text/javascript'></script>
 </head>
 
-<body draggable='false'>
-	<img alt='Villager Clicker' id='Title_Card' draggable='false' src='Stats/MainMenuTitle.png'>
+<body>
+	<img id='Title_Card' src='./Stats/MainMenuTitle.png'>
 	<div id='MainMenu'>
-		<div class='MenuButtons'></div>
-		<div class='MenuButtons'></div>
-		<div class='MenuButtons'></div>
-		<div><div class='MenuButtons left'></div>
-		<div class='MenuButtons right'></div></div>
+		<div class='MenuButtons' onclick='Initiate()'><p>Start Game</p></div>
+		<div class='MenuButtons'><p>Options</p></div>
+		<div class='MenuButtons'><p>Reset Progress</p></div>
+		<div>
+			<div class='MenuButtons left'><p>Save to File</p></div>
+			<div class='MenuButtons right'><p>Load from File</p></div>
+		</div>
 	</div>
 	<div class='GUI Level'>Main Menu - Villager Clicker</div>
 	<progress id='Bossbar'></progress>
-	<div class='Board' onmousedown='Villager_Attack()'></div>
-	<span id='Villager' onmousedown='Player_Attack()'></span>
-	<div draggable='false' id='Stats'>
+	<div class='Board'></div>
+	<span id='Villager'></span>
+	<div id='Stats'>
 		<div id='Heart_Bar'>
-			<img class='Heart' id='health1' src='Stats/FullHeart.png' />
-			<img class='Heart' id='health2' src='Stats/FullHeart.png' />
-			<img class='Heart' id='health3' src='Stats/FullHeart.png' />
-			<img class='Heart' id='health4' src='Stats/FullHeart.png' />
-			<img class='Heart' id='health5' src='Stats/FullHeart.png' />
-			<img class='Heart' id='health6' src='Stats/FullHeart.png' />
-			<img class='Heart' id='health7' src='Stats/FullHeart.png' />
-			<img class='Heart' id='health8' src='Stats/FullHeart.png' />
-			<img class='Heart' id='health9' src='Stats/FullHeart.png' />
-			<img class='Heart' id='health10' src='Stats/FullHeart.png' />
+			<img class='Heart' id='health1' src='./Stats/FullHeart.png' />
+			<img class='Heart' id='health2' src='./Stats/FullHeart.png' />
+			<img class='Heart' id='health3' src='./Stats/FullHeart.png' />
+			<img class='Heart' id='health4' src='./Stats/FullHeart.png' />
+			<img class='Heart' id='health5' src='./Stats/FullHeart.png' />
+			<img class='Heart' id='health6' src='./Stats/FullHeart.png' />
+			<img class='Heart' id='health7' src='./Stats/FullHeart.png' />
+			<img class='Heart' id='health8' src='./Stats/FullHeart.png' />
+			<img class='Heart' id='health9' src='./Stats/FullHeart.png' />
+			<img class='Heart' id='health10' src='./Stats/FullHeart.png' />
 		</div>
-		<div class='Bar'><img class='Item' id='item0' onclick='Hotbar_Click(this)'></div>
-		<div id='Hotbar' onclick='new Audio("Audio/Click.mp3").play()'>
-			<div class='Bar'><img class='item' draggable='false' id='item1' onclick='Hotbar_Click(this)' src=''></div>
-			<div class='Bar'><img class='item' draggable='false' id='item2' onclick='Hotbar_Click(this)' src=''></div>
-			<div class='Bar'><img class='item' draggable='false' id='item3' onclick='Hotbar_Click(this)' src=''></div>
-			<div class='Bar'><img class='item' draggable='false' id='item4' onclick='Hotbar_Click(this)' src=''></div>
-			<div class='Bar'><img class='item' draggable='false' id='item5' onclick='Hotbar_Click(this)' src=''></div>
-			<div class='Bar'><img class='item' draggable='false' id='item6' onclick='Hotbar_Click(this)' src=''></div>
-			<div class='Bar'><img class='item' draggable='false' id='item7' onclick='Hotbar_Click(this)' src=''></div>
-			<div class='Bar'><img class='item' draggable='false' id='item8' onclick='Hotbar_Click(this)' src=''></div>
-			<div class='Bar'><img class='item' draggable='false' id='item9' onclick='Hotbar_Click(this)' src=''></div>
+		<div class='Bar'><img class='Item' id='item0'></div>
+		<div id='Hotbar'>
+			<div class='Bar'><img title='Empty' class='item' id='item1'></div>
+			<div class='Bar'><img title='Empty' class='item' id='item2'></div>
+			<div class='Bar'><img title='Empty' class='item' id='item3'></div>
+			<div class='Bar'><img title='Empty' class='item' id='item4'></div>
+			<div class='Bar'><img title='Empty' class='item' id='item5'></div>
+			<div class='Bar'><img title='Empty' class='item' id='item6'></div>
+			<div class='Bar'><img title='Empty' class='item' id='item7'></div>
+			<div class='Bar'><img title='Empty' class='item' id='item8'></div>
+			<div class='Bar'><img title='Empty' class='item' id='item9'></div>
 		</div>
 	</div>
 
-	<button id='Shop_Button' onclick="document.getElementById('Player.Command.Index').showModal()">Outpost</button>
+	<button id='Shop_Button'>Outpost</button>
 	<dialog id='Player.Command.Index'>
 		<span id='Close'>X</span>
 		<p>You left and went to the store! I hope you had a good time!</p>
 		<div id='Shops'>
-			<button onclick="OpenShop('nurse')">Nurse Rancid</button>
-			<button onclick="OpenShop('cleric')">Cleric</button>
-			<button onclick="OpenShop('weaponsmith')">Weaponsmith</button>
 			<button onclick="OpenShop('armorer')">Armorer</button>
+			<button onclick="OpenShop('cleric')">Cleric</button>
 			<button onclick="OpenShop('farmer')">Farmer</button>
-			<button onclick="OpenShop('mason')">>Mason</button>
 			<button onclick="OpenShop('librarian')">Librarian</button>
+			<button onclick="OpenShop('mason')">>Mason</button>
+			<button onclick="OpenShop('nurse')">Nurse Rancid</button>
 			<button onclick="OpenShop('smith')">Mistah Smith</button>
+			<button onclick="OpenShop('weaponsmith')">Weaponsmith</button>
 			<!--TODO Custom Class Shops-->
 		</div>
 		<div id='Stations'>
-			<button>Furnace</button>
+			<button>Anvil</button>
+			<button>Beacon</button>
+			<button>Brewing Stand</button>
 			<button>Campfire</button>
-			<button>Stonecutter</button>
+			<button>Enchanting Table</button>
+			<button>Furnace</button>
 			<button>Grindstone</button>
 			<button>Smithing Table</button>
-			<button>Anvil</button>
-			<button>Brewing Stand</button>
-			<button>Enchanting Table</button>
-			<button>Beacon</button>
+			<button>Stonecutter</button>
 		</div>
 	</dialog>
 	<dialog id='InitMsg'></dialog>

@@ -1,16 +1,53 @@
-// Elements //
+// Fixes //
 
-const BoardElem  = document.querySelector('.Board'),
-      Bossbar    = document.querySelector('#Bossbar'),
-      Favicon    = document.querySelector('#favicon'),
-      Heart      = {health1, health2, health3, health4, health5, health6, health7, health8, health9, health10},
-      HotbarElem = document.querySelector('#Hotbar'),
-      LevelElem  = document.querySelector('.Level'),
-      Shops      = document.querySelector('#Shops'),
-      Title      = document.querySelector('title'),
-      Villager   = document.querySelector('#Villager'),
-      TitleCard  = document.querySelector('#Title_Card'),
-      MainMenu   = document.querySelector('#MainMenu');
+document.querySelectorAll('img, a').forEach(e=>e.draggable = false);
+document.addEventListener('contextmenu', e=>e.preventDefault());
+document.addEventListener('keydown', e=>(e.ctrlKey || e.metaKey) && e.preventDefault());
+
+// Elements //
+const
+	 BoardElem   = document.querySelector('.Board'),
+	 Bossbar     = document.querySelector('#Bossbar'),
+	 Favicon     = document.querySelector('#favicon'),
+	 Heart       = {health1, health2, health3, health4, health5, health6, health7, health8, health9, health10},
+	 Heart_Bar   = document.querySelector('#Heart_Bar'),
+	 HotbarElem  = document.querySelector('#Hotbar'),
+	 LevelElem   = document.querySelector('.Level'),
+	 MainMenu    = document.querySelector('#MainMenu'),
+	 Shop_Button = document.querySelector('#Shop_Button'),
+	 Shops       = document.querySelector('#Shops'),
+	 Title       = document.querySelector('title'),
+	 TitleCard   = document.querySelector('#Title_Card'),
+	 Villager    = document.querySelector('#Villager'),
+	 TooltipElem = document.querySelector('.tooltip'),
+	 CursorState = 'Default';
+
+// Arrays of Elems //
+const
+	 MenuButtons = document.querySelectorAll('.MenuButtons'),
+	 ItemsEl     = document.querySelectorAll('.item');
+for (let H = 10; H>=1; H--) {Heart[`health${H}`] = document.querySelector(`#health${H}`)}
+
+// Events //
+Shop_Button.addEventListener('click', ()=>document.querySelector('#Player.Command.Index').showModal());
+ItemsEl.forEach(I=>I.addEventListener('click', function () {Hotbar_Click(this)}));
+BoardElem.addEventListener('mousedown', Villager_Attack);
+Villager.addEventListener('mousedown', Player_Attack);
+MenuButtons.forEach(E=>E.addEventListener('click', ()=>new Audio("./Audio/Click.mp3").play()));
+ItemsEl.forEach(I=>I.onmouseover = ()=>{
+	let TooltipMenu = document.createElement('div');
+	TooltipMenu.outerHTML = `<div class='tooltip'><p>${this.title}</p></div>`;
+	document.body.appendChild(TooltipMenu);
+});
+document.body.addEventListener('mousemove', e=>{
+	if (TooltipElem) {
+		TooltipElem.style.top = `${e.pageY}px`;
+		TooltipElem.style.left = `${e.pageX}px`;
+	}
+});
+window.addEventListener('resize', ()=>Draw_All(true));
+
+// Functions //
 
 // TODO const Movement = {
 //  cosecant   : async ()=>1 / Math.sin(x),
@@ -24,19 +61,12 @@ const BoardElem  = document.querySelector('.Board'),
 //  tangent    : async ()=>Math.sin(x) / Math.cos(x)
 //};
 
-for (let H = 10; H>=1; H--) {Heart[`health${H}`] = document.querySelector(`#health${H}`);}
-
-// Variables //
-let level = 9, x = Villager.x;
-
-let clientWidth = BoardElem.clientWidth, clientHeight = BoardElem.clientHeight;
-
 const GameLevels = [
 	{name: 'The Death', size: 0, background: 'Backgrounds/Exterior1.png'},
 	{name: 'The Nitwit', health: 10, phases: 1, size: '300px', background: 'Backgrounds/Nitwit.png', head: 'Heads/Nitwit.webp'},
 	{name: 'The Farmer', health: 20, phases: 2, size: '275px', background: 'Backgrounds/Farm.png', head: 'Heads/Farmer.webp'},
 	{name: 'The Mason', health: 30, phases: 2, size: '250px', background: 'Backgrounds/Mason.png', head: 'Heads/Nitwit.webp'},
-	{name: 'The Librarian', health: 40, phases: 3, size: '200px', background: 'Backgrounds/Interior1.png', head: 'Heads/Librarian.webp'},
+	{name: 'The Librtooltipn', health: 40, phases: 3, size: '200px', background: 'Backgrounds/Interior1.png', head: 'Heads/Librtooltipn.webp'},
 	{name: 'The Weaponsmith', health: 50, phases: 3, size: '180px', background: 'Backgrounds/blacksmith.webp', head: 'Heads/Weaponsmith.webp'},
 	{name: 'The Cleric', health: 64, phases: 4, size: '150px', background: 'Backgrounds/Cleric.png', head: 'Heads/Cleric.webp'},
 	{name: 'The Wandering Trader', health: 100, phases: 5, size: '100px', background: 'Backgrounds/Trader.png', head: 'Heads/trader.webp'},
@@ -44,63 +74,77 @@ const GameLevels = [
 	{name: 'Main Menu', size: 0, background: 'Backgrounds/MainMenu.png'}
 ];
 
-let Interval,
-    LastTime,
-    PlayerDamage   = 0,
-    Points         = 0,
-    Pos            = {X: 0, Y: 0},
-    Speed_X        = 30,
-    Speed_Y        = 30,
-    VillagerHealth = GameLevels[level].health / GameLevels[level].phases,
-    VillagerHeight = parseFloat(GameLevels[level].size.width * 1.25),
-    VillagerWidth  = parseFloat(GameLevels[level].size.width);
+let
+	 level        = 9, x,
+	 clientWidth  = BoardElem.clientWidth,
+	 clientHeight = BoardElem.clientHeight;
+
+let
+	 Interval, LastTime,
+	 PlayerDamage = 0,
+	 Points       = 0,
+	 Pos          = {X: 0, Y: 0},
+	 Speed_X, Speed_Y;
+
+let
+	 VillagerHealth = GameLevels[level].health / GameLevels[level].phases,
+	 VillagerHeight = parseFloat(GameLevels[level].size.width * 1.25),
+	 VillagerWidth  = parseFloat(GameLevels[level].size.width);
 
 Title.textContent = `${GameLevels[level].name} - Villager Clicker`;
 
-const Update = Timestamp=>{
+function Update(timestamp) {
 	// Update timing for FPS calculations //
-	LastTime || (LastTime = Timestamp);
+	LastTime || (LastTime = timestamp);
 	Draw_Villager();
 
-	Time_Pos_Calc(Timestamp);
-	LastTime = Timestamp;
-	requestAnimationFrame(Update);
-};
+	let Delta = {X: Pos.X + Speed_X * ((LastTime - timestamp) / 500), Y: Pos.Y + Speed_Y * ((LastTime - timestamp) / 500)};
 
-window.addEventListener('resize', ()=>Draw_All(true));
+	Delta.X>=clientWidth - VillagerWidth && (Delta.X = clientWidth - VillagerWidth, Speed_X *= -1);
+	Delta.Y>=clientHeight - VillagerHeight && (Delta.Y = clientHeight - VillagerHeight, Speed_Y *= -1);
+	Delta.X<0 && (Delta.X = 0, Speed_X = -Speed_X);
+	Delta.Y<0 && (Delta.Y = 0, Speed_Y = -Speed_Y);
+
+	Pos.X = Delta.X, Pos.Y = Delta.Y;
+	LastTime = timestamp;
+	requestAnimationFrame(Update);
+}
 
 const PlayerData = {
-	Items    : [
-		{id: 0, image: 'Items/Empty.webp', name: 'Empty'}, {
+	Items : [
+		{id: 0, image: 'Items/Empty.webp', name: 'Empty'},
+		{
 			type: 'sword', action: 'attack', tier: {
-				wooden   : {name: 'Wooden Sword', damage: 0, aoa: 6, image: 'Items/WoodenSword.png', attackSpeed: 630, aria: {name: 'Wooden Sword', lore: 'woody'}},
-				stone    : {name: 'Stone Sword', damage: 1, aoa: 6, image: 'Items/StoneSword.png', attackSpeed: 630, aria: {name: 'Stone Sword', lore: 'stoney'}},
-				iron     : {name: 'Iron Sword', damage: 3, aoa: 7, image: 'Items/IronSword.png', attackSpeed: 630, aria: {name: 'Iron Sword', lore: 'irony'}},
-				diamond  : {name: 'Diamond Sword', damage: 5, aoa: 7, image: 'Items/DiamondSword.png', attackSpeed: 630, aria: {name: 'Diamond Sword', lore: 'diamondy'}},
-				netherite: {name: 'Netherite Sword', damage: 7, aoa: 8, image: 'Items/NetheriteSword.png', attackSpeed: 630, aria: {name: 'Netherite Sword', lore: 'tina'}},
+				wooden   : {name: 'Wooden Sword', damage: 0, area: 6, image: 'Items/WoodenSword.png', speed: 630, tooltip: {name: 'Wooden Sword', lore: 'flimsy'}},
+				stone    : {name: 'Stone Sword', damage: 1, area: 6, image: 'Items/StoneSword.png', speed: 630, tooltip: {name: 'Stone Sword', lore: 'rigid'}},
+				iron     : {name: 'Iron Sword', damage: 3, area: 7, image: 'Items/IronSword.png', speed: 630, tooltip: {name: 'Iron Sword', lore: 'ironic'}},
+				diamond  : {name: 'Diamond Sword', damage: 5, area: 7, image: 'Items/DiamondSword.png', speed: 630, tooltip: {name: 'Diamond Sword', lore: 'shiny'}},
+				netherite: {name: 'Netherite Sword', damage: 7, area: 8, image: 'Items/NetheriteSword.png', speed: 630, tooltip: {name: 'Netherite Sword', lore: '...'}},
 				id       : 1
 			}
 		}, {
 			type: 'axe', action: 'attack', tier: {
-				wooden   : {name: 'Wooden Axe', damage: 1, aoa: 0, image: 'Items/WoodenAxe.png', attackSpeed: 1250, aria: {name: 'Wooden Axe', lore: 'woody'}},
-				stone    : {name: 'Stone Axe', damage: 3, aoa: 0, image: 'Items/StoneAxe.png', attackSpeed: 1250, aria: {name: 'Stone Axe', lore: 'stoney'}},
-				iron     : {name: 'Iron Axe', damage: 4, aoa: 0, image: 'Items/IronAxe.png', attackSpeed: 1110, aria: {name: 'Iron Axe', lore: 'irony'}},
-				diamond  : {name: 'Diamond Axe', damage: 7, aoa: 0, image: 'Items/DiamondAxe.png', attackSpeed: 1000, aria: {name: 'Diamond Axe', lore: 'diamondy'}},
-				netherite: {name: 'Netherite Axe', damage: 9, aoa: 0, image: 'Items/NetheriteAxe.png', attackSpeed: 1000, aria: {name: 'Netherite Axe', lore: 'tina'}},
+				wooden   : {name: 'Wooden Axe', damage: 1, area: 0, image: 'Items/WoodenAxe.png', speed: 1250, tooltip: {name: 'Wooden Axe', lore: 'flimsy'}},
+				stone    : {name: 'Stone Axe', damage: 3, area: 0, image: 'Items/StoneAxe.png', speed: 1250, tooltip: {name: 'Stone Axe', lore: 'rigid'}},
+				iron     : {name: 'Iron Axe', damage: 4, area: 0, image: 'Items/IronAxe.png', speed: 1110, tooltip: {name: 'Iron Axe', lore: 'ironic'}},
+				diamond  : {name: 'Diamond Axe', damage: 7, area: 0, image: 'Items/DiamondAxe.png', speed: 1000, tooltip: {name: 'Diamond Axe', lore: 'shiny'}},
+				netherite: {name: 'Netherite Axe', damage: 9, area: 0, image: 'Items/NetheriteAxe.png', speed: 1000, tooltip: {name: 'Netherite Axe', lore: '...'}},
 				id       : 2
 			}
 		}, {
 			type: 'pickaxe', action: 'attack', tier: {
-				wooden   : {name: 'Wooden Pickaxe', damage: 0, aoa: -7, image: 'Items/WoodenPickaxe.png', attackSpeed: 200, aria: {name: 'Wooden Pickaxe', lore: 'woody'}},
-				stone    : {name: 'Stone Pickaxe', damage: 1, aoa: -6, image: 'Items/StonePickaxe.png', attackSpeed: 200, aria: {name: 'Stone Pickaxe', lore: 'stoney'}},
-				iron     : {name: 'Iron Pickaxe', damage: 2, aoa: -5, image: 'Items/IronPickaxe.png', attackSpeed: 200, aria: {name: 'Iron Pickaxe', lore: 'irony'}},
-				diamond  : {name: 'Diamond Pickaxe', damage: 3, aoa: -4, image: 'Items/DiamondPickaxe.png', attackSpeed: 150, aria: {name: 'Diamond Pickaxe', lore: 'diamondy'}},
-				netherite: {name: 'Netherite Pickaxe', damage: 5, aoa: -3, image: 'Items/NetheritePickaxe.png', attackSpeed: 100, aria: {name: 'Netherite Pickaxe', lore: 'tina'}},
+				wooden   : {name: 'Wooden Pickaxe', damage: 0, area: -7, image: 'Items/WoodenPickaxe.png', speed: 200, tooltip: {name: 'Wooden Pickaxe', lore: 'flimsy'}},
+				stone    : {name: 'Stone Pickaxe', damage: 1, area: -6, image: 'Items/StonePickaxe.png', speed: 200, tooltip: {name: 'Stone Pickaxe', lore: 'rigid'}},
+				iron     : {name: 'Iron Pickaxe', damage: 2, area: -5, image: 'Items/IronPickaxe.png', speed: 200, tooltip: {name: 'Iron Pickaxe', lore: 'ironic'}},
+				diamond  : {name: 'Diamond Pickaxe', damage: 3, area: -4, image: 'Items/DiamondPickaxe.png', speed: 150, tooltip: {name: 'Diamond Pickaxe', lore: 'shiny'}},
+				netherite: {name: 'Netherite Pickaxe', damage: 5, area: -3, image: 'Items/NetheritePickaxe.png', speed: 100, tooltip: {name: 'Netherite Pickaxe', lore: '...'}},
 				id       : 3
 			}
-		}, {action: null, id: 4, image: 'Items/Totem.png', item: 'Totem', name: 'Totem of Undying', type: 'Totem'}
-	], Hotbar: [{item: 0}, {item: 0}, {item: 0}, {item: 0}, {item: 0}, {item: 0}, {item: 0}, {item: 0}, {item: 0}, {item: 0}], Shops: {
-		cleric        : {
+		},
+		{action: null, id: 4, image: 'Items/Totem.png', item: 'Totem', name: 'Totem of Undying', type: 'Totem'}
+	],
+	Hotbar: [{item: 0}, {item: 0}, {item: 0}, {item: 0}, {item: 0}, {item: 0}, {item: 0}, {item: 0}, {item: 0}, {item: 0}], Shops: {
+		cleric     : {
 			name   : 'The Cleric', contents: {
 				potions        : [
 					{name: 'Healing Potion', duration: 'instant', effect: ['Healing'], strength: [1, 2, 3]},
@@ -113,17 +157,22 @@ const PlayerData = {
 					{name: 'Golden Carrot', hunger: 4, confoundingEffect: ['Vision']}
 				], tables      : ['EnchantingTable']
 			}, icon: 'Shops/Cleric.png'
-		}, weaponsmith: {
-			name    : 'The Weaponsmith', contents: [
-				{
-					Axe: {Precision: 1.3, Strength: 1.7, Speed: 0.7}, Pickaxe: {Precision: 3.0, Strength: 2.2, Speed: 0.7}, Sword: {Precision: 0.3, Speed: 1.0, Strength: 0.7}
-				}, {SmithingTable: !1}
-			], model: 'Shops/cleric.png'
-		}, armorer    : {
-			name   : 'The Armorer', content: {
-				armor: ['Leather', 'Chain', 'Iron', 'Gold', 'Diamond', 'Netherite'], tables: ['SmithingTable', 'Anvil']
-			}, icon: 'Shops/armorer.png'
-		}, farmer     : {
+		},
+		weaponsmith: {
+			name : 'The Weaponsmith', contents: [
+				{Axe: {Precision: 1.3, Strength: 1.7, Speed: 0.7}, Pickaxe: {Precision: 3.0, Strength: 2.2, Speed: 0.7}, Sword: {Precision: 0.3, Speed: 1.0, Strength: 0.7}},
+				{SmithingTable: !1}
+			],
+			model: 'Shops/cleric.png'
+		},
+		armorer    : {
+			name: 'The Armorer', content: {
+				armor : ['Leather', 'Chain', 'Iron', 'Gold', 'Diamond', 'Netherite'],
+				tables: ['SmithingTable', 'Anvil']
+			},
+			icon: 'Shops/armorer.png'
+		},
+		farmer     : {
 			name   : 'The Farmer', content: {
 				food     : [
 					{name: 'Apple', hunger: 2, confoundingEffect: !1},
@@ -134,13 +183,18 @@ const PlayerData = {
 					{name: 'Cooked Steak', hunger: 8, confoundingEffect: !1}
 				], tables: ['Smoker', 'Campfire']
 			}, icon: 'Shops/farmer.png'
-		}, mason      : {
-			name   : 'The Mason', content: {
+		},
+		mason      : {
+			name   : 'The Mason',
+			content: {
 				materials: [
 					{Base: 'Brick', Stock: 256, Health: 9}, {Base: 'Stone', Stock: 256, Health: 6}, {Base: 'Wood', Stock: 256, Health: 3}
-				], tables: ['stonecutter']
-			}, icon: 'Shops/mason.png'
-		}, stations   : {
+				],
+				tables   : ['stonecutter']
+			},
+			icon   : 'Shops/mason.png'
+		},
+		stations   : {
 			anvil          : {acquired: !1, damage: 0},
 			campfire       : {acquired: !1, fuel: 0},
 			enchantingTable: {acquired: !1, lapis: 0, level: 1},
@@ -148,7 +202,8 @@ const PlayerData = {
 			grindstone     : {acquired: !1, modules: {recycle: !1}},
 			smithingTable  : {acquired: !1},
 			stonecutter    : {acquired: !1, level: 0}
-		}, classist   : {
+		},
+		classist   : {
 			playerClass: 'unclassified', // Can be ['? (unknown)','Engineer (Idle)','Bowman (Range)','Mage (Magic)','Brute' (Melee)]
 			brute      : !1, engineer: !1, fletcher: !1, illusioner: !1, unset: !1
 		}
@@ -159,8 +214,7 @@ const PlayerData = {
 function Draw_All(move) {
 	Draw_Background();
 	Draw_Villager();
-
-	Draw_Gui(level>0 && level<8);
+	Draw_Gui(level!=9);
 
 	if (move) {
 		Pos.X = Math.random() * (BoardElem.clientWidth - VillagerWidth);
@@ -169,30 +223,34 @@ function Draw_All(move) {
 }
 
 function Draw_Background() {
-	BoardElem.style.backgroundSize = '100% 100%';
-	BoardElem.style.backgroundImage = `url(${GameLevels[level].background})`;
+	BoardElem.style.setProperty('background-size', '100% 100%');
+	BoardElem.style.setProperty("background-image", `url(${GameLevels[level].background})`);
 }
 
 function Draw_Villager() {
 	VillagerHealth = GameLevels[level].health / GameLevels[level].phases;
 
-	VillagerWidth = parseInt(GameLevels[level].size), VillagerHeight = VillagerWidth * 1.25;
+	VillagerWidth = parseInt(GameLevels[level].size);
+	VillagerHeight = VillagerWidth * 1.25;
 
-	Villager.style.backgroundImage = `url(${GameLevels[level].head})`;
-	Villager.style.width = VillagerWidth, Villager.style.height = VillagerHeight;
-	Villager.style.left = `${Pos.X}px`, Villager.style.top = `${Pos.Y}px`;
+	Villager.style.setProperty("background-image", `url(${GameLevels[level].head})`);
+	Villager.style.setProperty("width", `${parseFloat(GameLevels[level].size.width)}px`);
+	Villager.style.setProperty("height", `${parseFloat(GameLevels[level].size.width * 1.25)}px`);
+	Villager.style.setProperty("left", `${Pos.X}px`);
+	Villager.style.setProperty("top", `${Pos.Y}px`);
 }
 
 function Display_Main_Menu() {
 	TitleCard.style.display = 'block';
 	MainMenu.style.display = 'flex';
-	BoardElem.style.backgroundImage = 'url(Backgrounds/MainMenu.png)';
+	BoardElem.style.setProperty('background-image', 'url(Backgrounds/MainMenu.png)');
 }
 
 function Hide_Main_Menu() {
 	TitleCard.style.display = 'none';
 	MainMenu.style.display = 'none';
 }
+
 
 function Draw_Gui(show_stats) {
 	LevelElem.textContent = `Level ${level} - ${GameLevels[level].name}`;
@@ -208,9 +266,9 @@ function Draw_Gui(show_stats) {
 		Bossbar.style.display = 'none';
 		HotbarElem.style.display = 'none';
 		LevelElem.style.display = 'none';
-		document.querySelector('#Shop_Button').style.display = 'none';
-		document.querySelector('#Heart_Bar').style.display = 'none';
-		level===9 && Display_Main_Menu();
+		Shop_Button.style.display = 'none';
+		Heart_Bar.style.display = 'none';
+		if (level==9) {Display_Main_Menu()}
 	}
 }
 
@@ -250,31 +308,34 @@ async function Villager_Hurt() {
 }
 
 async function Player_Attack() {
+	console.log('Player Attacks');
 	Points += 0.5;
 
 	await Villager_Hurt(), Draw_All(true);
 }
 
 function Villager_Attack() {
+	console.log("The villager attacks" + (level==9 ? ', but you are on the main menu.' : '.'));
 	if (level>0 && level<8) {
-		console.log("e");
-		return;
-	} else new Audio('Audio/Player_Hurt.mp3').play(), PlayerDamage += 0.5, Draw_Gui();
+		new Audio('./Audio/Player_Hurt.mp3').play();
+		PlayerDamage += 0.5;
+		Draw_Gui();
+		if (PlayerDamage>=20) {
+			//TODO if (()=>Hotbar.forEach(item=>item.type==='Totem')) {PlayerDamage *= 0.25}
+			level = 0;
 
-	if (level>0 && level<8 && PlayerDamage>=20) {
-		//TODO if (()=>Hotbar.forEach(item=>item.type==='Totem')) {PlayerDamage *= 0.25}
-		level = 0;
-
-		HotbarElem.transition = '1s linear';
-		HotbarElem.scaleY = 0;
-		Draw_All();
-		cancelAnimationFrame(Interval);
+			HotbarElem.transition = '1s linear';
+			HotbarElem.scaleY = 0;
+			Draw_All(false);
+			cancelAnimationFrame(Interval);
+		}
 	}
 }
 
 function Hotbar_Click(int_slot) {
 	const Slot = int_slot.id.slice(4), Item = PlayerData.Hotbar[Slot];
 	Item.type && new Handle_Item(Slot, Item);
+	new Audio("./Audio/Click.mp3").play()
 }
 
 function Handle_Item(id) {
@@ -283,8 +344,8 @@ function Handle_Item(id) {
 
 	//TODO switch (Item.type) {
 	//	case 'sword':
-	//		let {aoa, damage, attackSpeed, name, image, aria} = Item.tier[`${Item.tier}`];
-	//		AttackData(aoa, damage, attackSpeed, name, image, aria);
+	//		let {area, damage, speed, name, image, tooltip} = Item.tier[`${Item.tier}`];
+	//		AttackData(area, damage, speed, name, image, tooltip);
 	//	case 'axe':
 	//	case 'pickaxe':
 	//	case 'potion':
@@ -299,38 +360,34 @@ function Handle_Item(id) {
 
 //for (let s = 0; s<Shops.length; s++) Shops.Children[s].innerHTML = PlayerData.Shops[i];
 
-//const AttackData = (aoa, damage, attackSpeed, name, image, aria)=>{let AttackData = {aoa, damage, attackSpeed, name, image, aria}};
+//const AttackData = (area, damage, speed, name, image, tooltip)=>{let AttackData = {area, damage, speed, name, image, tooltip}};
 
-
-function Time_Pos_Calc(timestamp) {
-	let Delta = {
-		X: Pos.X + Speed_X * ((LastTime - timestamp) / 500), Y: Pos.Y + Speed_Y * ((LastTime - timestamp) / 500)
-	};
-
-	Delta.X>=clientWidth - VillagerWidth && (Delta.X = clientWidth - VillagerWidth, Speed_X *= -1);
-	Delta.Y>=clientHeight - VillagerHeight && (Delta.Y = clientHeight - VillagerHeight, Speed_Y *= -1);
-	Delta.X<0 && (Delta.X = 0, Speed_X = -Speed_X);
-	Delta.Y<0 && (Delta.Y = 0, Speed_Y = -Speed_Y);
-
-	Pos.X = Delta.X, Pos.Y = Delta.Y;
-}
 
 // Menu Buttons //
 function Initiate() {
-	Interval = requestAnimationFrame(Update);
+	level = 1;
+	x = Villager.x;
+	Hide_Main_Menu();
+	//if (SaveData) {} else {}
 
-	()=>{
-		HotbarElem.style.display = 'flex';
-		document.querySelector("#Shop_Button").display = 'block';
-		document.querySelector("#Heart_Bar").display = 'flex';
-	}
+	VillagerHealth = GameLevels[level].health / GameLevels[level].phases;
+	VillagerHeight = parseFloat(GameLevels[level].size.width * 1.25);
+	VillagerWidth = parseFloat(GameLevels[level].size.width);
+	Speed_X = 30, Speed_Y = 30;
+
+	Villager.style.display = 'block';
+	Heart_Bar.style.display = 'flex';
+	HotbarElem.style.display = 'flex';
+	Shop_Button.style.display = 'block';
+	Bossbar.style.display = 'block';
+	LevelElem.style.display = 'block';
+
+	Draw_All(true);
+	Draw_Gui(true);
+	Interval = requestAnimationFrame(Update);
 }
 
 // Begin //
 Display_Main_Menu();
 
-
 // While //
-
-// cursor state switch
-if (CursorState==='Crosshair') {} else {}

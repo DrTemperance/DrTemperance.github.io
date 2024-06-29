@@ -204,13 +204,13 @@
 	margin          : auto;
 	top             : 40vh;
 	> div:not(.MenuButtons) {
-		display: flex;
-		flex-direction: row;
+		display        : flex;
+		flex-direction : row;
 		}
 	}
 
 .MenuButtons {
-	margin: 6px;
+	margin          : 6px;
 	display         : block;
 	background      : url(Stats/But1.png) no-repeat center;
 	background-size : 100% 100%;
@@ -225,12 +225,29 @@
 		order : 1;
 		}
 	&:hover {
-		cursor     : pointer;
-		background : url(Stats/But2.png) no-repeat center;
+		cursor          : pointer;
+		background      : url(Stats/But2.png) no-repeat center;
 		background-size : 100% 100%;
 		}
 	&:active {
-		background : url(Stats/But3.png) no-repeat center;
+		background      : url(Stats/But3.png) no-repeat center;
 		background-size : 100% 100%;
 		}
+	& p {
+		font-weight : 500;
+		height      : fit-content;
+		line-height : 2.5;
+		margin      : auto;
+		padding     : 1px;
+		text-align  : center;
+		white-space : discard;
+		width       : fit-content;
+		}
+	}
+
+.tooltip {
+	position      : absolute;
+	display       : inline-block;
+	border        : 1px solid #000;
+	border-radius : 5px;
 	}
