@@ -29,7 +29,7 @@ export class WorkerPool {
 	_getIdleWorker() {
 
 		for ( let i = 0; i < this.pool; i ++ )
-			if ( ! ( this.workerStatus & ( 1 << i ) ) ) return i;
+			if ( ! ( this.workerStatus & 1 << i ) ) return i;
 
 		return - 1;
 
@@ -68,7 +68,7 @@ export class WorkerPool {
 
 	postMessage( msg, transfer ) {
 
-		return new Promise( ( resolve ) => {
+		return new Promise( resolve=> {
 
 			const workerId = this._getIdleWorker();
 
@@ -91,7 +91,7 @@ export class WorkerPool {
 
 	dispose() {
 
-		this.workers.forEach( ( worker ) => worker.terminate() );
+		this.workers.forEach( worker=> worker.terminate() );
 		this.workersResolve.length = 0;
 		this.workers.length = 0;
 		this.queue.length = 0;

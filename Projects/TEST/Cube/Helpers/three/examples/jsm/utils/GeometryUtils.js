@@ -204,7 +204,7 @@ function gosper( size = 1 ) {
 
 	const points = toPoints( {
 		fractal: gosper,
-		size: size,
+		                         size,
 		angle: Math.PI / 3 // 60 degrees
 	} );
 

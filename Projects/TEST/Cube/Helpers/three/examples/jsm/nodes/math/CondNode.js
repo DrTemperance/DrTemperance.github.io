@@ -43,7 +43,7 @@ class CondNode extends Node {
 
 		const { ifNode, elseNode } = this;
 
-		const needsProperty = ifNode.getNodeType( builder ) !== 'void' || ( elseNode && elseNode.getNodeType( builder ) !== 'void' );
+		const needsProperty = ifNode.getNodeType( builder ) !== 'void' || elseNode && elseNode.getNodeType( builder ) !== 'void';
 		const nodeProperty = needsProperty ? property( type ).build( builder ) : '';
 
 		const nodeSnippet = contextNode( this.condNode/*, context*/ ).build( builder, 'bool' );

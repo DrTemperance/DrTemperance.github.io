@@ -37,7 +37,7 @@ class TDSLoader extends Loader {
 
 		const scope = this;
 
-		const path = ( this.path === '' ) ? LoaderUtils.extractUrlBase( url ) : this.path;
+		const path = this.path === '' ? LoaderUtils.extractUrlBase( url ) : this.path;
 
 		const loader = new FileLoader( this.manager );
 		loader.setPath( this.path );
@@ -592,7 +592,7 @@ class TDSLoader extends Loader {
 
 		}
 
-		return { name: name, index: index };
+		return {name, index};
 
 	}
 
@@ -652,7 +652,7 @@ class TDSLoader extends Loader {
 		switch ( subChunk.id ) {
 
 			case INT_PERCENTAGE:
-				return ( subChunk.readShort( ) / 100 );
+				return subChunk.readShort( ) / 100;
 				break;
 
 			case FLOAT_PERCENTAGE:

@@ -359,7 +359,7 @@ export const textureLoad = ( ...params ) => texture( ...params ).setSampler( fal
 
 //export const textureLevel = ( value, uv, level ) => texture( value, uv ).level( level );
 
-export const sampler = ( aTexture ) => ( aTexture.isNode === true ? aTexture : texture( aTexture ) ).convert( 'sampler' );
+export const sampler = aTexture=> (aTexture.isNode===true ? aTexture : texture(aTexture ) ).convert('sampler' );
 
 addNodeElement( 'texture', texture );
 //addNodeElement( 'textureLevel', textureLevel );

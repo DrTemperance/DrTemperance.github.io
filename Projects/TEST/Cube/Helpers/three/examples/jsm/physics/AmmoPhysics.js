@@ -265,9 +265,9 @@ async function AmmoPhysics() {
 	setInterval( step, 1000 / frameRate );
 
 	return {
-		addScene: addScene,
-		addMesh: addMesh,
-		setMeshPosition: setMeshPosition
+		addScene,
+		addMesh,
+		setMeshPosition
 		// addCompoundMesh
 	};
 
@@ -281,19 +281,19 @@ function compose( position, quaternion, array, index ) {
 	const yy = y * y2, yz = y * z2, zz = z * z2;
 	const wx = w * x2, wy = w * y2, wz = w * z2;
 
-	array[ index + 0 ] = ( 1 - ( yy + zz ) );
-	array[ index + 1 ] = ( xy + wz );
-	array[ index + 2 ] = ( xz - wy );
+	array[ index + 0 ] = 1 - ( yy + zz );
+	array[ index + 1 ] = xy + wz;
+	array[ index + 2 ] = xz - wy;
 	array[ index + 3 ] = 0;
 
-	array[ index + 4 ] = ( xy - wz );
-	array[ index + 5 ] = ( 1 - ( xx + zz ) );
-	array[ index + 6 ] = ( yz + wx );
+	array[ index + 4 ] = xy - wz;
+	array[ index + 5 ] = 1 - ( xx + zz );
+	array[ index + 6 ] = yz + wx;
 	array[ index + 7 ] = 0;
 
-	array[ index + 8 ] = ( xz + wy );
-	array[ index + 9 ] = ( yz - wx );
-	array[ index + 10 ] = ( 1 - ( xx + yy ) );
+	array[ index + 8 ] = xz + wy;
+	array[ index + 9 ] = yz - wx;
+	array[ index + 10 ] = 1 - ( xx + yy );
 	array[ index + 11 ] = 0;
 
 	array[ index + 12 ] = position.x();

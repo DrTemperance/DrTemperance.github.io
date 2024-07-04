@@ -128,9 +128,9 @@ function buildInfoRTT( renderTarget, options = {} ) {
 		HEIGHT = renderTarget.height,
 		TYPE = renderTarget.texture.type,
 		FORMAT = renderTarget.texture.format,
-		COMPRESSION = ( options.compression !== undefined ) ? options.compression : ZIP_COMPRESSION,
-		EXPORTER_TYPE = ( options.type !== undefined ) ? options.type : HalfFloatType,
-		OUT_TYPE = ( EXPORTER_TYPE === FloatType ) ? 2 : 1,
+		COMPRESSION = options.compression !== undefined ? options.compression : ZIP_COMPRESSION,
+		EXPORTER_TYPE = options.type !== undefined ? options.type : HalfFloatType,
+		OUT_TYPE = EXPORTER_TYPE === FloatType ? 2 : 1,
 		COMPRESSION_SIZE = compressionSizes[ COMPRESSION ],
 		NUM_CHANNELS = 4;
 
@@ -162,9 +162,9 @@ function buildInfoDT( texture, options = {} ) {
 		HEIGHT = texture.image.height,
 		TYPE = texture.type,
 		FORMAT = texture.format,
-		COMPRESSION = ( options.compression !== undefined ) ? options.compression : ZIP_COMPRESSION,
-		EXPORTER_TYPE = ( options.type !== undefined ) ? options.type : HalfFloatType,
-		OUT_TYPE = ( EXPORTER_TYPE === FloatType ) ? 2 : 1,
+		COMPRESSION = options.compression !== undefined ? options.compression : ZIP_COMPRESSION,
+		EXPORTER_TYPE = options.type !== undefined ? options.type : HalfFloatType,
+		OUT_TYPE = EXPORTER_TYPE === FloatType ? 2 : 1,
 		COMPRESSION_SIZE = compressionSizes[ COMPRESSION ],
 		NUM_CHANNELS = 4;
 
@@ -210,9 +210,9 @@ function reorganizeDataBuffer( inBuffer, info ) {
 		h = info.height,
 		dec = { r: 0, g: 0, b: 0, a: 0 },
 		offset = { value: 0 },
-		cOffset = ( info.numOutputChannels == 4 ) ? 1 : 0,
-		getValue = ( info.type == FloatType ) ? getFloat32 : getFloat16,
-		setValue = ( info.dataType == 1 ) ? setFloat16 : setFloat32,
+		cOffset = info.numOutputChannels == 4 ? 1 : 0,
+		getValue = info.type == FloatType ? getFloat32 : getFloat16,
+		setValue = info.dataType == 1 ? setFloat16 : setFloat32,
 		outBuffer = new Uint8Array( info.width * info.height * info.numOutputChannels * info.dataSize ),
 		dv = new DataView( outBuffer.buffer );
 
@@ -234,7 +234,7 @@ function reorganizeDataBuffer( inBuffer, info ) {
 			offset.value = line + x * info.dataSize;
 			setValue( dv, dec.a, offset );
 
-			offset.value = line + ( cOffset ) * w * info.dataSize + x * info.dataSize;
+			offset.value = line + cOffset * w * info.dataSize + x * info.dataSize;
 			setValue( dv, dec.b, offset );
 
 			offset.value = line + ( 1 + cOffset ) * w * info.dataSize + x * info.dataSize;
@@ -447,7 +447,7 @@ function fillHeader( outBuffer, chunks, info ) {
 function fillData( chunks, info ) {
 
 	const TableSize = info.numBlocks * 8,
-		HeaderSize = 259 + ( 18 * info.numOutputChannels ), // 259 + 18 * chlist
+		HeaderSize = 259 + 18 * info.numOutputChannels, // 259 + 18 * chlist
 		offset = { value: HeaderSize + TableSize },
 		outBuffer = new Uint8Array( HeaderSize + TableSize + chunks.totalSize + info.numBlocks * 8 ),
 		dv = new DataView( outBuffer.buffer );

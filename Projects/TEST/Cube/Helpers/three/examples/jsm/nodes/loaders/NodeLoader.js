@@ -18,7 +18,7 @@ class NodeLoader extends Loader {
 		loader.setPath( this.path );
 		loader.setRequestHeader( this.requestHeader );
 		loader.setWithCredentials( this.withCredentials );
-		loader.load( url, ( text ) => {
+		loader.load( url, text=> {
 
 			try {
 

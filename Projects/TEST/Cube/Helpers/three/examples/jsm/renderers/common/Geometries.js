@@ -18,7 +18,7 @@ function arrayNeedsUint32( array ) {
 
 function getWireframeVersion( geometry ) {
 
-	return ( geometry.index !== null ) ? geometry.index.version : geometry.attributes.position.version;
+	return geometry.index !== null ? geometry.index.version : geometry.attributes.position.version;
 
 }
 
@@ -47,7 +47,7 @@ function getWireframeIndex( geometry ) {
 
 		const array = geometryPosition.array;
 
-		for ( let i = 0, l = ( array.length / 3 ) - 1; i < l; i += 3 ) {
+		for ( let i = 0, l = array.length / 3 - 1; i < l; i += 3 ) {
 
 			const a = i + 0;
 			const b = i + 1;

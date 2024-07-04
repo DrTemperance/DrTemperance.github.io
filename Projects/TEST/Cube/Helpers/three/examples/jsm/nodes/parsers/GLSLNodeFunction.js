@@ -6,7 +6,7 @@ const propertiesRegexp = /[a-z_0-9]+/ig;
 
 const pragmaMain = '#pragma main';
 
-const parse = ( source ) => {
+const parse = source=> {
 
 	source = source.trim();
 

@@ -213,8 +213,8 @@ class ThreeMFLoader extends Loader {
 			}
 
 			return {
-				rels: rels,
-				modelRels: modelRels,
+				rels,
+				modelRels,
 				model: modelParts,
 				printTicket: printTicketParts,
 				texture: texturesParts
@@ -781,7 +781,7 @@ class ThreeMFLoader extends Loader {
 				const data = textureData[ texture2d.path ];
 				const type = texture2d.contenttype;
 
-				const blob = new Blob( [ data ], { type: type } );
+				const blob = new Blob( [ data ], {type} );
 				const sourceURI = URL.createObjectURL( blob );
 
 				const texture = textureLoader.load( sourceURI, function () {
@@ -876,7 +876,7 @@ class ThreeMFLoader extends Loader {
 			for ( let i = 0, l = triangleProperties.length; i < l; i ++ ) {
 
 				const triangleProperty = triangleProperties[ i ];
-				const pindex = ( triangleProperty.p1 !== undefined ) ? triangleProperty.p1 : objectPindex;
+				const pindex = triangleProperty.p1 !== undefined ? triangleProperty.p1 : objectPindex;
 
 				if ( materialMap[ pindex ] === undefined ) materialMap[ pindex ] = [];
 
@@ -908,17 +908,17 @@ class ThreeMFLoader extends Loader {
 
 					const triangleProperty = trianglePropertiesProps[ j ];
 
-					positionData.push( vertices[ ( triangleProperty.v1 * 3 ) + 0 ] );
-					positionData.push( vertices[ ( triangleProperty.v1 * 3 ) + 1 ] );
-					positionData.push( vertices[ ( triangleProperty.v1 * 3 ) + 2 ] );
+					positionData.push( vertices[ triangleProperty.v1 * 3 + 0 ] );
+					positionData.push( vertices[ triangleProperty.v1 * 3 + 1 ] );
+					positionData.push( vertices[ triangleProperty.v1 * 3 + 2 ] );
 
-					positionData.push( vertices[ ( triangleProperty.v2 * 3 ) + 0 ] );
-					positionData.push( vertices[ ( triangleProperty.v2 * 3 ) + 1 ] );
-					positionData.push( vertices[ ( triangleProperty.v2 * 3 ) + 2 ] );
+					positionData.push( vertices[ triangleProperty.v2 * 3 + 0 ] );
+					positionData.push( vertices[ triangleProperty.v2 * 3 + 1 ] );
+					positionData.push( vertices[ triangleProperty.v2 * 3 + 2 ] );
 
-					positionData.push( vertices[ ( triangleProperty.v3 * 3 ) + 0 ] );
-					positionData.push( vertices[ ( triangleProperty.v3 * 3 ) + 1 ] );
-					positionData.push( vertices[ ( triangleProperty.v3 * 3 ) + 2 ] );
+					positionData.push( vertices[ triangleProperty.v3 * 3 + 0 ] );
+					positionData.push( vertices[ triangleProperty.v3 * 3 + 1 ] );
+					positionData.push( vertices[ triangleProperty.v3 * 3 + 2 ] );
 
 
 				}
@@ -952,28 +952,28 @@ class ThreeMFLoader extends Loader {
 
 				const triangleProperty = triangleProperties[ i ];
 
-				positionData.push( vertices[ ( triangleProperty.v1 * 3 ) + 0 ] );
-				positionData.push( vertices[ ( triangleProperty.v1 * 3 ) + 1 ] );
-				positionData.push( vertices[ ( triangleProperty.v1 * 3 ) + 2 ] );
+				positionData.push( vertices[ triangleProperty.v1 * 3 + 0 ] );
+				positionData.push( vertices[ triangleProperty.v1 * 3 + 1 ] );
+				positionData.push( vertices[ triangleProperty.v1 * 3 + 2 ] );
 
-				positionData.push( vertices[ ( triangleProperty.v2 * 3 ) + 0 ] );
-				positionData.push( vertices[ ( triangleProperty.v2 * 3 ) + 1 ] );
-				positionData.push( vertices[ ( triangleProperty.v2 * 3 ) + 2 ] );
+				positionData.push( vertices[ triangleProperty.v2 * 3 + 0 ] );
+				positionData.push( vertices[ triangleProperty.v2 * 3 + 1 ] );
+				positionData.push( vertices[ triangleProperty.v2 * 3 + 2 ] );
 
-				positionData.push( vertices[ ( triangleProperty.v3 * 3 ) + 0 ] );
-				positionData.push( vertices[ ( triangleProperty.v3 * 3 ) + 1 ] );
-				positionData.push( vertices[ ( triangleProperty.v3 * 3 ) + 2 ] );
+				positionData.push( vertices[ triangleProperty.v3 * 3 + 0 ] );
+				positionData.push( vertices[ triangleProperty.v3 * 3 + 1 ] );
+				positionData.push( vertices[ triangleProperty.v3 * 3 + 2 ] );
 
 				//
 
-				uvData.push( uvs[ ( triangleProperty.p1 * 2 ) + 0 ] );
-				uvData.push( uvs[ ( triangleProperty.p1 * 2 ) + 1 ] );
+				uvData.push( uvs[ triangleProperty.p1 * 2 + 0 ] );
+				uvData.push( uvs[ triangleProperty.p1 * 2 + 1 ] );
 
-				uvData.push( uvs[ ( triangleProperty.p2 * 2 ) + 0 ] );
-				uvData.push( uvs[ ( triangleProperty.p2 * 2 ) + 1 ] );
+				uvData.push( uvs[ triangleProperty.p2 * 2 + 0 ] );
+				uvData.push( uvs[ triangleProperty.p2 * 2 + 1 ] );
 
-				uvData.push( uvs[ ( triangleProperty.p3 * 2 ) + 0 ] );
-				uvData.push( uvs[ ( triangleProperty.p3 * 2 ) + 1 ] );
+				uvData.push( uvs[ triangleProperty.p3 * 2 + 0 ] );
+				uvData.push( uvs[ triangleProperty.p3 * 2 + 1 ] );
 
 			}
 
@@ -1014,35 +1014,35 @@ class ThreeMFLoader extends Loader {
 				const v2 = triangleProperty.v2;
 				const v3 = triangleProperty.v3;
 
-				positionData.push( vertices[ ( v1 * 3 ) + 0 ] );
-				positionData.push( vertices[ ( v1 * 3 ) + 1 ] );
-				positionData.push( vertices[ ( v1 * 3 ) + 2 ] );
+				positionData.push( vertices[ v1 * 3 + 0 ] );
+				positionData.push( vertices[ v1 * 3 + 1 ] );
+				positionData.push( vertices[ v1 * 3 + 2 ] );
 
-				positionData.push( vertices[ ( v2 * 3 ) + 0 ] );
-				positionData.push( vertices[ ( v2 * 3 ) + 1 ] );
-				positionData.push( vertices[ ( v2 * 3 ) + 2 ] );
+				positionData.push( vertices[ v2 * 3 + 0 ] );
+				positionData.push( vertices[ v2 * 3 + 1 ] );
+				positionData.push( vertices[ v2 * 3 + 2 ] );
 
-				positionData.push( vertices[ ( v3 * 3 ) + 0 ] );
-				positionData.push( vertices[ ( v3 * 3 ) + 1 ] );
-				positionData.push( vertices[ ( v3 * 3 ) + 2 ] );
+				positionData.push( vertices[ v3 * 3 + 0 ] );
+				positionData.push( vertices[ v3 * 3 + 1 ] );
+				positionData.push( vertices[ v3 * 3 + 2 ] );
 
 				//
 
-				const p1 = ( triangleProperty.p1 !== undefined ) ? triangleProperty.p1 : objectData.pindex;
-				const p2 = ( triangleProperty.p2 !== undefined ) ? triangleProperty.p2 : p1;
-				const p3 = ( triangleProperty.p3 !== undefined ) ? triangleProperty.p3 : p1;
+				const p1 = triangleProperty.p1 !== undefined ? triangleProperty.p1 : objectData.pindex;
+				const p2 = triangleProperty.p2 !== undefined ? triangleProperty.p2 : p1;
+				const p3 = triangleProperty.p3 !== undefined ? triangleProperty.p3 : p1;
 
-				colorData.push( colors[ ( p1 * 3 ) + 0 ] );
-				colorData.push( colors[ ( p1 * 3 ) + 1 ] );
-				colorData.push( colors[ ( p1 * 3 ) + 2 ] );
+				colorData.push( colors[ p1 * 3 + 0 ] );
+				colorData.push( colors[ p1 * 3 + 1 ] );
+				colorData.push( colors[ p1 * 3 + 2 ] );
 
-				colorData.push( colors[ ( p2 * 3 ) + 0 ] );
-				colorData.push( colors[ ( p2 * 3 ) + 1 ] );
-				colorData.push( colors[ ( p2 * 3 ) + 2 ] );
+				colorData.push( colors[ p2 * 3 + 0 ] );
+				colorData.push( colors[ p2 * 3 + 1 ] );
+				colorData.push( colors[ p2 * 3 + 2 ] );
 
-				colorData.push( colors[ ( p3 * 3 ) + 0 ] );
-				colorData.push( colors[ ( p3 * 3 ) + 1 ] );
-				colorData.push( colors[ ( p3 * 3 ) + 2 ] );
+				colorData.push( colors[ p3 * 3 + 0 ] );
+				colorData.push( colors[ p3 * 3 + 1 ] );
+				colorData.push( colors[ p3 * 3 + 2 ] );
 
 			}
 
@@ -1176,7 +1176,7 @@ class ThreeMFLoader extends Loader {
 			for ( let i = 0, l = triangleProperties.length; i < l; i ++ ) {
 
 				const triangleProperty = triangleProperties[ i ];
-				let pid = ( triangleProperty.pid !== undefined ) ? triangleProperty.pid : objectPid;
+				let pid = triangleProperty.pid !== undefined ? triangleProperty.pid : objectPid;
 
 				if ( pid === undefined ) pid = 'default';
 

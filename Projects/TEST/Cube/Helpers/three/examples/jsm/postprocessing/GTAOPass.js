@@ -32,8 +32,8 @@ class GTAOPass extends Pass {
 
 		super();
 
-		this.width = ( width !== undefined ) ? width : 512;
-		this.height = ( height !== undefined ) ? height : 512;
+		this.width = width !== undefined ? width : 512;
+		this.height = height !== undefined ? height : 512;
 		this.clear = true;
 		this.camera = camera;
 		this.scene = scene;
@@ -192,8 +192,8 @@ class GTAOPass extends Pass {
 
 		}
 
-		const normalVectorType = ( this.normalTexture ) ? 1 : 0;
-		const depthValueSource = ( this.depthTexture === this.normalTexture ) ? 'w' : 'x';
+		const normalVectorType = this.normalTexture ? 1 : 0;
+		const depthValueSource = this.depthTexture === this.normalTexture ? 'w' : 'x';
 
 		this.gtaoMaterial.defines.NORMAL_VECTOR_TYPE = normalVectorType;
 		this.gtaoMaterial.defines.DEPTH_SWIZZLING = depthValueSource;
@@ -438,7 +438,7 @@ class GTAOPass extends Pass {
 
 		// setup pass state
 		renderer.autoClear = false;
-		if ( ( clearColor !== undefined ) && ( clearColor !== null ) ) {
+		if ( clearColor !== undefined && clearColor !== null ) {
 
 			renderer.setClearColor( clearColor );
 			renderer.setClearAlpha( clearAlpha || 0.0 );
@@ -468,7 +468,7 @@ class GTAOPass extends Pass {
 		clearColor = overrideMaterial.clearColor || clearColor;
 		clearAlpha = overrideMaterial.clearAlpha || clearAlpha;
 
-		if ( ( clearColor !== undefined ) && ( clearColor !== null ) ) {
+		if ( clearColor !== undefined && clearColor !== null ) {
 
 			renderer.setClearColor( clearColor );
 			renderer.setClearAlpha( clearAlpha || 0.0 );

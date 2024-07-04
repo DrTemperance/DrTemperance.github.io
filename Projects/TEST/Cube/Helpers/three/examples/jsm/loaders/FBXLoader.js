@@ -78,7 +78,7 @@ class FBXLoader extends Loader {
 
 		const scope = this;
 
-		const path = ( scope.path === '' ) ? LoaderUtils.extractUrlBase( url ) : scope.path;
+		const path = scope.path === '' ? LoaderUtils.extractUrlBase( url ) : scope.path;
 
 		const loader = new FileLoader( this.manager );
 		loader.setPath( scope.path );
@@ -199,7 +199,7 @@ class FBXTreeParser {
 
 				}
 
-				const parentRelationship = { ID: toID, relationship: relationship };
+				const parentRelationship = { ID: toID, relationship};
 				connectionMap.get( fromID ).parents.push( parentRelationship );
 
 				if ( ! connectionMap.has( toID ) ) {
@@ -211,7 +211,7 @@ class FBXTreeParser {
 
 				}
 
-				const childRelationship = { ID: fromID, relationship: relationship };
+				const childRelationship = { ID: fromID, relationship};
 				connectionMap.get( toID ).children.push( childRelationship );
 
 			} );
@@ -245,8 +245,8 @@ class FBXTreeParser {
 				// raw image data is in videoNode.Content
 				if ( 'Content' in videoNode ) {
 
-					const arrayBufferContent = ( videoNode.Content instanceof ArrayBuffer ) && ( videoNode.Content.byteLength > 0 );
-					const base64Content = ( typeof videoNode.Content === 'string' ) && ( videoNode.Content !== '' );
+					const arrayBufferContent = videoNode.Content instanceof ArrayBuffer && videoNode.Content.byteLength > 0;
+					const base64Content = typeof videoNode.Content === 'string' && videoNode.Content !== '';
 
 					if ( arrayBufferContent || base64Content ) {
 
@@ -332,7 +332,7 @@ class FBXTreeParser {
 		} else { // Binary Format
 
 			const array = new Uint8Array( content );
-			return window.URL.createObjectURL( new Blob( [ array ], { type: type } ) );
+			return window.URL.createObjectURL( new Blob( [ array ], {type} ) );
 
 		}
 
@@ -779,8 +779,8 @@ class FBXTreeParser {
 
 		return {
 
-			skeletons: skeletons,
-			morphTargets: morphTargets,
+			skeletons,
+			morphTargets
 
 		};
 
@@ -823,7 +823,7 @@ class FBXTreeParser {
 
 		return {
 
-			rawBones: rawBones,
+			rawBones,
 			bones: []
 
 		};
@@ -1177,7 +1177,7 @@ class FBXTreeParser {
 
 			}
 
-			let intensity = ( lightAttribute.Intensity === undefined ) ? 1 : lightAttribute.Intensity.value / 100;
+			let intensity = lightAttribute.Intensity === undefined ? 1 : lightAttribute.Intensity.value / 100;
 
 			// light disabled
 			if ( lightAttribute.CastLightOnObject !== undefined && lightAttribute.CastLightOnObject.value === 0 ) {
@@ -1732,8 +1732,8 @@ class GeometryParser {
 
 		const geoInfo = {};
 
-		geoInfo.vertexPositions = ( geoNode.Vertices !== undefined ) ? geoNode.Vertices.a : [];
-		geoInfo.vertexIndices = ( geoNode.PolygonVertexIndex !== undefined ) ? geoNode.PolygonVertexIndex.a : [];
+		geoInfo.vertexPositions = geoNode.Vertices !== undefined ? geoNode.Vertices.a : [];
+		geoInfo.vertexIndices = geoNode.PolygonVertexIndex !== undefined ? geoNode.PolygonVertexIndex.a : [];
 
 		if ( geoNode.LayerElementColor ) {
 
@@ -2026,8 +2026,8 @@ class GeometryParser {
 
 		return {
 			normal: normalVector,
-			tangent: tangent,
-			bitangent: bitangent
+			tangent,
+			bitangent
 		};
 
 	}
@@ -2225,10 +2225,10 @@ class GeometryParser {
 	// Normal and position attributes only have data for the vertices that are affected by the morph
 	genMorphGeometry( parentGeo, parentGeoNode, morphGeoNode, preTransform, name ) {
 
-		const vertexIndices = ( parentGeoNode.PolygonVertexIndex !== undefined ) ? parentGeoNode.PolygonVertexIndex.a : [];
+		const vertexIndices = parentGeoNode.PolygonVertexIndex !== undefined ? parentGeoNode.PolygonVertexIndex.a : [];
 
-		const morphPositionsSparse = ( morphGeoNode.Vertices !== undefined ) ? morphGeoNode.Vertices.a : [];
-		const indices = ( morphGeoNode.Indexes !== undefined ) ? morphGeoNode.Indexes.a : [];
+		const morphPositionsSparse = morphGeoNode.Vertices !== undefined ? morphGeoNode.Vertices.a : [];
+		const indices = morphGeoNode.Indexes !== undefined ? morphGeoNode.Indexes.a : [];
 
 		const length = parentGeo.attributes.position.count * 3;
 		const morphPositions = new Float32Array( length );
@@ -2245,7 +2245,7 @@ class GeometryParser {
 
 		// TODO: add morph normal support
 		const morphGeoInfo = {
-			vertexIndices: vertexIndices,
+			vertexIndices,
 			vertexPositions: morphPositions,
 
 		};
@@ -2284,10 +2284,10 @@ class GeometryParser {
 
 		return {
 			dataSize: 3,
-			buffer: buffer,
+			buffer,
 			indices: indexBuffer,
-			mappingType: mappingType,
-			referenceType: referenceType
+			mappingType,
+			referenceType
 		};
 
 	}
@@ -2307,10 +2307,10 @@ class GeometryParser {
 
 		return {
 			dataSize: 2,
-			buffer: buffer,
+			buffer,
 			indices: indexBuffer,
-			mappingType: mappingType,
-			referenceType: referenceType
+			mappingType,
+			referenceType
 		};
 
 	}
@@ -2336,10 +2336,10 @@ class GeometryParser {
 
 		return {
 			dataSize: 4,
-			buffer: buffer,
+			buffer,
 			indices: indexBuffer,
-			mappingType: mappingType,
-			referenceType: referenceType
+			mappingType,
+			referenceType
 		};
 
 	}
@@ -2357,7 +2357,7 @@ class GeometryParser {
 				buffer: [ 0 ],
 				indices: [ 0 ],
 				mappingType: 'AllSame',
-				referenceType: referenceType
+				referenceType
 			};
 
 		}
@@ -2379,8 +2379,8 @@ class GeometryParser {
 			dataSize: 1,
 			buffer: materialIndexBuffer,
 			indices: materialIndices,
-			mappingType: mappingType,
-			referenceType: referenceType
+			mappingType,
+			referenceType
 		};
 
 	}
@@ -2728,7 +2728,7 @@ class AnimationParser {
 			rawClips[ nodeID ] = {
 
 				name: rawStacks[ nodeID ].attrName,
-				layer: layer,
+				layer
 
 			};
 
@@ -3172,7 +3172,7 @@ class TextParser {
 			if ( matchComment || matchEmpty ) return;
 
 			const matchBeginning = line.match( '^\\t{' + scope.currentIndent + '}(\\w+):(.*){', '' );
-			const matchProperty = line.match( '^\\t{' + ( scope.currentIndent ) + '}(\\w+):[\\s\\t\\r\\n](.*)' );
+			const matchProperty = line.match( '^\\t{' + scope.currentIndent + '}(\\w+):[\\s\\t\\r\\n](.*)' );
 			const matchEnd = line.match( '^\\t{' + ( scope.currentIndent - 1 ) + '}}' );
 
 			if ( matchBeginning ) {
@@ -3287,7 +3287,7 @@ class TextParser {
 
 		}
 
-		return { id: id, name: name, type: type };
+		return {id, name, type};
 
 	}
 
@@ -3485,7 +3485,7 @@ class BinaryParser {
 		// - 16bytes: magic
 		if ( reader.size() % 16 === 0 ) {
 
-			return ( ( reader.getOffset() + 160 + 16 ) & ~ 0xf ) >= reader.size();
+			return ( reader.getOffset() + 160 + 16 & ~ 0xf ) >= reader.size();
 
 		} else {
 
@@ -3501,10 +3501,10 @@ class BinaryParser {
 		const node = {};
 
 		// The first three data sizes depends on version.
-		const endOffset = ( version >= 7500 ) ? reader.getUint64() : reader.getUint32();
-		const numProperties = ( version >= 7500 ) ? reader.getUint64() : reader.getUint32();
+		const endOffset = version >= 7500 ? reader.getUint64() : reader.getUint32();
+		const numProperties = version >= 7500 ? reader.getUint64() : reader.getUint32();
 
-		( version >= 7500 ) ? reader.getUint64() : reader.getUint32(); // the returned propertyListLen is not used
+		version >= 7500 ? reader.getUint64() : reader.getUint32(); // the returned propertyListLen is not used
 
 		const nameLen = reader.getUint8();
 		const name = reader.getString( nameLen );
@@ -3527,7 +3527,7 @@ class BinaryParser {
 
 		// check if this node represents just a single property
 		// like (name, 0) set or (name2, [0, 1, 2]) set of {name: 0, name2: [0, 1, 2]}
-		node.singleProperty = ( numProperties === 1 && reader.getOffset() === endOffset ) ? true : false;
+		node.singleProperty = numProperties === 1 && reader.getOffset() === endOffset ? true : false;
 
 		while ( endOffset > reader.getOffset() ) {
 
@@ -3774,7 +3774,7 @@ class BinaryReader {
 
 		this.dv = new DataView( buffer );
 		this.offset = 0;
-		this.littleEndian = ( littleEndian !== undefined ) ? littleEndian : true;
+		this.littleEndian = littleEndian !== undefined ? littleEndian : true;
 		this._textDecoder = new TextDecoder();
 
 	}
@@ -3893,9 +3893,9 @@ class BinaryReader {
 			high = ~ high & 0xFFFFFFFF;
 			low = ~ low & 0xFFFFFFFF;
 
-			if ( low === 0xFFFFFFFF ) high = ( high + 1 ) & 0xFFFFFFFF;
+			if ( low === 0xFFFFFFFF ) high = high + 1 & 0xFFFFFFFF;
 
-			low = ( low + 1 ) & 0xFFFFFFFF;
+			low = low + 1 & 0xFFFFFFFF;
 
 			return - ( high * 0x100000000 + low );
 
@@ -4141,7 +4141,7 @@ function generateTransform( transformData ) {
 	const lParentLX = new Matrix4();
 	const lGlobalT = new Matrix4();
 
-	const inheritType = ( transformData.inheritType ) ? transformData.inheritType : 0;
+	const inheritType = transformData.inheritType ? transformData.inheritType : 0;
 
 	if ( transformData.translation ) lTranslationM.setPosition( tempVec.fromArray( transformData.translation ) );
 

@@ -552,8 +552,8 @@ function quantizedEncode( array, bytes ) {
 	}
 
 	return {
-		quantized: quantized,
-		decodeMat: decodeMat
+		quantized,
+		decodeMat
 	};
 
 }
@@ -618,8 +618,8 @@ function quantizedEncodeUV( array, bytes ) {
 	}
 
 	return {
-		quantized: quantized,
-		decodeMat: decodeMat
+		quantized,
+		decodeMat
 	};
 
 }

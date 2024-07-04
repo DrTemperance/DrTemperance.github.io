@@ -66,7 +66,7 @@ class TAARenderPass extends SSAARenderPass {
 		renderer.getClearColor( this._oldClearColor );
 		const oldClearAlpha = renderer.getClearAlpha();
 
-		const sampleWeight = 1.0 / ( jitterOffsets.length );
+		const sampleWeight = 1.0 / jitterOffsets.length;
 
 		if ( this.accumulateIndex >= 0 && this.accumulateIndex < jitterOffsets.length ) {
 

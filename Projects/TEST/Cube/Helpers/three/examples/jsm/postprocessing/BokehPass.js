@@ -15,9 +15,9 @@ class BokehPass extends Pass {
 		this.scene = scene;
 		this.camera = camera;
 
-		const focus = ( params.focus !== undefined ) ? params.focus : 1.0;
-		const aperture = ( params.aperture !== undefined ) ? params.aperture : 0.025;
-		const maxblur = ( params.maxblur !== undefined ) ? params.maxblur : 1.0;
+		const focus = params.focus !== undefined ? params.focus : 1.0;
+		const aperture = params.aperture !== undefined ? params.aperture : 0.025;
+		const maxblur = params.maxblur !== undefined ? params.maxblur : 1.0;
 
 		// render targets
 

@@ -1,16 +1,4 @@
-import {
-	Clock,
-	Color,
-	Matrix4,
-	Mesh,
-	RepeatWrapping,
-	ShaderMaterial,
-	TextureLoader,
-	UniformsLib,
-	UniformsUtils,
-	Vector2,
-	Vector4
-} from 'three';
+import { Clock, Color, Matrix4, Mesh, RepeatWrapping, ShaderMaterial, TextureLoader, UniformsLib, UniformsUtils, Vector2, Vector4 } from 'three';
 import { Reflector } from '../objects/Reflector.js';
 import { Refractor } from '../objects/Refractor.js';
 
@@ -33,7 +21,7 @@ class Water extends Mesh {
 
 		const scope = this;
 
-		const color = ( options.color !== undefined ) ? new Color( options.color ) : new Color( 0xFFFFFF );
+		const color = options.color !== undefined ? new Color( options.color ) : new Color( 0xFFFFFF );
 		const textureWidth = options.textureWidth !== undefined ? options.textureWidth : 512;
 		const textureHeight = options.textureHeight !== undefined ? options.textureHeight : 512;
 		const clipBias = options.clipBias !== undefined ? options.clipBias : 0;
@@ -71,15 +59,15 @@ class Water extends Mesh {
 		}
 
 		const reflector = new Reflector( geometry, {
-			textureWidth: textureWidth,
-			textureHeight: textureHeight,
-			clipBias: clipBias
+			textureWidth,
+			textureHeight,
+			clipBias
 		} );
 
 		const refractor = new Refractor( geometry, {
-			textureWidth: textureWidth,
-			textureHeight: textureHeight,
-			clipBias: clipBias
+			textureWidth,
+			textureHeight,
+			clipBias
 		} );
 
 		reflector.matrixAutoUpdate = false;

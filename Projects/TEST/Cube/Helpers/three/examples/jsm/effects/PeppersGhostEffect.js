@@ -64,14 +64,14 @@ class PeppersGhostEffect {
 			// back
 			_cameraB.position.copy( _position );
 			_cameraB.quaternion.copy( _quaternion );
-			_cameraB.translateZ( - ( scope.cameraDistance ) );
+			_cameraB.translateZ( - scope.cameraDistance );
 			_cameraB.lookAt( scene.position );
 			_cameraB.rotation.z += 180 * ( Math.PI / 180 );
 
 			// left
 			_cameraL.position.copy( _position );
 			_cameraL.quaternion.copy( _quaternion );
-			_cameraL.translateX( - ( scope.cameraDistance ) );
+			_cameraL.translateX( - scope.cameraDistance );
 			_cameraL.lookAt( scene.position );
 			_cameraL.rotation.x += 90 * ( Math.PI / 180 );
 
@@ -86,8 +86,8 @@ class PeppersGhostEffect {
 			renderer.clear();
 			renderer.setScissorTest( true );
 
-			renderer.setScissor( _halfWidth - ( _width / 2 ), ( _height * 2 ), _width, _height );
-			renderer.setViewport( _halfWidth - ( _width / 2 ), ( _height * 2 ), _width, _height );
+			renderer.setScissor( _halfWidth - _width / 2, _height * 2, _width, _height );
+			renderer.setViewport( _halfWidth - _width / 2, _height * 2, _width, _height );
 
 			if ( scope.reflectFromAbove ) {
 
@@ -99,8 +99,8 @@ class PeppersGhostEffect {
 
 			}
 
-			renderer.setScissor( _halfWidth - ( _width / 2 ), 0, _width, _height );
-			renderer.setViewport( _halfWidth - ( _width / 2 ), 0, _width, _height );
+			renderer.setScissor( _halfWidth - _width / 2, 0, _width, _height );
+			renderer.setViewport( _halfWidth - _width / 2, 0, _width, _height );
 
 			if ( scope.reflectFromAbove ) {
 
@@ -112,8 +112,8 @@ class PeppersGhostEffect {
 
 			}
 
-			renderer.setScissor( _halfWidth - ( _width / 2 ) - _width, _height, _width, _height );
-			renderer.setViewport( _halfWidth - ( _width / 2 ) - _width, _height, _width, _height );
+			renderer.setScissor( _halfWidth - _width / 2 - _width, _height, _width, _height );
+			renderer.setViewport( _halfWidth - _width / 2 - _width, _height, _width, _height );
 
 			if ( scope.reflectFromAbove ) {
 
@@ -125,8 +125,8 @@ class PeppersGhostEffect {
 
 			}
 
-			renderer.setScissor( _halfWidth + ( _width / 2 ), _height, _width, _height );
-			renderer.setViewport( _halfWidth + ( _width / 2 ), _height, _width, _height );
+			renderer.setScissor( _halfWidth + _width / 2, _height, _width, _height );
+			renderer.setViewport( _halfWidth + _width / 2, _height, _width, _height );
 
 			if ( scope.reflectFromAbove ) {
 

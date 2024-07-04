@@ -101,9 +101,9 @@ class STLLoader extends Loader {
 		function isBinary( data ) {
 
 			const reader = new DataView( data );
-			const face_size = ( 32 / 8 * 3 ) + ( ( 32 / 8 * 3 ) * 3 ) + ( 16 / 8 );
+			const face_size = 32 / 8 * 3 + 32 / 8 * 3 * 3 + 16 / 8;
 			const n_faces = reader.getUint32( 80, true );
-			const expect = 80 + ( 32 / 8 ) + ( n_faces * face_size );
+			const expect = 80 + 32 / 8 + n_faces * face_size;
 
 			if ( expect === reader.byteLength ) {
 
@@ -164,9 +164,9 @@ class STLLoader extends Loader {
 
 			for ( let index = 0; index < 80 - 10; index ++ ) {
 
-				if ( ( reader.getUint32( index, false ) == 0x434F4C4F /*COLO*/ ) &&
-					( reader.getUint8( index + 4 ) == 0x52 /*'R'*/ ) &&
-					( reader.getUint8( index + 5 ) == 0x3D /*'='*/ ) ) {
+				if ( reader.getUint32( index, false ) == 0x434F4C4F &&
+					reader.getUint8( index + 4 ) == 0x52 &&
+					reader.getUint8( index + 5 ) == 0x3D ) {
 
 					hasColors = true;
 					colors = new Float32Array( faces * 3 * 3 );
@@ -206,8 +206,8 @@ class STLLoader extends Loader {
 						// facet has its own unique color
 
 						r = ( packedColor & 0x1F ) / 31;
-						g = ( ( packedColor >> 5 ) & 0x1F ) / 31;
-						b = ( ( packedColor >> 10 ) & 0x1F ) / 31;
+						g = ( packedColor >> 5 & 0x1F ) / 31;
+						b = ( packedColor >> 10 & 0x1F ) / 31;
 
 					} else {
 
@@ -222,7 +222,7 @@ class STLLoader extends Loader {
 				for ( let i = 1; i <= 3; i ++ ) {
 
 					const vertexstart = start + i * 12;
-					const componentIdx = ( face * 3 * 3 ) + ( ( i - 1 ) * 3 );
+					const componentIdx = face * 3 * 3 + ( i - 1 ) * 3;
 
 					vertices[ componentIdx ] = reader.getFloat32( vertexstart, true );
 					vertices[ componentIdx + 1 ] = reader.getFloat32( vertexstart + 4, true );

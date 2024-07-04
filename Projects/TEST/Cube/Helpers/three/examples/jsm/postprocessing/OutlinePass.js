@@ -37,7 +37,7 @@ class OutlinePass extends Pass {
 		this._visibilityCache = new Map();
 
 
-		this.resolution = ( resolution !== undefined ) ? new Vector2( resolution.x, resolution.y ) : new Vector2( 256, 256 );
+		this.resolution = resolution !== undefined ? new Vector2( resolution.x, resolution.y ) : new Vector2( 256, 256 );
 
 		const resx = Math.round( this.resolution.x / this.downSampleRatio );
 		const resy = Math.round( this.resolution.y / this.downSampleRatio );

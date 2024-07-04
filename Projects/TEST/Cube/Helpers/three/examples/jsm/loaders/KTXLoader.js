@@ -34,7 +34,7 @@ class KTXLoader extends CompressedTextureLoader {
 }
 
 
-const HEADER_LEN = 12 + ( 13 * 4 ); // identifier + header elements (not including key value meta-data pairs)
+const HEADER_LEN = 12 + 13 * 4; // identifier + header elements (not including key value meta-data pairs)
 // load types
 const COMPRESSED_2D = 0; // uses a gl.compressedTexImage2D()
 //const COMPRESSED_3D = 1; // uses a gl.compressedTexImage3D()
@@ -153,10 +153,10 @@ class KhronosTextureContainer {
 
 				const byteArray = new Uint8Array( this.arrayBuffer, dataOffset, imageSize );
 
-				mipmaps.push( { 'data': byteArray, 'width': width, 'height': height } );
+				mipmaps.push( { 'data': byteArray, width, height} );
 
 				dataOffset += imageSize;
-				dataOffset += 3 - ( ( imageSize + 3 ) % 4 ); // add padding for odd sized image
+				dataOffset += 3 - ( imageSize + 3 ) % 4; // add padding for odd sized image
 
 			}
 

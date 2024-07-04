@@ -1,17 +1,6 @@
-import {
-	Box3,
-	InstancedInterleavedBuffer,
-	InterleavedBufferAttribute,
-	Line3,
-	MathUtils,
-	Matrix4,
-	Mesh,
-	Sphere,
-	Vector3,
-	Vector4
-} from 'three';
-import { LineSegmentsGeometry } from '../lines/LineSegmentsGeometry.js';
+import { Box3, InstancedInterleavedBuffer, InterleavedBufferAttribute, Line3, MathUtils, Matrix4, Mesh, Sphere, Vector3, Vector4 } from 'three';
 import { LineMaterial } from '../lines/LineMaterial.js';
+import { LineSegmentsGeometry } from '../lines/LineSegmentsGeometry.js';
 
 const _start = new Vector3();
 const _end = new Vector3();
@@ -206,8 +195,8 @@ function raycastScreenSpace( lineSegments, camera, intersects ) {
 			_ray.distanceSqToSegment( _line.start, _line.end, point, pointOnLine );
 
 			intersects.push( {
-				point: point,
-				pointOnLine: pointOnLine,
+				                 point,
+				                 pointOnLine,
 				distance: _ray.origin.distanceTo( point ),
 				object: lineSegments,
 				face: null,
@@ -249,7 +238,7 @@ class LineSegments2 extends Mesh {
 			_start.fromBufferAttribute( instanceStart, i );
 			_end.fromBufferAttribute( instanceEnd, i );
 
-			lineDistances[ j ] = ( j === 0 ) ? 0 : lineDistances[ j - 1 ];
+			lineDistances[ j ] = j === 0 ? 0 : lineDistances[ j - 1 ];
 			lineDistances[ j + 1 ] = lineDistances[ j ] + _start.distanceTo( _end );
 
 		}
@@ -274,7 +263,7 @@ class LineSegments2 extends Mesh {
 
 		}
 
-		const threshold = ( raycaster.params.Line2 !== undefined ) ? raycaster.params.Line2.threshold || 0 : 0;
+		const threshold = raycaster.params.Line2 !== undefined ? raycaster.params.Line2.threshold || 0 : 0;
 
 		_ray = raycaster.ray;
 

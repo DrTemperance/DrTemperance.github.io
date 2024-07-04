@@ -25,8 +25,8 @@ class SSAARenderPass extends Pass {
 		this.unbiased = true;
 
 		// as we need to clear the buffer in this pass, clearColor must be set to something, defaults to black.
-		this.clearColor = ( clearColor !== undefined ) ? clearColor : 0x000000;
-		this.clearAlpha = ( clearAlpha !== undefined ) ? clearAlpha : 0;
+		this.clearColor = clearColor !== undefined ? clearColor : 0x000000;
+		this.clearAlpha = clearAlpha !== undefined ? clearAlpha : 0;
 		this._oldClearColor = new Color();
 
 		const copyShader = CopyShader;
@@ -131,7 +131,7 @@ class SSAARenderPass extends Pass {
 				// The following equation varies the sampleWeight per sample so that it is uniformly distributed
 				// across a range of values whose rounding errors cancel each other out.
 
-				const uniformCenteredDistribution = ( - 0.5 + ( i + 0.5 ) / jitterOffsets.length );
+				const uniformCenteredDistribution = - 0.5 + ( i + 0.5 ) / jitterOffsets.length;
 				sampleWeight += roundingRange * uniformCenteredDistribution;
 
 			}

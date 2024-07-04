@@ -66,7 +66,7 @@ class HemisphereLightHelper extends Object3D {
 
 			for (let i = 0, l = colors.count; i<l; i++) {
 
-				const color = i<(l / 2) ? _color1 : _color2;
+				const color = i<l / 2 ? _color1 : _color2;
 
 				colors.setXYZ(i, color.r, color.g, color.b);
 

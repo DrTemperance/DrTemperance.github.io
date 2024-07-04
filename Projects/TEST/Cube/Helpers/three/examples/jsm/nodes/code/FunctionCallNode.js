@@ -85,7 +85,7 @@ export default FunctionCallNode;
 
 export const call = ( func, ...params ) => {
 
-	params = params.length > 1 || ( params[ 0 ] && params[ 0 ].isNode === true ) ? nodeArray( params ) : nodeObjects( params[ 0 ] );
+	params = params.length > 1 || params[ 0 ] && params[ 0 ].isNode === true ? nodeArray( params ) : nodeObjects( params[ 0 ] );
 
 	return nodeObject( new FunctionCallNode( nodeObject( func ), params ) );
 

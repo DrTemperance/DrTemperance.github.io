@@ -39,7 +39,7 @@ const typeFromArray = new Map( [
 	[ Float32Array, 'float' ]
 ] );
 
-const toFloat = ( value ) => {
+const toFloat = value=> {
 
 	value = Number( value );
 
@@ -52,8 +52,8 @@ class NodeBuilder {
 	constructor( object, renderer, parser, scene = null, material = null ) {
 
 		this.object = object;
-		this.material = material || ( object && object.material ) || null;
-		this.geometry = ( object && object.geometry ) || null;
+		this.material = material || object && object.material || null;
+		this.geometry = object && object.geometry || null;
 		this.renderer = renderer;
 		this.parser = parser;
 		this.scene = scene;
@@ -168,7 +168,7 @@ class NodeBuilder {
 
 			const bindings = this.bindings;
 
-			this.bindingsArray = bindingsArray = this._getSharedBindings( ( this.material !== null ) ? [ ...bindings.vertex, ...bindings.fragment ] : bindings.compute );
+			this.bindingsArray = bindingsArray = this._getSharedBindings( this.material !== null ? [ ...bindings.vertex, ...bindings.fragment ] : bindings.compute );
 
 		}
 
@@ -702,7 +702,7 @@ class NodeBuilder {
 
 			const index = this.uniforms.index ++;
 
-			nodeUniform = new NodeUniform( name || ( 'nodeUniform' + index ), type, node );
+			nodeUniform = new NodeUniform( name || 'nodeUniform' + index, type, node );
 
 			this.uniforms[ shaderStage ].push( nodeUniform );
 

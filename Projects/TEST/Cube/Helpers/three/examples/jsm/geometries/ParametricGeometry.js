@@ -14,9 +14,9 @@ class ParametricGeometry extends BufferGeometry {
 		this.type = 'ParametricGeometry';
 
 		this.parameters = {
-			func: func,
-			slices: slices,
-			stacks: stacks
+			func,
+			slices,
+			stacks
 		};
 
 		// buffers

@@ -1,15 +1,15 @@
-import { NoColorSpace, FloatType } from 'three';
+import { FloatType, NoColorSpace } from 'three';
 
-import NodeUniformsGroup from '../../common/nodes/NodeUniformsGroup.js';
+import { CodeNode, NodeBuilder } from '../../../nodes/Nodes.js';
+import { getStrideLength, getVectorLength } from '../../common/BufferUtils.js';
+import { NodeSampledCubeTexture, NodeSampledTexture } from '../../common/nodes/NodeSampledTexture.js';
 
 import NodeSampler from '../../common/nodes/NodeSampler.js';
-import { NodeSampledTexture, NodeSampledCubeTexture } from '../../common/nodes/NodeSampledTexture.js';
+
+import NodeUniformsGroup from '../../common/nodes/NodeUniformsGroup.js';
+import StorageBuffer from '../../common/StorageBuffer.js';
 
 import UniformBuffer from '../../common/UniformBuffer.js';
-import StorageBuffer from '../../common/StorageBuffer.js';
-import { getVectorLength, getStrideLength } from '../../common/BufferUtils.js';
-
-import { NodeBuilder, CodeNode } from '../../../nodes/Nodes.js';
 
 import { getFormat } from '../utils/WebGPUTextureUtils.js';
 
@@ -861,7 +861,7 @@ ${ flowData.code }
 			const mainNode = flowNodes[ flowNodes.length - 1 ];
 
 			const outputNode = mainNode.outputNode;
-			const isOutputStruct = ( outputNode !== undefined && outputNode.isOutputStructNode === true );
+			const isOutputStruct = outputNode !== undefined && outputNode.isOutputStructNode === true;
 
 			for ( const node of flowNodes ) {
 

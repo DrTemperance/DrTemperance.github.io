@@ -5,18 +5,7 @@
  * Returns BufferGeometry from SDF
  */
 
-import {
-	BufferAttribute,
-	BufferGeometry,
-	FloatType,
-	Mesh,
-	OrthographicCamera,
-	PlaneGeometry,
-	Scene,
-	ShaderMaterial,
-	Vector2,
-	WebGLRenderTarget
-} from 'three';
+import { BufferAttribute, BufferGeometry, FloatType, Mesh, OrthographicCamera, PlaneGeometry, Scene, ShaderMaterial, Vector2, WebGLRenderTarget } from 'three';
 
 import { surfaceNet } from './../libs/surfaceNet.js';
 
@@ -68,19 +57,15 @@ class SDFGeometryGenerator {
 			x = ( x + bounds ) * ( res / ( bounds * 2 ) );
 			y = ( y + bounds ) * ( res / ( bounds * 2 ) );
 			z = ( z + bounds ) * ( res / ( bounds * 2 ) );
-			let p = ( x + ( z % tilesX ) * res ) + y * w + ( Math.floor( z / tilesX ) * res * w );
+			let p = x + ( z % tilesX ) * res + y * w + Math.floor( z / tilesX ) * res * w;
 			p *= 4;
-			return ( read[ p + 3 ] > 0 ) ? - 0.000000001 : 1;
+			return read[ p + 3 ] > 0 ? - 0.000000001 : 1;
 
 		}, [[ - bounds, - bounds, - bounds ], [ bounds, bounds, bounds ]] );
 
 		const ps = [], ids = [];
 		const geometry = new BufferGeometry();
-		mesh.positions.forEach( p => {
-
-			ps.push( p[ 0 ], p[ 1 ], p[ 2 ] );
-
-		} );
+		mesh.positions.forEach( p =>ps.push(p[0], p[1], p[2]));
 		mesh.cells.forEach( p => ids.push( p[ 0 ], p[ 1 ], p[ 2 ] ) );
 		geometry.setAttribute( 'position', new BufferAttribute( new Float32Array( ps ), 3 ) );
 		geometry.setIndex( ids );
@@ -106,7 +91,7 @@ class SDFGeometryGenerator {
 		while ( currentTile ++ < tiles ) {
 
 			const c = currentTile - 1;
-			const [ px, py ] = [ ( tileSize ) / 2 + ( c % tilesX ) * ( tileSize ) - width / 2, ( tileSize ) / 2 + Math.floor( c / tilesX ) * ( tileSize ) - height / 2 ];
+			const [ px, py ] = [ tileSize / 2 + ( c % tilesX ) * tileSize - width / 2, tileSize / 2 + Math.floor( c / tilesX ) * tileSize - height / 2 ];
 			const compPlane = new Mesh( geometry, new ShaderMaterial( {
 				uniforms: {
 					res: { value: new Vector2( width, height ) },

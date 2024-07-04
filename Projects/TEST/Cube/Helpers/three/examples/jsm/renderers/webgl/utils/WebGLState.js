@@ -1,10 +1,37 @@
 import {
-	CullFaceNone, CullFaceBack, CullFaceFront, DoubleSide, BackSide,
-	NormalBlending, NoBlending, CustomBlending, AddEquation,
-	AdditiveBlending, SubtractiveBlending, MultiplyBlending, SubtractEquation, ReverseSubtractEquation,
-	ZeroFactor, OneFactor, SrcColorFactor, SrcAlphaFactor, SrcAlphaSaturateFactor, DstColorFactor, DstAlphaFactor,
-	OneMinusSrcColorFactor, OneMinusSrcAlphaFactor, OneMinusDstColorFactor, OneMinusDstAlphaFactor,
-	NeverDepth, AlwaysDepth, LessDepth, LessEqualDepth, EqualDepth, GreaterEqualDepth, GreaterDepth, NotEqualDepth
+	AddEquation,
+	AdditiveBlending,
+	AlwaysDepth,
+	BackSide,
+	CullFaceBack,
+	CullFaceFront,
+	CullFaceNone,
+	CustomBlending,
+	DoubleSide,
+	DstAlphaFactor,
+	DstColorFactor,
+	EqualDepth,
+	GreaterDepth,
+	GreaterEqualDepth,
+	LessDepth,
+	LessEqualDepth,
+	MultiplyBlending,
+	NeverDepth,
+	NoBlending,
+	NormalBlending,
+	NotEqualDepth,
+	OneFactor,
+	OneMinusDstAlphaFactor,
+	OneMinusDstColorFactor,
+	OneMinusSrcAlphaFactor,
+	OneMinusSrcColorFactor,
+	ReverseSubtractEquation,
+	SrcAlphaFactor,
+	SrcAlphaSaturateFactor,
+	SrcColorFactor,
+	SubtractEquation,
+	SubtractiveBlending,
+	ZeroFactor
 } from 'three';
 
 let initialized = false, equationToGL, factorToGL;
@@ -485,12 +512,12 @@ class WebGLState {
 			? this.disable( gl.CULL_FACE )
 			: this.enable( gl.CULL_FACE );
 
-		let flipSided = ( material.side === BackSide );
+		let flipSided = material.side === BackSide;
 		if ( frontFaceCW ) flipSided = ! flipSided;
 
 		this.setFlipSided( flipSided );
 
-		( material.blending === NormalBlending && material.transparent === false )
+		material.blending === NormalBlending && material.transparent === false
 			? this.setBlending( NoBlending )
 			: this.setBlending( material.blending, material.blendEquation, material.blendSrc, material.blendDst, material.blendEquationAlpha, material.blendSrcAlpha, material.blendDstAlpha, material.premultipliedAlpha );
 

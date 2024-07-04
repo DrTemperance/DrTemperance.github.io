@@ -1,9 +1,4 @@
-import {
-	DirectionalLight,
-	Group,
-	LightProbe,
-	WebGLCubeRenderTarget
-} from 'three';
+import { DirectionalLight, Group, LightProbe, WebGLCubeRenderTarget } from 'three';
 
 class SessionLightProbe {
 
@@ -43,11 +38,7 @@ class SessionLightProbe {
 
 			this.xrWebGLBinding = new XRWebGLBinding( session, gl );
 
-			this.lightProbe.addEventListener( 'reflectionchange', () => {
-
-				this.updateReflection();
-
-			} );
+			this.lightProbe.addEventListener( 'reflectionchange', () =>this.updateReflection());
 
 		}
 
@@ -163,7 +154,7 @@ export class XREstimatedLight extends Group {
 
 					reflectionFormat: session.preferredReflectionFormat
 
-				} ).then( ( probe ) => {
+				} ).then( probe=> {
 
 					sessionLightProbe = new SessionLightProbe( this, renderer, probe, environmentEstimation, () => {
 

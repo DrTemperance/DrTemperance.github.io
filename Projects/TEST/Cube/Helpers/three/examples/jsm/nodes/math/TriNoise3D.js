@@ -3,17 +3,9 @@
 import { float, tslFn, vec3 } from '../shadernode/ShaderNode.js';
 import { loop } from '../utils/LoopNode.js';
 
-const tri = tslFn( ( [ x ] ) => {
+const tri = tslFn( ( [ x ] ) =>x.fract().sub(.5).abs());
 
-	return x.fract().sub( .5 ).abs();
-
-} );
-
-const tri3 = tslFn( ( [ p ] ) => {
-
-	return vec3( tri( p.z.add( tri( p.y.mul( 1. ) ) ) ), tri( p.z.add( tri( p.x.mul( 1. ) ) ) ), tri( p.y.add( tri( p.x.mul( 1. ) ) ) ) );
-
-} );
+const tri3 = tslFn( ( [ p ] ) =>vec3(tri(p.z.add(tri(p.y.mul(1.)))), tri(p.z.add(tri(p.x.mul(1.)))), tri(p.y.add(tri(p.x.mul(1.))))));
 
 const triNoise3D = tslFn( ( [ p_immutable, spd, time ] ) => {
 

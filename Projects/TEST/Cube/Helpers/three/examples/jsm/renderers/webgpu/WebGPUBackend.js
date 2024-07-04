@@ -1,20 +1,20 @@
 /*// debugger tools
-import 'https://greggman.github.io/webgpu-avoid-redundant-state-setting/webgpu-check-redundant-state-setting.js';
-//*/
+ import 'https://greggman.github.io/webgpu-avoid-redundant-state-setting/webgpu-check-redundant-state-setting.js';
+ //*/
 
 import { WebGPUCoordinateSystem } from 'three';
-
-import { GPUFeatureName, GPUTextureFormat, GPULoadOp, GPUStoreOp, GPUIndexFormat, GPUTextureViewDimension } from './utils/WebGPUConstants.js';
-
-import WGSLNodeBuilder from './nodes/WGSLNodeBuilder.js';
+import WebGPU from '../../capabilities/WebGPU.js';
 import Backend from '../common/Backend.js';
 
-import WebGPUUtils from './utils/WebGPUUtils.js';
+import WGSLNodeBuilder from './nodes/WGSLNodeBuilder.js';
 import WebGPUAttributeUtils from './utils/WebGPUAttributeUtils.js';
 import WebGPUBindingUtils from './utils/WebGPUBindingUtils.js';
+
+import { GPUFeatureName, GPUIndexFormat, GPULoadOp, GPUStoreOp, GPUTextureFormat, GPUTextureViewDimension } from './utils/WebGPUConstants.js';
 import WebGPUPipelineUtils from './utils/WebGPUPipelineUtils.js';
 import WebGPUTextureUtils from './utils/WebGPUTextureUtils.js';
-import WebGPU from '../../capabilities/WebGPU.js';
+
+import WebGPUUtils from './utils/WebGPUUtils.js';
 
 //
 
@@ -27,13 +27,13 @@ class WebGPUBackend extends Backend {
 		this.isWebGPUBackend = true;
 
 		// some parameters require default values other than "undefined"
-		this.parameters.alpha = ( parameters.alpha === undefined ) ? true : parameters.alpha;
+		this.parameters.alpha = parameters.alpha === undefined ? true : parameters.alpha;
 
-		this.parameters.antialias = ( parameters.antialias === true );
+		this.parameters.antialias = parameters.antialias === true;
 
 		if ( this.parameters.antialias === true ) {
 
-			this.parameters.sampleCount = ( parameters.sampleCount === undefined ) ? 4 : parameters.sampleCount;
+			this.parameters.sampleCount = parameters.sampleCount === undefined ? 4 : parameters.sampleCount;
 
 		} else {
 
@@ -41,9 +41,9 @@ class WebGPUBackend extends Backend {
 
 		}
 
-		this.parameters.requiredLimits = ( parameters.requiredLimits === undefined ) ? {} : parameters.requiredLimits;
+		this.parameters.requiredLimits = parameters.requiredLimits === undefined ? {} : parameters.requiredLimits;
 
-		this.trackTimestamp = ( parameters.trackTimestamp === true );
+		this.trackTimestamp = parameters.trackTimestamp === true;
 
 		this.adapter = null;
 		this.device = null;
@@ -103,7 +103,7 @@ class WebGPUBackend extends Backend {
 
 		const device = await adapter.requestDevice( deviceDescriptor );
 
-		const context = ( parameters.context !== undefined ) ? parameters.context : renderer.domElement.getContext( 'webgpu' );
+		const context = parameters.context !== undefined ? parameters.context : renderer.domElement.getContext( 'webgpu' );
 
 		this.adapter = adapter;
 		this.device = device;
@@ -115,8 +115,8 @@ class WebGPUBackend extends Backend {
 			device: this.device,
 			format: GPUTextureFormat.BGRA8Unorm,
 			usage: GPUTextureUsage.RENDER_ATTACHMENT | GPUTextureUsage.COPY_SRC,
-			alphaMode: alphaMode
-		} );
+			                        alphaMode
+		                        } );
 
 		this.updateSize();
 
@@ -805,7 +805,7 @@ class WebGPUBackend extends Backend {
 
 		const index = renderObject.getIndex();
 
-		const hasIndex = ( index !== null );
+		const hasIndex = index !== null;
 
 		// index
 
@@ -814,7 +814,7 @@ class WebGPUBackend extends Backend {
 			if ( currentSets.index !== index ) {
 
 				const buffer = this.get( index ).buffer;
-				const indexFormat = ( index.array instanceof Uint16Array ) ? GPUIndexFormat.Uint16 : GPUIndexFormat.Uint32;
+				const indexFormat = index.array instanceof Uint16Array ? GPUIndexFormat.Uint16 : GPUIndexFormat.Uint32;
 
 				passEncoderGPU.setIndexBuffer( buffer, indexFormat );
 
@@ -881,7 +881,7 @@ class WebGPUBackend extends Backend {
 
 		if ( hasIndex === true ) {
 
-			const indexCount = ( drawRange.count !== Infinity ) ? drawRange.count : index.count;
+			const indexCount = drawRange.count !== Infinity ? drawRange.count : index.count;
 
 			passEncoderGPU.drawIndexed( indexCount, instanceCount, firstVertex, 0, 0 );
 
@@ -890,7 +890,7 @@ class WebGPUBackend extends Backend {
 		} else {
 
 			const positionAttribute = geometry.attributes.position;
-			const vertexCount = ( drawRange.count !== Infinity ) ? drawRange.count : positionAttribute.count;
+			const vertexCount = drawRange.count !== Infinity ? drawRange.count : positionAttribute.count;
 
 			passEncoderGPU.draw( vertexCount, instanceCount, firstVertex, 0 );
 

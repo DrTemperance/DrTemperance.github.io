@@ -27,7 +27,7 @@ class NURBSCurve extends Curve {
 		this.controlPoints = [];
 		// Used by periodic NURBS to remove hidden spans
 		this.startKnot = startKnot || 0;
-		this.endKnot = endKnot || ( this.knots.length - 1 );
+		this.endKnot = endKnot || this.knots.length - 1;
 
 		for ( let i = 0; i < controlPoints.length; ++ i ) {
 

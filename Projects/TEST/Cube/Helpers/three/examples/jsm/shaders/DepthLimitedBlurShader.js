@@ -121,13 +121,13 @@ const DepthLimitedBlurShader = {
 
 const BlurShaderUtils = {
 
-	createSampleWeights: function ( kernelRadius, stdDev ) {
+	createSampleWeights (kernelRadius, stdDev) {
 
 		const weights = [];
 
-		for ( let i = 0; i <= kernelRadius; i ++ ) {
+		for (let i = 0; i<=kernelRadius; i++) {
 
-			weights.push( gaussian( i, stdDev ) );
+			weights.push(gaussian(i, stdDev));
 
 		}
 
@@ -135,13 +135,13 @@ const BlurShaderUtils = {
 
 	},
 
-	createSampleOffsets: function ( kernelRadius, uvIncrement ) {
+	createSampleOffsets (kernelRadius, uvIncrement) {
 
 		const offsets = [];
 
-		for ( let i = 0; i <= kernelRadius; i ++ ) {
+		for (let i = 0; i<=kernelRadius; i++) {
 
-			offsets.push( uvIncrement.clone().multiplyScalar( i ) );
+			offsets.push(uvIncrement.clone().multiplyScalar(i));
 
 		}
 
@@ -149,11 +149,11 @@ const BlurShaderUtils = {
 
 	},
 
-	configure: function ( material, kernelRadius, stdDev, uvIncrement ) {
+	configure (material, kernelRadius, stdDev, uvIncrement) {
 
-		material.defines[ 'KERNEL_RADIUS' ] = kernelRadius;
-		material.uniforms[ 'sampleUvOffsets' ].value = BlurShaderUtils.createSampleOffsets( kernelRadius, uvIncrement );
-		material.uniforms[ 'sampleWeights' ].value = BlurShaderUtils.createSampleWeights( kernelRadius, stdDev );
+		material.defines['KERNEL_RADIUS'] = kernelRadius;
+		material.uniforms['sampleUvOffsets'].value = BlurShaderUtils.createSampleOffsets(kernelRadius, uvIncrement);
+		material.uniforms['sampleWeights'].value = BlurShaderUtils.createSampleWeights(kernelRadius, stdDev);
 		material.needsUpdate = true;
 
 	}

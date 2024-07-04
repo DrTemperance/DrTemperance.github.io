@@ -9,22 +9,22 @@ import { addNodeElement, float, int, nodeProxy, vec2, vec4 } from '../shadernode
 
 const bC = 1.0 / 6.0;
 
-const w0 = ( a ) => mul( bC, mul( a, mul( a, a.negate().add( 3.0 ) ).sub( 3.0 ) ).add( 1.0 ) );
+const w0 = a=> mul(bC, mul(a, mul(a, a.negate().add(3.0 ) ).sub(3.0 ) ).add(1.0 ) );
 
-const w1 = ( a ) => mul( bC, mul( a, mul( a, mul( 3.0, a ).sub( 6.0 ) ) ).add( 4.0 ) );
+const w1 = a=> mul(bC, mul(a, mul(a, mul(3.0, a ).sub(6.0 ) ) ).add(4.0 ) );
 
-const w2 = ( a ) => mul( bC, mul( a, mul( a, mul( - 3.0, a ).add( 3.0 ) ).add( 3.0 ) ).add( 1.0 ) );
+const w2 = a=> mul(bC, mul(a, mul(a, mul(- 3.0, a ).add(3.0 ) ).add(3.0 ) ).add(1.0 ) );
 
-const w3 = ( a ) => mul( bC, pow( a, 3 ) );
+const w3 = a=> mul(bC, pow(a, 3 ) );
 
-const g0 = ( a ) => w0( a ).add( w1( a ) );
+const g0 = a=> w0(a ).add(w1(a ) );
 
-const g1 = ( a ) => w2( a ).add( w3( a ) );
+const g1 = a=> w2(a ).add(w3(a ) );
 
 // h0 and h1 are the two offset functions
-const h0 = ( a ) => add( - 1.0, w1( a ).div( w0( a ).add( w1( a ) ) ) );
+const h0 = a=> add(- 1.0, w1(a ).div(w0(a ).add(w1(a ) ) ) );
 
-const h1 = ( a ) => add( 1.0, w3( a ).div( w2( a ).add( w3( a ) ) ) );
+const h1 = a=> add(1.0, w3(a ).div(w2(a ).add(w3(a ) ) ) );
 
 const bicubic = ( textureNode, texelSize, lod ) => {
 

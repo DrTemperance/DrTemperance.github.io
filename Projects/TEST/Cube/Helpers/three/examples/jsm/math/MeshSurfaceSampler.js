@@ -47,7 +47,7 @@ class MeshSurfaceSampler {
 		const positionAttribute = this.positionAttribute;
 		const weightAttribute = this.weightAttribute;
 
-		const totalFaces = indexAttribute ? ( indexAttribute.count / 3 ) : ( positionAttribute.count / 3 );
+		const totalFaces = indexAttribute ? indexAttribute.count / 3 : positionAttribute.count / 3;
 		const faceWeights = new Float32Array( totalFaces );
 
 		// Accumulate weights for each mesh face.

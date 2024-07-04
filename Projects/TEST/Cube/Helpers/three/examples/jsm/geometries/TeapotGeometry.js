@@ -476,14 +476,14 @@ class TeapotGeometry extends BufferGeometry {
 		// internal function: test if triangle has any matching vertices;
 		// if so, don't save triangle, since it won't display anything.
 		const notDegenerate = ( vtx1, vtx2, vtx3 ) => // if any vertex matches, return false
-			! ( ( ( vertices[ vtx1 * 3 ] === vertices[ vtx2 * 3 ] ) &&
-					( vertices[ vtx1 * 3 + 1 ] === vertices[ vtx2 * 3 + 1 ] ) &&
-					( vertices[ vtx1 * 3 + 2 ] === vertices[ vtx2 * 3 + 2 ] ) ) ||
-					( ( vertices[ vtx1 * 3 ] === vertices[ vtx3 * 3 ] ) &&
-					( vertices[ vtx1 * 3 + 1 ] === vertices[ vtx3 * 3 + 1 ] ) &&
-					( vertices[ vtx1 * 3 + 2 ] === vertices[ vtx3 * 3 + 2 ] ) ) || ( vertices[ vtx2 * 3 ] === vertices[ vtx3 * 3 ] ) &&
-					( vertices[ vtx2 * 3 + 1 ] === vertices[ vtx3 * 3 + 1 ] ) &&
-					( vertices[ vtx2 * 3 + 2 ] === vertices[ vtx3 * 3 + 2 ] ) );
+			! ( vertices[ vtx1 * 3 ] === vertices[ vtx2 * 3 ] &&
+					vertices[ vtx1 * 3 + 1 ] === vertices[ vtx2 * 3 + 1 ] &&
+					vertices[ vtx1 * 3 + 2 ] === vertices[ vtx2 * 3 + 2 ] ||
+					vertices[ vtx1 * 3 ] === vertices[ vtx3 * 3 ] &&
+					vertices[ vtx1 * 3 + 1 ] === vertices[ vtx3 * 3 + 1 ] &&
+					vertices[ vtx1 * 3 + 2 ] === vertices[ vtx3 * 3 + 2 ] || vertices[ vtx2 * 3 ] === vertices[ vtx3 * 3 ] &&
+					vertices[ vtx2 * 3 + 1 ] === vertices[ vtx3 * 3 + 1 ] &&
+					vertices[ vtx2 * 3 + 2 ] === vertices[ vtx3 * 3 + 2 ] );
 
 
 		for ( let i = 0; i < 3; i ++ ) {
@@ -524,7 +524,7 @@ class TeapotGeometry extends BufferGeometry {
 
 							// is the lid to be made larger, and is this a point on the lid
 							// that is X or Y?
-							if ( fitLid && ( surf >= 20 && surf < 28 ) && ( i !== 2 ) ) {
+							if ( fitLid && ( surf >= 20 && surf < 28 ) && i !== 2 ) {
 
 								// increase XY size by 7.7%, found empirically. I don't
 								// increase Z so that the teapot will continue to fit in the
@@ -535,7 +535,7 @@ class TeapotGeometry extends BufferGeometry {
 
 							// Blinn "fixed" the teapot by dividing Z by blinnScale, and that's the
 							// data we now use. The original teapot is taller. Fix it:
-							if ( ! blinn && ( i === 2 ) ) {
+							if ( ! blinn && i === 2 ) {
 
 								g[ c * 4 + r ] *= blinnScale;
 

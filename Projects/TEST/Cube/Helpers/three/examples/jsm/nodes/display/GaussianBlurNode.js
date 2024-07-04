@@ -118,11 +118,11 @@ class GaussianBlurNode extends TempNode {
 
 		const uvNode = textureNode.uvNode || uv();
 
-		const sampleTexture = ( uv ) => textureNode.cache().context( { getUV: () => uv, forceUVContext: true } );
+		const sampleTexture = uv=> textureNode.cache().context({ getUV: () => uv, forceUVContext: true } );
 
 		const blur = tslFn( () => {
 
-			const kernelSize = 3 + ( 2 * this.sigma );
+			const kernelSize = 3 + 2 * this.sigma;
 			const gaussianCoefficients = this._getCoefficients( kernelSize );
 
 			const invSize = this._invSize;

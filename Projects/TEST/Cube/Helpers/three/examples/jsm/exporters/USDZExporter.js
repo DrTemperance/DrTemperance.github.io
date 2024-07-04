@@ -1,12 +1,6 @@
-import {
-	NoColorSpace,
-	DoubleSide,
-} from 'three';
+import { DoubleSide, NoColorSpace } from 'three';
 
-import {
-	strToU8,
-	zipSync,
-} from '../libs/fflate.module.js';
+import { strToU8, zipSync } from '../libs/fflate.module.js';
 
 import { decompress } from './../utils/TextureUtils.js';
 
@@ -36,7 +30,7 @@ class USDZExporter {
 		const materials = {};
 		const textures = {};
 
-		scene.traverseVisible( ( object ) => {
+		scene.traverseVisible( object=> {
 
 			if ( object.isMesh ) {
 
@@ -136,10 +130,10 @@ class USDZExporter {
 
 function imageToCanvas( image, flipY, maxTextureSize ) {
 
-	if ( ( typeof HTMLImageElement !== 'undefined' && image instanceof HTMLImageElement ) ||
-		( typeof HTMLCanvasElement !== 'undefined' && image instanceof HTMLCanvasElement ) ||
-		( typeof OffscreenCanvas !== 'undefined' && image instanceof OffscreenCanvas ) ||
-		( typeof ImageBitmap !== 'undefined' && image instanceof ImageBitmap ) ) {
+	if ( typeof HTMLImageElement !== 'undefined' && image instanceof HTMLImageElement ||
+		typeof HTMLCanvasElement !== 'undefined' && image instanceof HTMLCanvasElement ||
+		typeof OffscreenCanvas !== 'undefined' && image instanceof OffscreenCanvas ||
+		typeof ImageBitmap !== 'undefined' && image instanceof ImageBitmap ) {
 
 		const scale = maxTextureSize / Math.max( image.width, image.height );
 
@@ -395,7 +389,7 @@ function buildPrimvars( attributes ) {
 
 	for ( let i = 0; i < 4; i ++ ) {
 
-		const id = ( i > 0 ? i : '' );
+		const id = i > 0 ? i : '';
 		const attribute = attributes[ 'uv' + id ];
 
 		if ( attribute !== undefined ) {

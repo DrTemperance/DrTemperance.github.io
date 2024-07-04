@@ -122,6 +122,6 @@ export const dynamicBufferAttribute = ( array, type, stride, offset ) => bufferA
 export const instancedBufferAttribute = ( array, type, stride, offset ) => bufferAttribute( array, type, stride, offset ).setInstanced( true );
 export const instancedDynamicBufferAttribute = ( array, type, stride, offset ) => dynamicBufferAttribute( array, type, stride, offset ).setInstanced( true );
 
-addNodeElement( 'toAttribute', ( bufferNode ) => bufferAttribute( bufferNode.value ) );
+addNodeElement( 'toAttribute', bufferNode=> bufferAttribute(bufferNode.value ) );
 
 addNodeClass( 'BufferAttributeNode', BufferAttributeNode );

@@ -41,7 +41,7 @@ class AssignNode extends TempNode {
 
 			builder.addLineFlowCode( snippet );
 
-			return;
+
 
 		} else {
 

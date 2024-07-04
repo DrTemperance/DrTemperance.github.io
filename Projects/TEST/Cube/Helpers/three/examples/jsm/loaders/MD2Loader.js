@@ -176,7 +176,7 @@ class MD2Loader extends Loader {
 			const u = data.getInt16( offset + 0, true );
 			const v = data.getInt16( offset + 2, true );
 
-			uvsTemp.push( u / header.skinwidth, 1 - ( v / header.skinheight ) );
+			uvsTemp.push( u / header.skinwidth, 1 - v / header.skinheight );
 
 			offset += 4;
 

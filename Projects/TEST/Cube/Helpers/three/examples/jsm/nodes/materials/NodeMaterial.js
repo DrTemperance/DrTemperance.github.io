@@ -168,7 +168,7 @@ class NodeMaterial extends ShaderMaterial {
 
 		}
 
-		if ( ( object.instanceMatrix && object.instanceMatrix.isInstancedBufferAttribute === true ) && builder.isAvailable( 'instance' ) === true ) {
+		if ( object.instanceMatrix && object.instanceMatrix.isInstancedBufferAttribute === true && builder.isAvailable( 'instance' ) === true ) {
 
 			instance( object ).append();
 
@@ -335,7 +335,7 @@ class NodeMaterial extends ShaderMaterial {
 
 		// EMISSIVE
 
-		if ( ( emissiveNode && emissiveNode.isNode === true ) || ( material.emissive && material.emissive.isColor === true ) ) {
+		if ( emissiveNode && emissiveNode.isNode === true || material.emissive && material.emissive.isColor === true ) {
 
 			outgoingLightNode = outgoingLightNode.add( vec3( emissiveNode ? emissiveNode : materialEmissive ) );
 
@@ -425,7 +425,7 @@ class NodeMaterial extends ShaderMaterial {
 
 	toJSON( meta ) {
 
-		const isRoot = ( meta === undefined || typeof meta === 'string' );
+		const isRoot = meta === undefined || typeof meta === 'string';
 
 		if ( isRoot ) {
 

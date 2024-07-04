@@ -225,8 +225,8 @@ function calcBasisFunctionDerivatives( span, u, p, n, U ) {
 
 			}
 
-			const j1 = ( rk >= - 1 ) ? 1 : - rk;
-			const j2 = ( r - 1 <= pk ) ? k - 1 : p - r;
+			const j1 = rk >= - 1 ? 1 : - rk;
+			const j2 = r - 1 <= pk ? k - 1 : p - r;
 
 			for ( let j = j1; j <= j2; ++ j ) {
 

@@ -31,7 +31,7 @@ class GroundedSkybox extends Mesh {
 				// Smooth out the transition from flat floor to sphere:
 				const y1 = - height * 3 / 2;
 				const f =
-						tmp.y < y1 ? - height / tmp.y : ( 1 - tmp.y * tmp.y / ( 3 * y1 * y1 ) );
+						tmp.y < y1 ? - height / tmp.y : 1 - tmp.y * tmp.y / ( 3 * y1 * y1 );
 				tmp.multiplyScalar( f );
 				tmp.toArray( pos.array, 3 * i );
 

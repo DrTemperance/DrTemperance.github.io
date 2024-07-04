@@ -432,7 +432,7 @@ function findHoleBridge(hole, outerNode) {
 
 			tan = Math.abs(hy - p.y) / (hx - p.x); // tangential
 
-			if (locallyInside(p, hole) && (tan<tanMin || tan===tanMin && (p.x>m.x || (p.x===m.x && sectorContainsSector(m, p))))) {
+			if (locallyInside(p, hole) && (tan<tanMin || tan===tanMin && (p.x>m.x || p.x===m.x && sectorContainsSector(m, p)))) {
 
 				m = p;
 				tanMin = tan;
@@ -678,7 +678,7 @@ function middleInside(a, b) {
 	      py = (a.y + b.y) / 2;
 	do {
 
-		if ((p.y>py)!==(p.next.y>py) && p.next.y!==p.y &&
+		if (p.y>py!==p.next.y>py && p.next.y!==p.y &&
 		    px<(p.next.x - p.x) * (py - p.y) / (p.next.y - p.y) + p.x)
 			inside = !inside;
 		p = p.next;

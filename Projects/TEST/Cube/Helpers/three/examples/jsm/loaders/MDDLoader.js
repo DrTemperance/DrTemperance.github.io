@@ -52,7 +52,7 @@ class MDDLoader extends Loader {
 		for ( let i = 0; i < totalFrames; i ++ ) {
 
 			times[ i ] = view.getFloat32( offset ); offset += 4;
-			values[ ( totalFrames * i ) + i ] = 1;
+			values[ totalFrames * i + i ] = 1;
 
 		}
 
@@ -69,7 +69,7 @@ class MDDLoader extends Loader {
 
 			for ( let j = 0; j < totalPoints; j ++ ) {
 
-				const stride = ( j * 3 );
+				const stride = j * 3;
 
 				morphTarget[ stride + 0 ] = view.getFloat32( offset ); offset += 4; // x
 				morphTarget[ stride + 1 ] = view.getFloat32( offset ); offset += 4; // y
@@ -85,8 +85,8 @@ class MDDLoader extends Loader {
 		}
 
 		return {
-			morphTargets: morphTargets,
-			clip: clip
+			morphTargets,
+			clip
 		};
 
 	}

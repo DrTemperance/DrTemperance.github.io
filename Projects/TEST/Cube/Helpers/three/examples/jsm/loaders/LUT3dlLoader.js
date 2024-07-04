@@ -1,17 +1,7 @@
 // http://download.autodesk.com/us/systemdocs/help/2011/lustre/index.html?url=./files/WSc4e151a45a3b785a24c3d9a411df9298473-7ffd.htm,topicNumber=d0e9492
 // https://community.foundry.com/discuss/topic/103636/format-spec-for-3dl?mode=Post&postID=895258
 
-import {
-	ClampToEdgeWrapping,
-	DataTexture,
-	Data3DTexture,
-	FileLoader,
-	FloatType,
-	LinearFilter,
-	Loader,
-	RGBAFormat,
-	UnsignedByteType,
-} from 'three';
+import { ClampToEdgeWrapping, Data3DTexture, DataTexture, FileLoader, FloatType, LinearFilter, Loader, RGBAFormat, UnsignedByteType } from 'three';
 
 export class LUT3dlLoader extends Loader {
 
@@ -89,7 +79,7 @@ export class LUT3dlLoader extends Loader {
 
 		for ( let i = 1, l = gridLines.length; i < l; ++ i ) {
 
-			if ( gridStep !== ( gridLines[ i ] - gridLines[ i - 1 ] ) ) {
+			if ( gridStep !== gridLines[ i ] - gridLines[ i - 1 ] ) {
 
 				throw new Error( 'LUT3dlLoader: Inconsistent grid size' );
 
@@ -111,7 +101,7 @@ export class LUT3dlLoader extends Loader {
 
 			const bLayer = index % size;
 			const gLayer = Math.floor( index / size ) % size;
-			const rLayer = Math.floor( index / ( sizeSq ) ) % size;
+			const rLayer = Math.floor( index / sizeSq ) % size;
 
 			// b grows first, then g, then r.
 			const d4 = ( bLayer * sizeSq + gLayer * size + rLayer ) * 4;

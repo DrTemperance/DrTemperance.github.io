@@ -1,6 +1,6 @@
 import { REVISION } from 'three';
-import { VariableDeclaration, Accessor } from './AST.js';
 import * as Nodes from '../nodes/Nodes.js';
+import { Accessor, VariableDeclaration } from './AST.js';
 
 const opLib = {
 	'=': 'assign',
@@ -43,7 +43,7 @@ const unaryLib = {
 	'--': 'decrement' // decrementBefore
 };
 
-const isPrimitive = ( value ) => /^(true|false|-?\d)/.test( value );
+const isPrimitive = value=> /^(true|false|-?\d)/.test(value );
 
 class TSLEncoder {
 
@@ -408,10 +408,10 @@ ${ this.tab }} )`;
 
 		const { initialization, condition, afterthought } = node;
 
-		if ( ( initialization && initialization.isVariableDeclaration && initialization.next === null ) &&
+		if ( initialization && initialization.isVariableDeclaration && initialization.next === null &&
 			( condition && condition.left.isAccessor && condition.left.property === initialization.name ) &&
 			( afterthought && afterthought.isUnary ) &&
-			( initialization.name === afterthought.expression.property )
+			initialization.name === afterthought.expression.property
 		) {
 
 			return this.emitLoop( node );
@@ -630,11 +630,11 @@ ${ this.tab }} );\n\n`;
 
 		if ( statement.isReturn ) return '\n';
 
-		const isExpression = ( st ) => st.isFunctionDeclaration !== true && st.isFor !== true && st.isConditional !== true;
+		const isExpression = st=>st.isFunctionDeclaration!==true && st.isFor!==true && st.isConditional!==true;
 		const lastExp = isExpression( last );
 		const currExp = isExpression( statement );
 
-		if ( lastExp !== currExp || ( ! lastExp && ! currExp ) ) return '\n';
+		if ( lastExp !== currExp || ! lastExp && ! currExp ) return '\n';
 
 		return '';
 

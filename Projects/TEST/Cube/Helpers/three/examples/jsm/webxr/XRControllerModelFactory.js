@@ -1,17 +1,8 @@
-import {
-	Mesh,
-	MeshBasicMaterial,
-	Object3D,
-	SphereGeometry,
-} from 'three';
+import { Mesh, MeshBasicMaterial, Object3D, SphereGeometry } from 'three';
+
+import { Constants as MotionControllerConstants, fetchProfile, MotionController } from '../libs/motion-controllers.module.js';
 
 import { GLTFLoader } from '../loaders/GLTFLoader.js';
-
-import {
-	Constants as MotionControllerConstants,
-	fetchProfile,
-	MotionController
-} from '../libs/motion-controllers.module.js';
 
 const DEFAULT_PROFILES_PATH = 'https://cdn.jsdelivr.net/npm/@webxr-input-profiles/assets@1.0/dist/profiles';
 const DEFAULT_PROFILE = 'generic-trigger';
@@ -36,7 +27,7 @@ class XRControllerModel extends Object3D {
 		}
 
 		this.envMap = envMap;
-		this.traverse( ( child ) => {
+		this.traverse( child=> {
 
 			if ( child.isMesh ) {
 
@@ -65,10 +56,10 @@ class XRControllerModel extends Object3D {
 		this.motionController.updateFromGamepad();
 
 		// Update the 3D model to reflect the button, thumbstick, and touchpad state
-		Object.values( this.motionController.components ).forEach( ( component ) => {
+		Object.values( this.motionController.components ).forEach( component=> {
 
 			// Update node data based on the visual responses' current states
-			Object.values( component.visualResponses ).forEach( ( visualResponse ) => {
+			Object.values( component.visualResponses ).forEach( visualResponse=> {
 
 				const { valueNode, minNode, maxNode, value, valueNodeProperty } = visualResponse;
 
@@ -113,7 +104,7 @@ class XRControllerModel extends Object3D {
 function findNodes( motionController, scene ) {
 
 	// Loop through the components and find the nodes needed for each components' visual responses
-	Object.values( motionController.components ).forEach( ( component ) => {
+	Object.values( motionController.components ).forEach( component=> {
 
 		const { type, touchPointNodeName, visualResponses } = component;
 
@@ -137,7 +128,7 @@ function findNodes( motionController, scene ) {
 		}
 
 		// Loop through all the visual responses to be applied to this component
-		Object.values( visualResponses ).forEach( ( visualResponse ) => {
+		Object.values( visualResponses ).forEach( visualResponse=> {
 
 			const { valueNodeName, minNodeName, maxNodeName, valueNodeProperty } = visualResponse;
 
@@ -186,7 +177,7 @@ function addAssetSceneToControllerModel( controllerModel, scene ) {
 	// Apply any environment map that the mesh already has set.
 	if ( controllerModel.envMap ) {
 
-		scene.traverse( ( child ) => {
+		scene.traverse( child=> {
 
 			if ( child.isMesh ) {
 
@@ -227,7 +218,7 @@ class XRControllerModelFactory {
 		const controllerModel = new XRControllerModel();
 		let scene = null;
 
-		controller.addEventListener( 'connected', ( event ) => {
+		controller.addEventListener( 'connected', event=> {
 
 			const xrInputSource = event.data;
 
@@ -259,7 +250,7 @@ class XRControllerModelFactory {
 					}
 
 					this.gltfLoader.setPath( '' );
-					this.gltfLoader.load( controllerModel.motionController.assetUrl, ( asset ) => {
+					this.gltfLoader.load( controllerModel.motionController.assetUrl, asset=> {
 
 						this._assetCache[ controllerModel.motionController.assetUrl ] = asset;
 
@@ -279,11 +270,7 @@ class XRControllerModelFactory {
 
 				}
 
-			} ).catch( ( err ) => {
-
-				console.warn( err );
-
-			} );
+			} ).catch( err=>console.warn(err));
 
 		} );
 

@@ -1,8 +1,8 @@
-import Node, { addNodeClass } from '../core/Node.js';
 import { expression } from '../code/ExpressionNode.js';
 import { bypass } from '../core/BypassNode.js';
 import { context } from '../core/ContextNode.js';
-import { addNodeElement, nodeObject, nodeArray } from '../shadernode/ShaderNode.js';
+import Node, { addNodeClass } from '../core/Node.js';
+import { addNodeElement, nodeArray, nodeObject } from '../shadernode/ShaderNode.js';
 
 class LoopNode extends Node {
 
@@ -34,8 +34,8 @@ class LoopNode extends Node {
 
 			const param = this.params[ i ];
 
-			const name = ( param.isNode !== true && param.name ) || this.getVarName( i );
-			const type = ( param.isNode !== true && param.type ) || 'int';
+			const name = param.isNode !== true && param.name || this.getVarName( i );
+			const type = param.isNode !== true && param.type || 'int';
 
 			inputs[ name ] = expression( name, type );
 

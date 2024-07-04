@@ -47,31 +47,27 @@ class Capsule {
 
 	checkAABBAxis( p1x, p1y, p2x, p2y, minx, maxx, miny, maxy, radius ) {
 
-		return (
-			( minx - p1x < radius || minx - p2x < radius ) &&
-			( p1x - maxx < radius || p2x - maxx < radius ) &&
-			( miny - p1y < radius || miny - p2y < radius ) &&
-			( p1y - maxy < radius || p2y - maxy < radius )
-		);
+		return ( minx - p1x < radius || minx - p2x < radius ) &&
+		( p1x - maxx < radius || p2x - maxx < radius ) &&
+		( miny - p1y < radius || miny - p2y < radius ) &&
+		( p1y - maxy < radius || p2y - maxy < radius );
 
 	}
 
 	intersectsBox( box ) {
 
-		return (
-			this.checkAABBAxis(
-				this.start.x, this.start.y, this.end.x, this.end.y,
-				box.min.x, box.max.x, box.min.y, box.max.y,
-				this.radius ) &&
-			this.checkAABBAxis(
-				this.start.x, this.start.z, this.end.x, this.end.z,
-				box.min.x, box.max.x, box.min.z, box.max.z,
-				this.radius ) &&
-			this.checkAABBAxis(
-				this.start.y, this.start.z, this.end.y, this.end.z,
-				box.min.y, box.max.y, box.min.z, box.max.z,
-				this.radius )
-		);
+		return this.checkAABBAxis(
+			this.start.x, this.start.y, this.end.x, this.end.y,
+			box.min.x, box.max.x, box.min.y, box.max.y,
+			this.radius ) &&
+		this.checkAABBAxis(
+			this.start.x, this.start.z, this.end.x, this.end.z,
+			box.min.x, box.max.x, box.min.z, box.max.z,
+			this.radius ) &&
+		this.checkAABBAxis(
+			this.start.y, this.start.z, this.end.y, this.end.z,
+			box.min.y, box.max.y, box.min.z, box.max.z,
+			this.radius );
 
 	}
 

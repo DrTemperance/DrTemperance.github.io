@@ -116,8 +116,8 @@ class CSS2DRenderer {
 				_vector.setFromMatrixPosition( object.matrixWorld );
 				_vector.applyMatrix4( _viewProjectionMatrix );
 
-				const visible = ( object.visible === true ) && ( _vector.z >= - 1 && _vector.z <= 1 ) && ( object.layers.test( camera.layers ) === true );
-				object.element.style.display = ( visible === true ) ? '' : 'none';
+				const visible = object.visible === true && ( _vector.z >= - 1 && _vector.z <= 1 ) && object.layers.test( camera.layers ) === true;
+				object.element.style.display = visible === true ? '' : 'none';
 
 				if ( visible === true ) {
 
@@ -125,7 +125,7 @@ class CSS2DRenderer {
 
 					const element = object.element;
 
-					element.style.transform = 'translate(' + ( - 100 * object.center.x ) + '%,' + ( - 100 * object.center.y ) + '%)' + 'translate(' + ( _vector.x * _widthHalf + _widthHalf ) + 'px,' + ( - _vector.y * _heightHalf + _heightHalf ) + 'px)';
+					element.style.transform = 'translate(' + - 100 * object.center.x + '%,' + - 100 * object.center.y + '%)' + 'translate(' + ( _vector.x * _widthHalf + _widthHalf ) + 'px,' + ( - _vector.y * _heightHalf + _heightHalf ) + 'px)';
 
 					if ( element.parentNode !== domElement ) {
 

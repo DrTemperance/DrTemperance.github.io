@@ -278,7 +278,7 @@ class ViewHelper extends Object3D {
 
 		function getAxisMaterial( color ) {
 
-			return new MeshBasicMaterial( { color: color, toneMapped: false } );
+			return new MeshBasicMaterial( {color, toneMapped: false } );
 
 		}
 

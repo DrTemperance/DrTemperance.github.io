@@ -1859,7 +1859,7 @@ class ArcballControls extends EventDispatcher {
 
 			//w = w0 + alpha * t
 			const deltaTime = ( time - this._timeStart ) / 1000;
-			const w = w0 + ( - this.dampingFactor ) * deltaTime;
+			const w = w0 + - this.dampingFactor * deltaTime;
 
 			if ( w > 0 ) {
 

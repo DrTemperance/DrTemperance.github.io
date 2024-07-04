@@ -90,6 +90,6 @@ export default FunctionOverloadingNode;
 
 const overloadingBaseFn = nodeProxy( FunctionOverloadingNode );
 
-export const overloadingFn = ( functionNodes ) => ( ...params ) => overloadingBaseFn( functionNodes, ...params );
+export const overloadingFn = functionNodes=> (...params ) => overloadingBaseFn(functionNodes, ...params );
 
 addNodeClass( 'FunctionOverloadingNode', FunctionOverloadingNode );

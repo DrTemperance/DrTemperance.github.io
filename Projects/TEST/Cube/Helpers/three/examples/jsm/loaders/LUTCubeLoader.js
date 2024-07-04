@@ -66,7 +66,7 @@ export class LUTCubeLoader extends Loader {
 		const regExpDataPoints = /^([\d.e+-]+) +([\d.e+-]+) +([\d.e+-]+) *$/gm;
 
 		let result = regExpTitle.exec( input );
-		const title = ( result !== null ) ? result[ 1 ] : null;
+		const title = result !== null ? result[ 1 ] : null;
 
 		result = regExpSize.exec( input );
 

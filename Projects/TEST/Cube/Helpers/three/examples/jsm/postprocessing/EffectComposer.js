@@ -115,7 +115,7 @@ class EffectComposer {
 
 			if ( pass.enabled === false ) continue;
 
-			pass.renderToScreen = ( this.renderToScreen && this.isLastEnabledPass( i ) );
+			pass.renderToScreen = this.renderToScreen && this.isLastEnabledPass( i );
 			pass.render( this.renderer, this.writeBuffer, this.readBuffer, deltaTime, maskActive );
 
 			if ( pass.needsSwap ) {

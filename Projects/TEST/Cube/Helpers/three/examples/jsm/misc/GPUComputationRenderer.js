@@ -135,8 +135,8 @@ class GPUComputationRenderer {
 
 			const variable = {
 				name: variableName,
-				initialValueTexture: initialValueTexture,
-				material: material,
+				initialValueTexture,
+				material,
 				dependencies: null,
 				renderTargets: [],
 				wrapS: null,
@@ -319,7 +319,7 @@ class GPUComputationRenderer {
 
 			const material = new ShaderMaterial( {
 				name: 'GPUComputationShader',
-				uniforms: uniforms,
+				                                     uniforms,
 				vertexShader: getPassThroughVertexShader(),
 				fragmentShader: computeFragmentShader
 			} );
@@ -344,10 +344,10 @@ class GPUComputationRenderer {
 			magFilter = magFilter || NearestFilter;
 
 			const renderTarget = new WebGLRenderTarget( sizeXTexture, sizeYTexture, {
-				wrapS: wrapS,
-				wrapT: wrapT,
-				minFilter: minFilter,
-				magFilter: magFilter,
+				wrapS,
+				wrapT,
+				minFilter,
+				magFilter,
 				format: RGBAFormat,
 				type: dataType,
 				depthBuffer: false

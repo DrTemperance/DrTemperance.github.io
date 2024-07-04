@@ -1,7 +1,4 @@
-import {
-	BoxGeometry,
-	Vector3
-} from 'three';
+import { BoxGeometry, Vector3 } from 'three';
 
 const _tempNormal = new Vector3();
 
@@ -22,7 +19,7 @@ function getUv( faceDirVector, normal, uvAxis, projectionAxis, radius, sideLengt
 	const arcUvRatio = 0.5 * totArcLength / ( totArcLength + centerLength );
 
 	// the distance along one arc the point is at
-	const arcAngleRatio = 1.0 - ( _tempNormal.angleTo( faceDirVector ) / halfArc );
+	const arcAngleRatio = 1.0 - _tempNormal.angleTo( faceDirVector ) / halfArc;
 
 	if ( Math.sign( _tempNormal[ uvAxis ] ) === 1 ) {
 

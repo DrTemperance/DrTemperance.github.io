@@ -8,7 +8,7 @@ const wgslTypeLib = {
 	f32: 'float'
 };
 
-const parse = ( source ) => {
+const parse = source=> {
 
 	source = source.trim();
 

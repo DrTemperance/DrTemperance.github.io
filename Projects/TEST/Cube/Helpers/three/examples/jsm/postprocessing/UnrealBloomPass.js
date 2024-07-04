@@ -18,10 +18,10 @@ class UnrealBloomPass extends Pass {
 
 		super();
 
-		this.strength = ( strength !== undefined ) ? strength : 1;
+		this.strength = strength !== undefined ? strength : 1;
 		this.radius = radius;
 		this.threshold = threshold;
-		this.resolution = ( resolution !== undefined ) ? new Vector2( resolution.x, resolution.y ) : new Vector2( 256, 256 );
+		this.resolution = resolution !== undefined ? new Vector2( resolution.x, resolution.y ) : new Vector2( 256, 256 );
 
 		// create color only once here, reuse it later inside the render function
 		this.clearColor = new Color( 0, 0, 0 );

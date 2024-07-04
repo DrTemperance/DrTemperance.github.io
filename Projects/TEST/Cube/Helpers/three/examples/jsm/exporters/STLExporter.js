@@ -33,12 +33,12 @@ class STLExporter {
 				const index = geometry.index;
 				const positionAttribute = geometry.getAttribute( 'position' );
 
-				triangles += ( index !== null ) ? ( index.count / 3 ) : ( positionAttribute.count / 3 );
+				triangles += index !== null ? index.count / 3 : positionAttribute.count / 3;
 
 				objects.push( {
 					object3d: object,
-					geometry: geometry
-				} );
+					              geometry
+				              } );
 
 			}
 

@@ -4,11 +4,7 @@ import AnalyticLightNode from './AnalyticLightNode.js';
 
 const LightNodes = new WeakMap();
 
-const sortLights = ( lights ) => {
-
-	return lights.sort( ( a, b ) => a.id - b.id );
-
-};
+const sortLights = lights=>lights.sort((a, b)=>a.id - b.id);
 
 class LightsNode extends Node {
 
@@ -168,7 +164,7 @@ class LightsNode extends Node {
 
 export default LightsNode;
 
-export const lights = ( lights ) => nodeObject( new LightsNode().fromLights( lights ) );
+export const lights = lights=> nodeObject(new LightsNode().fromLights(lights ) );
 export const lightsNode = nodeProxy( LightsNode );
 
 export function addLightNode( lightClass, lightNodeClass ) {

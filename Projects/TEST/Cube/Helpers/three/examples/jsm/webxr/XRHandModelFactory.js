@@ -1,14 +1,8 @@
-import {
-	Object3D
-} from 'three';
+import { Object3D } from 'three';
 
-import {
-	XRHandPrimitiveModel
-} from './XRHandPrimitiveModel.js';
+import { XRHandMeshModel } from './XRHandMeshModel.js';
 
-import {
-	XRHandMeshModel
-} from './XRHandMeshModel.js';
+import { XRHandPrimitiveModel } from './XRHandPrimitiveModel.js';
 
 class XRHandModel extends Object3D {
 
@@ -58,7 +52,7 @@ class XRHandModelFactory {
 
 		const handModel = new XRHandModel( controller );
 
-		controller.addEventListener( 'connected', ( event ) => {
+		controller.addEventListener( 'connected', event=> {
 
 			const xrInputSource = event.data;
 

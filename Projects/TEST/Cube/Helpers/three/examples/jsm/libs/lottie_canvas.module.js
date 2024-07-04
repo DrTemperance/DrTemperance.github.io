@@ -3156,7 +3156,7 @@ const PropertyFactory = (function () {
     var frameNum = this.comp.renderedFrame - this.offsetTime;
     var initTime = this.keyframes[0].t - this.offsetTime;
     var endTime = this.keyframes[this.keyframes.length - 1].t - this.offsetTime;
-    if (!(frameNum === this._caching.lastFrame || this._caching.lastFrame !== initFrame && ((this._caching.lastFrame >= endTime && frameNum >= endTime) || (this._caching.lastFrame < initTime && frameNum < initTime)))) {
+    if (!(frameNum === this._caching.lastFrame || this._caching.lastFrame !== initFrame && (this._caching.lastFrame >= endTime && frameNum >= endTime || this._caching.lastFrame < initTime && frameNum < initTime))) {
       if (this._caching.lastFrame >= frameNum) {
         this._caching._lastKeyframeIndex = -1;
         this._caching.lastIndex = 0;
@@ -13486,7 +13486,7 @@ function seedRandom(pool, math) {
                 i = me.i, j = me.j, s = me.S;
             while (count--) {
                 t = s[i = mask & i + 1];
-                r = r * width + s[mask & (s[i] = s[j = mask & (j + t)]) + (s[j] = t)];
+                r = r * width + s[mask & (s[i] = s[j = mask & j + t]) + (s[j] = t)];
             }
             me.i = i; me.j = j;
             return r;

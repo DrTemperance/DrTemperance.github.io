@@ -1,17 +1,17 @@
+import { BackSide, DoubleSide, FrontSide, Frustum, Matrix4, NoToneMapping, Scene, SRGBColorSpace, Vector2, Vector3, Vector4 } from 'three';
 import Animation from './Animation.js';
-import RenderObjects from './RenderObjects.js';
 import Attributes from './Attributes.js';
+import Background from './Background.js';
+import Bindings from './Bindings.js';
+import Color4 from './Color4.js';
 import Geometries from './Geometries.js';
 import Info from './Info.js';
-import Pipelines from './Pipelines.js';
-import Bindings from './Bindings.js';
-import RenderLists from './RenderLists.js';
-import RenderContexts from './RenderContexts.js';
-import Textures from './Textures.js';
-import Background from './Background.js';
 import Nodes from './nodes/Nodes.js';
-import Color4 from './Color4.js';
-import { Scene, Frustum, Matrix4, Vector2, Vector3, Vector4, DoubleSide, BackSide, FrontSide, SRGBColorSpace, NoToneMapping } from 'three';
+import Pipelines from './Pipelines.js';
+import RenderContexts from './RenderContexts.js';
+import RenderLists from './RenderLists.js';
+import RenderObjects from './RenderObjects.js';
+import Textures from './Textures.js';
 
 const _scene = new Scene();
 const _drawingBufferSize = new Vector2();
@@ -195,7 +195,7 @@ class Renderer {
 
 		//
 
-		const sceneRef = ( scene.isScene === true ) ? scene : _scene;
+		const sceneRef = scene.isScene === true ? scene : _scene;
 
 		if ( targetScene === null ) targetScene = scene;
 
@@ -316,7 +316,7 @@ class Renderer {
 
 		//
 
-		const sceneRef = ( scene.isScene === true ) ? scene : _scene;
+		const sceneRef = scene.isScene === true ? scene : _scene;
 
 		const renderTarget = this._renderTarget;
 		const renderContext = this._renderContexts.get( scene, camera, renderTarget );
@@ -371,8 +371,8 @@ class Renderer {
 
 		_screen.set( 0, 0, _drawingBufferSize.width, _drawingBufferSize.height );
 
-		const minDepth = ( viewport.minDepth === undefined ) ? 0 : viewport.minDepth;
-		const maxDepth = ( viewport.maxDepth === undefined ) ? 1 : viewport.maxDepth;
+		const minDepth = viewport.minDepth === undefined ? 0 : viewport.minDepth;
+		const maxDepth = viewport.maxDepth === undefined ? 1 : viewport.maxDepth;
 
 		renderContext.viewportValue.copy( viewport ).multiplyScalar( pixelRatio ).floor();
 		renderContext.viewportValue.width >>= activeMipmapLevel;
@@ -1056,8 +1056,8 @@ class Renderer {
 					if ( object.layers.test( camera2.layers ) ) {
 
 						const vp = camera2.viewport;
-						const minDepth = ( vp.minDepth === undefined ) ? 0 : vp.minDepth;
-						const maxDepth = ( vp.maxDepth === undefined ) ? 1 : vp.maxDepth;
+						const minDepth = vp.minDepth === undefined ? 0 : vp.minDepth;
+						const maxDepth = vp.maxDepth === undefined ? 1 : vp.maxDepth;
 
 						const viewportValue = this._currentRenderContext.viewportValue;
 						viewportValue.copy( vp ).multiplyScalar( this._pixelRatio ).floor();

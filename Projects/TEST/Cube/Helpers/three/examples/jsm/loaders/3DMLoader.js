@@ -80,7 +80,7 @@ class Rhino3dmLoader extends Loader {
 
 		this.url = url;
 
-		loader.load( url, ( buffer ) => {
+		loader.load( url, buffer=> {
 
 			// Check for an existing task using this buffer. A transferred buffer cannot be transferred
 			// again from this thread.
@@ -107,7 +107,7 @@ class Rhino3dmLoader extends Loader {
 
 	debug() {
 
-		console.log( 'Task load: ', this.workerPool.map( ( worker ) => worker._taskLoad ) );
+		console.log( 'Task load: ', this.workerPool.map( worker=> worker._taskLoad ) );
 
 	}
 
@@ -119,7 +119,7 @@ class Rhino3dmLoader extends Loader {
 		const taskCost = buffer.byteLength;
 
 		const objectPending = this._getWorker( taskCost )
-			.then( ( _worker ) => {
+			.then( _worker=> {
 
 				worker = _worker;
 				taskID = this.workerNextTaskID ++;
@@ -135,7 +135,7 @@ class Rhino3dmLoader extends Loader {
 				} );
 
 			} )
-			.then( ( message ) => this._createGeometry( message.data ) )
+			.then( message=> this._createGeometry(message.data ) )
 			.catch( e => {
 
 				throw e;
@@ -161,7 +161,7 @@ class Rhino3dmLoader extends Loader {
 		// Cache the task result.
 		_taskCache.set( buffer, {
 
-			url: url,
+			url,
 			promise: objectPending
 
 		} );
@@ -648,7 +648,7 @@ class Rhino3dmLoader extends Loader {
 
 					_color = attributes.drawColor;
 					color = new Color( _color.r / 255.0, _color.g / 255.0, _color.b / 255.0 );
-					material = new PointsMaterial( { color: color, sizeAttenuation: false, size: 2 } );
+					material = new PointsMaterial( {color, sizeAttenuation: false, size: 2 } );
 
 				}
 
@@ -709,7 +709,7 @@ class Rhino3dmLoader extends Loader {
 				_color = attributes.drawColor;
 				color = new Color( _color.r / 255.0, _color.g / 255.0, _color.b / 255.0 );
 
-				material = new LineBasicMaterial( { color: color } );
+				material = new LineBasicMaterial( {color} );
 				material = this._compareMaterials( material );
 
 				const lines = new Line( geometry, material );
@@ -805,7 +805,7 @@ class Rhino3dmLoader extends Loader {
 						light = new RectAreaLight();
 						const width = Math.abs( geometry.width[ 2 ] );
 						const height = Math.abs( geometry.length[ 0 ] );
-						light.position.set( geometry.location[ 0 ] - ( height / 2 ), geometry.location[ 1 ], geometry.location[ 2 ] - ( width / 2 ) );
+						light.position.set( geometry.location[ 0 ] - height / 2, geometry.location[ 1 ], geometry.location[ 2 ] - width / 2 );
 						light.height = height;
 						light.width = width;
 						light.lookAt( geometry.direction[ 0 ], geometry.direction[ 1 ], geometry.direction[ 2 ] );
@@ -855,21 +855,13 @@ class Rhino3dmLoader extends Loader {
 			// Load rhino3dm wrapper.
 			const jsLoader = new FileLoader( this.manager );
 			jsLoader.setPath( this.libraryPath );
-			const jsContent = new Promise( ( resolve, reject ) => {
-
-				jsLoader.load( 'rhino3dm.js', resolve, undefined, reject );
-
-			} );
+			const jsContent = new Promise( ( resolve, reject ) =>jsLoader.load('rhino3dm.js', resolve, undefined, reject));
 
 			// Load rhino3dm WASM binary.
 			const binaryLoader = new FileLoader( this.manager );
 			binaryLoader.setPath( this.libraryPath );
 			binaryLoader.setResponseType( 'arraybuffer' );
-			const binaryContent = new Promise( ( resolve, reject ) => {
-
-				binaryLoader.load( 'rhino3dm.wasm', resolve, undefined, reject );
-
-			} );
+			const binaryContent = new Promise( ( resolve, reject ) =>binaryLoader.load('rhino3dm.wasm', resolve, undefined, reject));
 
 			this.libraryPending = Promise.all( [ jsContent, binaryContent ] )
 				.then( ( [ jsContent, binaryContent ] ) => {

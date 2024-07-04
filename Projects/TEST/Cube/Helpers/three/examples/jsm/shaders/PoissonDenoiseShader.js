@@ -1,8 +1,4 @@
-import {
-	Matrix4,
-	Vector2,
-	Vector3,
-} from 'three';
+import { Matrix4, Vector2, Vector3 } from 'three';
 
 /**
  * References:
@@ -199,7 +195,7 @@ function generatePdSamplePointInitializer( samples, rings, radiusExponent ) {
 	for ( let i = 0; i < samples; i ++ ) {
 
 		const sample = poissonDisk[ i ];
-		glslCode += `vec3(${sample.x}, ${sample.y}, ${sample.z})${( i < samples - 1 ) ? ',' : ')'}`;
+		glslCode += `vec3(${sample.x}, ${sample.y}, ${sample.z})${i < samples - 1 ? ',' : ')'}`;
 
 	}
 

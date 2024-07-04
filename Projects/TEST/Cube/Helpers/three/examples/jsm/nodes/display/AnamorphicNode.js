@@ -97,7 +97,7 @@ class AnamorphicNode extends TempNode {
 
 		const uvNode = textureNode.uvNode || uv();
 
-		const sampleTexture = ( uv ) => textureNode.cache().context( { getUV: () => uv, forceUVContext: true } );
+		const sampleTexture = uv=> textureNode.cache().context({ getUV: () => uv, forceUVContext: true } );
 
 		const anamorph = tslFn( () => {
 

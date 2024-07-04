@@ -36,14 +36,14 @@ var MeshoptDecoder = (function() {
 		}
 		var write = 0;
 		for (var i = 0; i < data.length; ++i) {
-			result[write++] = (result[i] < 60) ? wasmpack[result[i]] : (result[i] - 60) * 64 + result[++i];
+			result[write++] = result[i] < 60 ? wasmpack[result[i]] : (result[i] - 60) * 64 + result[++i];
 		}
 		return result.buffer.slice(0, write);
 	}
 
 	function decode(fun, target, count, size, source, filter) {
 		var sbrk = instance.exports.sbrk;
-		var count4 = (count + 3) & ~3;
+		var count4 = count + 3 & ~3;
 		var tp = sbrk(count4 * size);
 		var sp = sbrk(source.length);
 		var heap = new Uint8Array(instance.exports.memory.buffer);
@@ -125,8 +125,8 @@ var MeshoptDecoder = (function() {
 			var id = requestId++;
 
 			worker.pending += count;
-			worker.requests[id] = { resolve: resolve, reject: reject };
-			worker.object.postMessage({ id: id, count: count, size: size, source: data, mode: mode, filter: filter }, [ data.buffer ]);
+			worker.requests[id] = {resolve, reject};
+			worker.object.postMessage({id, count, size, source: data, mode, filter}, [data.buffer ]);
 		});
 	}
 
@@ -144,29 +144,29 @@ var MeshoptDecoder = (function() {
 	}
 
 	return {
-		ready: ready,
+		ready,
 		supported: true,
-		useWorkers: function(count) {
+		useWorkers (count) {
 			initWorkers(count);
 		},
-		decodeVertexBuffer: function(target, count, size, source, filter) {
+		decodeVertexBuffer (target, count, size, source, filter) {
 			decode(instance.exports.meshopt_decodeVertexBuffer, target, count, size, source, instance.exports[filters[filter]]);
 		},
-		decodeIndexBuffer: function(target, count, size, source) {
+		decodeIndexBuffer (target, count, size, source) {
 			decode(instance.exports.meshopt_decodeIndexBuffer, target, count, size, source);
 		},
-		decodeIndexSequence: function(target, count, size, source) {
+		decodeIndexSequence (target, count, size, source) {
 			decode(instance.exports.meshopt_decodeIndexSequence, target, count, size, source);
 		},
-		decodeGltfBuffer: function(target, count, size, source, mode, filter) {
+		decodeGltfBuffer (target, count, size, source, mode, filter) {
 			decode(instance.exports[decoders[mode]], target, count, size, source, instance.exports[filters[filter]]);
 		},
-		decodeGltfBufferAsync: function(count, size, source, mode, filter) {
-			if (workers.length > 0) {
+		decodeGltfBufferAsync (count, size, source, mode, filter) {
+			if (workers.length>0) {
 				return decodeWorker(count, size, source, decoders[mode], filters[filter]);
 			}
 
-			return ready.then(function() {
+			return ready.then(function () {
 				var target = new Uint8Array(count * size);
 				decode(instance.exports[decoders[mode]], target, count, size, source, instance.exports[filters[filter]]);
 				return target;

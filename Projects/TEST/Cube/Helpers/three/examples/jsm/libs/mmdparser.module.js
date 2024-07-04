@@ -18,10 +18,10 @@ CharsetEncoder.prototype.s2u = function(uint8Array) {
   while(p < uint8Array.length) {
     var key = uint8Array[p++];
 
-    if(! ((key >= 0x00 && key <= 0x7e) ||
-          (key >= 0xa1 && key <= 0xdf)) &&
+    if(! (key >= 0x00 && key <= 0x7e ||
+          key >= 0xa1 && key <= 0xdf) &&
        p < uint8Array.length) {
-      key = (key << 8) | uint8Array[p++];
+      key = key << 8 | uint8Array[p++];
     }
 
     if(t[key] === undefined) {
@@ -9652,7 +9652,7 @@ function DataViewEx ( buffer, littleEndian ) {
 
 	this.dv = new DataView( buffer );
 	this.offset = 0;
-	this.littleEndian = ( littleEndian !== undefined ) ? littleEndian : true;
+	this.littleEndian = littleEndian !== undefined ? littleEndian : true;
 	this.encoder = new CharsetEncoder();
 
 }
@@ -9661,21 +9661,21 @@ DataViewEx.prototype = {
 
 	constructor: DataViewEx,
 
-	getInt8: function () {
+	getInt8 () {
 
-		var value = this.dv.getInt8( this.offset );
+		var value = this.dv.getInt8(this.offset);
 		this.offset += 1;
 		return value;
 
 	},
 
-	getInt8Array: function ( size ) {
+	getInt8Array (size) {
 
 		var a = [];
 
-		for ( var i = 0; i < size; i++ ) {
+		for (var i = 0; i<size; i++) {
 
-			a.push( this.getInt8() );
+			a.push(this.getInt8());
 
 		}
 
@@ -9683,21 +9683,21 @@ DataViewEx.prototype = {
 
 	},
 
-	getUint8: function () {
+	getUint8 () {
 
-		var value = this.dv.getUint8( this.offset );
+		var value = this.dv.getUint8(this.offset);
 		this.offset += 1;
 		return value;
 
 	},
 
-	getUint8Array: function ( size ) {
+	getUint8Array (size) {
 
 		var a = [];
 
-		for ( var i = 0; i < size; i++ ) {
+		for (var i = 0; i<size; i++) {
 
-			a.push( this.getUint8() );
+			a.push(this.getUint8());
 
 		}
 
@@ -9706,21 +9706,21 @@ DataViewEx.prototype = {
 	},
 
 
-	getInt16: function () {
+	getInt16 () {
 
-		var value = this.dv.getInt16( this.offset, this.littleEndian );
+		var value = this.dv.getInt16(this.offset, this.littleEndian);
 		this.offset += 2;
 		return value;
 
 	},
 
-	getInt16Array: function ( size ) {
+	getInt16Array (size) {
 
 		var a = [];
 
-		for ( var i = 0; i < size; i++ ) {
+		for (var i = 0; i<size; i++) {
 
-			a.push( this.getInt16() );
+			a.push(this.getInt16());
 
 		}
 
@@ -9728,21 +9728,21 @@ DataViewEx.prototype = {
 
 	},
 
-	getUint16: function () {
+	getUint16 () {
 
-		var value = this.dv.getUint16( this.offset, this.littleEndian );
+		var value = this.dv.getUint16(this.offset, this.littleEndian);
 		this.offset += 2;
 		return value;
 
 	},
 
-	getUint16Array: function ( size ) {
+	getUint16Array (size) {
 
 		var a = [];
 
-		for ( var i = 0; i < size; i++ ) {
+		for (var i = 0; i<size; i++) {
 
-			a.push( this.getUint16() );
+			a.push(this.getUint16());
 
 		}
 
@@ -9750,21 +9750,21 @@ DataViewEx.prototype = {
 
 	},
 
-	getInt32: function () {
+	getInt32 () {
 
-		var value = this.dv.getInt32( this.offset, this.littleEndian );
+		var value = this.dv.getInt32(this.offset, this.littleEndian);
 		this.offset += 4;
 		return value;
 
 	},
 
-	getInt32Array: function ( size ) {
+	getInt32Array (size) {
 
 		var a = [];
 
-		for ( var i = 0; i < size; i++ ) {
+		for (var i = 0; i<size; i++) {
 
-			a.push( this.getInt32() );
+			a.push(this.getInt32());
 
 		}
 
@@ -9772,21 +9772,21 @@ DataViewEx.prototype = {
 
 	},
 
-	getUint32: function () {
+	getUint32 () {
 
-		var value = this.dv.getUint32( this.offset, this.littleEndian );
+		var value = this.dv.getUint32(this.offset, this.littleEndian);
 		this.offset += 4;
 		return value;
 
 	},
 
-	getUint32Array: function ( size ) {
+	getUint32Array (size) {
 
 		var a = [];
 
-		for ( var i = 0; i < size; i++ ) {
+		for (var i = 0; i<size; i++) {
 
-			a.push( this.getUint32() );
+			a.push(this.getUint32());
 
 		}
 
@@ -9794,21 +9794,21 @@ DataViewEx.prototype = {
 
 	},
 
-	getFloat32: function () {
+	getFloat32 () {
 
-		var value = this.dv.getFloat32( this.offset, this.littleEndian );
+		var value = this.dv.getFloat32(this.offset, this.littleEndian);
 		this.offset += 4;
 		return value;
 
 	},
 
-	getFloat32Array: function( size ) {
+	getFloat32Array (size) {
 
 		var a = [];
 
-		for ( var i = 0; i < size; i++ ) {
+		for (var i = 0; i<size; i++) {
 
-			a.push( this.getFloat32() );
+			a.push(this.getFloat32());
 
 		}
 
@@ -9816,21 +9816,21 @@ DataViewEx.prototype = {
 
 	},
 
-	getFloat64: function () {
+	getFloat64 () {
 
-		var value = this.dv.getFloat64( this.offset, this.littleEndian );
+		var value = this.dv.getFloat64(this.offset, this.littleEndian);
 		this.offset += 8;
 		return value;
 
 	},
 
-	getFloat64Array: function( size ) {
+	getFloat64Array (size) {
 
 		var a = [];
 
-		for ( var i = 0; i < size; i++ ) {
+		for (var i = 0; i<size; i++) {
 
-			a.push( this.getFloat64() );
+			a.push(this.getFloat64());
 
 		}
 
@@ -9838,15 +9838,15 @@ DataViewEx.prototype = {
 
 	},
 
-	getIndex: function ( type, isUnsigned ) {
+	getIndex (type, isUnsigned) {
 
-		switch ( type ) {
+		switch (type) {
 
 			case 1:
-				return ( isUnsigned === true ) ? this.getUint8() : this.getInt8();
+				return isUnsigned===true ? this.getUint8() : this.getInt8();
 
 			case 2:
-				return ( isUnsigned === true ) ? this.getUint16() : this.getInt16();
+				return isUnsigned===true ? this.getUint16() : this.getInt16();
 
 			case 4:
 				return this.getInt32(); // No Uint32
@@ -9858,13 +9858,13 @@ DataViewEx.prototype = {
 
 	},
 
-	getIndexArray: function ( type, size, isUnsigned ) {
+	getIndexArray (type, size, isUnsigned) {
 
 		var a = [];
 
-		for ( var i = 0; i < size; i++ ) {
+		for (var i = 0; i<size; i++) {
 
-			a.push( this.getIndex( type, isUnsigned ) );
+			a.push(this.getIndex(type, isUnsigned));
 
 		}
 
@@ -9872,26 +9872,26 @@ DataViewEx.prototype = {
 
 	},
 
-	getChars: function ( size ) {
+	getChars (size) {
 
 		var str = '';
 
-		while ( size > 0 ) {
+		while (size>0) {
 
 			var value = this.getUint8();
 			size--;
 
-			if ( value === 0 ) {
+			if (value===0) {
 
 				break;
 
 			}
 
-			str += String.fromCharCode( value );
+			str += String.fromCharCode(value);
 
 		}
 
-		while ( size > 0 ) {
+		while (size>0) {
 
 			this.getUint8();
 			size--;
@@ -9902,56 +9902,56 @@ DataViewEx.prototype = {
 
 	},
 
-	getSjisStringsAsUnicode: function ( size ) {
+	getSjisStringsAsUnicode (size) {
 
 		var a = [];
 
-		while ( size > 0 ) {
+		while (size>0) {
 
 			var value = this.getUint8();
 			size--;
 
-			if ( value === 0 ) {
+			if (value===0) {
 
 				break;
 
 			}
 
-			a.push( value );
+			a.push(value);
 
 		}
 
-		while ( size > 0 ) {
+		while (size>0) {
 
 			this.getUint8();
 			size--;
 
 		}
 
-		return this.encoder.s2u( new Uint8Array( a ) );
+		return this.encoder.s2u(new Uint8Array(a));
 
 	},
 
-	getUnicodeStrings: function ( size ) {
+	getUnicodeStrings (size) {
 
 		var str = '';
 
-		while ( size > 0 ) {
+		while (size>0) {
 
 			var value = this.getUint16();
 			size -= 2;
 
-			if ( value === 0 ) {
+			if (value===0) {
 
 				break;
 
 			}
 
-			str += String.fromCharCode( value );
+			str += String.fromCharCode(value);
 
 		}
 
-		while ( size > 0 ) {
+		while (size>0) {
 
 			this.getUint8();
 			size--;
@@ -9962,10 +9962,10 @@ DataViewEx.prototype = {
 
 	},
 
-	getTextBuffer: function () {
+	getTextBuffer () {
 
 		var size = this.getUint32();
-		return this.getUnicodeStrings( size );
+		return this.getUnicodeStrings(size);
 
 	}
 
@@ -9982,50 +9982,50 @@ DataCreationHelper.prototype = {
 
 	constructor: DataCreationHelper,
 
-	leftToRightVector3: function ( v ) {
+	leftToRightVector3 (v) {
 
-		v[ 2 ] = -v[ 2 ];
-
-	},
-
-	leftToRightQuaternion: function ( q ) {
-
-		q[ 0 ] = -q[ 0 ];
-		q[ 1 ] = -q[ 1 ];
+		v[2] = -v[2];
 
 	},
 
-	leftToRightEuler: function ( r ) {
+	leftToRightQuaternion (q) {
 
-		r[ 0 ] = -r[ 0 ];
-		r[ 1 ] = -r[ 1 ];
-
-	},
-
-	leftToRightIndexOrder: function ( p ) {
-
-		var tmp = p[ 2 ];
-		p[ 2 ] = p[ 0 ];
-		p[ 0 ] = tmp;
+		q[0] = -q[0];
+		q[1] = -q[1];
 
 	},
 
-	leftToRightVector3Range: function ( v1, v2 ) {
+	leftToRightEuler (r) {
 
-		var tmp = -v2[ 2 ];
-		v2[ 2 ] = -v1[ 2 ];
-		v1[ 2 ] = tmp;
+		r[0] = -r[0];
+		r[1] = -r[1];
 
 	},
 
-	leftToRightEulerRange: function ( r1, r2 ) {
+	leftToRightIndexOrder (p) {
 
-		var tmp1 = -r2[ 0 ];
-		var tmp2 = -r2[ 1 ];
-		r2[ 0 ] = -r1[ 0 ];
-		r2[ 1 ] = -r1[ 1 ];
-		r1[ 0 ] = tmp1;
-		r1[ 1 ] = tmp2;
+		var tmp = p[2];
+		p[2] = p[0];
+		p[0] = tmp;
+
+	},
+
+	leftToRightVector3Range (v1, v2) {
+
+		var tmp = -v2[2];
+		v2[2] = -v1[2];
+		v1[2] = tmp;
+
+	},
+
+	leftToRightEulerRange (r1, r2) {
+
+		var tmp1 = -r2[0];
+		var tmp2 = -r2[1];
+		r2[0] = -r1[0];
+		r2[1] = -r1[1];
+		r1[0] = tmp1;
+		r1[1] = tmp2;
 
 	}
 
@@ -10967,7 +10967,7 @@ Parser.prototype.parsePmx = function ( buffer, leftToRight ) {
 
 				var e = {};
 				e.target = dv.getUint8();
-				e.index = ( e.target === 0 ) ? dv.getIndex( pmx.metadata.boneIndexSize ) : dv.getIndex( pmx.metadata.morphIndexSize );
+				e.index = e.target === 0 ? dv.getIndex( pmx.metadata.boneIndexSize ) : dv.getIndex( pmx.metadata.morphIndexSize );
 				p.elements.push( e );
 
 			}
@@ -11523,8 +11523,8 @@ Parser.prototype.leftToRightVpd = function ( vpd ) {
 };
 
 var MMDParser = {
-  CharsetEncoder: CharsetEncoder,
-  Parser: Parser
+	CharsetEncoder,
+	Parser
 };
 
 export { MMDParser, CharsetEncoder, Parser };

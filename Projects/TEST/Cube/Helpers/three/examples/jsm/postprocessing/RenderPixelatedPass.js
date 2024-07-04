@@ -1,14 +1,5 @@
-import {
-	WebGLRenderTarget,
-	MeshNormalMaterial,
-	ShaderMaterial,
-	Vector2,
-	Vector4,
-	DepthTexture,
-	NearestFilter,
-	HalfFloatType
-} from 'three';
-import { Pass, FullScreenQuad } from './Pass.js';
+import { DepthTexture, HalfFloatType, MeshNormalMaterial, NearestFilter, ShaderMaterial, Vector2, Vector4, WebGLRenderTarget } from 'three';
+import { FullScreenQuad, Pass } from './Pass.js';
 
 class RenderPixelatedPass extends Pass {
 
@@ -58,7 +49,7 @@ class RenderPixelatedPass extends Pass {
 	setSize( width, height ) {
 
 		this.resolution.set( width, height );
-		this.renderResolution.set( ( width / this.pixelSize ) | 0, ( height / this.pixelSize ) | 0 );
+		this.renderResolution.set( width / this.pixelSize | 0, height / this.pixelSize | 0 );
 		const { x, y } = this.renderResolution;
 		this.beautyRenderTarget.setSize( x, y );
 		this.normalRenderTarget.setSize( x, y );

@@ -37,9 +37,9 @@ let surfaceNet = ( dims, potential, bounds ) => {
 		for(var i=0; i<256; ++i) {
 			var em = 0;
 			for(var j=0; j<24; j+=2) {
-				var a = !!(i & (1<<cube_edges[j]))
-					, b = !!(i & (1<<cube_edges[j+1]));
-				em |= a !== b ? (1 << (j >> 1)) : 0;
+				var a = !!(i & 1<<cube_edges[j])
+					, b = !!(i & 1<<cube_edges[j+1]);
+				em |= a !== b ? 1 << (j >> 1) : 0;
 			}
 			edge_table[i] = em;
 		}
@@ -104,7 +104,7 @@ let surfaceNet = ( dims, potential, bounds ) => {
 					scale[1]*(x[1]+j)+shift[1],
 					scale[2]*(x[2]+k)+shift[2]);
 				grid[g] = p;
-				mask |= (p < 0) ? (1<<g) : 0;
+				mask |= p < 0 ? 1<<g : 0;
 			}
 			
 			//Check for early termination if cell does not intersect boundary
@@ -121,7 +121,7 @@ let surfaceNet = ( dims, potential, bounds ) => {
 			for(var i=0; i<12; ++i) {
 			
 				//Use edge mask to check if it is crossed
-				if(!(edge_mask & (1<<i))) {
+				if(!(edge_mask & 1<<i)) {
 					continue;
 				}
 				
@@ -165,7 +165,7 @@ let surfaceNet = ( dims, potential, bounds ) => {
 			//Now we need to add faces together, to do this we just loop over 3 basis components
 			for(var i=0; i<3; ++i) {
 				//The first three entries of the edge_mask count the crossings along the edge
-				if(!(edge_mask & (1<<i)) ) {
+				if(!(edge_mask & 1<<i) ) {
 					continue;
 				}
 				
@@ -196,6 +196,6 @@ let surfaceNet = ( dims, potential, bounds ) => {
 	
 	//All done!  Return the result
 	return { positions: vertices, cells: faces };
-}
+};
 
 export { surfaceNet }

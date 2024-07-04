@@ -35,7 +35,7 @@ class LottieLoader extends Loader {
 			document.body.appendChild( container );
 
 			const animation = lottie.loadAnimation( {
-				container: container,
+				                                        container,
 				animType: 'canvas',
 				loop: true,
 				autoplay: true,

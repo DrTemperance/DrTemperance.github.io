@@ -140,7 +140,7 @@ class MMDExporter {
 
 		const lines = array.join( '\n' );
 
-		return ( outputShiftJis === true ) ? unicodeToShiftjis( lines ) : lines;
+		return outputShiftJis === true ? unicodeToShiftjis( lines ) : lines;
 
 	}
 
@@ -186,7 +186,7 @@ function unicodeToShiftjis( str ) {
 
 		} else if ( value > 0xff ) {
 
-			array.push( ( value >> 8 ) & 0xff );
+			array.push( value >> 8 & 0xff );
 			array.push( value & 0xff );
 
 		} else {

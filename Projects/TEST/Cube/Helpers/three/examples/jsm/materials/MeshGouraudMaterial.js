@@ -361,15 +361,15 @@ class MeshGouraudMaterial extends ShaderMaterial {
 
 			Object.defineProperty( this, propertyName, {
 
-				get: function () {
+				get () {
 
-					return this.uniforms[ propertyName ].value;
+					return this.uniforms[propertyName].value;
 
 				},
 
-				set: function ( value ) {
+				set (value) {
 
-					this.uniforms[ propertyName ].value = value;
+					this.uniforms[propertyName].value = value;
 
 				}
 

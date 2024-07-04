@@ -1,7 +1,7 @@
+import { EventDispatcher } from 'three';
 import Node, { addNodeClass } from '../core/Node.js';
 import { arrayBufferToBase64, base64ToArrayBuffer } from '../core/NodeUtils.js';
-import { addNodeElement, nodeProxy, float } from '../shadernode/ShaderNode.js';
-import { EventDispatcher } from 'three';
+import { addNodeElement, float, nodeProxy } from '../shadernode/ShaderNode.js';
 
 class ScriptableValueNode extends Node {
 
@@ -68,14 +68,14 @@ class ScriptableValueNode extends Node {
 			this._cache = URL.createObjectURL( new Blob( [ value.value ] ) );
 
 		} else if ( value && value.value !== null && value.value !== undefined && (
-			( ( this.inputType === 'URL' || this.inputType === 'String' ) && typeof value.value === 'string' ) ||
-			( this.inputType === 'Number' && typeof value.value === 'number' ) ||
-			( this.inputType === 'Vector2' && value.value.isVector2 ) ||
-			( this.inputType === 'Vector3' && value.value.isVector3 ) ||
-			( this.inputType === 'Vector4' && value.value.isVector4 ) ||
-			( this.inputType === 'Color' && value.value.isColor ) ||
-			( this.inputType === 'Matrix3' && value.value.isMatrix3 ) ||
-			( this.inputType === 'Matrix4' && value.value.isMatrix4 )
+			( this.inputType === 'URL' || this.inputType === 'String' ) && typeof value.value === 'string' ||
+			this.inputType === 'Number' && typeof value.value === 'number' ||
+			this.inputType === 'Vector2' && value.value.isVector2 ||
+			this.inputType === 'Vector3' && value.value.isVector3 ||
+			this.inputType === 'Vector4' && value.value.isVector4 ||
+			this.inputType === 'Color' && value.value.isColor ||
+			this.inputType === 'Matrix3' && value.value.isMatrix3 ||
+			this.inputType === 'Matrix4' && value.value.isMatrix4
 		) ) {
 
 			return value.value;

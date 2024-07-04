@@ -169,7 +169,7 @@ export function getValueFromType( type, ...params ) {
 
 		return params[ 0 ] || false;
 
-	} else if ( ( type === 'float' ) || ( type === 'int' ) || ( type === 'uint' ) ) {
+	} else if ( type === 'float' || type === 'int' || type === 'uint' ) {
 
 		return params[ 0 ] || 0;
 

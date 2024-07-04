@@ -48,7 +48,7 @@ class VRMLLoader extends Loader {
 
 		const scope = this;
 
-		const path = ( scope.path === '' ) ? LoaderUtils.extractUrlBase( url ) : scope.path;
+		const path = scope.path === '' ? LoaderUtils.extractUrlBase( url ) : scope.path;
 
 		const loader = new FileLoader( scope.manager );
 		loader.setPath( scope.path );
@@ -242,7 +242,7 @@ class VRMLLoader extends Loader {
 
 			}
 
-			return { tokens: tokens, tokenVocabulary: tokenVocabulary };
+			return {tokens, tokenVocabulary};
 
 		}
 
@@ -1064,7 +1064,7 @@ class VRMLLoader extends Loader {
 
 					if ( geometry._solid !== undefined ) {
 
-						material.side = ( geometry._solid ) ? FrontSide : DoubleSide;
+						material.side = geometry._solid ? FrontSide : DoubleSide;
 
 					}
 
@@ -2284,7 +2284,7 @@ class VRMLLoader extends Loader {
 
 					// compute a row major index
 
-					const index = ( i * xDimension ) + j;
+					const index = i * xDimension + j;
 
 					// vertices
 
@@ -2350,8 +2350,8 @@ class VRMLLoader extends Loader {
 
 					const a = i + j * xDimension;
 					const b = i + ( j + 1 ) * xDimension;
-					const c = ( i + 1 ) + ( j + 1 ) * xDimension;
-					const d = ( i + 1 ) + j * xDimension;
+					const c = i + 1 + ( j + 1 ) * xDimension;
+					const d = i + 1 + j * xDimension;
 
 					// faces
 
@@ -2543,7 +2543,7 @@ class VRMLLoader extends Loader {
 
 			}
 
-			const crossSectionClosed = ( crossSection[ 0 ] === crossSection[ crossSection.length - 2 ] && crossSection[ 1 ] === crossSection[ crossSection.length - 1 ] );
+			const crossSectionClosed = crossSection[ 0 ] === crossSection[ crossSection.length - 2 ] && crossSection[ 1 ] === crossSection[ crossSection.length - 1 ];
 
 			// vertices
 
@@ -2605,11 +2605,11 @@ class VRMLLoader extends Loader {
 				for ( let j = 0; j < crossSectionCount - 1; j ++ ) {
 
 					const a = j + i * crossSectionCount;
-					let b = ( j + 1 ) + i * crossSectionCount;
+					let b = j + 1 + i * crossSectionCount;
 					const c = j + ( i + 1 ) * crossSectionCount;
-					let d = ( j + 1 ) + ( i + 1 ) * crossSectionCount;
+					let d = j + 1 + ( i + 1 ) * crossSectionCount;
 
-					if ( ( j === crossSectionCount - 2 ) && ( crossSectionClosed === true ) ) {
+					if ( j === crossSectionCount - 2 && crossSectionClosed === true ) {
 
 						b = i * crossSectionCount;
 						d = ( i + 1 ) * crossSectionCount;
@@ -2727,7 +2727,7 @@ class VRMLLoader extends Loader {
 			// materials can be influenced by the geometry (e.g. vertex normals). cloning is necessary to avoid
 			// any side effects
 
-			return ( build.isObject3D || build.isMaterial ) ? build.clone() : build;
+			return build.isObject3D || build.isMaterial ? build.clone() : build;
 
 		}
 
@@ -3142,12 +3142,12 @@ class VRMLLoader extends Loader {
 			// compute threshold values
 
 			const thresholds = [];
-			const startAngle = ( topDown === true ) ? 0 : Math.PI;
+			const startAngle = topDown === true ? 0 : Math.PI;
 
 			for ( let i = 0, l = colors.length; i < l; i ++ ) {
 
-				let angle = ( i === 0 ) ? 0 : angles[ i - 1 ];
-				angle = ( topDown === true ) ? angle : ( startAngle - angle );
+				let angle = i === 0 ? 0 : angles[ i - 1 ];
+				angle = topDown === true ? angle : startAngle - angle;
 
 				const point = new Vector3();
 				point.setFromSphericalCoords( radius, angle, 0 );
@@ -3350,16 +3350,20 @@ class VRMLParser extends CstParser {
 			$.CONSUME( Identifier );
 
 			$.OR2( [
-				{ ALT: function () {
+				{
+					ALT () {
 
-					$.SUBRULE( $.singleFieldValue );
+						$.SUBRULE($.singleFieldValue);
 
-				} },
-				{ ALT: function () {
+					}
+				},
+				{
+					ALT () {
 
-					$.SUBRULE( $.multiFieldValue );
+						$.SUBRULE($.multiFieldValue);
 
-				} }
+					}
+				}
 			] );
 
 		} );
@@ -3368,16 +3372,20 @@ class VRMLParser extends CstParser {
 
 			$.CONSUME( DEF );
 			$.OR( [
-				{ ALT: function () {
+				{
+					ALT () {
 
-					$.CONSUME( Identifier );
+						$.CONSUME(Identifier);
 
-				} },
-				{ ALT: function () {
+					}
+				},
+				{
+					ALT () {
 
-					$.CONSUME( NodeName );
+						$.CONSUME(NodeName);
 
-				} }
+					}
+				}
 			] );
 
 		} );
@@ -3386,16 +3394,20 @@ class VRMLParser extends CstParser {
 
 			$.CONSUME( USE );
 			$.OR( [
-				{ ALT: function () {
+				{
+					ALT () {
 
-					$.CONSUME( Identifier );
+						$.CONSUME(Identifier);
 
-				} },
-				{ ALT: function () {
+					}
+				},
+				{
+					ALT () {
 
-					$.CONSUME( NodeName );
+						$.CONSUME(NodeName);
 
-				} }
+					}
+				}
 			] );
 
 		} );
@@ -3405,46 +3417,62 @@ class VRMLParser extends CstParser {
 			$.AT_LEAST_ONE( function () {
 
 				$.OR( [
-					{ ALT: function () {
+					{
+						ALT () {
 
-						$.SUBRULE( $.node );
+							$.SUBRULE($.node);
 
-					} },
-					{ ALT: function () {
+						}
+					},
+					{
+						ALT () {
 
-						$.SUBRULE( $.use );
+							$.SUBRULE($.use);
 
-					} },
-					{ ALT: function () {
+						}
+					},
+					{
+						ALT () {
 
-						$.CONSUME( StringLiteral );
+							$.CONSUME(StringLiteral);
 
-					} },
-					{ ALT: function () {
+						}
+					},
+					{
+						ALT () {
 
-						$.CONSUME( HexLiteral );
+							$.CONSUME(HexLiteral);
 
-					} },
-					{ ALT: function () {
+						}
+					},
+					{
+						ALT () {
 
-						$.CONSUME( NumberLiteral );
+							$.CONSUME(NumberLiteral);
 
-					} },
-					{ ALT: function () {
+						}
+					},
+					{
+						ALT () {
 
-						$.CONSUME( TrueLiteral );
+							$.CONSUME(TrueLiteral);
 
-					} },
-					{ ALT: function () {
+						}
+					},
+					{
+						ALT () {
 
-						$.CONSUME( FalseLiteral );
+							$.CONSUME(FalseLiteral);
 
-					} },
-					{ ALT: function () {
+						}
+					},
+					{
+						ALT () {
 
-						$.CONSUME( NullLiteral );
+							$.CONSUME(NullLiteral);
 
-					} }
+						}
+					}
 				] );
 
 
@@ -3458,36 +3486,48 @@ class VRMLParser extends CstParser {
 			$.MANY( function () {
 
 				$.OR( [
-					{ ALT: function () {
+					{
+						ALT () {
 
-						$.SUBRULE( $.node );
+							$.SUBRULE($.node);
 
-					} },
-					{ ALT: function () {
+						}
+					},
+					{
+						ALT () {
 
-						$.SUBRULE( $.use );
+							$.SUBRULE($.use);
 
-					} },
-					{ ALT: function () {
+						}
+					},
+					{
+						ALT () {
 
-						$.CONSUME( StringLiteral );
+							$.CONSUME(StringLiteral);
 
-					} },
-					{ ALT: function () {
+						}
+					},
+					{
+						ALT () {
 
-						$.CONSUME( HexLiteral );
+							$.CONSUME(HexLiteral);
 
-					} },
-					{ ALT: function () {
+						}
+					},
+					{
+						ALT () {
 
-						$.CONSUME( NumberLiteral );
+							$.CONSUME(NumberLiteral);
 
-					} },
-					{ ALT: function () {
+						}
+					},
+					{
+						ALT () {
 
-						$.CONSUME( NullLiteral );
+							$.CONSUME(NullLiteral);
 
-					} }
+						}
+					}
 				] );
 
 			} );

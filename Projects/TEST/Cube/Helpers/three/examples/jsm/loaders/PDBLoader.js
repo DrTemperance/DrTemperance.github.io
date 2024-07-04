@@ -96,7 +96,7 @@ class PDBLoader extends Loader {
 				geometryAtoms: new BufferGeometry(),
 				geometryBonds: new BufferGeometry(),
 				json: {
-					atoms: atoms
+					atoms
 				}
 			};
 

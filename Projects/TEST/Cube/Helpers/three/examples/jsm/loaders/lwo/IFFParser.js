@@ -117,7 +117,7 @@ class IFFParser {
 		this.debugger.nodeID = type;
 		this.debugger.log();
 
-		return;
+
 
 	}
 
@@ -356,7 +356,7 @@ class IFFParser {
 		var surface = {
 			attributes: {}, // LWO2 style non-node attributes will go here
 			connections: {},
-			name: name,
+			name,
 			inputName: name,
 			nodes: {},
 			source: this.reader.getString(),
@@ -378,7 +378,7 @@ class IFFParser {
 		var surface = {
 			attributes: {}, // LWO2 style non-node attributes will go here
 			connections: {},
-			name: name,
+			name,
 			nodes: {},
 			source: this.reader.getString(),
 		};
@@ -402,7 +402,7 @@ class IFFParser {
 		var name = this.reader.getString();
 
 		var node = {
-			name: name
+			name
 		};
 		this.currentForm = node;
 		this.currentNode = node;
@@ -665,7 +665,7 @@ class IFFParser {
 		var parsedLength = 16 + stringOffset( this.currentLayer.name ); // index ( 2 ) + flags( 2 ) + pivot( 12 ) + stringlength
 
 		// if we have not reached then end of the layer block, there must be a parent defined
-		this.currentLayer.parent = ( parsedLength < length ) ? this.reader.getUint16() : - 1; // omitted or -1 for no parent
+		this.currentLayer.parent = parsedLength < length ? this.reader.getUint16() : - 1; // omitted or -1 for no parent
 
 	}
 
@@ -766,9 +766,9 @@ class IFFParser {
 			if ( ! this.currentLayer.discontinuousUVs ) this.currentLayer.discontinuousUVs = {};
 
 			this.currentLayer.discontinuousUVs[ name ] = {
-				uvIndices: uvIndices,
-				polyIndices: polyIndices,
-				uvs: uvs,
+				uvIndices,
+				polyIndices,
+				uvs
 			};
 
 		} else {
@@ -776,8 +776,8 @@ class IFFParser {
 			if ( ! this.currentLayer.uvs ) this.currentLayer.uvs = {};
 
 			this.currentLayer.uvs[ name ] = {
-				uvIndices: uvIndices,
-				uvs: uvs,
+				uvIndices,
+				uvs
 			};
 
 		}
@@ -789,7 +789,7 @@ class IFFParser {
 		var indices = [];
 		var points = [];
 
-		type = ( type === 'MORF' ) ? 'relative' : 'absolute';
+		type = type === 'MORF' ? 'relative' : 'absolute';
 
 		while ( this.reader.offset < finalOffset ) {
 
@@ -802,9 +802,9 @@ class IFFParser {
 		if ( ! this.currentLayer.morphTargets ) this.currentLayer.morphTargets = {};
 
 		this.currentLayer.morphTargets[ name ] = {
-			indices: indices,
-			points: points,
-			type: type,
+			indices,
+			points,
+			type
 		};
 
 	}
@@ -834,9 +834,9 @@ class IFFParser {
 		}
 
 		var geometryData = {
-			type: type,
+			type,
 			vertexIndices: indices,
-			polygonDimensions: polygonDimensions,
+			polygonDimensions,
 			points: this.currentPoints
 		};
 
@@ -1152,9 +1152,9 @@ class Debugger {
 			nodeType,
 			this.nodeID,
 			`( ${this.offset} ) -> ( ${this.dataOffset + this.length} )`,
-			( ( this.node == 0 ) ? ' {' : '' ),
-			( ( this.skipped ) ? 'SKIPPED' : '' ),
-			( ( this.node == 0 && this.skipped ) ? '}' : '' )
+			this.node == 0 ? ' {' : '',
+			this.skipped ? 'SKIPPED' : '',
+			this.node == 0 && this.skipped ? '}' : ''
 		);
 
 		if ( this.node == 0 && ! this.skipped ) {

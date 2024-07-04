@@ -31,7 +31,7 @@ class WebGLBackend extends Backend {
 
 		const parameters = this.parameters;
 
-		const glContext = ( parameters.context !== undefined ) ? parameters.context : renderer.domElement.getContext( 'webgl2' );
+		const glContext = parameters.context !== undefined ? parameters.context : renderer.domElement.getContext( 'webgl2' );
 
 		this.gl = glContext;
 
@@ -554,7 +554,7 @@ class WebGLBackend extends Backend {
 		if ( index !== null ) {
 
 			const indexData = this.get( index );
-			const indexCount = ( drawRange.count !== Infinity ) ? drawRange.count : index.count;
+			const indexCount = drawRange.count !== Infinity ? drawRange.count : index.count;
 
 			if ( instanceCount > 1 ) {
 
@@ -571,7 +571,7 @@ class WebGLBackend extends Backend {
 		} else {
 
 			const positionAttribute = geometry.attributes.position;
-			const vertexCount = ( drawRange.count !== Infinity ) ? drawRange.count : positionAttribute.count;
+			const vertexCount = drawRange.count !== Infinity ? drawRange.count : positionAttribute.count;
 
 			if ( instanceCount > 1 ) {
 
@@ -712,7 +712,7 @@ class WebGLBackend extends Backend {
 
 		if ( promises !== null && this.parallel ) {
 
-			const p = new Promise( ( resolve /*, reject*/ ) => {
+			const p = new Promise( resolve /*, reject*/=> {
 
 				const parallel = this.parallel;
 				const checkStatus = () => {

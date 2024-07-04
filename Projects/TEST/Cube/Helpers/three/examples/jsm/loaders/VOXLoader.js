@@ -111,12 +111,12 @@ class VOXLoader extends Loader {
 
 				chunk = {
 					palette: DEFAULT_PALETTE,
-					size: { x: x, y: y, z: z },
+					size: {x, y, z},
 				};
 
 				chunks.push( chunk );
 
-				i += chunkSize - ( 3 * 4 );
+				i += chunkSize - 3 * 4;
 
 			} else if ( id === 'XYZI' ) {
 
@@ -205,7 +205,7 @@ class VOXMesh extends Mesh {
 			const y = data[ j + 1 ];
 			const z = data[ j + 2 ];
 
-			const index = x + ( y * offsety ) + ( z * offsetz );
+			const index = x + y * offsety + z * offsetz;
 
 			array[ index ] = 255;
 
@@ -229,7 +229,7 @@ class VOXMesh extends Mesh {
 
 			if ( r > 0 || g > 0 || b > 0 ) hasColors = true;
 
-			const index = x + ( y * offsety ) + ( z * offsetz );
+			const index = x + y * offsety + z * offsetz;
 
 			if ( array[ index + 1 ] === 0 || x === size.x - 1 ) add( px, x, z, - y, r, g, b );
 			if ( array[ index - 1 ] === 0 || x === 0 ) add( nx, x, z, - y, r, g, b );
@@ -277,7 +277,7 @@ class VOXData3DTexture extends Data3DTexture {
 			const y = data[ j + 1 ];
 			const z = data[ j + 2 ];
 
-			const index = x + ( y * offsety ) + ( z * offsetz );
+			const index = x + y * offsety + z * offsetz;
 
 			array[ index ] = 255;
 

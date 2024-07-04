@@ -4,7 +4,7 @@ class OctreeHelper extends LineSegments {
 
 	constructor( octree, color = 0xffff00 ) {
 
-		super( new BufferGeometry(), new LineBasicMaterial( { color: color, toneMapped: false } ) );
+		super( new BufferGeometry(), new LineBasicMaterial( {color, toneMapped: false } ) );
 
 		this.octree = octree;
 		this.color = color;

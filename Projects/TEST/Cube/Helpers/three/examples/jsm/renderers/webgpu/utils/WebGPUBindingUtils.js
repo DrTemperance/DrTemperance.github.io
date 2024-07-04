@@ -1,7 +1,5 @@
-import {
-	GPUTextureAspect, GPUTextureViewDimension, GPUBufferBindingType, GPUTextureSampleType
-} from './WebGPUConstants.js';
 import { FloatType } from 'three';
+import { GPUBufferBindingType, GPUTextureAspect, GPUTextureSampleType, GPUTextureViewDimension } from './WebGPUConstants.js';
 
 class WebGPUBindingUtils {
 
@@ -158,8 +156,8 @@ class WebGPUBindingUtils {
 					const bufferGPU = device.createBuffer( {
 						label: 'bindingBuffer_' + binding.name,
 						size: byteLength,
-						usage: usage
-					} );
+						                                       usage
+					                                       } );
 
 					bindingData.buffer = bufferGPU;
 

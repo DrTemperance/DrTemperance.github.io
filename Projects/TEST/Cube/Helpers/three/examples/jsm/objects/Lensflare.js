@@ -167,7 +167,7 @@ class Lensflare extends Mesh {
 			renderer.getCurrentViewport( viewport );
 
 			const renderTarget = renderer.getRenderTarget();
-			const type = ( renderTarget !== null ) ? renderTarget.texture.type : UnsignedByteType;
+			const type = renderTarget !== null ? renderTarget.texture.type : UnsignedByteType;
 
 			if ( currentType !== type ) {
 
@@ -201,8 +201,8 @@ class Lensflare extends Mesh {
 
 			// horizontal and vertical coordinate of the lower left corner of the pixels to copy
 
-			screenPositionPixels.x = viewport.x + ( positionScreen.x * halfViewportWidth ) + halfViewportWidth - 8;
-			screenPositionPixels.y = viewport.y + ( positionScreen.y * halfViewportHeight ) + halfViewportHeight - 8;
+			screenPositionPixels.x = viewport.x + positionScreen.x * halfViewportWidth + halfViewportWidth - 8;
+			screenPositionPixels.y = viewport.y + positionScreen.y * halfViewportHeight + halfViewportHeight - 8;
 
 			// screen cull
 

@@ -512,9 +512,9 @@ class NRRDLoader extends Loader {
 
 const _fieldFunctions = {
 
-	type: function ( data ) {
+	type (data) {
 
-		switch ( data ) {
+		switch (data) {
 
 			case 'uchar':
 			case 'unsigned char':
@@ -561,7 +561,7 @@ const _fieldFunctions = {
 				this.__array = Float64Array;
 				break;
 			default:
-				throw new Error( 'Unsupported NRRD data type: ' + data );
+				throw new Error('Unsupported NRRD data type: ' + data);
 
 		}
 
@@ -569,46 +569,46 @@ const _fieldFunctions = {
 
 	},
 
-	endian: function ( data ) {
+	endian (data) {
 
 		return this.endian = data;
 
 	},
 
-	encoding: function ( data ) {
+	encoding (data) {
 
 		return this.encoding = data;
 
 	},
 
-	dimension: function ( data ) {
+	dimension (data) {
 
-		return this.dim = parseInt( data, 10 );
+		return this.dim = parseInt(data, 10);
 
 	},
 
-	sizes: function ( data ) {
+	sizes (data) {
 
 		let i;
-		return this.sizes = ( function () {
+		return this.sizes = (function () {
 
-			const _ref = data.split( /\s+/ );
+			const _ref = data.split(/\s+/);
 			const _results = [];
 
-			for ( let _i = 0, _len = _ref.length; _i < _len; _i ++ ) {
+			for (let _i = 0, _len = _ref.length; _i<_len; _i++) {
 
-				i = _ref[ _i ];
-				_results.push( parseInt( i, 10 ) );
+				i = _ref[_i];
+				_results.push(parseInt(i, 10));
 
 			}
 
 			return _results;
 
-		} )();
+		})();
 
 	},
 
-	space: function ( data ) {
+	space (data) {
 
 		return this.space = data;
 
@@ -655,24 +655,24 @@ const _fieldFunctions = {
 
 	},
 
-	spacings: function ( data ) {
+	spacings (data) {
 
 		let f;
-		const parts = data.split( /\s+/ );
-		return this.spacings = ( function () {
+		const parts = data.split(/\s+/);
+		return this.spacings = (function () {
 
 			const _results = [];
 
-			for ( let _i = 0, _len = parts.length; _i < _len; _i ++ ) {
+			for (let _i = 0, _len = parts.length; _i<_len; _i++) {
 
-				f = parts[ _i ];
-				_results.push( parseFloat( f ) );
+				f = parts[_i];
+				_results.push(parseFloat(f));
 
 			}
 
 			return _results;
 
-		} )();
+		})();
 
 	}
 

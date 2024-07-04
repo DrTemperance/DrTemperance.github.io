@@ -92,6 +92,6 @@ export const depth = nodeImmutable( ViewportDepthNode, ViewportDepthNode.DEPTH )
 export const depthTexture = nodeProxy( ViewportDepthNode, ViewportDepthNode.DEPTH_TEXTURE );
 export const depthPixel = nodeImmutable( ViewportDepthNode, ViewportDepthNode.DEPTH_PIXEL );
 
-depthPixel.assign = ( value ) => depthPixelBase( value );
+depthPixel.assign = value=> depthPixelBase(value );
 
 addNodeClass( 'ViewportDepthNode', ViewportDepthNode );

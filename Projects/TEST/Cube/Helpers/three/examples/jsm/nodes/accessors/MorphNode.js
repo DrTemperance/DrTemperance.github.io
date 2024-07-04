@@ -35,7 +35,7 @@ function getEntry( geometry ) {
 	// into an array of data textures. Each layer represents a single morph target.
 
 	const morphAttribute = geometry.morphAttributes.position || geometry.morphAttributes.normal || geometry.morphAttributes.color;
-	const morphTargetsCount = ( morphAttribute !== undefined ) ? morphAttribute.length : 0;
+	const morphTargetsCount = morphAttribute !== undefined ? morphAttribute.length : 0;
 
 	let entry = morphTextures.get( geometry );
 
@@ -116,7 +116,7 @@ function getEntry( geometry ) {
 					buffer[ offset + stride + 8 ] = morphVec4.x;
 					buffer[ offset + stride + 9 ] = morphVec4.y;
 					buffer[ offset + stride + 10 ] = morphVec4.z;
-					buffer[ offset + stride + 11 ] = ( morphColor.itemSize === 4 ) ? morphVec4.w : 1;
+					buffer[ offset + stride + 11 ] = morphColor.itemSize === 4 ? morphVec4.w : 1;
 
 				}
 
@@ -173,7 +173,7 @@ class MorphNode extends Node {
 		const hasMorphNormals = geometry.morphAttributes.normal !== undefined;
 
 		const morphAttribute = geometry.morphAttributes.position || geometry.morphAttributes.normal || geometry.morphAttributes.color;
-		const morphTargetsCount = ( morphAttribute !== undefined ) ? morphAttribute.length : 0;
+		const morphTargetsCount = morphAttribute !== undefined ? morphAttribute.length : 0;
 
 		// nodes
 

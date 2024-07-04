@@ -12,14 +12,14 @@ const bins = new Array( ITERATIONS );
 const bins_buffer = new ArrayBuffer( ( ITERATIONS + 1 ) * BIN_SIZE * 4 );
 
 let c = 0;
-for ( let i = 0; i < ( ITERATIONS + 1 ); i ++ ) {
+for ( let i = 0; i < ITERATIONS + 1; i ++ ) {
 
 	bins[ i ] = new Uint32Array( bins_buffer, c, BIN_SIZE );
 	c += BIN_SIZE * 4;
 
 }
 
-const defaultGet = ( el ) => el;
+const defaultGet = el=> el;
 
 export const radixSort = ( arr, opt ) => {
 
@@ -36,7 +36,7 @@ export const radixSort = ( arr, opt ) => {
 	if ( options.reversed ) {
 
 		compare = ( a, b ) => a < b;
-		accumulate = ( bin ) => {
+		accumulate = bin=> {
 
 			for ( let j = BIN_SIZE - 2; j >= 0; j -- )
 				bin[ j ] += bin[ j + 1 ];
@@ -66,7 +66,7 @@ export const radixSort = ( arr, opt ) => {
 	} else {
 
 		compare = ( a, b ) => a > b;
-		accumulate = ( bin ) => {
+		accumulate = bin=> {
 
 			for ( let j = 1; j < BIN_SIZE; j ++ )
 				bin[ j ] += bin[ j - 1 ];
@@ -98,7 +98,7 @@ export const radixSort = ( arr, opt ) => {
 	const insertionSortBlock = ( depth, start, len ) => {
 
 		const a = data[ depth & 1 ];
-		const b = data[ ( depth + 1 ) & 1 ];
+		const b = data[ depth + 1 & 1 ];
 
 		for ( let j = start + 1; j < start + len; j ++ ) {
 
@@ -129,9 +129,9 @@ export const radixSort = ( arr, opt ) => {
 	const radixSortBlock = ( depth, start, len ) => {
 
 		const a = data[ depth & 1 ];
-		const b = data[ ( depth + 1 ) & 1 ];
+		const b = data[ depth + 1 & 1 ];
 
-		const shift = ( 3 - depth ) << POWER;
+		const shift = 3 - depth << POWER;
 		const end = start + len;
 
 		const cache = bins[ depth ];
@@ -140,14 +140,14 @@ export const radixSort = ( arr, opt ) => {
 		bin.fill( 0 );
 
 		for ( let j = start; j < end; j ++ )
-			bin[ ( get( a[ j ] ) >> shift ) & BIN_MAX ] ++;
+			bin[ get( a[ j ] ) >> shift & BIN_MAX ] ++;
 
 		accumulate( bin );
 
 		cache.set( bin );
 
 		for ( let j = end - 1; j >= start; j -- )
-			b[ start + -- bin[ ( get( a[ j ] ) >> shift ) & BIN_MAX ] ] = a[ j ];
+			b[ start + -- bin[ get( a[ j ] ) >> shift & BIN_MAX ] ] = a[ j ];
 
 		if ( depth == ITERATIONS - 1 ) return;
 

@@ -111,7 +111,7 @@ class DragControls extends EventDispatcher {
 
 					if ( _hovered !== object ) {
 
-						scope.dispatchEvent( { type: 'hoveron', object: object } );
+						scope.dispatchEvent( { type: 'hoveron', object} );
 
 						_domElement.style.cursor = 'pointer';
 						_hovered = object;
@@ -148,7 +148,7 @@ class DragControls extends EventDispatcher {
 
 			if ( _intersections.length > 0 ) {
 
-				_selected = ( scope.transformGroup === true ) ? _objects[ 0 ] : _intersections[ 0 ].object;
+				_selected = scope.transformGroup === true ? _objects[ 0 ] : _intersections[ 0 ].object;
 
 				_plane.setFromNormalAndCoplanarPoint( _camera.getWorldDirection( _plane.normal ), _worldPosition.setFromMatrixPosition( _selected.matrixWorld ) );
 

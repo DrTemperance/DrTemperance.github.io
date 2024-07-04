@@ -6,11 +6,7 @@ import { mul } from '../math/OperatorNode.js';
 import { float, mat3, nodeObject, tslFn, vec3 } from '../shadernode/ShaderNode.js';
 
 // exposure only
-const LinearToneMappingNode = tslFn( ( { color, exposure } ) => {
-
-	return color.mul( exposure ).clamp();
-
-} );
+const LinearToneMappingNode = tslFn( ( { color, exposure } ) =>color.mul(exposure).clamp());
 
 // source: https://www.cs.utah.edu/docs/techreports/2002/pdf/UUCS-02-001.pdf
 const ReinhardToneMappingNode = tslFn( ( { color, exposure } ) => {

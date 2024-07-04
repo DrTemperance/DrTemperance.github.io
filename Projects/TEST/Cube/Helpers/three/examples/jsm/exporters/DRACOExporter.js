@@ -144,8 +144,8 @@ class DRACOExporter {
 
 		//Sets the desired encoding and decoding speed for the given options from 0 (slowest speed, but the best compression) to 10 (fastest, but the worst compression).
 
-		const encodeSpeed = ( options.encodeSpeed !== undefined ) ? options.encodeSpeed : 5;
-		const decodeSpeed = ( options.decodeSpeed !== undefined ) ? options.decodeSpeed : 5;
+		const encodeSpeed = options.encodeSpeed !== undefined ? options.encodeSpeed : 5;
+		const decodeSpeed = options.decodeSpeed !== undefined ? options.decodeSpeed : 5;
 
 		encoder.SetSpeedOptions( encodeSpeed, decodeSpeed );
 

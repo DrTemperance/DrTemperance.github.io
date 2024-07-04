@@ -33,7 +33,7 @@ function _generateTables() {
 		} else if (e< -14) {
 
 			baseTable[i] = 0x0400 >> -e - 14;
-			baseTable[i | 0x100] = 0x0400 >> (-e - 14) | 0x8000;
+			baseTable[i | 0x100] = 0x0400 >> -e - 14 | 0x8000;
 			shiftTable[i] = -e - 1;
 			shiftTable[i | 0x100] = -e - 1;
 
@@ -42,7 +42,7 @@ function _generateTables() {
 		} else if (e<=15) {
 
 			baseTable[i] = e + 15 << 10;
-			baseTable[i | 0x100] = (e + 15) << 10 | 0x8000;
+			baseTable[i | 0x100] = e + 15 << 10 | 0x8000;
 			shiftTable[i] = 13;
 			shiftTable[i | 0x100] = 13;
 

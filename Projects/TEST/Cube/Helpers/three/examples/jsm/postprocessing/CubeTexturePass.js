@@ -26,7 +26,7 @@ class CubeTexturePass extends Pass {
 
 		Object.defineProperty( this.cubeMesh.material, 'envMap', {
 
-			get: function () {
+			get () {
 
 				return this.uniforms.tCube.value;
 
@@ -52,9 +52,9 @@ class CubeTexturePass extends Pass {
 		this.cubeCamera.quaternion.setFromRotationMatrix( this.camera.matrixWorld );
 
 		this.cubeMesh.material.uniforms.tCube.value = this.tCube;
-		this.cubeMesh.material.uniforms.tFlip.value = ( this.tCube.isCubeTexture && this.tCube.isRenderTargetTexture === false ) ? - 1 : 1;
+		this.cubeMesh.material.uniforms.tFlip.value = this.tCube.isCubeTexture && this.tCube.isRenderTargetTexture === false ? - 1 : 1;
 		this.cubeMesh.material.uniforms.opacity.value = this.opacity;
-		this.cubeMesh.material.transparent = ( this.opacity < 1.0 );
+		this.cubeMesh.material.transparent = this.opacity < 1.0;
 
 		renderer.setRenderTarget( this.renderToScreen ? null : readBuffer );
 		if ( this.clear ) renderer.clear();

@@ -2,15 +2,7 @@
  * https://github.com/google/model-viewer/blob/master/packages/model-viewer/src/three-components/EnvironmentScene.ts
  */
 
-import {
- 	BackSide,
- 	BoxGeometry,
- 	Mesh,
-	MeshBasicMaterial,
- 	MeshStandardMaterial,
- 	PointLight,
- 	Scene,
-} from 'three';
+import { BackSide, BoxGeometry, Mesh, MeshBasicMaterial, MeshStandardMaterial, PointLight, Scene } from 'three';
 
 class RoomEnvironment extends Scene {
 
@@ -116,7 +108,7 @@ class RoomEnvironment extends Scene {
 
 		const resources = new Set();
 
-		this.traverse( ( object ) => {
+		this.traverse( object=> {
 
 			if ( object.isMesh ) {
 

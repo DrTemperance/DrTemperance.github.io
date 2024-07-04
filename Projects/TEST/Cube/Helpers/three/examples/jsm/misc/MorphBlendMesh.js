@@ -30,12 +30,12 @@ class MorphBlendMesh extends Mesh {
 
 		const animation = {
 
-			start: start,
-			end: end,
+			start,
+			end,
 
 			length: end - start + 1,
 
-			fps: fps,
+			fps,
 			duration: ( end - start ) / fps,
 
 			lastFrame: 0,

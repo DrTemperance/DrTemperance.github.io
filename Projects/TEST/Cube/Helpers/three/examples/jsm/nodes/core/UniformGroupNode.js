@@ -23,8 +23,8 @@ class UniformGroupNode extends Node {
 
 }
 
-export const uniformGroup = ( name ) => new UniformGroupNode( name );
-export const sharedUniformGroup = ( name ) => new UniformGroupNode( name, true );
+export const uniformGroup = name=> new UniformGroupNode(name );
+export const sharedUniformGroup = name=> new UniformGroupNode(name, true );
 
 export const frameGroup = sharedUniformGroup( 'frame' );
 export const renderGroup = sharedUniformGroup( 'render' );

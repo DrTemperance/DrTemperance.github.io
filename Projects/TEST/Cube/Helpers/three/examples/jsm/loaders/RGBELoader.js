@@ -61,7 +61,7 @@ class RGBELoader extends DataTextureLoader {
 					i = - 1, len = 0, s = '',
 					chunk = String.fromCharCode.apply( null, new Uint16Array( buffer.subarray( p, p + chunkSize ) ) );
 
-				while ( ( 0 > ( i = chunk.indexOf( NEWLINE ) ) ) && ( len < lineLimit ) && ( p < buffer.byteLength ) ) {
+				while ( 0 > ( i = chunk.indexOf( NEWLINE ) ) && len < lineLimit && p < buffer.byteLength ) {
 
 					s += chunk; len += chunk.length;
 					p += chunkSize;
@@ -177,7 +177,7 @@ class RGBELoader extends DataTextureLoader {
 
 					}
 
-					if ( ( header.valid & RGBE_VALID_FORMAT ) && ( header.valid & RGBE_VALID_DIMENSIONS ) ) break;
+					if ( header.valid & RGBE_VALID_FORMAT && header.valid & RGBE_VALID_DIMENSIONS ) break;
 
 				}
 
@@ -203,9 +203,9 @@ class RGBELoader extends DataTextureLoader {
 
 				if (
 					// run length encoding is not allowed so read flat
-					( ( scanline_width < 8 ) || ( scanline_width > 0x7fff ) ) ||
+					scanline_width < 8 || scanline_width > 0x7fff ||
 					// this file is not run length encoded
-					( ( 2 !== buffer[ 0 ] ) || ( 2 !== buffer[ 1 ] ) || ( buffer[ 2 ] & 0x80 ) )
+					( 2 !== buffer[ 0 ] || 2 !== buffer[ 1 ] || buffer[ 2 ] & 0x80 )
 				) {
 
 					// return the flat buffer
@@ -213,7 +213,7 @@ class RGBELoader extends DataTextureLoader {
 
 				}
 
-				if ( scanline_width !== ( ( buffer[ 2 ] << 8 ) | buffer[ 3 ] ) ) {
+				if ( scanline_width !== ( buffer[ 2 ] << 8 | buffer[ 3 ] ) ) {
 
 					rgbe_error( rgbe_format_error, 'wrong scanline width' );
 
@@ -235,7 +235,7 @@ class RGBELoader extends DataTextureLoader {
 				let num_scanlines = h;
 
 				// read in each successive scanline
-				while ( ( num_scanlines > 0 ) && ( pos < buffer.byteLength ) ) {
+				while ( num_scanlines > 0 && pos < buffer.byteLength ) {
 
 					if ( pos + 4 > buffer.byteLength ) {
 
@@ -248,7 +248,7 @@ class RGBELoader extends DataTextureLoader {
 					rgbeStart[ 2 ] = buffer[ pos ++ ];
 					rgbeStart[ 3 ] = buffer[ pos ++ ];
 
-					if ( ( 2 != rgbeStart[ 0 ] ) || ( 2 != rgbeStart[ 1 ] ) || ( ( ( rgbeStart[ 2 ] << 8 ) | rgbeStart[ 3 ] ) != scanline_width ) ) {
+					if ( 2 != rgbeStart[ 0 ] || 2 != rgbeStart[ 1 ] || ( rgbeStart[ 2 ] << 8 | rgbeStart[ 3 ] ) != scanline_width ) {
 
 						rgbe_error( rgbe_format_error, 'bad rgbe scanline format' );
 
@@ -258,13 +258,13 @@ class RGBELoader extends DataTextureLoader {
 					// first red, then green, then blue, then exponent
 					let ptr = 0, count;
 
-					while ( ( ptr < ptr_end ) && ( pos < buffer.byteLength ) ) {
+					while ( ptr < ptr_end && pos < buffer.byteLength ) {
 
 						count = buffer[ pos ++ ];
 						const isEncodedRun = count > 128;
 						if ( isEncodedRun ) count -= 128;
 
-						if ( ( 0 === count ) || ( ptr + count > ptr_end ) ) {
+						if ( 0 === count || ptr + count > ptr_end ) {
 
 							rgbe_error( rgbe_format_error, 'bad scanline data' );
 
@@ -395,11 +395,11 @@ class RGBELoader extends DataTextureLoader {
 
 		return {
 			width: w, height: h,
-			data: data,
+			data,
 			header: rgbe_header_info.string,
 			gamma: rgbe_header_info.gamma,
 			exposure: rgbe_header_info.exposure,
-			type: type
+			type
 		};
 
 	}

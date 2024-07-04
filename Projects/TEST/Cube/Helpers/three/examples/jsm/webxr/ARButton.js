@@ -108,11 +108,7 @@ class ARButton {
 
 						navigator.xr.offerSession( 'immersive-ar', sessionInit )
 							.then( onSessionStarted )
-							.catch( ( err ) => {
-
-								console.warn( err );
-
-							} );
+							.catch( err=>console.warn(err));
 
 					}
 
@@ -124,11 +120,7 @@ class ARButton {
 
 				navigator.xr.offerSession( 'immersive-ar', sessionInit )
 					.then( onSessionStarted )
-					.catch( ( err ) => {
-
-						console.warn( err );
-
-					} );
+					.catch( err=>console.warn(err));
 
 			}
 

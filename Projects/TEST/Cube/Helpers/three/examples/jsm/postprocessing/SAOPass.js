@@ -2,6 +2,7 @@ import {
 	AddEquation,
 	Color,
 	CustomBlending,
+	DepthStencilFormat,
 	DepthTexture,
 	DstAlphaFactor,
 	DstColorFactor,
@@ -11,17 +12,15 @@ import {
 	NoBlending,
 	ShaderMaterial,
 	UniformsUtils,
-	DepthStencilFormat,
 	UnsignedInt248Type,
 	Vector2,
 	WebGLRenderTarget,
 	ZeroFactor
 } from 'three';
-import { Pass, FullScreenQuad } from './Pass.js';
-import { SAOShader } from '../shaders/SAOShader.js';
-import { DepthLimitedBlurShader } from '../shaders/DepthLimitedBlurShader.js';
-import { BlurShaderUtils } from '../shaders/DepthLimitedBlurShader.js';
 import { CopyShader } from '../shaders/CopyShader.js';
+import { BlurShaderUtils, DepthLimitedBlurShader } from '../shaders/DepthLimitedBlurShader.js';
+import { SAOShader } from '../shaders/SAOShader.js';
+import { FullScreenQuad, Pass } from './Pass.js';
 
 /**
  * SAO implementation inspired from bhouston previous SAO work
@@ -69,7 +68,7 @@ class SAOPass extends Pass {
 			minFilter: NearestFilter,
 			magFilter: NearestFilter,
 			type: HalfFloatType,
-			depthTexture: depthTexture
+			depthTexture
 		} );
 
 		this.normalMaterial = new MeshNormalMaterial();
@@ -173,7 +172,7 @@ class SAOPass extends Pass {
 		this.hBlurMaterial.uniforms[ 'cameraFar' ].value = this.camera.far;
 
 		this.params.saoBlurRadius = Math.floor( this.params.saoBlurRadius );
-		if ( ( this.prevStdDev !== this.params.saoBlurStdDev ) || ( this.prevNumSamples !== this.params.saoBlurRadius ) ) {
+		if ( this.prevStdDev !== this.params.saoBlurStdDev || this.prevNumSamples !== this.params.saoBlurRadius ) {
 
 			BlurShaderUtils.configure( this.vBlurMaterial, this.params.saoBlurRadius, this.params.saoBlurStdDev, new Vector2( 0, 1 ) );
 			BlurShaderUtils.configure( this.hBlurMaterial, this.params.saoBlurRadius, this.params.saoBlurStdDev, new Vector2( 1, 0 ) );
@@ -241,7 +240,7 @@ class SAOPass extends Pass {
 
 		// setup pass state
 		renderer.autoClear = false;
-		if ( ( clearColor !== undefined ) && ( clearColor !== null ) ) {
+		if ( clearColor !== undefined && clearColor !== null ) {
 
 			renderer.setClearColor( clearColor );
 			renderer.setClearAlpha( clearAlpha || 0.0 );
@@ -270,7 +269,7 @@ class SAOPass extends Pass {
 
 		clearColor = overrideMaterial.clearColor || clearColor;
 		clearAlpha = overrideMaterial.clearAlpha || clearAlpha;
-		if ( ( clearColor !== undefined ) && ( clearColor !== null ) ) {
+		if ( clearColor !== undefined && clearColor !== null ) {
 
 			renderer.setClearColor( clearColor );
 			renderer.setClearAlpha( clearAlpha || 0.0 );

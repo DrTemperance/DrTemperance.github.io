@@ -25,8 +25,8 @@ class SSRPass extends Pass {
 
 		super();
 
-		this.width = ( width !== undefined ) ? width : 512;
-		this.height = ( height !== undefined ) ? height : 512;
+		this.width = width !== undefined ? width : 512;
+		this.height = height !== undefined ? height : 512;
 
 		this.clear = true;
 
@@ -161,7 +161,7 @@ class SSRPass extends Pass {
 			minFilter: NearestFilter,
 			magFilter: NearestFilter,
 			type: HalfFloatType,
-			depthTexture: depthTexture,
+			depthTexture,
 			depthBuffer: true
 		} );
 
@@ -501,7 +501,7 @@ class SSRPass extends Pass {
 
 		// setup pass state
 		renderer.autoClear = false;
-		if ( ( clearColor !== undefined ) && ( clearColor !== null ) ) {
+		if ( clearColor !== undefined && clearColor !== null ) {
 
 			renderer.setClearColor( clearColor );
 			renderer.setClearAlpha( clearAlpha || 0.0 );
@@ -531,7 +531,7 @@ class SSRPass extends Pass {
 		clearColor = overrideMaterial.clearColor || clearColor;
 		clearAlpha = overrideMaterial.clearAlpha || clearAlpha;
 
-		if ( ( clearColor !== undefined ) && ( clearColor !== null ) ) {
+		if ( clearColor !== undefined && clearColor !== null ) {
 
 			renderer.setClearColor( clearColor );
 			renderer.setClearAlpha( clearAlpha || 0.0 );
@@ -563,7 +563,7 @@ class SSRPass extends Pass {
 		clearColor = overrideMaterial.clearColor || clearColor;
 		clearAlpha = overrideMaterial.clearAlpha || clearAlpha;
 
-		if ( ( clearColor !== undefined ) && ( clearColor !== null ) ) {
+		if ( clearColor !== undefined && clearColor !== null ) {
 
 			renderer.setClearColor( clearColor );
 			renderer.setClearAlpha( clearAlpha || 0.0 );

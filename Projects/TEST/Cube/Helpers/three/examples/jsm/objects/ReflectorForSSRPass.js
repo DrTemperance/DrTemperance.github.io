@@ -1,18 +1,18 @@
 import {
 	Color,
+	DepthTexture,
+	HalfFloatType,
 	Matrix4,
 	Mesh,
+	NearestFilter,
 	PerspectiveCamera,
+	Plane,
 	ShaderMaterial,
 	UniformsUtils,
+	UnsignedShortType,
 	Vector2,
 	Vector3,
-	WebGLRenderTarget,
-	DepthTexture,
-	UnsignedShortType,
-	NearestFilter,
-	Plane,
-	HalfFloatType
+	WebGLRenderTarget
 } from 'three';
 
 class ReflectorForSSRPass extends Mesh {
@@ -27,7 +27,7 @@ class ReflectorForSSRPass extends Mesh {
 
 		const scope = this;
 
-		const color = ( options.color !== undefined ) ? new Color( options.color ) : new Color( 0x7F7F7F );
+		const color = options.color !== undefined ? new Color( options.color ) : new Color( 0x7F7F7F );
 		const textureWidth = options.textureWidth || 512;
 		const textureHeight = options.textureHeight || 512;
 		const clipBias = options.clipBias || 0;
@@ -111,7 +111,7 @@ class ReflectorForSSRPass extends Mesh {
 		const renderTarget = new WebGLRenderTarget( textureWidth, textureHeight, parameters );
 
 		const material = new ShaderMaterial( {
-			name: ( shader.name !== undefined ) ? shader.name : 'unspecified',
+			name: shader.name !== undefined ? shader.name : 'unspecified',
 			transparent: useDepthTexture,
 			defines: Object.assign( {}, ReflectorForSSRPass.ReflectorShader.defines, {
 				useDepthTexture

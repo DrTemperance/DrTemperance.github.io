@@ -13,7 +13,7 @@ class Timer {
 
 		// use Page Visibility API to avoid large time delta values
 
-		this._usePageVisibilityAPI = ( typeof document !== 'undefined' && document.hidden !== undefined );
+		this._usePageVisibilityAPI = typeof document !== 'undefined' && document.hidden !== undefined;
 
 		if ( this._usePageVisibilityAPI === true ) {
 
@@ -105,7 +105,7 @@ class FixedTimer extends Timer {
 
 	update() {
 
-		this._elapsed += ( this._delta * this._timescale ); // _elapsed is the accumulation of all previous deltas
+		this._elapsed += this._delta * this._timescale; // _elapsed is the accumulation of all previous deltas
 
 		return this;
 

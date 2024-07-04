@@ -131,7 +131,7 @@ class OBB {
 
 		// if that point is inside the sphere, the OBB and sphere intersect
 
-		return closestPoint.distanceToSquared( sphere.center ) <= ( sphere.radius * sphere.radius );
+		return closestPoint.distanceToSquared( sphere.center ) <= sphere.radius * sphere.radius;
 
 	}
 

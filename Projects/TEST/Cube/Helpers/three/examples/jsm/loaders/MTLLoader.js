@@ -29,7 +29,7 @@ class MTLLoader extends Loader {
 
 		const scope = this;
 
-		const path = ( this.path === '' ) ? LoaderUtils.extractUrlBase( url ) : this.path;
+		const path = this.path === '' ? LoaderUtils.extractUrlBase( url ) : this.path;
 
 		const loader = new FileLoader( this.manager );
 		loader.setPath( this.path );
@@ -100,10 +100,10 @@ class MTLLoader extends Loader {
 
 			const pos = line.indexOf( ' ' );
 
-			let key = ( pos >= 0 ) ? line.substring( 0, pos ) : line;
+			let key = pos >= 0 ? line.substring( 0, pos ) : line;
 			key = key.toLowerCase();
 
-			let value = ( pos >= 0 ) ? line.substring( pos + 1 ) : '';
+			let value = pos >= 0 ? line.substring( pos + 1 ) : '';
 			value = value.trim();
 
 			if ( key === 'newmtl' ) {
@@ -168,8 +168,8 @@ class MaterialCreator {
 
 		this.crossOrigin = 'anonymous';
 
-		this.side = ( this.options.side !== undefined ) ? this.options.side : FrontSide;
-		this.wrap = ( this.options.wrap !== undefined ) ? this.options.wrap : RepeatWrapping;
+		this.side = this.options.side !== undefined ? this.options.side : FrontSide;
+		this.wrap = this.options.wrap !== undefined ? this.options.wrap : RepeatWrapping;
 
 	}
 
@@ -531,7 +531,7 @@ class MaterialCreator {
 
 	loadTexture( url, mapping, onLoad, onProgress, onError ) {
 
-		const manager = ( this.manager !== undefined ) ? this.manager : DefaultLoadingManager;
+		const manager = this.manager !== undefined ? this.manager : DefaultLoadingManager;
 		let loader = manager.getHandler( url );
 
 		if ( loader === null ) {

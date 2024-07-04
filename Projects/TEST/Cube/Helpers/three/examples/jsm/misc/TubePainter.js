@@ -181,11 +181,11 @@ function TubePainter() {
 	}
 
 	return {
-		mesh: mesh,
-		moveTo: moveTo,
-		lineTo: lineTo,
-		setSize: setSize,
-		update: update
+		mesh,
+		moveTo,
+		lineTo,
+		setSize,
+		update
 	};
 
 }

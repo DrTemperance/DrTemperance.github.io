@@ -7,7 +7,7 @@ import F_Schlick from './F_Schlick.js';
 import V_GGX_SmithCorrelated from './V_GGX_SmithCorrelated.js';
 
 // GGX Distribution, Schlick Fresnel, GGX_SmithCorrelated Visibility
-const BRDF_GGX = tslFn( ( inputs ) => {
+const BRDF_GGX = tslFn( inputs=> {
 
 	const { lightDirection, f0, f90, roughness, iridescenceFresnel } = inputs;
 

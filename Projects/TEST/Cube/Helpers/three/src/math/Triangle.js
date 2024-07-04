@@ -81,7 +81,7 @@ class Triangle {
 
 		}
 
-		return _v3.x>=0 && _v3.y>=0 && (_v3.x + _v3.y)<=1;
+		return _v3.x>=0 && _v3.y>=0 && _v3.x + _v3.y<=1;
 
 	}
 

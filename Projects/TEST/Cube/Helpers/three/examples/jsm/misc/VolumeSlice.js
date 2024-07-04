@@ -1,13 +1,4 @@
-import {
-	ClampToEdgeWrapping,
-	DoubleSide,
-	LinearFilter,
-	Mesh,
-	MeshBasicMaterial,
-	PlaneGeometry,
-	Texture,
-	SRGBColorSpace
-} from 'three';
+import { ClampToEdgeWrapping, DoubleSide, LinearFilter, Mesh, MeshBasicMaterial, PlaneGeometry, SRGBColorSpace, Texture } from 'three';
 
 /**
  * This class has been made to hold a slice of a volume data
@@ -31,12 +22,12 @@ class VolumeSlice {
 		 */
 		index = index || 0;
 		Object.defineProperty( this, 'index', {
-			get: function () {
+			get () {
 
 				return index;
 
 			},
-			set: function ( value ) {
+			set (value) {
 
 				index = value;
 				slice.geometryNeedsUpdate = true;
@@ -141,11 +132,11 @@ class VolumeSlice {
 				for ( let i = 0; i < iLength; i ++ ) {
 
 					let label = volumeData[ sliceAccess( i, j ) ];
-					label = label >= this.colorMap.length ? ( label % this.colorMap.length ) + 1 : label;
+					label = label >= this.colorMap.length ? label % this.colorMap.length + 1 : label;
 					const color = this.colorMap[ label ];
-					data[ 4 * pixelCount ] = ( color >> 24 ) & 0xff;
-					data[ 4 * pixelCount + 1 ] = ( color >> 16 ) & 0xff;
-					data[ 4 * pixelCount + 2 ] = ( color >> 8 ) & 0xff;
+					data[ 4 * pixelCount ] = color >> 24 & 0xff;
+					data[ 4 * pixelCount + 1 ] = color >> 16 & 0xff;
+					data[ 4 * pixelCount + 2 ] = color >> 8 & 0xff;
 					data[ 4 * pixelCount + 3 ] = color & 0xff;
 					pixelCount ++;
 

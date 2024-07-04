@@ -138,7 +138,7 @@ class MathNode extends TempNode {
 					b.build( builder, inputType )
 				);
 
-			} else if ( ( isWebGL && ( method === MathNode.MIN || method === MathNode.MAX ) ) || method === MathNode.MOD ) {
+			} else if ( isWebGL && ( method === MathNode.MIN || method === MathNode.MAX ) || method === MathNode.MOD ) {
 
 				params.push(
 					a.build( builder, inputType ),
@@ -303,11 +303,11 @@ export const pow3 = nodeProxy( MathNode, MathNode.POW, 3 );
 export const pow4 = nodeProxy( MathNode, MathNode.POW, 4 );
 export const transformDirection = nodeProxy( MathNode, MathNode.TRANSFORM_DIRECTION );
 
-export const cbrt = ( a ) => mul( sign( a ), pow( abs( a ), 1.0 / 3.0 ) );
-export const lengthSq = ( a ) => dot( a, a );
+export const cbrt = a=> mul(sign(a ), pow(abs(a ), 1.0 / 3.0 ) );
+export const lengthSq = a=> dot(a, a );
 export const mix = nodeProxy( MathNode, MathNode.MIX );
 export const clamp = ( value, low = 0, high = 1 ) => nodeObject( new MathNode( MathNode.CLAMP, nodeObject( value ), nodeObject( low ), nodeObject( high ) ) );
-export const saturate = ( value ) => clamp( value );
+export const saturate = value=> clamp(value );
 export const refract = nodeProxy( MathNode, MathNode.REFRACT );
 export const smoothstep = nodeProxy( MathNode, MathNode.SMOOTHSTEP );
 export const faceForward = nodeProxy( MathNode, MathNode.FACEFORWARD );

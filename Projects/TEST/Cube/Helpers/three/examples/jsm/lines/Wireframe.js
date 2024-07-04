@@ -1,11 +1,6 @@
-import {
-	InstancedInterleavedBuffer,
-	InterleavedBufferAttribute,
-	Mesh,
-	Vector3
-} from 'three';
-import { LineSegmentsGeometry } from '../lines/LineSegmentsGeometry.js';
+import { InstancedInterleavedBuffer, InterleavedBufferAttribute, Mesh, Vector3 } from 'three';
 import { LineMaterial } from '../lines/LineMaterial.js';
+import { LineSegmentsGeometry } from '../lines/LineSegmentsGeometry.js';
 
 const _start = new Vector3();
 const _end = new Vector3();
@@ -37,7 +32,7 @@ class Wireframe extends Mesh {
 			_start.fromBufferAttribute( instanceStart, i );
 			_end.fromBufferAttribute( instanceEnd, i );
 
-			lineDistances[ j ] = ( j === 0 ) ? 0 : lineDistances[ j - 1 ];
+			lineDistances[ j ] = j === 0 ? 0 : lineDistances[ j - 1 ];
 			lineDistances[ j + 1 ] = lineDistances[ j ] + _start.distanceTo( _end );
 
 		}

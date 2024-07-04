@@ -117,8 +117,8 @@ class DecalGeometry extends BufferGeometry {
 				// create texture coordinates (we are still in projector space)
 
 				uvs.push(
-					0.5 + ( decalVertex.position.x / size.x ),
-					0.5 + ( decalVertex.position.y / size.y )
+					0.5 + decalVertex.position.x / size.x,
+					0.5 + decalVertex.position.y / size.y
 				);
 
 				// transform the vertex back to world space

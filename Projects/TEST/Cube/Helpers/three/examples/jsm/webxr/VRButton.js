@@ -74,11 +74,7 @@ class VRButton {
 
 						navigator.xr.offerSession( 'immersive-vr', sessionInit )
 							.then( onSessionStarted )
-							.catch( ( err ) => {
-
-								console.warn( err );
-
-							} );
+							.catch( err=>console.warn(err));
 
 					}
 
@@ -90,11 +86,7 @@ class VRButton {
 
 				navigator.xr.offerSession( 'immersive-vr', sessionInit )
 					.then( onSessionStarted )
-					.catch( ( err ) => {
-
-						console.warn( err );
-
-					} );
+					.catch( err=>console.warn(err));
 
 			}
 

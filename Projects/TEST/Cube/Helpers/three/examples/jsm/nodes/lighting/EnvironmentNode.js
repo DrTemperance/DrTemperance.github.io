@@ -89,7 +89,7 @@ const createRadianceContext = ( roughnessNode, normalViewNode ) => {
 	let textureUVNode = null;
 
 	return {
-		getUV: ( textureNode ) => {
+		getUV: textureNode=> {
 
 			let node = null;
 
@@ -122,26 +122,18 @@ const createRadianceContext = ( roughnessNode, normalViewNode ) => {
 			return node;
 
 		},
-		getTextureLevel: () => {
-
-			return roughnessNode;
-
-		},
-		getTextureLevelAlgorithm: ( textureNode, levelNode ) => {
-
-			return specularMIPLevel( textureNode, levelNode );
-
-		}
+		getTextureLevel: () =>roughnessNode,
+		getTextureLevelAlgorithm: ( textureNode, levelNode ) =>specularMIPLevel(textureNode, levelNode)
 	};
 
 };
 
-const createIrradianceContext = ( normalWorldNode ) => {
+const createIrradianceContext = normalWorldNode=> {
 
 	let textureUVNode = null;
 
 	return {
-		getUV: ( textureNode ) => {
+		getUV: textureNode=> {
 
 			let node = null;
 
@@ -167,11 +159,7 @@ const createIrradianceContext = ( normalWorldNode ) => {
 			return node;
 
 		},
-		getTextureLevel: ( textureNode ) => {
-
-			return maxMipLevel( textureNode );
-
-		}
+		getTextureLevel: textureNode=>maxMipLevel(textureNode)
 	};
 
 };

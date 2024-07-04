@@ -229,10 +229,10 @@ class Projector {
 
 			function checkBackfaceCulling( v1, v2, v3 ) {
 
-				return ( ( v3.positionScreen.x - v1.positionScreen.x ) *
+				return ( v3.positionScreen.x - v1.positionScreen.x ) *
 					    ( v2.positionScreen.y - v1.positionScreen.y ) -
 					    ( v3.positionScreen.y - v1.positionScreen.y ) *
-					    ( v2.positionScreen.x - v1.positionScreen.x ) ) < 0;
+					    ( v2.positionScreen.x - v1.positionScreen.x ) < 0;
 
 			}
 
@@ -328,16 +328,16 @@ class Projector {
 			}
 
 			return {
-				setObject: setObject,
-				projectVertex: projectVertex,
-				checkTriangleVisibility: checkTriangleVisibility,
-				checkBackfaceCulling: checkBackfaceCulling,
-				pushVertex: pushVertex,
-				pushNormal: pushNormal,
-				pushColor: pushColor,
-				pushUv: pushUv,
-				pushLine: pushLine,
-				pushTriangle: pushTriangle
+				setObject,
+				projectVertex,
+				checkTriangleVisibility,
+				checkBackfaceCulling,
+				pushVertex,
+				pushNormal,
+				pushColor,
+				pushUv,
+				pushLine,
+				pushTriangle
 			};
 
 		}
@@ -641,7 +641,7 @@ class Projector {
 
 							const step = object.isLineSegments ? 2 : 1;
 
-							for ( let i = 0, l = ( positions.length / 3 ) - 1; i < l; i += step ) {
+							for ( let i = 0, l = positions.length / 3 - 1; i < l; i += step ) {
 
 								renderList.pushLine( i, i + 1 );
 
@@ -847,7 +847,7 @@ class Projector {
 				// Both vertices lie entirely within all clip planes.
 				return true;
 
-			} else if ( ( bc1near < 0 && bc2near < 0 ) || ( bc1far < 0 && bc2far < 0 ) ) {
+			} else if ( bc1near < 0 && bc2near < 0 || bc1far < 0 && bc2far < 0 ) {
 
 				// Both vertices lie entirely outside one of the clip planes.
 				return false;

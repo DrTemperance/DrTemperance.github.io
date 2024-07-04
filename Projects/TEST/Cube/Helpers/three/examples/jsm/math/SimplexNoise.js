@@ -334,12 +334,12 @@ class SimplexNoise {
 		// First, six pair-wise comparisons are performed between each possible pair
 		// of the four coordinates, and the results are used to add up binary bits
 		// for an integer index.
-		const c1 = ( x0 > y0 ) ? 32 : 0;
-		const c2 = ( x0 > z0 ) ? 16 : 0;
-		const c3 = ( y0 > z0 ) ? 8 : 0;
-		const c4 = ( x0 > w0 ) ? 4 : 0;
-		const c5 = ( y0 > w0 ) ? 2 : 0;
-		const c6 = ( z0 > w0 ) ? 1 : 0;
+		const c1 = x0 > y0 ? 32 : 0;
+		const c2 = x0 > z0 ? 16 : 0;
+		const c3 = y0 > z0 ? 8 : 0;
+		const c4 = x0 > w0 ? 4 : 0;
+		const c5 = y0 > w0 ? 2 : 0;
+		const c6 = z0 > w0 ? 1 : 0;
 		const c = c1 + c2 + c3 + c4 + c5 + c6;
 
 		// simplex[c] is a 4-vector with the numbers 0, 1, 2 and 3 in some order.

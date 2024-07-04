@@ -39,10 +39,8 @@ const now =
     : Date.now.bind(Date);
 
 function componentRegistered(T) {
-  return (
-    (typeof T === "object" && T.Component._typeId !== undefined) ||
-    (T.isComponent && T._typeId !== undefined)
-  );
+  return typeof T === "object" && T.Component._typeId !== undefined ||
+  T.isComponent && T._typeId !== undefined;
 }
 
 class SystemManager {
@@ -96,13 +94,11 @@ class SystemManager {
   }
 
   sortSystems() {
-    this._executeSystems.sort((a, b) => {
-      return a.priority - b.priority || a.order - b.order;
-    });
+    this._executeSystems.sort((a, b) =>a.priority - b.priority || a.order - b.order);
   }
 
   getSystem(SystemClass) {
-    return this._systems.find((s) => s instanceof SystemClass);
+    return this._systems.find(s=>s instanceof SystemClass);
   }
 
   getSystems() {
@@ -129,12 +125,12 @@ class SystemManager {
   }
 
   stop() {
-    this._executeSystems.forEach((system) => system.stop());
+    this._executeSystems.forEach(system=> system.stop());
   }
 
   execute(delta, time, forcePlay) {
     this._executeSystems.forEach(
-      (system) =>
+      system=>
         (forcePlay || system.enabled) && this.executeSystem(system, delta, time)
     );
   }
@@ -147,10 +143,10 @@ class SystemManager {
 
     for (var i = 0; i < this._systems.length; i++) {
       var system = this._systems[i];
-      var systemStats = (stats.systems[system.getName()] = {
+      var systemStats = stats.systems[system.getName()] = {
         queries: {},
         executeTime: system.executeTime,
-      });
+      };
       for (var name in system.ctx) {
         systemStats.queries[name] = system.ctx[name].stats();
       }
@@ -246,10 +242,8 @@ class EventDispatcher {
    * @param {Function} listener Callback for the specified event
    */
   hasEventListener(eventName, listener) {
-    return (
-      this._listeners[eventName] !== undefined &&
-      this._listeners[eventName].indexOf(listener) !== -1
-    );
+    return this._listeners[eventName] !== undefined &&
+    this._listeners[eventName].indexOf(listener) !== -1;
   }
 
   /**
@@ -302,7 +296,7 @@ class Query {
     this.Components = [];
     this.NotComponents = [];
 
-    Components.forEach((component) => {
+    Components.forEach(component=> {
       if (typeof component === "object") {
         this.NotComponents.push(component.Component);
       } else {
@@ -365,10 +359,8 @@ class Query {
   }
 
   match(entity) {
-    return (
-      entity.hasAllComponents(this.Components) &&
-      !entity.hasAnyComponents(this.NotComponents)
-    );
+    return entity.hasAllComponents(this.Components) &&
+    !entity.hasAnyComponents(this.NotComponents);
   }
 
   toJSON() {
@@ -376,8 +368,8 @@ class Query {
       key: this.key,
       reactive: this.reactive,
       components: {
-        included: this.Components.map((C) => C.name),
-        not: this.NotComponents.map((C) => C.name),
+        included: this.Components.map(C=> C.name),
+        not: this.NotComponents.map(C=> C.name),
       },
       numEntities: this.entities.length,
     };
@@ -478,7 +470,7 @@ class QueryManager {
         !query.match(entity)
       ) {
         query.removeEntity(entity);
-        continue;
+
       }
     }
   }
@@ -587,7 +579,7 @@ class Component {
     const schema = this.constructor.schema;
 
     // Check that the attributes defined in source are also defined in the schema
-    Object.keys(src).forEach((srcKey) => {
+    Object.keys(src).forEach(srcKey=> {
       if (!schema.hasOwnProperty(srcKey)) {
         console.warn(
           `Trying to set attribute '${srcKey}' not defined in the '${this.constructor.name}' schema. Please fix the schema, the attribute value won't be set`
@@ -1105,10 +1097,8 @@ class Entity {
   }
 
   hasComponent(Component, includeRemoved) {
-    return (
-      !!~this._ComponentTypes.indexOf(Component) ||
-      (includeRemoved === true && this.hasRemovedComponent(Component))
-    );
+    return !!~this._ComponentTypes.indexOf(Component) ||
+    includeRemoved === true && this.hasRemovedComponent(Component);
   }
 
   hasRemovedComponent(Component) {
@@ -1302,7 +1292,7 @@ class System {
 
         // Detect if the components have already been registered
         let unregisteredComponents = Components.filter(
-          (Component) => !componentRegistered(Component)
+          Component=> !componentRegistered(Component)
         );
 
         if (unregisteredComponents.length > 0) {
@@ -1310,7 +1300,7 @@ class System {
             `Tried to create a query '${
               this.constructor.name
             }.${queryName}' with unregistered components: [${unregisteredComponents
-              .map((c) => c.getName())
+              .map(c=> c.getName())
               .join(", ")}]`
           );
         }
@@ -1335,7 +1325,7 @@ class System {
         };
 
         if (queryConfig.listen) {
-          validEvents.forEach((eventName) => {
+          validEvents.forEach(eventName=> {
             if (!this.execute) {
               console.warn(
                 `System '${this.getName()}' has defined listen events (${validEvents.join(
@@ -1352,10 +1342,10 @@ class System {
                 query.reactive = true;
                 if (event === true) {
                   // Any change on the entity from the components in the query
-                  let eventList = (this.queries[queryName][eventName] = []);
+                  let eventList = this.queries[queryName][eventName] = [];
                   query.eventDispatcher.addEventListener(
                     Query.prototype.COMPONENT_CHANGED,
-                    (entity) => {
+                    entity=> {
                       // Avoid duplicates
                       if (eventList.indexOf(entity) === -1) {
                         eventList.push(entity);
@@ -1363,7 +1353,7 @@ class System {
                     }
                   );
                 } else if (Array.isArray(event)) {
-                  let eventList = (this.queries[queryName][eventName] = []);
+                  let eventList = this.queries[queryName][eventName] = [];
                   query.eventDispatcher.addEventListener(
                     Query.prototype.COMPONENT_CHANGED,
                     (entity, changedComponent) => {
@@ -1378,11 +1368,11 @@ class System {
                   );
                 }
               } else {
-                let eventList = (this.queries[queryName][eventName] = []);
+                let eventList = this.queries[queryName][eventName] = [];
 
                 query.eventDispatcher.addEventListener(
                   eventMapping[eventName],
-                  (entity) => {
+                  entity=> {
                     // @fixme overhead?
                     if (eventList.indexOf(entity) === -1)
                       eventList.push(entity);
@@ -1441,9 +1431,9 @@ class System {
       for (let queryName in queries) {
         let query = this.queries[queryName];
         let queryDefinition = queries[queryName];
-        let jsonQuery = (json.queries[queryName] = {
+        let jsonQuery = json.queries[queryName] = {
           key: this._queries[queryName].key,
-        });
+        };
 
         jsonQuery.mandatory = queryDefinition.mandatory === true;
         jsonQuery.reactive =
@@ -1457,7 +1447,7 @@ class System {
           jsonQuery.listen = {};
 
           const methods = ["added", "removed", "changed"];
-          methods.forEach((method) => {
+          methods.forEach(method=> {
             if (query[method]) {
               jsonQuery.listen[method] = {
                 entities: query[method].length,
@@ -1480,7 +1470,7 @@ System.getName = function () {
 function Not(Component) {
   return {
     operator: "not",
-    Component: Component,
+	  Component
   };
 }
 
@@ -1492,9 +1482,9 @@ class TagComponent extends Component {
 
 TagComponent.isTagComponent = true;
 
-const copyValue = (src) => src;
+const copyValue = src=> src;
 
-const cloneValue = (src) => src;
+const cloneValue = src=> src;
 
 const copyArray = (src, dest) => {
   if (!src) {
@@ -1514,13 +1504,13 @@ const copyArray = (src, dest) => {
   return dest;
 };
 
-const cloneArray = (src) => src && src.slice();
+const cloneArray = src=>src && src.slice();
 
-const copyJSON = (src) => JSON.parse(JSON.stringify(src));
+const copyJSON = src=> JSON.parse(JSON.stringify(src));
 
-const cloneJSON = (src) => JSON.parse(JSON.stringify(src));
+const cloneJSON = src=> JSON.parse(JSON.stringify(src));
 
-const copyCopyable = (src, dest) => {
+const copyCopyable = (src : *, dest) => {
   if (!src) {
     return src;
   }
@@ -1532,14 +1522,12 @@ const copyCopyable = (src, dest) => {
   return dest.copy(src);
 };
 
-const cloneClonable = (src) => src && src.clone();
+const cloneClonable = src=>src && src.clone();
 
 function createType(typeDefinition) {
   var mandatoryProperties = ["name", "default", "copy", "clone"];
 
-  var undefinedProperties = mandatoryProperties.filter((p) => {
-    return !typeDefinition.hasOwnProperty(p);
-  });
+  var undefinedProperties = mandatoryProperties.filter(p=>!typeDefinition.hasOwnProperty(p));
 
   if (undefinedProperties.length > 0) {
     throw new Error(
@@ -1623,7 +1611,7 @@ function injectScript(src, onLoad) {
 
 function hookConsoleAndErrors(connection) {
   var wrapFunctions = ["error", "warning", "log"];
-  wrapFunctions.forEach((key) => {
+  wrapFunctions.forEach(key=> {
     if (typeof console[key] === "function") {
       var fn = console[key].bind(console);
       console[key] = (...args) => {
@@ -1637,15 +1625,14 @@ function hookConsoleAndErrors(connection) {
     }
   });
 
-  window.addEventListener("error", (error) => {
-    connection.send({
-      method: "error",
-      error: JSON.stringify({
-        message: error.error.message,
-        stack: error.error.stack,
-      }),
-    });
-  });
+  window.addEventListener("error", error=>
+	   connection.send({
+		                   method: "error",
+		                   error : JSON.stringify({
+			                                          message: error.error.message,
+			                                          stack  : error.error.stack
+		                                          })
+	                   }));
 }
 
 function includeRemoteIdHTML(remoteId) {
@@ -1701,7 +1688,7 @@ function enableRemoteDevtools(remoteId) {
 
   // This is used to collect the worlds created before the communication is being established
   let worldsBeforeLoading = [];
-  let onWorldCreated = (e) => {
+  let onWorldCreated = e=> {
     var world = e.detail.world;
     Version = e.detail.version;
     worldsBeforeLoading.push(world);
@@ -1726,51 +1713,50 @@ function enableRemoteDevtools(remoteId) {
       debug: 3,
     });
 
-    peer.on("open", (/* id */) => {
-      peer.on("connection", (connection) => {
-        window.__ECSY_REMOTE_DEVTOOLS.connection = connection;
-        connection.on("open", function () {
-          // infoDiv.style.visibility = "hidden";
-          infoDiv.innerHTML = "Connected";
+    peer.on("open", (/* id */) =>
+	     peer.on("connection", connection=>{
+		     window.__ECSY_REMOTE_DEVTOOLS.connection = connection;
+		     connection.on("open", function () {
+			     // infoDiv.style.visibility = "hidden";
+			     infoDiv.innerHTML = "Connected";
 
-          // Receive messages
-          connection.on("data", function (data) {
-            if (data.type === "init") {
-              var script = document.createElement("script");
-              script.setAttribute("type", "text/javascript");
-              script.onload = () => {
-                script.parentNode.removeChild(script);
+			     // Receive messages
+			     connection.on("data", function (data) {
+				     if (data.type==="init") {
+					     var script = document.createElement("script");
+					     script.setAttribute("type", "text/javascript");
+					     script.onload = ()=>{
+						     script.parentNode.removeChild(script);
 
-                // Once the script is injected we don't need to listen
-                window.removeEventListener(
-                  "ecsy-world-created",
-                  onWorldCreated
-                );
-                worldsBeforeLoading.forEach((world) => {
-                  var event = new CustomEvent("ecsy-world-created", {
-                    detail: { world: world, version: Version },
-                  });
-                  window.dispatchEvent(event);
-                });
-              };
-              script.innerHTML = data.script;
-              (document.head || document.documentElement).appendChild(script);
-              script.onload();
+						     // Once the script is injected we don't need to listen
+						     window.removeEventListener(
+								    "ecsy-world-created",
+								    onWorldCreated
+						     );
+						     worldsBeforeLoading.forEach(world=>{
+							     var event = new CustomEvent("ecsy-world-created", {
+								     detail: {world, version: Version}
+							     });
+							     window.dispatchEvent(event);
+						     });
+					     };
+					     script.innerHTML = data.script;
+					     (document.head || document.documentElement).appendChild(script);
+					     script.onload();
 
-              hookConsoleAndErrors(connection);
-            } else if (data.type === "executeScript") {
-              let value = eval(data.script);
-              if (data.returnEval) {
-                connection.send({
-                  method: "evalReturn",
-                  value: value,
-                });
-              }
-            }
-          });
-        });
-      });
-    });
+					     hookConsoleAndErrors(connection);
+				     } else if (data.type==="executeScript") {
+					     let value = eval(data.script);
+					     if (data.returnEval) {
+						     connection.send({
+							                     method: "evalReturn",
+							                     value
+						                     });
+					     }
+				     }
+			     });
+		     });
+	     }));
   };
 
   // Inject PeerJS script

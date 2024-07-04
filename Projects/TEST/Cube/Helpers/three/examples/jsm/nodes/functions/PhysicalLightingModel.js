@@ -26,7 +26,7 @@ const XYZ_TO_REC709 = mat3(
 
 // Assume air interface for top
 // Note: We don't handle the case fresnel0 == 1
-const Fresnel0ToIor = ( fresnel0 ) => {
+const Fresnel0ToIor = fresnel0=> {
 
 	const sqrtF0 = fresnel0.sqrt();
 	return vec3( 1.0 ).add( sqrtF0 ).div( vec3( 1.0 ).sub( sqrtF0 ) );
@@ -34,11 +34,7 @@ const Fresnel0ToIor = ( fresnel0 ) => {
 };
 
 // ior is a value between 1.0 and 3.0. 1.0 is air interface
-const IorToFresnel0 = ( transmittedIor, incidentIor ) => {
-
-	return transmittedIor.sub( incidentIor ).div( transmittedIor.add( incidentIor ) ).pow2();
-
-};
+const IorToFresnel0 = ( transmittedIor, incidentIor ) =>transmittedIor.sub(incidentIor).div(transmittedIor.add(incidentIor)).pow2();
 
 // Fresnel equations for dielectric/dielectric interfaces.
 // Ref: https://belcour.github.io/blog/research/2017/05/01/brdf-thin-film.html

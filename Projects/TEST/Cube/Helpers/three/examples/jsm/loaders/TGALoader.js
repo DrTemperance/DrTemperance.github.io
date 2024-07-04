@@ -151,14 +151,14 @@ class TGALoader extends DataTextureLoader {
 				// raw pixels
 
 				pixel_data = data.subarray(
-					 offset, offset += ( use_pal ? header.width * header.height : pixel_total )
+					 offset, offset += use_pal ? header.width * header.height : pixel_total
 				);
 
 			 }
 
 			 return {
-				pixel_data: pixel_data,
-				palettes: palettes
+				 pixel_data,
+				 palettes
 			 };
 
 		}
@@ -175,9 +175,9 @@ class TGALoader extends DataTextureLoader {
 
 					color = image[ i ];
 					imageData[ ( x + width * y ) * 4 + 3 ] = 255;
-					imageData[ ( x + width * y ) * 4 + 2 ] = colormap[ ( color * 3 ) + 0 ];
-					imageData[ ( x + width * y ) * 4 + 1 ] = colormap[ ( color * 3 ) + 1 ];
-					imageData[ ( x + width * y ) * 4 + 0 ] = colormap[ ( color * 3 ) + 2 ];
+					imageData[ ( x + width * y ) * 4 + 2 ] = colormap[ color * 3 + 0 ];
+					imageData[ ( x + width * y ) * 4 + 1 ] = colormap[ color * 3 + 1 ];
+					imageData[ ( x + width * y ) * 4 + 0 ] = colormap[ color * 3 + 2 ];
 
 				}
 
@@ -200,7 +200,7 @@ class TGALoader extends DataTextureLoader {
 					imageData[ ( x + width * y ) * 4 + 0 ] = ( color & 0x7C00 ) >> 7;
 					imageData[ ( x + width * y ) * 4 + 1 ] = ( color & 0x03E0 ) >> 2;
 					imageData[ ( x + width * y ) * 4 + 2 ] = ( color & 0x001F ) << 3;
-					imageData[ ( x + width * y ) * 4 + 3 ] = ( color & 0x8000 ) ? 0 : 255;
+					imageData[ ( x + width * y ) * 4 + 3 ] = color & 0x8000 ? 0 : 255;
 
 				}
 

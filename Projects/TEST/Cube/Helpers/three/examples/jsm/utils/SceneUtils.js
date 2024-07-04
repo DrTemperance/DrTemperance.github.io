@@ -1,14 +1,6 @@
-import {
-	BufferAttribute,
-	BufferGeometry,
-	Color,
-	Group,
-	Matrix4,
-	Mesh,
-	Vector3
-} from 'three';
+import { BufferAttribute, BufferGeometry, Color, Group, Matrix4, Mesh, Vector3 } from 'three';
 
-import { mergeGroups, deepCloneAttribute } from './BufferGeometryUtils.js';
+import { deepCloneAttribute, mergeGroups } from './BufferGeometryUtils.js';
 
 const _color = /*@__PURE__*/new Color();
 const _matrix = /*@__PURE__*/new Matrix4();
@@ -131,7 +123,7 @@ function reduceVertices( object, func, initialValue ) {
 
 	object.updateWorldMatrix( true, true );
 
-	object.traverseVisible( ( child ) => {
+	object.traverseVisible( child=> {
 
 		const { geometry } = child;
 

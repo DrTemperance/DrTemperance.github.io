@@ -41,7 +41,7 @@ class CacheNode extends Node {
 export default CacheNode;
 
 export const cache = nodeProxy( CacheNode );
-export const globalCache = ( node ) => cache( node, null );
+export const globalCache = node=> cache(node, null );
 
 addNodeElement( 'cache', cache );
 addNodeElement( 'globalCache', globalCache );

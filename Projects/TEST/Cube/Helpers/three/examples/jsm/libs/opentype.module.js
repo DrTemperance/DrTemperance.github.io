@@ -202,7 +202,7 @@ function tinf_read_bits(d, num, base) {
     d.bitcount += 8;
   }
 
-  var val = d.tag & 0xffff >>> (16 - num);
+  var val = d.tag & 0xffff >>> 16 - num;
   d.tag >>>= num;
   d.bitcount -= num;
   return val + base;
@@ -1586,7 +1586,7 @@ function encodeVarDeltaRunAsWords(deltas, offset, result) {
     result.push(0x40 | runLength - 1);
     for (var i = offset; i < pos; ++i) {
         var val = deltas[i];
-        result.push((val + 0x10000) >> 8 & 0xff, val + 0x100 & 0xff);
+        result.push(val + 0x10000 >> 8 & 0xff, val + 0x100 & 0xff);
     }
     return pos;
 }

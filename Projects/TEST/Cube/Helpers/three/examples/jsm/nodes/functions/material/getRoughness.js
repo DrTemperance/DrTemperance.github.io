@@ -1,7 +1,7 @@
 import { tslFn } from '../../shadernode/ShaderNode.js';
 import getGeometryRoughness from './getGeometryRoughness.js';
 
-const getRoughness = tslFn( ( inputs ) => {
+const getRoughness = tslFn( inputs=> {
 
 	const { roughness } = inputs;
 

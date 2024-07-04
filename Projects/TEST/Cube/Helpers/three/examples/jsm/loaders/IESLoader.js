@@ -110,11 +110,7 @@ class IESLoader extends Loader {
 		loader.setPath( this.path );
 		loader.setRequestHeader( this.requestHeader );
 
-		loader.load( url, text => {
-
-			onLoad( this.parse( text ) );
-
-		}, onProgress, onError );
+		loader.load( url, text =>onLoad(this.parse(text)), onProgress, onError );
 
 	}
 

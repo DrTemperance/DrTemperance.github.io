@@ -34,8 +34,8 @@ class SSAOPass extends Pass {
 
 		super();
 
-		this.width = ( width !== undefined ) ? width : 512;
-		this.height = ( height !== undefined ) ? height : 512;
+		this.width = width !== undefined ? width : 512;
+		this.height = height !== undefined ? height : 512;
 
 		this.clear = true;
 
@@ -69,7 +69,7 @@ class SSAOPass extends Pass {
 			minFilter: NearestFilter,
 			magFilter: NearestFilter,
 			type: HalfFloatType,
-			depthTexture: depthTexture
+			depthTexture
 		} );
 
 		// ssao render target
@@ -258,7 +258,7 @@ class SSAOPass extends Pass {
 
 		// setup pass state
 		renderer.autoClear = false;
-		if ( ( clearColor !== undefined ) && ( clearColor !== null ) ) {
+		if ( clearColor !== undefined && clearColor !== null ) {
 
 			renderer.setClearColor( clearColor );
 			renderer.setClearAlpha( clearAlpha || 0.0 );
@@ -288,7 +288,7 @@ class SSAOPass extends Pass {
 		clearColor = overrideMaterial.clearColor || clearColor;
 		clearAlpha = overrideMaterial.clearAlpha || clearAlpha;
 
-		if ( ( clearColor !== undefined ) && ( clearColor !== null ) ) {
+		if ( clearColor !== undefined && clearColor !== null ) {
 
 			renderer.setClearColor( clearColor );
 			renderer.setClearAlpha( clearAlpha || 0.0 );
@@ -332,8 +332,8 @@ class SSAOPass extends Pass {
 		for ( let i = 0; i < kernelSize; i ++ ) {
 
 			const sample = new Vector3();
-			sample.x = ( Math.random() * 2 ) - 1;
-			sample.y = ( Math.random() * 2 ) - 1;
+			sample.x = Math.random() * 2 - 1;
+			sample.y = Math.random() * 2 - 1;
 			sample.z = Math.random();
 
 			sample.normalize();
@@ -359,8 +359,8 @@ class SSAOPass extends Pass {
 
 		for ( let i = 0; i < size; i ++ ) {
 
-			const x = ( Math.random() * 2 ) - 1;
-			const y = ( Math.random() * 2 ) - 1;
+			const x = Math.random() * 2 - 1;
+			const y = Math.random() * 2 - 1;
 			const z = 0;
 
 			data[ i ] = simplex.noise3d( x, y, z );

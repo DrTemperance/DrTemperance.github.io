@@ -221,7 +221,7 @@ class Octree {
 		const d1 = _plane.distanceToPoint( capsule.start ) - capsule.radius;
 		const d2 = _plane.distanceToPoint( capsule.end ) - capsule.radius;
 
-		if ( ( d1 > 0 && d2 > 0 ) || ( d1 < - capsule.radius && d2 < - capsule.radius ) ) {
+		if ( d1 > 0 && d2 > 0 || d1 < - capsule.radius && d2 < - capsule.radius ) {
 
 			return false;
 
@@ -388,7 +388,7 @@ class Octree {
 			const collisionVector = _sphere.center.clone().sub( sphere.center );
 			const depth = collisionVector.length();
 
-			return { normal: collisionVector.normalize(), depth: depth };
+			return { normal: collisionVector.normalize(), depth};
 
 		}
 
@@ -422,7 +422,7 @@ class Octree {
 			const collisionVector = _capsule.getCenter( new Vector3() ).sub( capsule.getCenter( _v1 ) );
 			const depth = collisionVector.length();
 
-			return { normal: collisionVector.normalize(), depth: depth };
+			return { normal: collisionVector.normalize(), depth};
 
 		}
 
@@ -459,7 +459,7 @@ class Octree {
 
 		}
 
-		return distance < 1e100 ? { distance: distance, triangle: triangle, position: position } : false;
+		return distance < 1e100 ? {distance, triangle, position} : false;
 
 	}
 
@@ -467,7 +467,7 @@ class Octree {
 
 		group.updateWorldMatrix( true, true );
 
-		group.traverse( ( obj ) => {
+		group.traverse( obj=> {
 
 			if ( obj.isMesh === true ) {
 

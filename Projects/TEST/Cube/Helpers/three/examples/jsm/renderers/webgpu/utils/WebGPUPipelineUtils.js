@@ -1,19 +1,57 @@
-import { BlendColorFactor, OneMinusBlendColorFactor, } from '../../common/Constants.js';
-
 import {
-	GPUFrontFace, GPUCullMode, GPUColorWriteFlags, GPUCompareFunction, GPUBlendFactor, GPUBlendOperation, GPUIndexFormat, GPUStencilOperation
-} from './WebGPUConstants.js';
-
-import {
-	FrontSide, BackSide, DoubleSide,
-	NeverDepth, AlwaysDepth, LessDepth, LessEqualDepth, EqualDepth, GreaterEqualDepth, GreaterDepth, NotEqualDepth,
-	NoBlending, NormalBlending, AdditiveBlending, SubtractiveBlending, MultiplyBlending, CustomBlending,
-	ZeroFactor, OneFactor, SrcColorFactor, OneMinusSrcColorFactor, SrcAlphaFactor, OneMinusSrcAlphaFactor, DstColorFactor,
-	OneMinusDstColorFactor, DstAlphaFactor, OneMinusDstAlphaFactor, SrcAlphaSaturateFactor,
-	AddEquation, SubtractEquation, ReverseSubtractEquation, MinEquation, MaxEquation,
-	KeepStencilOp, ZeroStencilOp, ReplaceStencilOp, InvertStencilOp, IncrementStencilOp, DecrementStencilOp, IncrementWrapStencilOp, DecrementWrapStencilOp,
-	NeverStencilFunc, AlwaysStencilFunc, LessStencilFunc, LessEqualStencilFunc, EqualStencilFunc, GreaterEqualStencilFunc, GreaterStencilFunc, NotEqualStencilFunc
+	AddEquation,
+	AdditiveBlending,
+	AlwaysDepth,
+	AlwaysStencilFunc,
+	BackSide,
+	CustomBlending,
+	DecrementStencilOp,
+	DecrementWrapStencilOp,
+	DoubleSide,
+	DstAlphaFactor,
+	DstColorFactor,
+	EqualDepth,
+	EqualStencilFunc,
+	FrontSide,
+	GreaterDepth,
+	GreaterEqualDepth,
+	GreaterEqualStencilFunc,
+	GreaterStencilFunc,
+	IncrementStencilOp,
+	IncrementWrapStencilOp,
+	InvertStencilOp,
+	KeepStencilOp,
+	LessDepth,
+	LessEqualDepth,
+	LessEqualStencilFunc,
+	LessStencilFunc,
+	MaxEquation,
+	MinEquation,
+	MultiplyBlending,
+	NeverDepth,
+	NeverStencilFunc,
+	NoBlending,
+	NormalBlending,
+	NotEqualDepth,
+	NotEqualStencilFunc,
+	OneFactor,
+	OneMinusDstAlphaFactor,
+	OneMinusDstColorFactor,
+	OneMinusSrcAlphaFactor,
+	OneMinusSrcColorFactor,
+	ReplaceStencilOp,
+	ReverseSubtractEquation,
+	SrcAlphaFactor,
+	SrcAlphaSaturateFactor,
+	SrcColorFactor,
+	SubtractEquation,
+	SubtractiveBlending,
+	ZeroFactor,
+	ZeroStencilOp
 } from 'three';
+import { BlendColorFactor, OneMinusBlendColorFactor } from '../../common/Constants.js';
+
+import { GPUBlendFactor, GPUBlendOperation, GPUColorWriteFlags, GPUCompareFunction, GPUCullMode, GPUFrontFace, GPUIndexFormat, GPUStencilOperation } from './WebGPUConstants.js';
 
 class WebGPUPipelineUtils {
 
@@ -124,8 +162,8 @@ class WebGPUPipelineUtils {
 			depthStencil: {
 				format: depthStencilFormat,
 				depthWriteEnabled: material.depthWrite,
-				depthCompare: depthCompare,
-				stencilFront: stencilFront,
+				depthCompare,
+				stencilFront,
 				stencilBack: {}, // three.js does not provide an API to configure the back function (gl.stencilFuncSeparate() was never used)
 				stencilReadMask: material.stencilFuncMask,
 				stencilWriteMask: material.stencilWriteMask
@@ -145,16 +183,13 @@ class WebGPUPipelineUtils {
 
 		} else {
 
-			const p = new Promise( ( resolve /*, reject*/ ) => {
+			const p = new Promise( resolve /*, reject*/=>
+				                        device.createRenderPipelineAsync(pipelineDescriptor).then(pipeline=>{
 
-				device.createRenderPipelineAsync( pipelineDescriptor ).then( pipeline => {
+					                        pipelineData.pipeline = pipeline;
+					                        resolve();
 
-					pipelineData.pipeline = pipeline;
-					resolve();
-
-				} );
-
-			} );
+				                        }));
 
 			promises.push( p );
 
@@ -492,7 +527,7 @@ class WebGPUPipelineUtils {
 
 		if ( geometry.index !== null && object.isLine === true && object.isLineSegments !== true ) {
 
-			descriptor.stripIndexFormat = ( geometry.index.array instanceof Uint16Array ) ? GPUIndexFormat.Uint16 : GPUIndexFormat.Uint32;
+			descriptor.stripIndexFormat = geometry.index.array instanceof Uint16Array ? GPUIndexFormat.Uint16 : GPUIndexFormat.Uint32;
 
 		}
 
@@ -525,7 +560,7 @@ class WebGPUPipelineUtils {
 
 	_getColorWriteMask( material ) {
 
-		return ( material.colorWrite === true ) ? GPUColorWriteFlags.All : GPUColorWriteFlags.None;
+		return material.colorWrite === true ? GPUColorWriteFlags.All : GPUColorWriteFlags.None;
 
 	}
 

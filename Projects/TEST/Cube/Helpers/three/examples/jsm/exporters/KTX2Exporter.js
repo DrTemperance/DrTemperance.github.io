@@ -203,7 +203,7 @@ export class KTX2Exporter {
 
 			basicDesc.samples.push( {
 
-				channelType: channelType,
+				                        channelType,
 				bitOffset: i * array.BYTES_PER_ELEMENT,
 				bitLength: array.BYTES_PER_ELEMENT * 8 - 1,
 				samplePosition: [ 0, 0, 0, 0 ],

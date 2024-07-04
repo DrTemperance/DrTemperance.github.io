@@ -103,7 +103,7 @@ export class LUTImageLoader extends Loader {
 		for ( let i = 0; i < width; i ++ ) {
 
 			const sy = i * width;
-			const dy = ( this.flip ) ? height - i * width : i * width;
+			const dy = this.flip ? height - i * width : i * width;
 			context.drawImage( texture.image, sy, 0, width, width, 0, dy, width, width );
 
 		}

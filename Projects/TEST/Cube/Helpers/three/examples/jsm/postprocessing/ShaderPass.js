@@ -1,8 +1,5 @@
-import {
-	ShaderMaterial,
-	UniformsUtils
-} from 'three';
-import { Pass, FullScreenQuad } from './Pass.js';
+import { ShaderMaterial, UniformsUtils } from 'three';
+import { FullScreenQuad, Pass } from './Pass.js';
 
 class ShaderPass extends Pass {
 
@@ -10,7 +7,7 @@ class ShaderPass extends Pass {
 
 		super();
 
-		this.textureID = ( textureID !== undefined ) ? textureID : 'tDiffuse';
+		this.textureID = textureID !== undefined ? textureID : 'tDiffuse';
 
 		if ( shader instanceof ShaderMaterial ) {
 
@@ -24,7 +21,7 @@ class ShaderPass extends Pass {
 
 			this.material = new ShaderMaterial( {
 
-				name: ( shader.name !== undefined ) ? shader.name : 'unspecified',
+				name: shader.name !== undefined ? shader.name : 'unspecified',
 				defines: Object.assign( {}, shader.defines ),
 				uniforms: this.uniforms,
 				vertexShader: shader.vertexShader,

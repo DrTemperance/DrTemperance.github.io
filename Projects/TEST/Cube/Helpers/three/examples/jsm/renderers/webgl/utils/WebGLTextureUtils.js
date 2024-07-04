@@ -1,4 +1,24 @@
-import { LinearFilter, LinearMipmapLinearFilter, LinearMipmapNearestFilter, NearestFilter, NearestMipmapLinearFilter, NearestMipmapNearestFilter, FloatType, MirroredRepeatWrapping, ClampToEdgeWrapping, RepeatWrapping, SRGBColorSpace, NeverCompare, AlwaysCompare, LessCompare, LessEqualCompare, EqualCompare, GreaterEqualCompare, GreaterCompare, NotEqualCompare } from 'three';
+import {
+	AlwaysCompare,
+	ClampToEdgeWrapping,
+	EqualCompare,
+	FloatType,
+	GreaterCompare,
+	GreaterEqualCompare,
+	LessCompare,
+	LessEqualCompare,
+	LinearFilter,
+	LinearMipmapLinearFilter,
+	LinearMipmapNearestFilter,
+	MirroredRepeatWrapping,
+	NearestFilter,
+	NearestMipmapLinearFilter,
+	NearestMipmapNearestFilter,
+	NeverCompare,
+	NotEqualCompare,
+	RepeatWrapping,
+	SRGBColorSpace
+} from 'three';
 
 let initialized = false, wrappingToGL, filterToGL, compareToGL;
 
@@ -139,7 +159,7 @@ class WebGLTextureUtils {
 
 			if ( glType === gl.FLOAT ) internalFormat = gl.RGBA32F;
 			if ( glType === gl.HALF_FLOAT ) internalFormat = gl.RGBA16F;
-			if ( glType === gl.UNSIGNED_BYTE ) internalFormat = ( colorSpace === SRGBColorSpace && forceLinearTransfer === false ) ? gl.SRGB8_ALPHA8 : gl.RGBA8;
+			if ( glType === gl.UNSIGNED_BYTE ) internalFormat = colorSpace === SRGBColorSpace && forceLinearTransfer === false ? gl.SRGB8_ALPHA8 : gl.RGBA8;
 			if ( glType === gl.UNSIGNED_SHORT_4_4_4_4 ) internalFormat = gl.RGBA4;
 			if ( glType === gl.UNSIGNED_SHORT_5_5_5_1 ) internalFormat = gl.RGB5_A1;
 
@@ -295,10 +315,10 @@ class WebGLTextureUtils {
 		const { width, height } = options;
 		const { textureGPU, glTextureType, glFormat, glType, glInternalFormat } = this.backend.get( texture );
 
-		if ( texture.isRenderTargetTexture || ( textureGPU === undefined /* unsupported texture format */ ) )
+		if ( texture.isRenderTargetTexture || textureGPU === undefined )
 			return;
 
-		const getImage = ( source ) => {
+		const getImage = source=> {
 
 			if ( source.isDataTexture ) {
 

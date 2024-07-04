@@ -1,10 +1,4 @@
-import {
-	CompressedTextureLoader,
-	RGBA_PVRTC_2BPPV1_Format,
-	RGBA_PVRTC_4BPPV1_Format,
-	RGB_PVRTC_2BPPV1_Format,
-	RGB_PVRTC_4BPPV1_Format
-} from 'three';
+import { CompressedTextureLoader, RGB_PVRTC_2BPPV1_Format, RGB_PVRTC_4BPPV1_Format, RGBA_PVRTC_2BPPV1_Format, RGBA_PVRTC_4BPPV1_Format } from 'three';
 
 /*
  *	 PVR v2 (legacy) parser
@@ -26,9 +20,9 @@ class PVRLoader extends CompressedTextureLoader {
 		const header = new Uint32Array( buffer, 0, headerLengthInt );
 
 		const pvrDatas = {
-			buffer: buffer,
-			header: header,
-			loadMipmaps: loadMipmaps
+			buffer,
+			header,
+			loadMipmaps
 		};
 
 		if ( header[ 0 ] === 0x03525650 ) {
@@ -101,7 +95,7 @@ function _parseV3( pvrDatas ) {
 	pvrDatas.height = height;
 	pvrDatas.numSurfaces = numFaces;
 	pvrDatas.numMipmaps = numMipmaps;
-	pvrDatas.isCubemap 	= ( numFaces === 6 );
+	pvrDatas.isCubemap 	= numFaces === 6;
 
 	return _extract( pvrDatas );
 
@@ -161,7 +155,7 @@ function _parseV2( pvrDatas ) {
 
 	// guess cubemap type seems tricky in v2
 	// it juste a pvr containing 6 surface (no explicit cubemap type)
-	pvrDatas.isCubemap 	= ( numSurfs === 6 );
+	pvrDatas.isCubemap 	= numSurfs === 6;
 
 	return _extract( pvrDatas );
 
@@ -204,7 +198,7 @@ function _extract( pvrDatas ) {
 
 	}
 
-	blockSize = ( blockWidth * blockHeight ) * bpp / 8;
+	blockSize = blockWidth * blockHeight * bpp / 8;
 
 	pvr.mipmaps.length = pvrDatas.numMipmaps * numSurfs;
 

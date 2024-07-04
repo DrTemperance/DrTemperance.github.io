@@ -99,7 +99,7 @@ class AfterImageNode extends TempNode {
 
 		textureNodeOld.uvNode = uvNode;
 
-		const sampleTexture = ( uv ) => textureNode.cache().context( { getUV: () => uv, forceUVContext: true } );
+		const sampleTexture = uv=> textureNode.cache().context({ getUV: () => uv, forceUVContext: true } );
 
 		const when_gt = tslFn( ( [ x_immutable, y_immutable ] ) => {
 

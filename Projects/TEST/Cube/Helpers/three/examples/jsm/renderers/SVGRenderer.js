@@ -101,7 +101,7 @@ class SVGRenderer {
 			_svgWidth = width; _svgHeight = height;
 			_svgWidthHalf = _svgWidth / 2; _svgHeightHalf = _svgHeight / 2;
 
-			_svg.setAttribute( 'viewBox', ( - _svgWidthHalf ) + ' ' + ( - _svgHeightHalf ) + ' ' + _svgWidth + ' ' + _svgHeight );
+			_svg.setAttribute( 'viewBox', - _svgWidthHalf + ' ' + - _svgHeightHalf + ' ' + _svgWidth + ' ' + _svgHeight );
 			_svg.setAttribute( 'width', _svgWidth );
 			_svg.setAttribute( 'height', _svgHeight );
 

@@ -8,46 +8,46 @@ import { ParametricGeometry } from './ParametricGeometry.js';
 
 const ParametricGeometries = {
 
-	klein: function ( v, u, target ) {
+	klein (v, u, target) {
 
 		u *= Math.PI;
 		v *= 2 * Math.PI;
 
 		u = u * 2;
 		let x, z;
-		if ( u < Math.PI ) {
+		if (u<Math.PI) {
 
-			x = 3 * Math.cos( u ) * ( 1 + Math.sin( u ) ) + ( 2 * ( 1 - Math.cos( u ) / 2 ) ) * Math.cos( u ) * Math.cos( v );
-			z = - 8 * Math.sin( u ) - 2 * ( 1 - Math.cos( u ) / 2 ) * Math.sin( u ) * Math.cos( v );
+			x = 3 * Math.cos(u) * (1 + Math.sin(u)) + 2 * (1 - Math.cos(u) / 2) * Math.cos(u) * Math.cos(v);
+			z = -8 * Math.sin(u) - 2 * (1 - Math.cos(u) / 2) * Math.sin(u) * Math.cos(v);
 
 		} else {
 
-			x = 3 * Math.cos( u ) * ( 1 + Math.sin( u ) ) + ( 2 * ( 1 - Math.cos( u ) / 2 ) ) * Math.cos( v + Math.PI );
-			z = - 8 * Math.sin( u );
+			x = 3 * Math.cos(u) * (1 + Math.sin(u)) + 2 * (1 - Math.cos(u) / 2) * Math.cos(v + Math.PI);
+			z = -8 * Math.sin(u);
 
 		}
 
-		const y = - 2 * ( 1 - Math.cos( u ) / 2 ) * Math.sin( v );
+		const y = -2 * (1 - Math.cos(u) / 2) * Math.sin(v);
 
-		target.set( x, y, z );
+		target.set(x, y, z);
 
 	},
 
-	plane: function ( width, height ) {
+	plane (width, height) {
 
-		return function ( u, v, target ) {
+		return function (u, v, target) {
 
 			const x = u * width;
 			const y = 0;
 			const z = v * height;
 
-			target.set( x, y, z );
+			target.set(x, y, z);
 
 		};
 
 	},
 
-	mobius: function ( u, t, target ) {
+	mobius (u, t, target) {
 
 		// flat mobius strip
 		// http://www.wolframalpha.com/input/?i=M%C3%B6bius+strip+parametric+equations&lk=1&a=ClashPrefs_*Surface.MoebiusStrip.SurfaceProperty.ParametricEquations-
@@ -56,15 +56,15 @@ const ParametricGeometries = {
 
 		const a = 2;
 
-		const x = Math.cos( v ) * ( a + u * Math.cos( v / 2 ) );
-		const y = Math.sin( v ) * ( a + u * Math.cos( v / 2 ) );
-		const z = u * Math.sin( v / 2 );
+		const x = Math.cos(v) * (a + u * Math.cos(v / 2));
+		const y = Math.sin(v) * (a + u * Math.cos(v / 2));
+		const z = u * Math.sin(v / 2);
 
-		target.set( x, y, z );
+		target.set(x, y, z);
 
 	},
 
-	mobius3d: function ( u, t, target ) {
+	mobius3d (u, t, target) {
 
 		// volumetric mobius strip
 
@@ -75,12 +75,12 @@ const ParametricGeometries = {
 		const phi = u / 2;
 		const major = 2.25, a = 0.125, b = 0.65;
 
-		let x = a * Math.cos( t ) * Math.cos( phi ) - b * Math.sin( t ) * Math.sin( phi );
-		const z = a * Math.cos( t ) * Math.sin( phi ) + b * Math.sin( t ) * Math.cos( phi );
-		const y = ( major + x ) * Math.sin( u );
-		x = ( major + x ) * Math.cos( u );
+		let x = a * Math.cos(t) * Math.cos(phi) - b * Math.sin(t) * Math.sin(phi);
+		const z = a * Math.cos(t) * Math.sin(phi) + b * Math.sin(t) * Math.cos(phi);
+		const y = (major + x) * Math.sin(u);
+		x = (major + x) * Math.cos(u);
 
-		target.set( x, y, z );
+		target.set(x, y, z);
 
 	}
 

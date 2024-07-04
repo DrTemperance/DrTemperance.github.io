@@ -65,9 +65,9 @@ class DDSLoader extends CompressedTextureLoader {
 
 			return String.fromCharCode(
 				value & 0xff,
-				( value >> 8 ) & 0xff,
-				( value >> 16 ) & 0xff,
-				( value >> 24 ) & 0xff
+				value >> 8 & 0xff,
+				value >> 16 & 0xff,
+				value >> 24 & 0xff
 			);
 
 		}
@@ -288,7 +288,7 @@ class DDSLoader extends CompressedTextureLoader {
 
 				}
 
-				const mipmap = { 'data': byteArray, 'width': width, 'height': height };
+				const mipmap = { 'data': byteArray, width, height};
 				dds.mipmaps.push( mipmap );
 
 				dataOffset += dataLength;

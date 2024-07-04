@@ -12,11 +12,7 @@ const mx_hsvtorgb = tslFn( ( [ hsv_immutable ] ) => {
 	const s = float( hsv.y ).toVar();
 	const v = float( hsv.z ).toVar();
 
-	If( s.lessThan( 0.0001 ), () => {
-
-		return vec3( v, v, v );
-
-	} ).else( () => {
+	If( s.lessThan( 0.0001 ), () =>vec3(v, v, v)).else( () => {
 
 		h.assign( mul( 6.0, h.sub( floor( h ) ) ) );
 		const hi = int( trunc( h ) ).toVar();
@@ -25,27 +21,7 @@ const mx_hsvtorgb = tslFn( ( [ hsv_immutable ] ) => {
 		const q = float( v.mul( sub( 1.0, s.mul( f ) ) ) ).toVar();
 		const t = float( v.mul( sub( 1.0, s.mul( sub( 1.0, f ) ) ) ) ).toVar();
 
-		If( hi.equal( int( 0 ) ), () => {
-
-			return vec3( v, t, p );
-
-		} ).elseif( hi.equal( int( 1 ) ), () => {
-
-			return vec3( q, v, p );
-
-		} ).elseif( hi.equal( int( 2 ) ), () => {
-
-			return vec3( p, v, t );
-
-		} ).elseif( hi.equal( int( 3 ) ), () => {
-
-			return vec3( p, q, v );
-
-		} ).elseif( hi.equal( int( 4 ) ), () => {
-
-			return vec3( t, p, v );
-
-		} );
+		If( hi.equal( int( 0 ) ), () =>vec3(v, t, p)).elseif( hi.equal( int( 1 ) ), () =>vec3(q, v, p)).elseif( hi.equal( int( 2 ) ), () =>vec3(p, v, t)).elseif( hi.equal( int( 3 ) ), () =>vec3(p, q, v)).elseif( hi.equal( int( 4 ) ), () =>vec3(t, p, v));
 
 		return vec3( v, p, q );
 
@@ -65,43 +41,15 @@ const mx_rgbtohsv = tslFn( ( [ c_immutable ] ) => {
 	const h = float().toVar(), s = float().toVar(), v = float().toVar();
 	v.assign( maxcomp );
 
-	If( maxcomp.greaterThan( 0.0 ), () => {
+	If( maxcomp.greaterThan( 0.0 ), () =>s.assign(delta.div(maxcomp))).else( () =>s.assign(0.0));
 
-		s.assign( delta.div( maxcomp ) );
+	If( s.lessThanEqual( 0.0 ), () =>h.assign(0.0)).else( () => {
 
-	} ).else( () => {
-
-		s.assign( 0.0 );
-
-	} );
-
-	If( s.lessThanEqual( 0.0 ), () => {
-
-		h.assign( 0.0 );
-
-	} ).else( () => {
-
-		If( r.greaterThanEqual( maxcomp ), () => {
-
-			h.assign( g.sub( b ).div( delta ) );
-
-		} ).elseif( g.greaterThanEqual( maxcomp ), () => {
-
-			h.assign( add( 2.0, b.sub( r ).div( delta ) ) );
-
-		} ).else( () => {
-
-			h.assign( add( 4.0, r.sub( g ).div( delta ) ) );
-
-		} );
+		If( r.greaterThanEqual( maxcomp ), () =>h.assign(g.sub(b).div(delta))).elseif( g.greaterThanEqual( maxcomp ), () =>h.assign(add(2.0, b.sub(r).div(delta)))).else( () =>h.assign(add(4.0, r.sub(g).div(delta))));
 
 		h.mulAssign( 1.0 / 6.0 );
 
-		If( h.lessThan( 0.0 ), () => {
-
-			h.addAssign( 1.0 );
-
-		} );
+		If( h.lessThan( 0.0 ), () =>h.addAssign(1.0));
 
 	} );
 

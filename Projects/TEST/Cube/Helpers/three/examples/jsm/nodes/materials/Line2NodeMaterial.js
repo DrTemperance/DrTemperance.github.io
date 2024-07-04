@@ -97,19 +97,8 @@ class Line2NodeMaterial extends NodeMaterial {
 
 			const perspective = cameraProjectionMatrix.element( 2 ).element( 3 ).equal( - 1.0 ); // 4th entry in the 3rd column
 
-			If( perspective, () => {
-
-				If( start.z.lessThan( 0.0 ).and( end.z.greaterThan( 0.0 ) ), () => {
-
-					end.assign( trimSegment( { start: start, end: end } ) );
-
-				} ).elseif( end.z.lessThan( 0.0 ).and( start.z.greaterThanEqual( 0.0 ) ), () => {
-
-					start.assign( trimSegment( { start: end, end: start } ) );
-
-			 	} );
-
-			} );
+			If( perspective, () =>If(start.z.lessThan(0.0).and(end.z.greaterThan(0.0)), ()=>end.assign(trimSegment({start, end})))
+				 .elseif(end.z.lessThan(0.0).and(start.z.greaterThanEqual(0.0)), ()=>start.assign(trimSegment({start: end, end: start}))));
 
 			// clip space
 			const clipStart = cameraProjectionMatrix.mul( start );
@@ -156,11 +145,7 @@ class Line2NodeMaterial extends NodeMaterial {
 					worldPos.addAssign( vec4( worldFwd.mul( hw ), 0 ) );
 
 					// endcaps
-					If( positionGeometry.y.greaterThan( 1.0 ).or( positionGeometry.y.lessThan( 0.0 ) ), () => {
-
-						worldPos.subAssign( vec4( worldFwd.mul( 2.0 ).mul( hw ), 0 ) );
-
-					} );
+					If( positionGeometry.y.greaterThan( 1.0 ).or( positionGeometry.y.lessThan( 0.0 ) ), () =>worldPos.subAssign(vec4(worldFwd.mul(2.0).mul(hw), 0)));
 
 				}
 
@@ -188,15 +173,7 @@ class Line2NodeMaterial extends NodeMaterial {
 				offset.assign( positionGeometry.x.lessThan( 0.0 ).cond( offset.negate(), offset ) );
 
 				// endcaps
-				If( positionGeometry.y.lessThan( 0.0 ), () => {
-
-					offset.assign( offset.sub( dir ) );
-
-				} ).elseif( positionGeometry.y.greaterThan( 1.0 ), () => {
-
-					offset.assign( offset.add( dir ) );
-
-				} );
+				If( positionGeometry.y.lessThan( 0.0 ), () =>offset.assign(offset.sub(dir))).elseif( positionGeometry.y.greaterThan( 1.0 ), () =>offset.assign(offset.add(dir)));
 
 				// adjust for linewidth
 				offset.assign( offset.mul( materialLineWidth ) );
@@ -318,11 +295,7 @@ class Line2NodeMaterial extends NodeMaterial {
 					const dlen = property( 'float', 'dlen' );
 					dlen.assign( len2.fwidth() );
 
-					If( vUv.y.abs().greaterThan( 1.0 ), () => {
-
-						alpha.assign( smoothstep( dlen.oneMinus(), dlen.add( 1 ), len2 ).oneMinus() );
-
-					} );
+					If( vUv.y.abs().greaterThan( 1.0 ), () =>alpha.assign(smoothstep(dlen.oneMinus(), dlen.add(1), len2).oneMinus()));
 
 				} else {
 

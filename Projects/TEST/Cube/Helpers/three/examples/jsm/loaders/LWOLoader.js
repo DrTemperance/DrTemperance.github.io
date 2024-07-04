@@ -49,7 +49,7 @@ class LWOLoader extends Loader {
 
 		super( manager );
 
-		this.resourcePath = ( parameters.resourcePath !== undefined ) ? parameters.resourcePath : '';
+		this.resourcePath = parameters.resourcePath !== undefined ? parameters.resourcePath : '';
 
 	}
 
@@ -57,7 +57,7 @@ class LWOLoader extends Loader {
 
 		const scope = this;
 
-		const path = ( scope.path === '' ) ? extractParentUrl( url, 'Objects' ) : scope.path;
+		const path = scope.path === '' ? extractParentUrl( url, 'Objects' ) : scope.path;
 
 		// give the mesh a default name based on the filename
 		const modelName = url.split( path ).pop().split( '.' )[ 0 ];
@@ -303,7 +303,7 @@ class MaterialParser {
 	parseMaterial( materialData, name, textures ) {
 
 		let params = {
-			name: name,
+			name,
 			side: this.getSide( materialData.attributes ),
 			flatShading: this.getSmooth( materialData.attributes ),
 		};
@@ -332,7 +332,7 @@ class MaterialParser {
 	parseMaterialLwo2( materialData, name/*, textures*/ ) {
 
 		let params = {
-			name: name,
+			name,
 			side: this.getSide( materialData.attributes ),
 			flatShading: this.getSmooth( materialData.attributes ),
 		};

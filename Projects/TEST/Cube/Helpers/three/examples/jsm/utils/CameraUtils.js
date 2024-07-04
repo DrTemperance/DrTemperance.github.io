@@ -60,7 +60,7 @@ function frameCorners( camera, bottomLeftCorner, bottomRightCorner, topLeftCorne
 		camera.fov =
 			MathUtils.RAD2DEG / Math.min( 1.0, camera.aspect ) *
 			Math.atan( ( _vec.copy( pb ).sub( pa ).length() +
-							( _vec.copy( pc ).sub( pa ).length() ) ) / _va.length() );
+							_vec.copy( pc ).sub( pa ).length() ) / _va.length() );
 
 	}
 

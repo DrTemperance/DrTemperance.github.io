@@ -53,7 +53,7 @@ var freb = function (eb, start) {
     var r = new u32(b[30]);
     for (var i = 1; i < 30; ++i) {
         for (var j = b[i]; j < b[i + 1]; ++j) {
-            r[j] = (j - b[i]) << 5 | i;
+            r[j] = j - b[i] << 5 | i;
         }
     }
     return [b, r];
@@ -151,7 +151,7 @@ var max = function (a) {
 // read d, starting at bit p and mask with m
 var bits = function (d, p, m) {
     var o = p / 8 | 0;
-    return (d[o] | (d[o + 1] << 8)) >> (p & 7) & m;
+    return (d[o] | d[o + 1] << 8) >> (p & 7) & m;
 };
 // read d, starting at bit p continuing for at least 16 bits
 var bits16 = function (d, p) {
@@ -468,7 +468,7 @@ var lc = function (c) {
                 for (; cls > 138; cls -= 138)
                     w(32754);
                 if (cls > 2) {
-                    w(cls > 10 ? (cls - 11) << 5 | 28690 : (cls - 3) << 5 | 12305);
+                    w(cls > 10 ? cls - 11 << 5 | 28690 : cls - 3 << 5 | 12305);
                     cls = 0;
                 }
             }
@@ -477,7 +477,7 @@ var lc = function (c) {
                 for (; cls > 6; cls -= 6)
                     w(8304);
                 if (cls > 2)
-                    w((cls - 3) << 5 | 8208), cls = 0;
+                    w(cls - 3 << 5 | 8208), cls = 0;
             }
             while (cls--)
                 w(cln);
@@ -911,7 +911,7 @@ var gzl = function (d) {
     return (d[l - 4] | d[l - 3] << 8 | d[l - 2] << 16 | d[l - 1] << 24) >>> 0;
 };
 // gzip header length
-var gzhl = function (o) { return 10 + (o.filename && (o.filename.length + 1) || 0); };
+var gzhl = function (o) { return 10 + (o.filename && o.filename.length + 1 || 0); };
 // zlib header
 var zlh = function (c, o) {
     var lv = o.level, fl = lv == 0 ? 0 : lv < 6 ? 1 : lv == 9 ? 3 : 2;
@@ -1630,7 +1630,7 @@ export function strToU8(str, latin1) {
             c = 65536 + (c & 1023 << 10) | str.charCodeAt(++i) & 1023,
                 w(240 | c >> 18), w(128 | c >> 12 & 63), w(128 | c >> 6 & 63), w(128 | c & 63);
         else
-            w(224 | c >> 12), w(128 | (c >> 6) & 63), w(128 | c & 63);
+            w(224 | c >> 12), w(128 | c >> 6 & 63), w(128 | c & 63);
     }
     return slc(ar, 0, ai);
 }
@@ -1700,7 +1700,7 @@ var wzh = function (d, b, f, fn, u, c, ce, co) {
     var dt = new Date(f.mtime == null ? Date.now() : f.mtime), y = dt.getFullYear() - 1980;
     if (y < 0 || y > 119)
         throw 'date not in range 1980-2099';
-    wbytes(d, b, y << 25 | (dt.getMonth() + 1) << 21 | dt.getDate() << 16 | dt.getHours() << 11 | dt.getMinutes() << 5 | dt.getSeconds() >>> 1), b += 4;
+    wbytes(d, b, y << 25 | dt.getMonth() + 1 << 21 | dt.getDate() << 16 | dt.getHours() << 11 | dt.getMinutes() << 5 | dt.getSeconds() >>> 1), b += 4;
     if (c != null) {
         wbytes(d, b, f.crc);
         wbytes(d, b + 4, c);
@@ -1880,7 +1880,7 @@ var Zip = /*#__PURE__*/ (function () {
             throw 'stream finished';
         var f = strToU8(file.filename), fl = f.length;
         var com = file.comment, o = com && strToU8(com);
-        var u = fl != file.filename.length || o && (com.length != o.length);
+        var u = fl != file.filename.length || o && com.length != o.length;
         var hl = fl + exfl(file.extra) + 30;
         if (fl > 65535)
             throw 'filename too long';
@@ -2059,7 +2059,7 @@ export function zip(data, opts, cb) {
                     c: d,
 	                f,
 	                m,
-                    u: s != fn.length || m && (com.length != ms),
+                    u: s != fn.length || m && com.length != ms,
 	                compression
                 });
                 o += 30 + s + exl + l;
@@ -2121,7 +2121,7 @@ export function zipSync(data, opts) {
             c: d,
 	        f,
 	        m,
-            u: s != fn.length || m && (com.length != ms),
+            u: s != fn.length || m && com.length != ms,
 	        o,
 	        compression
         }));

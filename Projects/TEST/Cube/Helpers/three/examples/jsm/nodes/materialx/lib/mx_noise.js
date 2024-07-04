@@ -626,17 +626,9 @@ const mx_worley_distance_0 = tslFn( ( [ p_immutable, x_immutable, y_immutable, x
 	const cellpos = vec2( vec2( float( x ), float( y ) ).add( off ) ).toVar();
 	const diff = vec2( cellpos.sub( p ) ).toVar();
 
-	If( metric.equal( int( 2 ) ), () => {
+	If( metric.equal( int( 2 ) ), () =>abs(diff.x).add(abs(diff.y)));
 
-		return abs( diff.x ).add( abs( diff.y ) );
-
-	} );
-
-	If( metric.equal( int( 3 ) ), () => {
-
-		return max( abs( diff.x ), abs( diff.y ) );
-
-	} );
+	If( metric.equal( int( 3 ) ), () =>max(abs(diff.x), abs(diff.y)));
 
 	return dot( diff, diff );
 
@@ -660,17 +652,9 @@ const mx_worley_distance_1 = tslFn( ( [ p_immutable, x_immutable, y_immutable, z
 	const cellpos = vec3( vec3( float( x ), float( y ), float( z ) ).add( off ) ).toVar();
 	const diff = vec3( cellpos.sub( p ) ).toVar();
 
-	If( metric.equal( int( 2 ) ), () => {
+	If( metric.equal( int( 2 ) ), () =>abs(diff.x).add(abs(diff.y).add(abs(diff.z))));
 
-		return abs( diff.x ).add( abs( diff.y ).add( abs( diff.z ) ) );
-
-	} );
-
-	If( metric.equal( int( 3 ) ), () => {
-
-		return max( max( abs( diff.x ), abs( diff.y ) ), abs( diff.z ) );
-
-	} );
+	If( metric.equal( int( 3 ) ), () =>max(max(abs(diff.x), abs(diff.y)), abs(diff.z)));
 
 	return dot( diff, diff );
 
@@ -687,22 +671,15 @@ const mx_worley_noise_float_0 = tslFn( ( [ p_immutable, jitter_immutable, metric
 	const localpos = vec2( mx_floorfrac( p.x, X ), mx_floorfrac( p.y, Y ) ).toVar();
 	const sqdist = float( 1e6 ).toVar();
 
-	loop( { start: - 1, end: int( 1 ), name: 'x', condition: '<=' }, ( { x } ) => {
+	loop( { start: - 1, end: int( 1 ), name: 'x', condition: '<=' }, ( { x } ) =>
+		 loop({start: -1, end: int(1), name: 'y', condition: '<='}, ({y})=>{
 
-		loop( { start: - 1, end: int( 1 ), name: 'y', condition: '<=' }, ( { y } ) => {
+			 const dist = float(mx_worley_distance(localpos, x, y, X, Y, jitter, metric)).toVar();
+			 sqdist.assign(min(sqdist, dist));
 
-			const dist = float( mx_worley_distance( localpos, x, y, X, Y, jitter, metric ) ).toVar();
-			sqdist.assign( min( sqdist, dist ) );
+		 }));
 
-		} );
-
-	} );
-
-	If( metric.equal( int( 0 ) ), () => {
-
-		sqdist.assign( sqrt( sqdist ) );
-
-	} );
+	If( metric.equal( int( 0 ) ), () =>sqdist.assign(sqrt(sqdist)));
 
 	return sqdist;
 
@@ -717,32 +694,21 @@ const mx_worley_noise_vec2_0 = tslFn( ( [ p_immutable, jitter_immutable, metric_
 	const localpos = vec2( mx_floorfrac( p.x, X ), mx_floorfrac( p.y, Y ) ).toVar();
 	const sqdist = vec2( 1e6, 1e6 ).toVar();
 
-	loop( { start: - 1, end: int( 1 ), name: 'x', condition: '<=' }, ( { x } ) => {
+	loop( { start: - 1, end: int( 1 ), name: 'x', condition: '<=' }, ( { x } ) =>
+		 loop({start: -1, end: int(1), name: 'y', condition: '<='}, ({y})=>{
 
-		loop( { start: - 1, end: int( 1 ), name: 'y', condition: '<=' }, ( { y } ) => {
+			 const dist = float(mx_worley_distance(localpos, x, y, X, Y, jitter, metric)).toVar();
 
-			const dist = float( mx_worley_distance( localpos, x, y, X, Y, jitter, metric ) ).toVar();
+			 If(dist.lessThan(sqdist.x), ()=>{
 
-			If( dist.lessThan( sqdist.x ), () => {
+				 sqdist.y.assign(sqdist.x);
+				 sqdist.x.assign(dist);
 
-				sqdist.y.assign( sqdist.x );
-				sqdist.x.assign( dist );
+			 }).elseif(dist.lessThan(sqdist.y), ()=>sqdist.y.assign(dist));
 
-			} ).elseif( dist.lessThan( sqdist.y ), () => {
+		 }));
 
-				sqdist.y.assign( dist );
-
-			} );
-
-		} );
-
-	} );
-
-	If( metric.equal( int( 0 ) ), () => {
-
-		sqdist.assign( sqrt( sqdist ) );
-
-	} );
+	If( metric.equal( int( 0 ) ), () =>sqdist.assign(sqrt(sqdist)));
 
 	return sqdist;
 
@@ -757,38 +723,27 @@ const mx_worley_noise_vec3_0 = tslFn( ( [ p_immutable, jitter_immutable, metric_
 	const localpos = vec2( mx_floorfrac( p.x, X ), mx_floorfrac( p.y, Y ) ).toVar();
 	const sqdist = vec3( 1e6, 1e6, 1e6 ).toVar();
 
-	loop( { start: - 1, end: int( 1 ), name: 'x', condition: '<=' }, ( { x } ) => {
+	loop( { start: - 1, end: int( 1 ), name: 'x', condition: '<=' }, ( { x } ) =>
+		 loop({start: -1, end: int(1), name: 'y', condition: '<='}, ({y})=>{
 
-		loop( { start: - 1, end: int( 1 ), name: 'y', condition: '<=' }, ( { y } ) => {
+			 const dist = float(mx_worley_distance(localpos, x, y, X, Y, jitter, metric)).toVar();
 
-			const dist = float( mx_worley_distance( localpos, x, y, X, Y, jitter, metric ) ).toVar();
+			 If(dist.lessThan(sqdist.x), ()=>{
 
-			If( dist.lessThan( sqdist.x ), () => {
+				 sqdist.z.assign(sqdist.y);
+				 sqdist.y.assign(sqdist.x);
+				 sqdist.x.assign(dist);
 
-				sqdist.z.assign( sqdist.y );
-				sqdist.y.assign( sqdist.x );
-				sqdist.x.assign( dist );
+			 }).elseif(dist.lessThan(sqdist.y), ()=>{
 
-			} ).elseif( dist.lessThan( sqdist.y ), () => {
+				 sqdist.z.assign(sqdist.y);
+				 sqdist.y.assign(dist);
 
-				sqdist.z.assign( sqdist.y );
-				sqdist.y.assign( dist );
+			 }).elseif(dist.lessThan(sqdist.z), ()=>sqdist.z.assign(dist));
 
-			} ).elseif( dist.lessThan( sqdist.z ), () => {
+		 }));
 
-				sqdist.z.assign( dist );
-
-			} );
-
-		} );
-
-	} );
-
-	If( metric.equal( int( 0 ) ), () => {
-
-		sqdist.assign( sqrt( sqdist ) );
-
-	} );
+	If( metric.equal( int( 0 ) ), () =>sqdist.assign(sqrt(sqdist)));
 
 	return sqdist;
 
@@ -803,26 +758,16 @@ const mx_worley_noise_float_1 = tslFn( ( [ p_immutable, jitter_immutable, metric
 	const localpos = vec3( mx_floorfrac( p.x, X ), mx_floorfrac( p.y, Y ), mx_floorfrac( p.z, Z ) ).toVar();
 	const sqdist = float( 1e6 ).toVar();
 
-	loop( { start: - 1, end: int( 1 ), name: 'x', condition: '<=' }, ( { x } ) => {
+	loop( { start: - 1, end: int( 1 ), name: 'x', condition: '<=' }, ( { x } ) =>
+		 loop({start: -1, end: int(1), name: 'y', condition: '<='}, ({y})=>
+				loop({start: -1, end: int(1), name: 'z', condition: '<='}, ({z})=>{
 
-		loop( { start: - 1, end: int( 1 ), name: 'y', condition: '<=' }, ( { y } ) => {
+					const dist = float(mx_worley_distance(localpos, x, y, z, X, Y, Z, jitter, metric)).toVar();
+					sqdist.assign(min(sqdist, dist));
 
-			loop( { start: - 1, end: int( 1 ), name: 'z', condition: '<=' }, ( { z } ) => {
+				})));
 
-				const dist = float( mx_worley_distance( localpos, x, y, z, X, Y, Z, jitter, metric ) ).toVar();
-				sqdist.assign( min( sqdist, dist ) );
-
-			} );
-
-		} );
-
-	} );
-
-	If( metric.equal( int( 0 ) ), () => {
-
-		sqdist.assign( sqrt( sqdist ) );
-
-	} );
+	If( metric.equal( int( 0 ) ), () =>sqdist.assign(sqrt(sqdist)));
 
 	return sqdist;
 
@@ -839,36 +784,22 @@ const mx_worley_noise_vec2_1 = tslFn( ( [ p_immutable, jitter_immutable, metric_
 	const localpos = vec3( mx_floorfrac( p.x, X ), mx_floorfrac( p.y, Y ), mx_floorfrac( p.z, Z ) ).toVar();
 	const sqdist = vec2( 1e6, 1e6 ).toVar();
 
-	loop( { start: - 1, end: int( 1 ), name: 'x', condition: '<=' }, ( { x } ) => {
+	loop( { start: - 1, end: int( 1 ), name: 'x', condition: '<=' }, ( { x } ) =>
+		 loop({start: -1, end: int(1), name: 'y', condition: '<='}, ({y})=>
+				loop({start: -1, end: int(1), name: 'z', condition: '<='}, ({z})=>{
 
-		loop( { start: - 1, end: int( 1 ), name: 'y', condition: '<=' }, ( { y } ) => {
+					const dist = float(mx_worley_distance(localpos, x, y, z, X, Y, Z, jitter, metric)).toVar();
 
-			loop( { start: - 1, end: int( 1 ), name: 'z', condition: '<=' }, ( { z } ) => {
+					If(dist.lessThan(sqdist.x), ()=>{
 
-				const dist = float( mx_worley_distance( localpos, x, y, z, X, Y, Z, jitter, metric ) ).toVar();
+						sqdist.y.assign(sqdist.x);
+						sqdist.x.assign(dist);
 
-				If( dist.lessThan( sqdist.x ), () => {
+					}).elseif(dist.lessThan(sqdist.y), ()=>sqdist.y.assign(dist));
 
-					sqdist.y.assign( sqdist.x );
-					sqdist.x.assign( dist );
+				})));
 
-				} ).elseif( dist.lessThan( sqdist.y ), () => {
-
-					sqdist.y.assign( dist );
-
-				} );
-
-			} );
-
-		} );
-
-	} );
-
-	If( metric.equal( int( 0 ) ), () => {
-
-		sqdist.assign( sqrt( sqdist ) );
-
-	} );
+	If( metric.equal( int( 0 ) ), () =>sqdist.assign(sqrt(sqdist)));
 
 	return sqdist;
 
@@ -885,42 +816,28 @@ const mx_worley_noise_vec3_1 = tslFn( ( [ p_immutable, jitter_immutable, metric_
 	const localpos = vec3( mx_floorfrac( p.x, X ), mx_floorfrac( p.y, Y ), mx_floorfrac( p.z, Z ) ).toVar();
 	const sqdist = vec3( 1e6, 1e6, 1e6 ).toVar();
 
-	loop( { start: - 1, end: int( 1 ), name: 'x', condition: '<=' }, ( { x } ) => {
+	loop( { start: - 1, end: int( 1 ), name: 'x', condition: '<=' }, ( { x } ) =>
+		 loop({start: -1, end: int(1), name: 'y', condition: '<='}, ({y})=>
+				loop({start: -1, end: int(1), name: 'z', condition: '<='}, ({z})=>{
 
-		loop( { start: - 1, end: int( 1 ), name: 'y', condition: '<=' }, ( { y } ) => {
+					const dist = float(mx_worley_distance(localpos, x, y, z, X, Y, Z, jitter, metric)).toVar();
 
-			loop( { start: - 1, end: int( 1 ), name: 'z', condition: '<=' }, ( { z } ) => {
+					If(dist.lessThan(sqdist.x), ()=>{
 
-				const dist = float( mx_worley_distance( localpos, x, y, z, X, Y, Z, jitter, metric ) ).toVar();
+						sqdist.z.assign(sqdist.y);
+						sqdist.y.assign(sqdist.x);
+						sqdist.x.assign(dist);
 
-				If( dist.lessThan( sqdist.x ), () => {
+					}).elseif(dist.lessThan(sqdist.y), ()=>{
 
-					sqdist.z.assign( sqdist.y );
-					sqdist.y.assign( sqdist.x );
-					sqdist.x.assign( dist );
+						sqdist.z.assign(sqdist.y);
+						sqdist.y.assign(dist);
 
-				} ).elseif( dist.lessThan( sqdist.y ), () => {
+					}).elseif(dist.lessThan(sqdist.z), ()=>sqdist.z.assign(dist));
 
-					sqdist.z.assign( sqdist.y );
-					sqdist.y.assign( dist );
+				})));
 
-				} ).elseif( dist.lessThan( sqdist.z ), () => {
-
-					sqdist.z.assign( dist );
-
-				} );
-
-			} );
-
-		} );
-
-	} );
-
-	If( metric.equal( int( 0 ) ), () => {
-
-		sqdist.assign( sqrt( sqdist ) );
-
-	} );
+	If( metric.equal( int( 0 ) ), () =>sqdist.assign(sqrt(sqdist)));
 
 	return sqdist;
 

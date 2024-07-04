@@ -17,7 +17,7 @@ class OculusHandModel extends Object3D {
 
 		this.mesh = null;
 
-		controller.addEventListener( 'connected', ( event ) => {
+		controller.addEventListener( 'connected', event=> {
 
 			const xrInputSource = event.data;
 

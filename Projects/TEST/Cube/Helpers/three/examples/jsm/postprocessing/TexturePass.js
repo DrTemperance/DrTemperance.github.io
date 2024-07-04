@@ -11,7 +11,7 @@ class TexturePass extends Pass {
 		const shader = CopyShader;
 
 		this.map = map;
-		this.opacity = ( opacity !== undefined ) ? opacity : 1.0;
+		this.opacity = opacity !== undefined ? opacity : 1.0;
 
 		this.uniforms = UniformsUtils.clone( shader.uniforms );
 
@@ -41,7 +41,7 @@ class TexturePass extends Pass {
 
 		this.uniforms[ 'opacity' ].value = this.opacity;
 		this.uniforms[ 'tDiffuse' ].value = this.map;
-		this.material.transparent = ( this.opacity < 1.0 );
+		this.material.transparent = this.opacity < 1.0;
 
 		renderer.setRenderTarget( this.renderToScreen ? null : readBuffer );
 		if ( this.clear ) renderer.clear();

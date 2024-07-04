@@ -1,4 +1,4 @@
-import { Clock, Vector3, Quaternion, Matrix4 } from 'three';
+import { Clock, Matrix4, Quaternion, Vector3 } from 'three';
 
 const RAPIER_PATH = 'https://cdn.skypack.dev/@dimforge/rapier3d-compat@0.11.2';
 
@@ -209,10 +209,10 @@ async function RapierPhysics() {
 	setInterval( step, 1000 / frameRate );
 
 	return {
-		addScene: addScene,
-		addMesh: addMesh,
-		setMeshPosition: setMeshPosition,
-		setMeshVelocity: setMeshVelocity
+		addScene,
+		addMesh,
+		setMeshPosition,
+		setMeshVelocity
 	};
 
 }

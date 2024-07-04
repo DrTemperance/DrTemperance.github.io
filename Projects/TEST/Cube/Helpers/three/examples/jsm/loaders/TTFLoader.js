@@ -1,7 +1,4 @@
-import {
-	FileLoader,
-	Loader
-} from 'three';
+import { FileLoader, Loader } from 'three';
 import opentype from '../libs/opentype.module.js';
 
 /**
@@ -62,7 +59,7 @@ class TTFLoader extends Loader {
 			const round = Math.round;
 
 			const glyphs = {};
-			const scale = ( 100000 ) / ( ( font.unitsPerEm || 2048 ) * 72 );
+			const scale = 100000 / ( ( font.unitsPerEm || 2048 ) * 72 );
 
 			const glyphIndexMap = font.encoding.cmap.glyphIndexMap;
 			const unicodes = Object.keys( glyphIndexMap );
@@ -124,7 +121,7 @@ class TTFLoader extends Loader {
 			}
 
 			return {
-				glyphs: glyphs,
+				glyphs,
 				familyName: font.getEnglishName( 'fullName' ),
 				ascender: round( font.ascender * scale ),
 				descender: round( font.descender * scale ),

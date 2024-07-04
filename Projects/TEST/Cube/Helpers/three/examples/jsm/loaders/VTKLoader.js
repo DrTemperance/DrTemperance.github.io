@@ -748,12 +748,12 @@ class VTKLoader extends Loader {
 					let blocks = byteData[ 0 ];
 					for ( let i = 1; i < numBytes - 1; i ++ ) {
 
-						blocks = blocks | byteData[ i ] << ( i * dataPointSize );
+						blocks = blocks | byteData[ i ] << i * dataPointSize;
 
 					}
 
 					let headerSize = ( blocks + 3 ) * numBytes;
-					const padding = ( headerSize % 3 ) > 0 ? 3 - headerSize % 3 : 0;
+					const padding = headerSize % 3 > 0 ? 3 - headerSize % 3 : 0;
 					headerSize = headerSize + padding;
 
 					const dataOffsets = [];
@@ -770,7 +770,7 @@ class VTKLoader extends Loader {
 
 						for ( let j = 1; j < numBytes - 1; j ++ ) {
 
-							currentBlockSize = currentBlockSize | byteData[ i * numBytes + cSizeStart + j ] << ( j * dataPointSize );
+							currentBlockSize = currentBlockSize | byteData[ i * numBytes + cSizeStart + j ] << j * dataPointSize;
 
 						}
 

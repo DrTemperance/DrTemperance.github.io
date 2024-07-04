@@ -144,19 +144,19 @@ class Volume {
 		 */
 		let lowerThreshold = - Infinity;
 		Object.defineProperty( this, 'lowerThreshold', {
-			get: function () {
+			get () {
 
 				return lowerThreshold;
 
 			},
-			set: function ( value ) {
+			set (value) {
 
 				lowerThreshold = value;
-				this.sliceList.forEach( function ( slice ) {
+				this.sliceList.forEach(function (slice) {
 
 					slice.geometryNeedsUpdate = true;
 
-				} );
+				});
 
 			}
 		} );
@@ -166,19 +166,19 @@ class Volume {
 		 */
 		let upperThreshold = Infinity;
 		Object.defineProperty( this, 'upperThreshold', {
-			get: function () {
+			get () {
 
 				return upperThreshold;
 
 			},
-			set: function ( value ) {
+			set (value) {
 
 				upperThreshold = value;
-				this.sliceList.forEach( function ( slice ) {
+				this.sliceList.forEach(function (slice) {
 
 					slice.geometryNeedsUpdate = true;
 
-				} );
+				});
 
 			}
 		} );
@@ -372,27 +372,27 @@ class Volume {
 
 		function sliceAccess( i, j ) {
 
-			const si = ( iDirection === axisInIJK ) ? IJKIndex : ( iDirection.arglet === 'i' ? i : j );
-			const sj = ( jDirection === axisInIJK ) ? IJKIndex : ( jDirection.arglet === 'i' ? i : j );
-			const sk = ( kDirection === axisInIJK ) ? IJKIndex : ( kDirection.arglet === 'i' ? i : j );
+			const si = iDirection === axisInIJK ? IJKIndex : ( iDirection.arglet === 'i' ? i : j );
+			const sj = jDirection === axisInIJK ? IJKIndex : ( jDirection.arglet === 'i' ? i : j );
+			const sk = kDirection === axisInIJK ? IJKIndex : ( kDirection.arglet === 'i' ? i : j );
 
 			// invert indices if necessary
 
-			const accessI = ( iDirection.dot( base[ 0 ] ) > 0 ) ? si : ( volume.xLength - 1 ) - si;
-			const accessJ = ( jDirection.dot( base[ 1 ] ) > 0 ) ? sj : ( volume.yLength - 1 ) - sj;
-			const accessK = ( kDirection.dot( base[ 2 ] ) > 0 ) ? sk : ( volume.zLength - 1 ) - sk;
+			const accessI = iDirection.dot( base[ 0 ] ) > 0 ? si : volume.xLength - 1 - si;
+			const accessJ = jDirection.dot( base[ 1 ] ) > 0 ? sj : volume.yLength - 1 - sj;
+			const accessK = kDirection.dot( base[ 2 ] ) > 0 ? sk : volume.zLength - 1 - sk;
 
 			return volume.access( accessI, accessJ, accessK );
 
 		}
 
 		return {
-			iLength: iLength,
-			jLength: jLength,
-			sliceAccess: sliceAccess,
+			iLength,
+			jLength,
+			sliceAccess,
 			matrix: planeMatrix,
-			planeWidth: planeWidth,
-			planeHeight: planeHeight
+			planeWidth,
+			planeHeight
 		};
 
 	}

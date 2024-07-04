@@ -70,23 +70,23 @@ class UniformsGroup extends UniformBuffer {
 
 			// conformance tests
 
-			if ( chunkOffset !== 0 && ( remainingSizeInChunk - uniform.boundary ) < 0 ) {
+			if ( chunkOffset !== 0 && remainingSizeInChunk - uniform.boundary < 0 ) {
 
 				// check for chunk overflow
 
-				offset += ( GPU_CHUNK_BYTES - chunkOffset );
+				offset += GPU_CHUNK_BYTES - chunkOffset;
 
 			} else if ( chunkOffset % uniform.boundary !== 0 ) {
 
 				// check for correct alignment
 
-				offset += ( chunkOffset % uniform.boundary );
+				offset += chunkOffset % uniform.boundary;
 
 			}
 
-			uniform.offset = ( offset / this.bytesPerElement );
+			uniform.offset = offset / this.bytesPerElement;
 
-			offset += ( uniform.itemSize * this.bytesPerElement );
+			offset += uniform.itemSize * this.bytesPerElement;
 
 		}
 

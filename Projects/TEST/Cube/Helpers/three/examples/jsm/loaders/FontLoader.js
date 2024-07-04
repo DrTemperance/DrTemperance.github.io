@@ -172,7 +172,7 @@ function createPath( char, scale, offsetX, offsetY, data ) {
 
 	}
 
-	return { offsetX: glyph.ha * scale, path: path };
+	return { offsetX: glyph.ha * scale, path};
 
 }
 

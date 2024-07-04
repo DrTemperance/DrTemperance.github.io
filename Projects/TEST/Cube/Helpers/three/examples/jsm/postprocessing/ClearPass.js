@@ -9,8 +9,8 @@ class ClearPass extends Pass {
 
 		this.needsSwap = false;
 
-		this.clearColor = ( clearColor !== undefined ) ? clearColor : 0x000000;
-		this.clearAlpha = ( clearAlpha !== undefined ) ? clearAlpha : 0;
+		this.clearColor = clearColor !== undefined ? clearColor : 0x000000;
+		this.clearAlpha = clearAlpha !== undefined ? clearAlpha : 0;
 		this._oldClearColor = new Color();
 
 	}

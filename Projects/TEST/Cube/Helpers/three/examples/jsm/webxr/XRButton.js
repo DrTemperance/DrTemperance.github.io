@@ -78,11 +78,7 @@ class XRButton {
 
 						navigator.xr.offerSession( mode, sessionOptions )
 							.then( onSessionStarted )
-							.catch( ( err ) => {
-
-								console.warn( err );
-
-							} );
+							.catch( err=>console.warn(err));
 
 					}
 
@@ -94,11 +90,7 @@ class XRButton {
 
 				navigator.xr.offerSession( mode, sessionOptions )
 					.then( onSessionStarted )
-					.catch( ( err ) => {
-
-						console.warn( err );
-
-					} );
+					.catch( err=>console.warn(err));
 
 			}
 

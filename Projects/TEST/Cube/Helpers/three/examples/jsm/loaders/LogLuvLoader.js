@@ -1,10 +1,4 @@
-import {
-	DataUtils,
-	DataTextureLoader,
-	FloatType,
-	HalfFloatType,
-	RGBAFormat
-} from 'three';
+import { DataTextureLoader, DataUtils, FloatType, HalfFloatType, RGBAFormat } from 'three';
 
 class LogLuvLoader extends DataTextureLoader {
 
@@ -95,7 +89,7 @@ UTIF.decodeImage = function ( buff, img, ifds ) {
 
 	var bipp; // bits per pixel
 	if ( img[ 't258' ] ) bipp = Math.min( 32, img[ 't258' ][ 0 ] ) * img[ 't258' ].length;
-	else bipp = ( img[ 't277' ] ? img[ 't277' ][ 0 ] : 1 );
+	else bipp = img[ 't277' ] ? img[ 't277' ][ 0 ] : 1;
 	// Some .NEF files have t258==14, even though they use 16 bits per pixel
 	if ( cmpr == 1 && img[ 't279' ] != null && img[ 't278' ] && img[ 't262' ][ 0 ] == 32803 ) {
 
@@ -155,8 +149,8 @@ UTIF.decode._decompress = function ( img, ifds, data, off, len, cmpr, tgt, toff 
 
 	//console.log(Date.now()-time);
 
-	var bps = ( img[ 't258' ] ? Math.min( 32, img[ 't258' ][ 0 ] ) : 1 );
-	var noc = ( img[ 't277' ] ? img[ 't277' ][ 0 ] : 1 ), bpp = ( bps * noc ) >>> 3, h = ( img[ 't278' ] ? img[ 't278' ][ 0 ] : img.height ), bpl = Math.ceil( bps * noc * img.width / 8 );
+	var bps = img[ 't258' ] ? Math.min( 32, img[ 't258' ][ 0 ] ) : 1;
+	var noc = img[ 't277' ] ? img[ 't277' ][ 0 ] : 1, bpp = bps * noc >>> 3, h = img[ 't278' ] ? img[ 't278' ][ 0 ] : img.height, bpl = Math.ceil( bps * noc * img.width / 8 );
 
 	// convert to Little Endian  /*
 	if ( bps == 16 && ! img.isLE && img[ 't33422' ] == null ) // not DNG
@@ -179,18 +173,18 @@ UTIF.decode._decompress = function ( img, ifds, data, off, len, cmpr, tgt, toff 
 			var ntoff = toff + y * bpl;
 			if ( bps == 16 ) for ( var j = bpp; j < bpl; j += 2 ) {
 
-				var nv = ( ( tgt[ ntoff + j + 1 ] << 8 ) | tgt[ ntoff + j ] ) + ( ( tgt[ ntoff + j - bpp + 1 ] << 8 ) | tgt[ ntoff + j - bpp ] );
-				tgt[ ntoff + j ] = nv & 255; tgt[ ntoff + j + 1 ] = ( nv >>> 8 ) & 255;
+				var nv = ( tgt[ ntoff + j + 1 ] << 8 | tgt[ ntoff + j ] ) + ( tgt[ ntoff + j - bpp + 1 ] << 8 | tgt[ ntoff + j - bpp ] );
+				tgt[ ntoff + j ] = nv & 255; tgt[ ntoff + j + 1 ] = nv >>> 8 & 255;
 
 			}
 			else if ( noc == 3 ) for ( var j = 3; j < bpl; j += 3 ) {
 
-				tgt[ ntoff + j ] = ( tgt[ ntoff + j ] + tgt[ ntoff + j - 3 ] ) & 255;
-				tgt[ ntoff + j + 1 ] = ( tgt[ ntoff + j + 1 ] + tgt[ ntoff + j - 2 ] ) & 255;
-				tgt[ ntoff + j + 2 ] = ( tgt[ ntoff + j + 2 ] + tgt[ ntoff + j - 1 ] ) & 255;
+				tgt[ ntoff + j ] = tgt[ ntoff + j ] + tgt[ ntoff + j - 3 ] & 255;
+				tgt[ ntoff + j + 1 ] = tgt[ ntoff + j + 1 ] + tgt[ ntoff + j - 2 ] & 255;
+				tgt[ ntoff + j + 2 ] = tgt[ ntoff + j + 2 ] + tgt[ ntoff + j - 1 ] & 255;
 
 			}
-			else for ( var j = bpp; j < bpl; j ++ ) tgt[ ntoff + j ] = ( tgt[ ntoff + j ] + tgt[ ntoff + j - bpp ] ) & 255;
+			else for ( var j = bpp; j < bpl; j ++ ) tgt[ ntoff + j ] = tgt[ ntoff + j ] + tgt[ ntoff + j - bpp ] & 255;
 
 		}
 
@@ -245,8 +239,8 @@ UTIF._types = function () {
 	var rest = { 33432: 2, 33434: 5, 33437: 5, 34665: 4, 34850: 3, 34853: 4, 34855: 3, 34864: 3, 34866: 4, 36864: 7, 36867: 2, 36868: 2, 37121: 7, 37377: 10, 37378: 5, 37380: 10, 37381: 5, 37383: 3, 37384: 3, 37385: 3, 37386: 5, 37510: 7, 37520: 2, 37521: 2, 37522: 2, 40960: 7, 40961: 3, 40962: 4, 40963: 4, 40965: 4, 41486: 5, 41487: 5, 41488: 3, 41985: 3, 41986: 3, 41987: 3, 41988: 5, 41989: 3, 41990: 3, 41993: 3, 41994: 3, 41995: 7, 41996: 3, 42032: 2, 42033: 2, 42034: 5, 42036: 2, 42037: 2, 59932: 7 };
 	return {
 		basic: {
-			main: main,
-			rest: rest
+			main,
+			rest
 		},
 		gps: {
 			main: [ 1, 2, 5, 2, 5, 1, 5, 5, 0, 9 ],
@@ -273,13 +267,13 @@ UTIF._readIFD = function ( bin, data, offset, ifds, depth, prm ) {
 		//ifd["t"+tag+"-"+UTIF.tags[tag]] = arr;
 		if ( type == 1 || type == 7 ) {
 
-			arr = new Uint8Array( data.buffer, ( num < 5 ? offset - 4 : voff ), num );
+			arr = new Uint8Array( data.buffer, num < 5 ? offset - 4 : voff, num );
 
 		}
 
 		if ( type == 2 ) {
 
-			var o0 = ( num < 5 ? offset - 4 : voff ), c = data[ o0 ], len = Math.max( 0, Math.min( num - 1, data.length - o0 ) );
+			var o0 = num < 5 ? offset - 4 : voff, c = data[ o0 ], len = Math.max( 0, Math.min( num - 1, data.length - o0 ) );
 			if ( c < 128 || len == 0 ) arr.push( bin.readASCII( data, o0, len ) );
 			else arr = new Uint8Array( data.buffer, o0, len );
 
@@ -339,7 +333,7 @@ UTIF._readIFD = function ( bin, data, offset, ifds, depth, prm ) {
 
 		ifd[ 't' + tag ] = arr;
 
-		if ( tag == 330 || tag == 34665 || tag == 34853 || ( tag == 50740 && bin.readUshort( data, bin.readUint( arr, 0 ) ) < 300 ) || tag == 61440 ) {
+		if ( tag == 330 || tag == 34665 || tag == 34853 || tag == 50740 && bin.readUshort( data, bin.readUint( arr, 0 ) ) < 300 || tag == 61440 ) {
 
 			var oarr = tag == 50740 ? [ bin.readUint( arr, 0 ) ] : arr;
 			var subfd = [];
@@ -409,7 +403,7 @@ UTIF.toRGBA = function ( out, type ) {
 			for ( let x = 0; x < w; x ++ ) {
 
 				const si = ( y * w + x ) * 6, qi = ( y * w + x ) * 4;
-				let L = ( data[ si + 1 ] << 8 ) | data[ si ];
+				let L = data[ si + 1 ] << 8 | data[ si ];
 
 				L = Math.pow( 2, ( L + 0.5 ) / 256 - 64 );
 				const u = ( data[ si + 3 ] + 0.5 ) / 410;
@@ -461,71 +455,100 @@ UTIF.toRGBA = function ( out, type ) {
 
 UTIF._binBE =
 {
-	nextZero: function ( data, o ) {
+	nextZero (data, o) {
 
-		while ( data[ o ] != 0 ) o ++; return o;
-
-	},
-	readUshort: function ( buff, p ) {
-
-		return ( buff[ p ] << 8 ) | buff[ p + 1 ];
+		while (data[o]!=0) o++;
+		return o;
 
 	},
-	readShort: function ( buff, p ) {
+	readUshort (buff, p) {
 
-		var a = UTIF._binBE.ui8; a[ 0 ] = buff[ p + 1 ]; a[ 1 ] = buff[ p + 0 ]; return UTIF._binBE.i16[ 0 ];
-
-	},
-	readInt: function ( buff, p ) {
-
-		var a = UTIF._binBE.ui8; a[ 0 ] = buff[ p + 3 ]; a[ 1 ] = buff[ p + 2 ]; a[ 2 ] = buff[ p + 1 ]; a[ 3 ] = buff[ p + 0 ]; return UTIF._binBE.i32[ 0 ];
+		return buff[p] << 8 | buff[p + 1];
 
 	},
-	readUint: function ( buff, p ) {
+	readShort (buff, p) {
 
-		var a = UTIF._binBE.ui8; a[ 0 ] = buff[ p + 3 ]; a[ 1 ] = buff[ p + 2 ]; a[ 2 ] = buff[ p + 1 ]; a[ 3 ] = buff[ p + 0 ]; return UTIF._binBE.ui32[ 0 ];
-
-	},
-	readASCII: function ( buff, p, l ) {
-
-		var s = ''; for ( var i = 0; i < l; i ++ ) s += String.fromCharCode( buff[ p + i ] ); return s;
+		var a = UTIF._binBE.ui8;
+		a[0] = buff[p + 1];
+		a[1] = buff[p + 0];
+		return UTIF._binBE.i16[0];
 
 	},
-	readFloat: function ( buff, p ) {
+	readInt (buff, p) {
 
-		var a = UTIF._binBE.ui8; for ( var i = 0; i < 4; i ++ ) a[ i ] = buff[ p + 3 - i ]; return UTIF._binBE.fl32[ 0 ];
-
-	},
-	readDouble: function ( buff, p ) {
-
-		var a = UTIF._binBE.ui8; for ( var i = 0; i < 8; i ++ ) a[ i ] = buff[ p + 7 - i ]; return UTIF._binBE.fl64[ 0 ];
-
-	},
-
-	writeUshort: function ( buff, p, n ) {
-
-		buff[ p ] = ( n >> 8 ) & 255; buff[ p + 1 ] = n & 255;
+		var a = UTIF._binBE.ui8;
+		a[0] = buff[p + 3];
+		a[1] = buff[p + 2];
+		a[2] = buff[p + 1];
+		a[3] = buff[p + 0];
+		return UTIF._binBE.i32[0];
 
 	},
-	writeInt: function ( buff, p, n ) {
+	readUint (buff, p) {
 
-		var a = UTIF._binBE.ui8; UTIF._binBE.i32[ 0 ] = n; buff[ p + 3 ] = a[ 0 ]; buff[ p + 2 ] = a[ 1 ]; buff[ p + 1 ] = a[ 2 ]; buff[ p + 0 ] = a[ 3 ];
-
-	},
-	writeUint: function ( buff, p, n ) {
-
-		buff[ p ] = ( n >> 24 ) & 255; buff[ p + 1 ] = ( n >> 16 ) & 255; buff[ p + 2 ] = ( n >> 8 ) & 255; buff[ p + 3 ] = ( n >> 0 ) & 255;
-
-	},
-	writeASCII: function ( buff, p, s ) {
-
-		for ( var i = 0; i < s.length; i ++ ) buff[ p + i ] = s.charCodeAt( i );
+		var a = UTIF._binBE.ui8;
+		a[0] = buff[p + 3];
+		a[1] = buff[p + 2];
+		a[2] = buff[p + 1];
+		a[3] = buff[p + 0];
+		return UTIF._binBE.ui32[0];
 
 	},
-	writeDouble: function ( buff, p, n ) {
+	readASCII (buff, p, l) {
 
-		UTIF._binBE.fl64[ 0 ] = n;
-		for ( var i = 0; i < 8; i ++ ) buff[ p + i ] = UTIF._binBE.ui8[ 7 - i ];
+		var s = '';
+		for (var i = 0; i<l; i++) s += String.fromCharCode(buff[p + i]);
+		return s;
+
+	},
+	readFloat (buff, p) {
+
+		var a = UTIF._binBE.ui8;
+		for (var i = 0; i<4; i++) a[i] = buff[p + 3 - i];
+		return UTIF._binBE.fl32[0];
+
+	},
+	readDouble (buff, p) {
+
+		var a = UTIF._binBE.ui8;
+		for (var i = 0; i<8; i++) a[i] = buff[p + 7 - i];
+		return UTIF._binBE.fl64[0];
+
+	},
+
+	writeUshort (buff, p, n) {
+
+		buff[p] = n >> 8 & 255;
+		buff[p + 1] = n & 255;
+
+	},
+	writeInt (buff, p, n) {
+
+		var a = UTIF._binBE.ui8;
+		UTIF._binBE.i32[0] = n;
+		buff[p + 3] = a[0];
+		buff[p + 2] = a[1];
+		buff[p + 1] = a[2];
+		buff[p + 0] = a[3];
+
+	},
+	writeUint (buff, p, n) {
+
+		buff[p] = n >> 24 & 255;
+		buff[p + 1] = n >> 16 & 255;
+		buff[p + 2] = n >> 8 & 255;
+		buff[p + 3] = n >> 0 & 255;
+
+	},
+	writeASCII (buff, p, s) {
+
+		for (var i = 0; i<s.length; i++) buff[p + i] = s.charCodeAt(i);
+
+	},
+	writeDouble (buff, p, n) {
+
+		UTIF._binBE.fl64[0] = n;
+		for (var i = 0; i<8; i++) buff[p + i] = UTIF._binBE.ui8[7 - i];
 
 	}
 };
@@ -539,51 +562,77 @@ UTIF._binBE.fl64 = new Float64Array( UTIF._binBE.ui8.buffer );
 UTIF._binLE =
 {
 	nextZero: UTIF._binBE.nextZero,
-	readUshort: function ( buff, p ) {
+	readUshort (buff, p) {
 
-		return ( buff[ p + 1 ] << 8 ) | buff[ p ];
-
-	},
-	readShort: function ( buff, p ) {
-
-		var a = UTIF._binBE.ui8; a[ 0 ] = buff[ p + 0 ]; a[ 1 ] = buff[ p + 1 ]; return UTIF._binBE.i16[ 0 ];
+		return buff[p + 1] << 8 | buff[p];
 
 	},
-	readInt: function ( buff, p ) {
+	readShort (buff, p) {
 
-		var a = UTIF._binBE.ui8; a[ 0 ] = buff[ p + 0 ]; a[ 1 ] = buff[ p + 1 ]; a[ 2 ] = buff[ p + 2 ]; a[ 3 ] = buff[ p + 3 ]; return UTIF._binBE.i32[ 0 ];
+		var a = UTIF._binBE.ui8;
+		a[0] = buff[p + 0];
+		a[1] = buff[p + 1];
+		return UTIF._binBE.i16[0];
 
 	},
-	readUint: function ( buff, p ) {
+	readInt (buff, p) {
 
-		var a = UTIF._binBE.ui8; a[ 0 ] = buff[ p + 0 ]; a[ 1 ] = buff[ p + 1 ]; a[ 2 ] = buff[ p + 2 ]; a[ 3 ] = buff[ p + 3 ]; return UTIF._binBE.ui32[ 0 ];
+		var a = UTIF._binBE.ui8;
+		a[0] = buff[p + 0];
+		a[1] = buff[p + 1];
+		a[2] = buff[p + 2];
+		a[3] = buff[p + 3];
+		return UTIF._binBE.i32[0];
+
+	},
+	readUint (buff, p) {
+
+		var a = UTIF._binBE.ui8;
+		a[0] = buff[p + 0];
+		a[1] = buff[p + 1];
+		a[2] = buff[p + 2];
+		a[3] = buff[p + 3];
+		return UTIF._binBE.ui32[0];
 
 	},
 	readASCII: UTIF._binBE.readASCII,
-	readFloat: function ( buff, p ) {
+	readFloat (buff, p) {
 
-		var a = UTIF._binBE.ui8; for ( var i = 0; i < 4; i ++ ) a[ i ] = buff[ p + i ]; return UTIF._binBE.fl32[ 0 ];
-
-	},
-	readDouble: function ( buff, p ) {
-
-		var a = UTIF._binBE.ui8; for ( var i = 0; i < 8; i ++ ) a[ i ] = buff[ p + i ]; return UTIF._binBE.fl64[ 0 ];
+		var a = UTIF._binBE.ui8;
+		for (var i = 0; i<4; i++) a[i] = buff[p + i];
+		return UTIF._binBE.fl32[0];
 
 	},
+	readDouble (buff, p) {
 
-	writeUshort: function ( buff, p, n ) {
-
-		buff[ p ] = ( n ) & 255; buff[ p + 1 ] = ( n >> 8 ) & 255;
-
-	},
-	writeInt: function ( buff, p, n ) {
-
-		var a = UTIF._binBE.ui8; UTIF._binBE.i32[ 0 ] = n; buff[ p + 0 ] = a[ 0 ]; buff[ p + 1 ] = a[ 1 ]; buff[ p + 2 ] = a[ 2 ]; buff[ p + 3 ] = a[ 3 ];
+		var a = UTIF._binBE.ui8;
+		for (var i = 0; i<8; i++) a[i] = buff[p + i];
+		return UTIF._binBE.fl64[0];
 
 	},
-	writeUint: function ( buff, p, n ) {
 
-		buff[ p ] = ( n >>> 0 ) & 255; buff[ p + 1 ] = ( n >>> 8 ) & 255; buff[ p + 2 ] = ( n >>> 16 ) & 255; buff[ p + 3 ] = ( n >>> 24 ) & 255;
+	writeUshort (buff, p, n) {
+
+		buff[p] = n & 255;
+		buff[p + 1] = n >> 8 & 255;
+
+	},
+	writeInt (buff, p, n) {
+
+		var a = UTIF._binBE.ui8;
+		UTIF._binBE.i32[0] = n;
+		buff[p + 0] = a[0];
+		buff[p + 1] = a[1];
+		buff[p + 2] = a[2];
+		buff[p + 3] = a[3];
+
+	},
+	writeUint (buff, p, n) {
+
+		buff[p] = n >>> 0 & 255;
+		buff[p + 1] = n >>> 8 & 255;
+		buff[p + 2] = n >>> 16 & 255;
+		buff[p + 3] = n >>> 24 & 255;
 
 	},
 	writeASCII: UTIF._binBE.writeASCII

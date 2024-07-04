@@ -1,12 +1,4 @@
-import {
-	BufferAttribute,
-	BufferGeometry,
-	Color,
-	FileLoader,
-	Loader,
-	LinearSRGBColorSpace,
-	SRGBColorSpace
-} from 'three';
+import { BufferAttribute, BufferGeometry, Color, FileLoader, LinearSRGBColorSpace, Loader, SRGBColorSpace } from 'three';
 
 const _taskCache = new WeakMap();
 
@@ -74,11 +66,7 @@ class DRACOLoader extends Loader {
 		loader.setRequestHeader( this.requestHeader );
 		loader.setWithCredentials( this.withCredentials );
 
-		loader.load( url, ( buffer ) => {
-
-			this.parse( buffer, onLoad, onError );
-
-		}, onProgress, onError );
+		loader.load(url, buffer=>this.parse(buffer, onLoad, onError), onProgress, onError );
 
 	}
 
@@ -95,7 +83,7 @@ class DRACOLoader extends Loader {
 			attributeIDs: attributeIDs || this.defaultAttributeIDs,
 			attributeTypes: attributeTypes || this.defaultAttributeTypes,
 			useUniqueIDs: !! attributeIDs,
-			vertexColorSpace: vertexColorSpace,
+			vertexColorSpace
 		};
 
 		return this.decodeGeometry( buffer, taskConfig ).then( callback ).catch( onError );
@@ -142,7 +130,7 @@ class DRACOLoader extends Loader {
 		// Obtain a worker and assign a task, and construct a geometry instance
 		// when the task completes.
 		const geometryPending = this._getWorker( taskID, taskCost )
-			.then( ( _worker ) => {
+			.then( _worker=> {
 
 				worker = _worker;
 
@@ -157,7 +145,7 @@ class DRACOLoader extends Loader {
 				} );
 
 			} )
-			.then( ( message ) => this._createGeometry( message.geometry ) );
+			.then( message=> this._createGeometry(message.geometry ) );
 
 		// Remove task from the task list.
 		// Note: replaced '.finally()' with '.catch().then()' block - iOS 11 support (#19416)
@@ -210,7 +198,7 @@ class DRACOLoader extends Loader {
 
 				this._assignVertexColorSpace( attribute, result.vertexColorSpace );
 
-				attribute.normalized = ( array instanceof Float32Array ) === false;
+				attribute.normalized = array instanceof Float32Array === false;
 
 			}
 
@@ -249,11 +237,7 @@ class DRACOLoader extends Loader {
 		loader.setResponseType( responseType );
 		loader.setWithCredentials( this.withCredentials );
 
-		return new Promise( ( resolve, reject ) => {
-
-			loader.load( url, resolve, undefined, reject );
-
-		} );
+		return new Promise( ( resolve, reject ) =>loader.load(url, resolve, undefined, reject));
 
 	}
 
@@ -284,7 +268,7 @@ class DRACOLoader extends Loader {
 		}
 
 		this.decoderPending = Promise.all( librariesPending )
-			.then( ( libraries ) => {
+			.then( libraries=> {
 
 				const jsContent = libraries[ 0 ];
 
@@ -378,7 +362,7 @@ class DRACOLoader extends Loader {
 
 	debug() {
 
-		console.log( 'Task load: ', this.workerPool.map( ( worker ) => worker._taskLoad ) );
+		console.log( 'Task load: ', this.workerPool.map( worker=> worker._taskLoad ) );
 
 	}
 
@@ -424,7 +408,7 @@ function DRACOWorker() {
 					decoderConfig.onModuleLoaded = function ( draco ) {
 
 						// Module is Promise-like. Wrap before resolving to avoid loop.
-						resolve( { draco: draco } );
+						resolve( {draco} );
 
 					};
 
@@ -436,7 +420,7 @@ function DRACOWorker() {
 			case 'decode':
 				const buffer = message.buffer;
 				const taskConfig = message.taskConfig;
-				decoderPending.then( ( module ) => {
+				decoderPending.then( module=> {
 
 					const draco = module.draco;
 					const decoder = new draco.Decoder();
@@ -445,7 +429,7 @@ function DRACOWorker() {
 
 						const geometry = decodeGeometry( draco, decoder, new Int8Array( buffer ), taskConfig );
 
-						const buffers = geometry.attributes.map( ( attr ) => attr.array.buffer );
+						const buffers = geometry.attributes.map( attr=> attr.array.buffer );
 
 						if ( geometry.index ) buffers.push( geometry.index.array.buffer );
 
@@ -586,7 +570,7 @@ function DRACOWorker() {
 
 		return {
 			name: attributeName,
-			array: array,
+			array,
 			itemSize: numComponents
 		};
 

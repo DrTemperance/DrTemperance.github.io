@@ -1,11 +1,11 @@
+import ConstNode from '../core/ConstNode.js';
 import Node, { addNodeClass } from '../core/Node.js';
+import { getValueFromType, getValueType } from '../core/NodeUtils.js';
 import ArrayElementNode from '../utils/ArrayElementNode.js';
 import ConvertNode from '../utils/ConvertNode.js';
 import JoinNode from '../utils/JoinNode.js';
-import SplitNode from '../utils/SplitNode.js';
 import SetNode from '../utils/SetNode.js';
-import ConstNode from '../core/ConstNode.js';
-import { getValueFromType, getValueType } from '../core/NodeUtils.js';
+import SplitNode from '../utils/SplitNode.js';
 
 //
 
@@ -28,7 +28,7 @@ export function addNodeElement( name, nodeElement ) {
 
 }
 
-const parseSwizzle = ( props ) => props.replace( /r|s/g, 'x' ).replace( /g|t/g, 'y' ).replace( /b|p/g, 'z' ).replace( /a|q/g, 'w' );
+const parseSwizzle = props=> props.replace(/r|s/g, 'x' ).replace(/g|t/g, 'y' ).replace(/b|p/g, 'z' ).replace(/a|q/g, 'w' );
 
 const shaderNodeHandler = {
 
@@ -88,7 +88,7 @@ const shaderNodeHandler = {
 
 				prop = prop.split( '' ).sort().join( '' );
 
-				return ( value ) => nodeObject( new SetNode( node, prop, value ) );
+				return value=> nodeObject(new SetNode(node, prop, value ) );
 
 			} else if ( prop === 'width' || prop === 'height' || prop === 'depth' ) {
 
@@ -158,7 +158,7 @@ const ShaderNodeObject = function ( obj, altType = null ) {
 
 		return nodeObject;
 
-	} else if ( ( altType === null && ( type === 'float' || type === 'boolean' ) ) || ( type && type !== 'shader' && type !== 'string' ) ) {
+	} else if ( altType === null && ( type === 'float' || type === 'boolean' ) || type && type !== 'shader' && type !== 'string' ) {
 
 		return nodeObject( getConstNode( obj, altType ) );
 
@@ -200,33 +200,21 @@ const ShaderNodeArray = function ( array, altType = null ) {
 
 const ShaderNodeProxy = function ( NodeClass, scope = null, factor = null, settings = null ) {
 
-	const assignNode = ( node ) => nodeObject( settings !== null ? Object.assign( node, settings ) : node );
+	const assignNode = node=> nodeObject(settings!==null ? Object.assign(node, settings ) : node );
 
 	if ( scope === null ) {
 
-		return ( ...params ) => {
-
-			return assignNode( new NodeClass( ...nodeArray( params ) ) );
-
-		};
+		return ( ...params ) =>assignNode(new NodeClass(... nodeArray(params)));
 
 	} else if ( factor !== null ) {
 
 		factor = nodeObject( factor );
 
-		return ( ...params ) => {
-
-			return assignNode( new NodeClass( scope, ...nodeArray( params ), factor ) );
-
-		};
+		return ( ...params ) =>assignNode(new NodeClass(scope, ... nodeArray(params), factor));
 
 	} else {
 
-		return ( ...params ) => {
-
-			return assignNode( new NodeClass( scope, ...nodeArray( params ) ) );
-
-		};
+		return ( ...params ) =>assignNode(new NodeClass(scope, ... nodeArray(params)));
 
 	}
 
@@ -409,7 +397,7 @@ const getConstNode = ( value, type ) => {
 
 };
 
-const safeGetNodeType = ( node ) => {
+const safeGetNodeType = node=> {
 
 	try {
 
@@ -427,7 +415,7 @@ const ConvertType = function ( type, cacheMap = null ) {
 
 	return ( ...params ) => {
 
-		if ( params.length === 0 || ( ! [ 'bool', 'float', 'int', 'uint' ].includes( type ) && params.every( param => typeof param !== 'object' ) ) ) {
+		if ( params.length === 0 || ! [ 'bool', 'float', 'int', 'uint' ].includes( type ) && params.every( param => typeof param !== 'object' ) ) {
 
 			params = [ getValueFromType( type, ...params ) ];
 
@@ -458,7 +446,7 @@ const ConvertType = function ( type, cacheMap = null ) {
 
 // utils
 
-export const getConstNodeType = ( value ) => ( value !== undefined && value !== null ) ? ( value.nodeType || value.convertTo || ( typeof value === 'string' ? value : null ) ) : null;
+export const getConstNodeType = value=>value!==undefined && value!==null ? value.nodeType || value.convertTo || (typeof value==='string' ? value : null ) : null;
 
 // shader node base
 
@@ -474,7 +462,7 @@ export const nodeArray = ( val, altType = null ) => new ShaderNodeArray( val, al
 export const nodeProxy = ( ...params ) => new ShaderNodeProxy( ...params );
 export const nodeImmutable = ( ...params ) => new ShaderNodeImmutable( ...params );
 
-export const shader = ( jsFunc ) => { // @deprecated, r154
+export const shader = jsFunc=> { // @deprecated, r154
 
 	console.warn( 'TSL: shader() is deprecated. Use tslFn() instead.' );
 
@@ -482,7 +470,7 @@ export const shader = ( jsFunc ) => { // @deprecated, r154
 
 };
 
-export const tslFn = ( jsFunc ) => {
+export const tslFn = jsFunc=> {
 
 	const shaderNode = new ShaderNode( jsFunc );
 
@@ -507,7 +495,7 @@ export const tslFn = ( jsFunc ) => {
 	};
 
 	fn.shaderNode = shaderNode;
-	fn.setLayout = ( layout ) => {
+	fn.setLayout = layout=> {
 
 		shaderNode.setLayout( layout );
 
@@ -523,7 +511,7 @@ addNodeClass( 'ShaderNode', ShaderNode );
 
 //
 
-export const setCurrentStack = ( stack ) => {
+export const setCurrentStack = stack=> {
 
 	if ( currentStack === stack ) {
 
@@ -590,7 +578,7 @@ export const umat4 = new ConvertType( 'umat4' );
 export const bmat4 = new ConvertType( 'bmat4' );
 
 export const string = ( value = '' ) => nodeObject( new ConstNode( value, 'string' ) );
-export const arrayBuffer = ( value ) => nodeObject( new ConstNode( value, 'ArrayBuffer' ) );
+export const arrayBuffer = value=> nodeObject(new ConstNode(value, 'ArrayBuffer' ) );
 
 addNodeElement( 'color', color );
 addNodeElement( 'float', float );

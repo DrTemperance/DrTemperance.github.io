@@ -71,7 +71,7 @@
 		Nodes.PsuedoConsole.style.position = 'fixed';
 		Nodes.Scanlines.style.position = 'fixed';
 
-		async function Place_Content() {
+		function Place_Content () {
 			let {height, width} = Nodes.ContentWindow.getBoundingClientRect(),
 			    ConsWidth       = Nodes.PsuedoConsole.innerWidth,
 			    OffsetTop       = Nodes.ContentWindow.offsetTop,
@@ -114,7 +114,7 @@
 
 		Nodes.SettingsButton.onclick = ()=>Nodes.SettingsMenu.style.visibility = 'visible';
 
-		await Place_Content();
+		 Place_Content();
 
 		document.addEventListener('mousemove', ({clientX, clientY, pageX, pageY})=>{
 			const {bottom, left, right, top} = Nodes.PsuedoConsole.getBoundingClientRect();
@@ -204,21 +204,21 @@
 		}
 	});
 
-	async function Compute_Input(prompt) {
+	async function Compute_Input (prompt) {
 		try {
 			Console_Log(prompt, JSON.stringify(await eval(prompt))).catch(Error=>Console_Log(prompt, Error.toString()));
 		}
 		catch (Error) {Console_Log(prompt, Error.toString())}
 	}
 
-	async function Console_Log(prompt, result) {
+	async function Console_Log (prompt, result) {
 		let Output = await document.createElement('li');
 		Output.innerHTML = `${Config.Constants.currentPrompt} ${prompt} <br><br> ${result}`;
 		await Nodes.PsuedoConsole.appendChild(Output);
 		Nodes.PsuedoConsole.scrollTop = Nodes.PsuedoConsole.scrollHeight;
 	}
 
-	function Functionalize(input) {
+	function Functionalize (input) {
 		let LowerCase = input.toLowerCase();
 
 		if (LowerCase.includes('go')) {
@@ -233,7 +233,7 @@
 
 	}
 
-	function Cycle_Settings(index) {
+	function Cycle_Settings (index) {
 	}
 </script>
 

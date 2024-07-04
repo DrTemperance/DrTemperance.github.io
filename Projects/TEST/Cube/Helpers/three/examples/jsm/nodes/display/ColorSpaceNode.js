@@ -4,7 +4,7 @@ import TempNode from '../core/TempNode.js';
 import { mix } from '../math/MathNode.js';
 import { addNodeElement, nodeObject, nodeProxy, tslFn, vec4 } from '../shadernode/ShaderNode.js';
 
-const sRGBToLinearShader = tslFn( ( inputs ) => {
+const sRGBToLinearShader = tslFn( inputs=> {
 
 	const { value } = inputs;
 	const { rgb } = value;
@@ -19,7 +19,7 @@ const sRGBToLinearShader = tslFn( ( inputs ) => {
 
 } );
 
-const LinearTosRGBShader = tslFn( ( inputs ) => {
+const LinearTosRGBShader = tslFn( inputs=> {
 
 	const { value } = inputs;
 	const { rgb } = value;
@@ -34,7 +34,7 @@ const LinearTosRGBShader = tslFn( ( inputs ) => {
 
 } );
 
-const getColorSpaceMethod = ( colorSpace ) => {
+const getColorSpaceMethod = colorSpace=> {
 
 	let method = null;
 
@@ -52,11 +52,7 @@ const getColorSpaceMethod = ( colorSpace ) => {
 
 };
 
-const getMethod = ( source, target ) => {
-
-	return getColorSpaceMethod( source ) + 'To' + getColorSpaceMethod( target );
-
-};
+const getMethod = ( source, target ) =>getColorSpaceMethod(source) + 'To' + getColorSpaceMethod(target);
 
 class ColorSpaceNode extends TempNode {
 

@@ -34,11 +34,7 @@ export default class RenderObject {
 
 		this.isRenderObject = true;
 
-		this.onMaterialDispose = () => {
-
-			this.dispose();
-
-		};
+		this.onMaterialDispose = () =>this.dispose();
 
 		this.material.addEventListener( 'dispose', this.onMaterialDispose );
 

@@ -51,7 +51,7 @@ class LDrawUtils {
 			if ( ! geoms ) {
 
 				geometries[ mat.uuid ] = {
-					mat: mat,
+					mat,
 					arr: [ geometry ]
 				};
 

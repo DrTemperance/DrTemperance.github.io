@@ -1940,7 +1940,7 @@ class SVGLoader extends Loader {
 			const t1 = nom1 / denom;
 			const t2 = nom2 / denom;
 
-			if ( ( denom === 0 ) && ( nom1 !== 0 ) || t1 <= 0 || t1 >= 1 || t2 < 0 || t2 > 1 ) {
+			if ( denom === 0 && nom1 !== 0 || t1 <= 0 || t1 >= 1 || t2 < 0 || t2 > 1 ) {
 
 				//1. lines are parallel or edges don't intersect
 
@@ -2036,7 +2036,7 @@ class SVGLoader extends Loader {
 
 			}
 
-			if ( ( ax * bx ) < 0 || ( ay * by ) < 0 ) {
+			if ( ax * bx < 0 || ay * by < 0 ) {
 
 				classifyResult.loc = IntersectionLocationType.BEHIND;
 				return;

@@ -9,11 +9,7 @@ import F_Schlick from './BSDF/F_Schlick.js';
 
 const G_BlinnPhong_Implicit = () => float( 0.25 );
 
-const D_BlinnPhong = tslFn( ( { dotNH } ) => {
-
-	return shininess.mul( 0.5 / Math.PI ).add( 1.0 ).mul( dotNH.pow( shininess ) );
-
-} );
+const D_BlinnPhong = tslFn( ( { dotNH } ) =>shininess.mul(0.5 / Math.PI).add(1.0).mul(dotNH.pow(shininess)));
 
 const BRDF_BlinnPhong = tslFn( ( { lightDirection } ) => {
 

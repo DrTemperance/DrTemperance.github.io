@@ -1,6 +1,6 @@
-import { defaultShaderStages, NodeFrame, MathNode, GLSLNodeParser, NodeBuilder, normalView } from '../../../nodes/Nodes.js';
+import { PerspectiveCamera, ShaderChunk, ShaderLib, UniformsLib, UniformsUtils } from 'three';
+import { defaultShaderStages, GLSLNodeParser, MathNode, NodeBuilder, NodeFrame, normalView } from '../../../nodes/Nodes.js';
 import SlotNode from './SlotNode.js';
-import { PerspectiveCamera, ShaderChunk, ShaderLib, UniformsUtils, UniformsLib } from 'three';
 
 const nodeFrame = new NodeFrame();
 nodeFrame.camera = new PerspectiveCamera();
@@ -706,11 +706,7 @@ ${this.shader[ getShaderStageProperty( shaderStage ) ]}
 
 			const sourceCode = this.shader[ getShaderStageProperty( shaderStage ) ];
 
-			const slots = this.slots[ shaderStage ].sort( ( slotA, slotB ) => {
-
-				return sourceCode.indexOf( slotA.source ) > sourceCode.indexOf( slotB.source ) ? 1 : - 1;
-
-			} );
+			const slots = this.slots[ shaderStage ].sort( ( slotA, slotB ) =>sourceCode.indexOf(slotA.source)>sourceCode.indexOf(slotB.source) ? 1 : -1);
 
 			for ( const slotNode of slots ) {
 

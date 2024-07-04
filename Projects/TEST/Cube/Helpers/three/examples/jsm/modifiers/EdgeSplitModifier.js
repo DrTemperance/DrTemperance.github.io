@@ -135,7 +135,7 @@ class EdgeSplitModifier {
 			if ( original != null ) {
 
 				splitIndexes.push( {
-					original: original,
+					                   original,
 					indexes: result.currentGroup
 				} );
 

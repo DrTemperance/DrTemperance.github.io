@@ -17,7 +17,7 @@ const dHdxy_fwd = tslFn( ( { textureNode, bumpScale } ) => {
 
 	if ( texNode.isTextureNode !== true ) {
 
-		texNode.traverse( ( node ) => {
+		texNode.traverse( node=> {
 
 			if ( node.isTextureNode === true ) texNode = node;
 
@@ -35,7 +35,7 @@ const dHdxy_fwd = tslFn( ( { textureNode, bumpScale } ) => {
 	const uvNode = texNode.uvNode || uv();
 
 	// It's used to preserve the same TextureNode instance
-	const sampleTexture = ( uv ) => textureNode.cache().context( { getUV: () => uv, forceUVContext: true } );
+	const sampleTexture = uv=> textureNode.cache().context({ getUV: () => uv, forceUVContext: true } );
 
 	return vec2(
 		float( sampleTexture( uvNode.add( uvNode.dFdx() ) ) ).sub( Hll ),
@@ -44,7 +44,7 @@ const dHdxy_fwd = tslFn( ( { textureNode, bumpScale } ) => {
 
 } );
 
-const perturbNormalArb = tslFn( ( inputs ) => {
+const perturbNormalArb = tslFn( inputs=> {
 
 	const { surf_pos, surf_norm, dHdxy } = inputs;
 
