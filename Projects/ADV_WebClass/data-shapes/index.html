@@ -1,22 +1,26 @@
-<html lang='EN'>
+<!DOCTYPE html>
+<html lang='en'>
   <head>
-    <link rel='stylesheet' href='index.css' />
+    <link rel='stylesheet' href='./index.css' />
     <meta charset='UTF-8' />
-    <meta content='width=device-width' name='viewport' />
-    <script defer src='index.js'></script>
+    <meta content='width=device-width, initial-scale=1.0' name='viewport' />
+    <script defer src='./main.js'></script>
+	  <script defer src='./tooltip.js'></script>
     <title>Data Shapes | DrTemperance</title>
   </head>
   <body>
-    <div id='Board'>
-      <div id='info-bar'>Current index: 0</div>
-      <div id='shape-container'><div id='shape'></div></div>
-      <div id='button-box'>
-        <button id='cycle-left'>Prev</button>
-        <button id='cycle-right'>Next</button>
-        <button id='execute1'>Display</button>
-        <button id='execute2'>Display Good</button>
-        <button id='execute3'>Display Bad</button>
-      </div>
-    </div>
+    <section id='Board' aria-labelledby='info-bar'>
+      <output id='info-bar' aria-live='polite'>Current index: 0</output>
+      <main id='shape-container'>
+        <img id='shape' aria-label='Shape display area'></img>
+      </main>
+      <fieldset id='button-box' aria-label='Control buttons'>
+        <button id='cycle-left' aria-label='Previous shape'><p>⬅</p></button>
+        <button id='cycle-right' aria-label='Next shape'><p>➡</p></button>
+	      <button id='execute1' class='display' aria-label='Display current shape'><p>D</p></button>
+        <button id='execute2' class='good' aria-label='Display good shape'><p>G</p></button>
+        <button id='execute3' class='bad' aria-label='Display bad shape'><p>B</p></button>
+      </fieldset>
+    </section>
   </body>
 </html>
