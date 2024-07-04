@@ -106,28 +106,3 @@ button {
 		filter          : drop-shadow(0 1px 1px #000);
 		}
 	}
-
-
-#tooltip {
-	background-color : rgba(0, 0, 0, 0.7);
-	border-radius    : 5px;
-	box-shadow       : 0 0 10px rgba(0, 0, 0, 0.5);
-	color            : #FFF;
-	display          : none;
-	padding          : 5px 10px;
-	pointer-events   : none;
-	position         : absolute;
-	white-space      : nowrap;
-	z-index          : 1000;
-	&::after {
-		border-left  : 5px solid transparent;
-		border-right : 5px solid transparent;
-		border-top   : 5px solid rgba(0, 0, 0, 0.7);
-		bottom       : -5px;
-		content      : '';
-		height       : 0;
-		left         : 10px;
-		position     : absolute;
-		width        : 0;
-		}
-	}
