@@ -112,26 +112,27 @@ const image = [
 
 const og = [];
 
-for (let I = 0; I<image.length; I++) {
+for (const Element of image) {
 	let T = [];
-	for (let J = 0; J<image[I].length; J++) T.push(image[I][J]);
+	for (let J = 0; J<Element.length; J++) T.push(Element[J]);
 	og.push(T);
 }
 
-function render(element, image) {
-	for (let r = 0; r<image.length; r++) {
-		for (let c = 0; c<image[r].length; c++) {
-			const square = document.createElement('div');
-			square.classList.add('square');
-			square.style.left = `${c * 20}px`, square.style.top = `${r * 20}px`;
-			square.style.backgroundColor = image[r][c];
-			element.appendChild(square);
+function Render (element, image) {
+	for (let R = 0; R<image.length; R++) {
+		for (let C = 0; C<image[R].length; C++) {
+			const Square = document.createElement('div');
+			Square.classList.add('square');
+			Square.style.left = `${C * 20}px`;
+			Square.style.top = `${R * 20}px`;
+			Square.style.backgroundColor = image[R][C];
+			element.appendChild(Square);
 		}
 	}
 }
 
-function RGB_StringToArray(rgbStr) {
-	let RGB_Ar = rgbStr.substring(4, rgbStr.length - 1).replace(/ /g, '').split(',');
+function Rgb_String_To_Array (RgbStr) {
+	let RGB_Ar = RgbStr.substring(4, RgbStr.length - 1).replace(/ /g, '').split(',');
 
 	RGB_Ar[0] = Number(RGB_Ar[0]);
 	RGB_Ar[1] = Number(RGB_Ar[1]);
@@ -140,4 +141,4 @@ function RGB_StringToArray(rgbStr) {
 	return RGB_Ar;
 }
 
-function reset() {for (let i = 0; i<image.length; i++) for (let j = 0; j<image[i].length; j++) image[i][j] = og[i][j];}
+function Reset () {for (let i = 0; i<image.length; i++) for (let j = 0; j<image[i].length; j++) image[i][j] = og[i][j];}

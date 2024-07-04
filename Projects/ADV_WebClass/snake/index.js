@@ -1,4 +1,5 @@
-let ROWS        = COLUMNS = 20,
+let ROWS        = 20,
+    COLUMNS     = 20,
     SQUARE_SIZE = 20,
     Score       = 0,
     Apple       = {element: [], row: [], column: []},
@@ -17,12 +18,13 @@ const Init = ()=>{
 	updateInterval = setInterval(Update, 100);
 };
 
-function Update() {
+function Update () {
 	for (let I = Snake.body.length - 1; I>0; I--) {
 		let SnakeSquare = Snake.body[I];
 
 		SnakeSquare.direction = Snake.body[I - 1].direction;
-		SnakeSquare.row = Snake.body[I - 1].row, SnakeSquare.column = Snake.body[I - 1].column;
+		SnakeSquare.row = Snake.body[I - 1].row;
+		SnakeSquare.column = Snake.body[I - 1].column;
 		Move_El(SnakeSquare);
 	}
 
@@ -46,24 +48,37 @@ function Update() {
 		Apple.element.remove();
 		Apple_Construct();
 
-		let Row = Snake.tail.row, Column = Snake.tail.column;
+		let Row    = Snake.tail.row,
+		    Column = Snake.tail.column;
 
-		if (Snake.tail.direction==='left') Column = Snake.tail.column + 1, Row = Snake.tail.row;
-		if (Snake.tail.direction==='right') Column = Snake.tail.column - 1, Row = Snake.tail.row;
-		if (Snake.tail.direction==='up') Row = Snake.tail.row + 1, Column = Snake.tail.column;
-		if (Snake.tail.direction==='down') Row = Snake.tail.row - 1, Column = Snake.tail.column;
+		if (Snake.tail.direction==='left') {
+			Column = Snake.tail.column + 1;
+			Row = Snake.tail.row;
+		}
+		if (Snake.tail.direction==='right') {
+			Column = Snake.tail.column - 1;
+			Row = Snake.tail.row;
+		}
+		if (Snake.tail.direction==='up') {
+			Row = Snake.tail.row + 1;
+			Column = Snake.tail.column;
+		}
+		if (Snake.tail.direction==='down') {
+			Row = Snake.tail.row - 1;
+			Column = Snake.tail.column;
+		}
 
 		Snake_Construct(Row, Column);
 	}
 
 }
 
-function Snake_Collide() {
+function Snake_Collide () {
 	for (let J = Snake.body.length - 1; J>0; J--) if (Snake.head.row===Snake.body[J].row && Snake.head.column===Snake.body[J].column) return !0;
 	return !1;
 }
 
-function Game_End() {
+function Game_End () {
 	clearInterval(updateInterval);
 
 	document.querySelector('#Board').innerHTML = '';
@@ -74,14 +89,15 @@ function Game_End() {
 	setTimeout(Init, 500);
 }
 
-function Snake_Construct(row, column) {
+function Snake_Construct (row, column) {
 	let SnakeSquare = {element: [], row: [], column: [], direction: []};
 
 	SnakeSquare.element = document.createElement('div');
 	SnakeSquare.element.classList.add('snake');
 	document.querySelector('#board').appendChild(SnakeSquare.element);
 
-	SnakeSquare.row = row, SnakeSquare.column = column;
+	SnakeSquare.row = row;
+	SnakeSquare.column = column;
 
 	Move_El(SnakeSquare);
 
@@ -91,21 +107,23 @@ function Snake_Construct(row, column) {
 	Snake.tail = SnakeSquare;
 }
 
-function Move_El({column, element, row}) {
+function Move_El ({column, element, row}) {
 	element.style.left = `${column * SQUARE_SIZE + 20}px`;
 	element.style.top = `${row * SQUARE_SIZE + 20}px`;
 }
 
-function Apple_Construct() {
-	Apple.element = document.createElement('div'), Apple.element.classList.add('apple');
+function Apple_Construct () {
+	Apple.element = document.createElement('div');
+	Apple.element.classList.add('apple');
 	document.getElementById('board').appendChild(Apple.element);
 
-	Apple.row = Rand_Pos().row, Apple.column = Rand_Pos().column;
+	Apple.row = Rand_Pos().row;
+	Apple.column = Rand_Pos().column;
 
 	Move_El(Apple);
 }
 
-function Rand_Pos() {
+function Rand_Pos () {
 	let SpaceAvailable, RandomPosition = {};
 
 	while (!SpaceAvailable) {
@@ -119,10 +137,10 @@ function Rand_Pos() {
 	return RandomPosition;
 }
 
-function Calc_High() {
+function Calc_High () {
 	let HighScore = sessionStorage.getItem("HighScore") || 0;
 	Score>HighScore && (sessionStorage.setItem("HighScore", Score), HighScore = Score);
-	return HighScore;
+	return HighScore.toString()
 }
 
 Init();
