@@ -1,6 +1,6 @@
 ﻿@font-face {
 	font-family : 'VGA';
-	src         : url('Resources/BlockZone.ttf');
+	src         : url('./Resources/BlockZone.ttf');
 	}
 
 * {
@@ -9,10 +9,7 @@
 	color             : #0F0;
 	font-family       : 'VGA', 'Courier New', 'Courier ', ' monospace ', 'sans-serif';
 	list-style-type   : none;
-	margin-bottom     : initial;
-	margin-left       : auto;
-	margin-right      : auto;
-	margin-top        : initial;
+	margin            : initial auto;
 	user-select       : none;
 	&:focus {
 		outline : none !important;
@@ -45,11 +42,8 @@ body {
 	}
 
 img {
-	margin-bottom : initial;
-	margin-left   : auto;
-	margin-right  : auto;
-	margin-top    : initial;
-	position      : fixed;
+	margin   : initial auto;
+	position : fixed;
 
 	&#Scanlines {
 		bottom         : 22vh;
@@ -108,13 +102,11 @@ button {
 	overflow-y : scroll;
 	width      : 99%;
 	& li {
-		border-bottom-width : 0.3vh;
-		border-bottom-style : solid;
-		border-bottom-color : #0F0;
-		padding             : 0.5vh 1vh !important;
-		user-select         : text !important;
-		z-index             : -10;
-		filter              : drop-shadow(0 0 3px #0F0);
+		border-bottom : 0.3vh solid #0F0;
+		padding       : 0.5vh 1vh !important;
+		user-select   : text !important;
+		z-index       : -10;
+		filter        : drop-shadow(0 0 3px #0F0);
 		}
 
 	&::-webkit-scrollbar {
@@ -147,41 +139,36 @@ button {
 	}
 
 #PseudoCursor {
-	background-image  : url('Stories/1980s/Mouse.webp');
-	background-repeat : no-repeat;
-	background-size   : contain;
-	height            : 2vh;
-	left              : 50vw;
-	pointer-events    : none;
-	position          : absolute;
-	top               : 50vh;
-	width             : 2vh;
-	z-index           : 1000;
+	background      : url('Stories/1980s/Resources/Textures/cursor.webp') no-repeat;
+	background-size : contain;
+	height          : 2vh;
+	left            : 50vw;
+	pointer-events  : none;
+	position        : absolute;
+	top             : 50vh;
+	width           : 2vh;
+	z-index         : 1000;
 	}
 
 #SettingsMenu {
-	background   : #003200;
-	border-color : #0F0;
-	border-style : solid;
-	border-width : 2px;
-	bottom       : 275px;
-	height       : 350px;
-	left         : 0;
-	margin       : auto;
-	padding      : 8px;
-	position     : fixed;
-	right        : 0;
-	top          : 0;
-	visibility   : hidden;
-	width        : 550px;
-	z-index      : 300;
+	background : #003200;
+	border     : 2px solid #0F0;
+	bottom     : 275px;
+	height     : 350px;
+	left       : 0;
+	margin     : auto;
+	padding    : 8px;
+	position   : fixed;
+	right      : 0;
+	top        : 0;
+	visibility : hidden;
+	width      : 550px;
+	z-index    : 300;
 	}
 
 #Content {
-	background-image    : url('Stories/1980s/ScreenBorder.webp');
-	background-position : center;
-	background-repeat   : no-repeat;
-	background-size     : 100% 100%;
+	background      : url('Stories/1980s/Resources/Textures/monitor.webp') no-repeat center;
+	background-size : 100% 100%;
 	> {
 		flex-direction : column;
 		display        : flex;
@@ -191,10 +178,7 @@ button {
 .Column {
 	display        : flex;
 	flex-direction : column;
-	margin-bottom  : initial;
-	margin-left    : auto;
-	margin-right   : auto;
-	margin-top     : initial;
+	margin         : initial auto;
 	&.Reversed {
 		flex-direction : column-reverse !important;
 		}
