@@ -31,7 +31,7 @@
 img {-webkit-filter : drop-shadow(0 3px 6px rgba(0, 0, 0, 0.16));filter : drop-shadow(0 3px 6px rgba(0, 0, 0, 0.16));}
 
 body {
-	background-image : url(../Media/back.webp);
+	background-image : url(../Media/background.webp);
 	background-size  : 5%;
 	overflow-x       : hidden;
 	text-align       : center;
