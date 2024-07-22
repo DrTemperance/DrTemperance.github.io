@@ -1,0 +1,241 @@
+﻿@font-face {
+	font-family : 'VGA';
+	src         : url('BlockZone.ttf');
+	}
+
+* {
+	-webkit-user-drag : none;
+	align-items       : center;
+	color             : #0F0;
+	font-family       : 'VGA', 'Courier New', 'Courier ', ' monospace ', 'sans-serif';
+	list-style-type   : none;
+	margin-bottom     : initial;
+	margin-left       : auto;
+	margin-right      : auto;
+	margin-top        : initial;
+	user-select       : none;
+	&:focus {
+		outline : none !important;
+		}
+	&::selection {
+		background : #0F0;
+		color      : #000;
+		}
+	}
+
+#ScreenBorder {
+	bottom         : 0;
+	height         : 100%;
+	left           : 0;
+	margin         : auto;
+	padding        : 0;
+	pointer-events : none;
+	position       : fixed;
+	right          : 0;
+	top            : 0;
+	width          : 100%;
+	z-index        : 1002;
+	}
+
+body {
+	background     : #FFF;
+	flex-direction : column;
+	height         : 98%;
+	width          : 98%;
+	}
+
+img {
+	margin-bottom : initial;
+	margin-left   : auto;
+	margin-right  : auto;
+	margin-top    : initial;
+	position      : fixed;
+
+	&#Scanlines {
+		bottom         : 22vh;
+		height         : 54.5%;
+		left           : 0;
+		margin         : auto;
+		opacity        : 40%;
+		pointer-events : none;
+		right          : 0;
+		top            : 0;
+		width          : 40%;
+		z-index        : 1001;
+		}
+	}
+
+span#SettingsButton:not(#SettingsClose) {
+	font-size : 1.1rem;
+	order     : 3;
+	padding   : 3px;
+	}
+
+button {
+	&#Option {
+		background-color : #006400;
+		border           : 3px outset #000F00;
+		height           : 70px;
+		margin           : 2px auto;
+		padding          : 3px;
+		transition       : all 0.2s;
+		visibility       : inherit;
+		width            : 75%;
+		z-index          : 301;
+		}
+	&:hover {
+		background : #004B00;
+		border     : 3px inset #000;
+		}
+	}
+
+#Terminal {
+	background : none;
+	border     : none;
+	order      : 2;
+	width      : 100%;
+	z-index    : 100;
+	&:hover {
+		cursor : none;
+		}
+	}
+
+#ConsoleOutput {
+	height     : 100%;
+	margin     : auto;
+	order      : 1;
+	overflow-x : clip;
+	overflow-y : scroll;
+	width      : 99%;
+	& li {
+		border-bottom-width : 0.3vh;
+		border-bottom-style : solid;
+		border-bottom-color : #0F0;
+		padding             : 0.5vh 1vh !important;
+		user-select         : text !important;
+		z-index             : -10;
+		filter              : drop-shadow(0 0 3px #0F0);
+		}
+
+	&::-webkit-scrollbar {
+		width : 0.5vw;
+		}
+	&::-webkit-scrollbar-track {
+		background : #000;
+		}
+	&::-webkit-scrollbar-thumb {
+		background : #0F0;
+		}
+	&::-webkit-scrollbar-thumb:hover {
+		background : #00B400;
+		}
+	& * {
+		font-size : .9rem;
+		}
+	}
+
+@media (orientation : landscape) {
+	#Terminal {
+		width : 100%;
+		}
+	}
+
+@media (orientation : portrait) {
+	#Terminal {
+		width : 50%;
+		}
+	}
+
+#PseudoCursor {
+	background-image  : url('Stories/1980s/Mouse.webp');
+	background-repeat : no-repeat;
+	background-size   : contain;
+	height            : 2vh;
+	left              : 50vw;
+	pointer-events    : none;
+	position          : absolute;
+	top               : 50vh;
+	width             : 2vh;
+	z-index           : 1000;
+	}
+
+#SettingsMenu {
+	background   : #003200;
+	border-color : #0F0;
+	border-style : solid;
+	border-width : 2px;
+	bottom       : 275px;
+	height       : 350px;
+	left         : 0;
+	margin       : auto;
+	padding      : 8px;
+	position     : fixed;
+	right        : 0;
+	top          : 0;
+	visibility   : hidden;
+	width        : 550px;
+	z-index      : 300;
+	}
+
+#Content {
+	background-image    : url('Stories/1980s/ScreenBorder.webp');
+	background-position : center;
+	background-repeat   : no-repeat;
+	background-size     : 100% 100%;
+	> {
+		flex-direction : column;
+		display        : flex;
+		}
+	}
+
+.Column {
+	display        : flex;
+	flex-direction : column;
+	margin-bottom  : initial;
+	margin-left    : auto;
+	margin-right   : auto;
+	margin-top     : initial;
+	&.Reversed {
+		flex-direction : column-reverse !important;
+		}
+	}
+
+.Row {
+	display        : flex;
+	flex-direction : row;
+	width          : 97%;
+	&.Reversed {
+		flex-direction : row-reverse !important;
+		}
+	}
+
+.InputParent {
+	width : 100%;
+	}
+
+#B1 {
+	background : none;
+	border     : none;
+	cursor     : pointer;
+	height     : 30px;
+	left       : 1161px;
+	position   : fixed;
+	top        : 696px;
+	width      : 50px;
+	}
+
+#S1 {
+	background : none;
+	filter     : drop-shadow(0 0 7px #0F0) blur(2px);
+	font-size  : 1%;
+	height     : 100%;
+	left       : 56.5%;
+	position   : absolute;
+	top        : 78%;
+	width      : 100%;
+	}
+
+.LeftF {
+	float   : left;
+	padding : 10px;
+	}
