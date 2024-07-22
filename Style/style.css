@@ -31,7 +31,7 @@
 img {-webkit-filter : drop-shadow(0 3px 6px rgba(0, 0, 0, 0.16));filter : drop-shadow(0 3px 6px rgba(0, 0, 0, 0.16));}
 
 body {
-	background-image : url(../Media/background.webp);
+	background-image : url(../Resources/background.webp);
 	background-size  : 5%;
 	overflow-x       : hidden;
 	text-align       : center;
@@ -52,7 +52,7 @@ div {
 	}
 
 nav {
-	background      : url(/Media/nav.webp) no-repeat center;
+	background      : url(/Resources/nav.webp) no-repeat center;
 	background-size : 100% 100%;
 	border          : 6px ridge #315;
 	border-radius   : 0;
