@@ -93,7 +93,7 @@ let
 
 Title.textContent = `${GameLevels[level].name} - Villager Clicker`;
 
-function Update(timestamp) {
+function Update (timestamp) {
 	// Update timing for FPS calculations //
 	LastTime || (LastTime = timestamp);
 	Draw_Villager();
@@ -211,7 +211,7 @@ const PlayerData = {
 };
 
 // Draw //
-function Draw_All(move) {
+function Draw_All (move) {
 	Draw_Background();
 	Draw_Villager();
 	Draw_Gui(level!=9);
@@ -222,12 +222,12 @@ function Draw_All(move) {
 	}
 }
 
-function Draw_Background() {
+function Draw_Background () {
 	BoardElem.style.setProperty('background-size', '100% 100%');
 	BoardElem.style.setProperty("background-image", `url(${GameLevels[level].background})`);
 }
 
-function Draw_Villager() {
+function Draw_Villager () {
 	VillagerHealth = GameLevels[level].health / GameLevels[level].phases;
 
 	VillagerWidth = parseInt(GameLevels[level].size);
@@ -240,25 +240,29 @@ function Draw_Villager() {
 	Villager.style.setProperty("top", `${Pos.Y}px`);
 }
 
-function Display_Main_Menu() {
+function Display_Main_Menu () {
 	TitleCard.style.display = 'block';
 	MainMenu.style.display = 'flex';
-	BoardElem.style.setProperty('background-image', 'url(Backgrounds/MainMenu.png)');
+	BoardElem.style.setProperty('background-image', 'url(./Resources/Textures/Background/MainMenu.png)');
 }
 
-function Hide_Main_Menu() {
+function Hide_Main_Menu () {
 	TitleCard.style.display = 'none';
 	MainMenu.style.display = 'none';
 }
 
 
-function Draw_Gui(show_stats) {
+function Draw_Gui (show_stats) {
 	LevelElem.textContent = `Level ${level} - ${GameLevels[level].name}`;
 
 	if (show_stats) {
 		for (let D = 10; D>=1; D--) {
 			Heart[`health${D}`].status = 10 - PlayerDamage<D ? (10 - PlayerDamage===D - 0.5 ? 'half' : 'empty') : 'full';
-			Heart[`health${D}`].src = 10 - PlayerDamage<D ? (10 - PlayerDamage===D - 0.5 ? 'Stats/HalfHeart.png' : 'Stats/Empty.png') : 'Stats/FullHeart.png';
+			if (10 - PlayerDamage<D) {
+				Heart[`health${D}`].src = `./Resources/Textures/GUI/${10 - PlayerDamage===D - 0.5 ? 'HalfHeart.png' : 'Empty.png'}`;
+			} else {
+				Heart[`health${D}`].src = './Resources/Textures/GUI/FullHeart.png';
+			}
 		}
 		Bossbar.value = VillagerHealth - Points;
 		Bossbar.max = VillagerHealth;
@@ -274,7 +278,7 @@ function Draw_Gui(show_stats) {
 
 // Functions //
 
-function Villager_Death_Check() {
+function Villager_Death_Check () {
 	level++;
 
 	Favicon.href = GameLevels[level].head;
@@ -285,12 +289,12 @@ function Villager_Death_Check() {
 	Speed_X *= 0.75;
 	Speed_Y *= 0.75;
 
-	new Audio('Audio/Villager_Death.mp3').play();
+	new Audio('./Resources/Audio/Villager_Death.mp3').play();
 	Draw_All(true);
 }
 
-async function Villager_Hurt() {
-	new Audio('Audio/Villager_Hurt.mp3').play();
+async function Villager_Hurt () {
+	new Audio('./ResourcesAudio/Villager_Hurt.mp3').play();
 
 	Speed_X = -Speed_Y, Speed_Y = -Speed_X;
 	Speed_X>0 ? Speed_X += 50 : Speed_X -= 50, Speed_Y>0 ? Speed_Y += 50 : Speed_Y -= 50;
@@ -307,17 +311,17 @@ async function Villager_Hurt() {
 	Points>=VillagerHealth && Villager_Death_Check();
 }
 
-async function Player_Attack() {
+async function Player_Attack () {
 	console.log('Player Attacks');
 	Points += 0.5;
 
 	await Villager_Hurt(), Draw_All(true);
 }
 
-function Villager_Attack() {
+function Villager_Attack () {
 	console.log("The villager attacks" + (level==9 ? ', but you are on the main menu.' : '.'));
 	if (level>0 && level<8) {
-		new Audio('./Audio/Player_Hurt.mp3').play();
+		new Audio('./Resources/Audio/Player_Hurt.mp3').play();
 		PlayerDamage += 0.5;
 		Draw_Gui();
 		if (PlayerDamage>=20) {
@@ -332,13 +336,13 @@ function Villager_Attack() {
 	}
 }
 
-function Hotbar_Click(int_slot) {
+function Hotbar_Click (int_slot) {
 	const Slot = int_slot.id.slice(4), Item = PlayerData.Hotbar[Slot];
 	Item.type && new Handle_Item(Slot, Item);
-	new Audio("./Audio/Click.mp3").play()
+	new Audio("./Resources/Audio/Click.mp3").play()
 }
 
-function Handle_Item(id) {
+function Handle_Item (id) {
 	let Slot = id.id.split('item')[1].trim();
 	//TODO let Item = [... (PlayerData.Hotbar)][Slot];
 
@@ -364,7 +368,7 @@ function Handle_Item(id) {
 
 
 // Menu Buttons //
-function Initiate() {
+function Initiate () {
 	level = 1;
 	x = Villager.x;
 	Hide_Main_Menu();

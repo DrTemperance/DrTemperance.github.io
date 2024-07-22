@@ -1,6 +1,6 @@
 @font-face {
 	font-family : MCFont;
-	src         : url(Minecraft.otf);
+	src         : url(Resources/MC-Font.otf);
 	}
 
 * {
@@ -142,7 +142,7 @@
 	& #Hotbar {
 		-ms-flex-order            : 1;
 		-webkit-box-ordinal-group : 2;
-		background                : url(Stats/Hotbar.png) no-repeat center;
+		background                : url(Resources/Textures/GUI/Hotbar.png) no-repeat center;
 		background-size           : 100% 100%;
 		display                   : none;
 		height                    : 64px;
@@ -150,7 +150,7 @@
 		padding                   : 4px;
 		width                     : 576px;
 		& .Bar {
-			background      : url(Stats/HotbarSlot.webp) no-repeat center;
+			background      : url(Resources/Textures/GUI/HotbarSlot.webp) no-repeat center;
 			background-size : 100% 100%;
 			height          : 64px;
 			margin          : 0;
@@ -169,7 +169,7 @@
 				-o-transition      : all 0.2s;
 				-webkit-transform  : scale(1.1);
 				-webkit-transition : all 0.2s;
-				background-image   : url(Stats/SelectedSlot.webp);
+				background-image   : url(Resources/Textures/GUI/SelectedSlot.webp);
 				transform          : scale(1.1);
 				transition         : all 0.2s;
 				}
@@ -212,7 +212,7 @@
 .MenuButtons {
 	margin          : 6px;
 	display         : block;
-	background      : url(Stats/But1.png) no-repeat center;
+	background      : url(Resources/Textures/GUI/But1.png) no-repeat center;
 	background-size : 100% 100%;
 	height          : 90px;
 	width           : 950px;
@@ -226,11 +226,11 @@
 		}
 	&:hover {
 		cursor          : pointer;
-		background      : url(Stats/But2.png) no-repeat center;
+		background      : url(Resources/Textures/GUI/But2.png) no-repeat center;
 		background-size : 100% 100%;
 		}
 	&:active {
-		background      : url(Stats/But3.png) no-repeat center;
+		background      : url(Resources/Textures/GUI/But3.png) no-repeat center;
 		background-size : 100% 100%;
 		}
 	& p {
