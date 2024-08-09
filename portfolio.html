@@ -8,6 +8,30 @@
 	<title>~ Portfolio ~</title>
 </head>
 
+<style>
+	details {
+		border        : 1px solid #AAA;
+		border-radius : 4px;
+		padding       : 0.5em 0.5em 0;
+		}
+
+	summary {
+		font-weight : bold;
+		margin      : -0.5em -0.5em 0;
+		padding     : 0.5em;
+		}
+
+	details[open] {
+		padding : 0.5em;
+		}
+
+	details[open] summary {
+		border-bottom : 1px solid #AAA;
+		margin-bottom : 0.5em;
+		}
+</style>
+
+
 <body>
 <nav>
 			<h1 class='Header'>-= Hannah's Hallway =-</h1>
@@ -23,15 +47,41 @@
 	<h1>Portfolio</h1>
 	<sub>Compromise is the death of innovation.</sub>
 	<dl>
-			<li class='Nav_Items' id='Project_Icon' onclick='window.open("./Projects/VillagerClicker")'>
-				<p class='Title'>Villager Clicker</p>
-				<p>Originally "Bouncing Box". I gave it a better setup compared to what it shipped with.</p>
-			</li>
-			<li class='Nav_Items' id='Project_Icon' onclick='window.open("./Projects/TimeTravel")'>
-				<p class='Title'>ALPHA | Time Game</p>
-				<p>Tillie extends her salutations!</p>
-			</li>
-	</dl>.
+			<details open>
+				<summary>Completed</summary>
+				<table>
+					<tr>
+						<td><img class='Project_Icon' src='./Resources/Projects/VillagerClicker.png' onclick='window.open("./Projects/VillagerClicker")' /></td>
+						<td><img class='Project_Icon' src='./Resources/Projects/TimeTravel.png' onclick='window.open("./Projects/TimeTravel")' /></td>
+					</tr>
+				</table>
+			</details>
+			<details>
+				<summary>In Progress</summary>
+			<img class='Project_Icon' src='./Resources/Projects/TimeTravel.png' />
+
+			</details>
+			<details open>
+				<summary>Advanced JavaScript Class</summary>
+			</details>
+			<details>
+				<summary>Personal Projects</summary>
+			</details>
+	</dl>
+	<dl>
+		<li class='Nav_Items' id='Project_Icon'>
+			<p class='Title'>Villager Clicker</p>
+			<p>Originally "Bouncing Box". I gave it a better setup compared to what it shipped with.</p>
+		</li>
+		<li class='Nav_Items' id='Project_Icon'>
+			<p class='Title'>ALPHA | Time Game</p>
+			<p>Tillie extends her salutations!</p>
+		</li>
+		<details>
+		  <summary>Details</summary>
+		  Something small enough to escape casual notice.
+		</details>
+	</dl>
 </div>
 <div class='Content_Box'>
 	<h1>Desmos Projects</h1>
