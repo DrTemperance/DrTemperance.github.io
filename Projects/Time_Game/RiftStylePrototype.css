@@ -1,225 +1,198 @@
 ﻿@font-face {
-	font-family : 'VGA';
-	src         : url('./Resources/BlockZone.ttf');
-	}
+	font-family: 'VGA';
+	src: url('./Resources/BlockZone.ttf');
+}
 
 * {
-	-webkit-user-drag : none;
-	align-items       : center;
-	color             : #0F0;
-	font-family       : 'VGA', 'Courier New', 'Courier ', ' monospace ', 'sans-serif';
-	list-style-type   : none;
-	margin            : initial auto;
-	user-select       : none;
-	&:focus {
-		outline : none !important;
-		}
-	&::selection {
-		background : #0F0;
-		color      : #000;
-		}
-	}
+	box-sizing: border-box;
+	-webkit-user-drag: none;
+	color: #0F0;
+	font-family: 'VGA', 'Courier New', 'Courier', monospace, sans-serif;
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	user-select: none;
+}
 
-#ScreenBorder {
-	bottom         : 0;
-	height         : 100%;
-	left           : 0;
-	margin         : auto;
-	padding        : 0;
-	pointer-events : none;
-	position       : fixed;
-	right          : 0;
-	top            : 0;
-	width          : 100%;
-	z-index        : 1002;
-	}
+*:focus {
+	outline: none !important;
+}
 
+*::selection {
+	background: #0F0;
+	color: #000;
+}
+
+/* Center the monitor */
 body {
-	background     : #FFF;
-	flex-direction : column;
-	height         : 98%;
-	width          : 98%;
-	}
+	background: #fff;
+	min-height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
 
-img {
-	margin   : initial auto;
-	position : fixed;
-
-	&#Scanlines {
-		bottom         : 22vh;
-		height         : 54.5%;
-		left           : 0;
-		margin         : auto;
-		opacity        : 40%;
-		pointer-events : none;
-		right          : 0;
-		top            : 0;
-		width          : 40%;
-		z-index        : 1001;
-		}
-	}
-
-span#SettingsButton:not(#SettingsClose) {
-	font-size : 1.1rem;
-	order     : 3;
-	padding   : 3px;
-	}
-
-button {
-	&#Option {
-		background-color : #006400;
-		border           : 3px outset #000F00;
-		height           : 70px;
-		margin           : 2px auto;
-		padding          : 3px;
-		transition       : all 0.2s;
-		visibility       : inherit;
-		width            : 75%;
-		z-index          : 301;
-		}
-	&:hover {
-		background : #004B00;
-		border     : 3px inset #000;
-		}
-	}
-
-#Terminal {
-	background : none;
-	border     : none;
-	order      : 2;
-	width      : 100%;
-	z-index    : 100;
-	&:hover {
-		cursor : none;
-		}
-	}
-
-#ConsoleOutput {
-	height     : 100%;
-	margin     : auto;
-	order      : 1;
-	overflow-x : clip;
-	overflow-y : scroll;
-	width      : 99%;
-	& li {
-		border-bottom : 0.3vh solid #0F0;
-		padding       : 0.5vh 1vh !important;
-		user-select   : text !important;
-		z-index       : -10;
-		filter        : drop-shadow(0 0 3px #0F0);
-		}
-
-	&::-webkit-scrollbar {
-		width : 0.5vw;
-		}
-	&::-webkit-scrollbar-track {
-		background : #000;
-		}
-	&::-webkit-scrollbar-thumb {
-		background : #0F0;
-		}
-	&::-webkit-scrollbar-thumb:hover {
-		background : #00B400;
-		}
-	& * {
-		font-size : .9rem;
-		}
-	}
-
-@media (orientation : landscape) {
-	#Terminal {
-		width : 100%;
-		}
-	}
-
-@media (orientation : portrait) {
-	#Terminal {
-		width : 50%;
-		}
-	}
-
-#PseudoCursor {
-	background      : url('Stories/1980s/Resources/Textures/cursor.webp') no-repeat;
-	background-size : contain;
-	height          : 2vh;
-	left            : 50vw;
-	pointer-events  : none;
-	position        : absolute;
-	top             : 50vh;
-	width           : 2vh;
-	z-index         : 1000;
-	}
-
-#SettingsMenu {
-	background : #003200;
-	border     : 2px solid #0F0;
-	bottom     : 275px;
-	height     : 350px;
-	left       : 0;
-	margin     : auto;
-	padding    : 8px;
-	position   : fixed;
-	right      : 0;
-	top        : 0;
-	visibility : hidden;
-	width      : 550px;
-	z-index    : 300;
-	}
-
+/* Monitor container */
 #Content {
-	background      : url('Stories/1980s/Resources/Textures/monitor.webp') no-repeat center;
-	background-size : 100% 100%;
-	> {
-		flex-direction : column;
-		display        : flex;
-		}
-	}
+    position: relative;
+    background: url('Stories/1980s/Resources/Textures/monitor.webp') no-repeat center;
+    background-size: contain;   /* KEY */
+    width: 70vw;                /* responsive scale */
+    max-width: 900px;
+    height: auto;               /* LET IMAGE DEFINE THE HEIGHT */
+	aspect-ratio: 1/1;
+    overflow: visible;          /* TEMP while tuning */
+}
 
-.Column {
-	display        : flex;
-	flex-direction : column;
-	margin         : initial auto;
-	&.Reversed {
-		flex-direction : column-reverse !important;
-		}
-	}
+/* Generic image */
+img {
+	max-width: 100%;
+	height: auto;
+	display: block;
+}
 
-.Row {
-	display        : flex;
-	flex-direction : row;
-	width          : 97%;
-	&.Reversed {
-		flex-direction : row-reverse !important;
-		}
-	}
+/* Scanlines constrained to the glass */
+#Scanlines {
+    position: absolute;
+    left:   var(--glass-left);
+    right:  var(--glass-right);
+    top:    var(--glass-top);
+    bottom: var(--glass-bottom);
+    opacity: .4;
+    pointer-events: none;
+    z-index: 20;
+}
 
+/* Console area inside glass */
+:root {
+    --glass-left:   10%;
+    --glass-right:  10%;
+    --glass-top:     9%;   /* moved UP from 13% */
+    --glass-bottom: 34%;   /* moved UP from 23% */
+}
+
+/* Actual screen */
+#Console-Output {
+    position: absolute;
+    left:   var(--glass-left);
+    right:  var(--glass-right);
+    top:    var(--glass-top);
+    bottom: var(--glass-bottom);
+    background: #000;
+    overflow-y: auto;
+    overflow-x: hidden;
+    z-index: 10;
+}
+
+/* Console lines */
+#Console-Output li {
+	border-bottom: 0.3vh solid #0F0;
+	padding: 0.5vh 1vh !important;
+	user-select: text !important;
+	filter: drop-shadow(0 0 3px #0F0);
+}
+
+/* Scrollbar styling */
+#Console-Output::-webkit-scrollbar {
+	width: 0.5vw;
+}
+#Console-Output::-webkit-scrollbar-track {
+	background: #000;
+}
+#Console-Output::-webkit-scrollbar-thumb {
+	background: #0F0;
+}
+#Console-Output::-webkit-scrollbar-thumb:hover {
+	background: #00B400;
+}
+#Console-Output * {
+	font-size: .9rem;
+}
+
+/* Input bar at bottom edge of glass */
 .InputParent {
-	width : 100%;
-	}
+    position: absolute;
+    left:   var(--glass-left);
+    right:  var(--glass-right);
+    bottom: calc(var(--glass-bottom) + 2%);
+    z-index: 25;
+}
 
+
+/* row inside input parent */
+.Row {
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+}
+
+/* terminal input */
+#Terminal {
+	background: none;
+	border: none;
+	flex: 1;
+	z-index: 100;
+}
+
+#Terminal:hover {
+	cursor: none;
+}
+
+/* prompt + settings icon */
+#Prompt {
+	margin-right: 0.5rem;
+}
+#Settings_Button {
+	font-size: 1.1rem;
+	margin-left: 0.5rem;
+}
+
+/* pseudo cursor */
+#Pseudo_Cursor {
+	background: url('Stories/1980s/Resources/Textures/cursor.webp') no-repeat;
+	background-size: contain;
+	height: 2vh;
+	left: 50vw;
+	pointer-events: none;
+	position: absolute;
+	top: 50vh;
+	width: 2vh;
+	z-index: 1000;
+}
+
+/* settings dialog */
+#SettingsMenu {
+	background: #003200;
+	border: 2px solid #0F0;
+	height: 350px;
+	margin: auto;
+	padding: 8px;
+	position: fixed;
+	inset: 0;
+	visibility: hidden;
+	width: 550px;
+	z-index: 300;
+}
+
+/* remove B1 fixed placement unless you really need it */
 #B1 {
-	background : none;
-	border     : none;
-	cursor     : pointer;
-	height     : 30px;
-	left       : 1161px;
-	position   : fixed;
-	top        : 696px;
-	width      : 50px;
-	}
+	background: none;
+	border: none;
+	cursor: pointer;
+	/* position it relative to #Content if you want it on the monitor */
+	position: absolute;
+	bottom: 5%;
+	right: 5%;
+}
 
+/* tiny glow star? */
 #S1 {
-	background : none;
-	filter     : drop-shadow(0 0 7px #0F0) blur(2px);
-	font-size  : 1%;
-	height     : 100%;
-	left       : 56.5%;
-	position   : absolute;
-	top        : 78%;
-	width      : 100%;
-	}
-
-.LeftF {
-	float   : left;
-	padding : 10px;
-	}
+	background: none;
+	filter: drop-shadow(0 0 7px #0F0) blur(2px);
+	font-size: 1%;
+	height: 100%;
+	left: 56.5%;
+	position: absolute;
+	top: 78%;
+	width: 100%;
+}
